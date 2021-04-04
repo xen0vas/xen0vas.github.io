@@ -1607,7 +1607,7 @@ Qt5Gui!ZN7QWindow4setXEi+0x79:
 ```
 
 <p align="justify">
-As shown above in red, after executing the last gadget, the address of **VirtualProtect** ( **0x762a20d8** ) will be stored in the EAX register.
+As shown above in red, after executing the last gadget, the address of <b>VirtualProtect</b> ( <b>0x762a20d8</b> ) will be stored in the EAX register.
 </p>
 
 * * *
@@ -1627,15 +1627,15 @@ BOOL WINAPI VirtualProtect(
 ```
 
 <p align="justify">
-In order to implement the ROP chain to bypass DEP we will use the **PUSHAD** technique as follows :
+In order to implement the ROP chain to bypass DEP we will use the <b>PUSHAD</b> technique as follows :
 
-- Registers EAX through ESI are populated with the **VirtualProtect** function parameters and the necessary padding (EDI and EAX)
-- Registers will be pushed on the stack using the **PUSHAD** instruction.
-- **VirtualProtect** will be executed to disable DEP for a specified memory region.
+- Registers EAX through ESI are populated with the <b>VirtualProtect</b> function parameters and the necessary padding (EDI and EAX)
+- Registers will be pushed on the stack using the <b>PUSHAD</b> instruction.
+- <b>VirtualProtect</b> will be executed to disable DEP for a specified memory region.
 
 At this point we are about to create the ROP chain that will enforce DEP bypass.
 
-The PUSHAD instruction&nbsp; **always** pushes all 8 general purpose registers onto the stack. A single **PUSHAD** instruction is equivalent to the following
+The PUSHAD instruction&nbsp; <b>always</b> pushes all 8 general purpose registers onto the stack. A single <b>PUSHAD</b> instruction is equivalent to the following
 </p>
 
 
@@ -1674,7 +1674,7 @@ From **Windbg** , using **mona.py** we can generate the ROP chain as follows
 
 
 <p align="justify">
-Unfortunately, the ROP chains generated with **mona.py** won't fit our needs, because some gadgets are missing. Nevertheless, we can still implement the ROP chain manually with the help of the generated gadgets from **mona.py.** Also, the ROP chain should be manually implemented, because we have already used some gadgets before, in order to dynamically load the **VirtualProtect** address, and this should cause changes to the sequence of the chain and also the sequence of the gadgets.
+Unfortunately, the ROP chains generated with <b>mona.py</b> won't fit our needs, because some gadgets are missing. Nevertheless, we can still implement the ROP chain manually with the help of the generated gadgets from <b>mona.py</b>. Also, the ROP chain should be manually implemented, because we have already used some gadgets before, in order to dynamically load the <b>VirtualProtect</b> address, and this should cause changes to the sequence of the chain and also the sequence of the gadgets.
 </p>
 
 
