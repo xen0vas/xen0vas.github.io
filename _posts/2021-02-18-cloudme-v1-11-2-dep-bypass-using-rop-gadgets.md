@@ -61,19 +61,13 @@ tags:
 <p align="justify">Before proceeding with the exercise set DEP to <code>AlwaysOn</code> using the following command:</p>
 
 ```
-
 bcdedit /set nx AlwaysOn
-
 ```
 
-</dd>
-</dl>
-<p>   verify that the setting is enabled as shown below</p>
-<dl>
-<dd style="text-align:justify;">
+<p> verify that the setting is enabled as shown below</p>
+
 
 ```
-
 C:\Users\pentest\Desktop\CloudMe&gt;bcdedit /enum
 [...]
 Windows Boot Loader
@@ -93,11 +87,7 @@ nx                      AlwaysOn
 
 ```
 
-</dd>
-</dl>
-<dl>
-<dd style="text-align:justify;">
-<hr />
+<hr/>
 <h3>1. Finding the Vulnerability</h3>
 <p align="justify">In order to find this vulnerability we first need to fuzz the target application. Before using any fuzzing framework we must search what to fuzz. When executing the <b>CloudMe</b> application, if we run the netstat command, we can see that the application is listening on port <b>8888</b>.</p>
 
@@ -183,8 +173,7 @@ Invalid exception stack at 41414141
 ```
 
 <p align="justify">As we can see above <b>SEH</b> is overwritten with value that we control <code>\x41\x41\x41\x41</code>, so now we will proceed with <b>SEH</b> based exploitation.</p>
-</dd>
-</dl>
+
 <hr />
 <h3>2. Searching the Offset</h3>
 <p align="justify">At this point we need to check how far we are able to write and overwrite <b>SEH</b>. In order to do this we will attempt to generate 5000 byte pattern using <b>mona.py</b> as follows. First, create an output folder form mona inside logs folder. All the generated patterns and other data such as ROP chains and bad chars generated from <b>mona.py</b> will be saved there.</p>
