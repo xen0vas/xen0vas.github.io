@@ -975,7 +975,7 @@ Now lets put a breakpoint at the address **0x6998fb2e**
 0 e 6998fb2e 0001 (0001) 0:**** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
 ```
 
-Lets observe the crash below. As we see, we are stepping into every instruction after we hit the first breakpoint. Then, when we reach the last gadget, we check the **ESP** register once again in order to see if we have made the right calculations.
+Lets observe the crash below. As we see, we are stepping into every instruction after we hit the first breakpoint. Then, when we reach the last gadget, we check the <b>ESP</b> register once again in order to see if we have made the right calculations.
 
 ```
 0:000> g
@@ -1027,7 +1027,7 @@ Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
 ```
 
 <p align="justify">
-As we see, the **ESP** register points to **0x0022d694** which contains the pattern **35624334** (offset 0x224 from the beginning of the payload) ,which is expected considering we are jumping extra 548 bytes from the beginning of the payload ( 1916 - 1368 ).
+As we see, the <b>ESP</b> register points to <b>0x0022d694</b> which contains the pattern <b>35624334</b> (offset 0x224 from the beginning of the payload) ,which is expected considering we are jumping extra 548 bytes from the beginning of the payload ( 1916 - 1368 ).
 </p>
 
 ```
@@ -1038,7 +1038,7 @@ Evaluate expression: 0 = 00000000
 ```
 
 <p align="justify">
-At this point we are confident that we are moving in the right way. Furthermore, we should create another proof of concept script in order to see that we have full control when performing our stack pivot. All we want now is to find our landing location where we will put our **ROP** chain to bypass **DEP** protection.
+At this point we are confident that we are moving in the right way. Furthermore, we should create another proof of concept script in order to see that we have full control when performing our stack pivot. All we want now is to find our landing location where we will put our <b>ROP</b> chain to bypass <b>DEP</b> protection.
 </p>
 
 
@@ -1067,7 +1067,9 @@ except Exception as e:
     print(sys.exc_value)
 ```
 
-Below is the debugging **WinDbg** session corresponding to the PoC exploit above, that proves the successful pivoting
+<p align="justify">
+Below is the debugging <b>WinDbg</b> session corresponding to the PoC exploit above, that proves the successful pivoting
+</p>
 
 ```
 0:016> bp 0x6998fb2e
@@ -1119,7 +1121,7 @@ cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
 ```
 
 <p align="justify">
-As we see above, we have landed precisely into our placeholder at **"BBBBB"**. At this point we are ready to start building the ROP chain to bypass DEP, but before doing this we will search for gadgets to dynamically load the address of **VirtualProtect** function.
+As we see above, we have landed precisely into our placeholder at <b>"BBBBB"</b>. At this point we are ready to start building the ROP chain to bypass DEP, but before doing this we will search for gadgets to dynamically load the address of <b>VirtualProtect</b> function.
 </p>
 
 
@@ -1129,15 +1131,15 @@ As we see above, we have landed precisely into our placeholder at **"BBBBB"**. A
 
 
 <p align="justify">
-In order to make this exploit persistent and workable across multiple Windows platforms, we need to find a way to bypass address randomization and dynamically load the address of **VirtualProtect** function. In order to accomplish this task we will try to call **VirtualProtect** by extracting a leaked **kernel32** address found on the stack and using it as a point of reference in order to calculate the desired address. First let’s find the location of the leaked memory address. We will open **Immunity Debugger** and attach the **CloudMe** process. Then we will run the previous python script in order to crash the program and trigger the exception.
+In order to make this exploit persistent and workable across multiple Windows platforms, we need to find a way to bypass address randomization and dynamically load the address of <b>VirtualProtect</b> function. In order to accomplish this task we will try to call <b>VirtualProtect</b> by extracting a leaked <b>kernel32</b> address found on the stack and using it as a point of reference in order to calculate the desired address. First let’s find the location of the leaked memory address. We will open <b>Immunity Debugger</b> and attach the <b>CloudMe</b> process. Then we will run the previous python script in order to crash the program and trigger the exception.
 
-Afterwards we will scroll down in stack view at **Immunity Debugger**. Further down the stack view, we should start seeing pointers on the stack, indicating " **RETURN to … from …**". These are saved addresses placed on the stack by functions that were called earlier. If we scroll almost all the way down, we will find a pointer to a **kernel32** address.
+Afterwards we will scroll down in stack view at <b>Immunity Debugger</b>. Further down the stack view, we should start seeing pointers on the stack, indicating " <b>RETURN to … from …</b>". These are saved addresses placed on the stack by functions that were called earlier. If we scroll almost all the way down, we will find a pointer to a <b>kernel32</b> address.
 </p>
 
 ![Screenshot 2021-02-16 at 15.22.54]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png)
 
 <p align="justify">
-As previously mentioned, after scrolling down the stack view, there is a leaked **kernel32** address **0x0022ED28**
+As previously mentioned, after scrolling down the stack view, there is a leaked <b>kernel32</b> address <b>0x0022ED28</b>
 </p>
 
 
@@ -1724,7 +1726,7 @@ The following snippet shows the setup of **VirtualProtect** using ROP gadgets
 
 
 <p align="justify">
-The first two lines above will align our return after executing. To achieve this we will be filling EDI with a ROP-NOP as filler so the chain would continue working as intended.At line 3 the ESI register will have the address of **VirtualProtect**. At this point we have to remember that the **VirtualProtect** address, before assigned to ESI register,&nbsp; it was assigned to the EAX register, and that happened because of the gadgets we have used before in order to load the address dynamically. At lines 4 - 8 , the memory protection constant **0x40** (read-write privileges) will be put on EAX register and then into EDX in order to setup the **flNewProtect** argument. At lines 9 - 12 , we set up the size of the region whose access protection attributes are to be changed, in bytes. Here we choose to put **0x201** ( 513 bytes ). At lines 13 - 14 we set up the pointer to the location where **VirtualProtect** needs to return to. This will be the address of the shellcode on the stack. At lines 15 - 17 we set a pointer to variable that will receive the previous access protection value. At line 18 we push all general purpose registers on the stack and then at line 19 we jump to our shellcode.
+The first two lines above will align our return after executing. To achieve this we will be filling EDI with a ROP-NOP as filler so the chain would continue working as intended.At line 3 the ESI register will have the address of <b>VirtualProtect</b>. At this point we have to remember that the <b>VirtualProtect</b> address, before assigned to ESI register,&nbsp; it was assigned to the EAX register, and that happened because of the gadgets we have used before in order to load the address dynamically. At lines 4 - 8 , the memory protection constant <b>0x40</b> (read-write privileges) will be put on EAX register and then into EDX in order to setup the <b>flNewProtect</b> argument. At lines 9 - 12 , we set up the size of the region whose access protection attributes are to be changed, in bytes. Here we choose to put <b>0x201</b> ( 513 bytes ). At lines 13 - 14 we set up the pointer to the location where <b>VirtualProtect</b> needs to return to. This will be the address of the shellcode on the stack. At lines 15 - 17 we set a pointer to variable that will receive the previous access protection value. At line 18 we push all general purpose registers on the stack and then at line 19 we jump to our shellcode.
 </p>
 
 * * *
@@ -1778,7 +1780,7 @@ buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
 ```
 
 <p align="justify">
-Now lets finalize our PoC exploit script and see the registers pushed into the stack using **windbg** debugger. The final exploit will be as follows :
+Now lets finalize our PoC exploit script and see the registers pushed into the stack using <b>WinDbg</b> debugger. The final exploit will be as follows :
 </p>
 
 ```
@@ -1963,7 +1965,7 @@ Qt5Core!ZN8qfloat1613mantissatableE+0x61e7:
 ```
 
 <p align="justify">
-As we see, after the **PUSHAD** instruction is executed, all of the registers are pushed on the stack in specific order that is necessary to successfully execute the **VirtualProtect**. If we continue the execution, we enter the **kernel32!VirtualProtect** function and disable DEP for the memory region just below the **PUSHAD** ROP chain:
+As we see, after the <b>PUSHAD</b> instruction is executed, all of the registers are pushed on the stack in specific order that is necessary to successfully execute the <b>VirtualProtect</b>. If we continue the execution, we enter the <b>kernel32!VirtualProtect</b> function and disable DEP for the memory region just below the <b>PUSHAD</b> ROP chain:
 </p>
 
 
