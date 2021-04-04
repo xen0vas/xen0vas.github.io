@@ -1169,7 +1169,7 @@ Before proceeding any further, let’s find all suitable ROP gadgets using **mon
 ```
 
 <p align="justify">
-After a while we open **rop\_suggestions.txt** and **rop.txt** in mona’s output directory ( **WinDBG** Debugger’s program folder). First let’s figure out a way to get the current stack address into **EAX** register. **EAX** is the register of choice because there are available gadgets of the following instruction **MOV EAX,DWORD PTR [EAX]** which will allow us to load the **kernel32** address into **EAX**. Before searching for suitable gadgets, we must also refer to the Module info inside the **rop\_suggestions.txt** file in order to check which . **dll** has no restrictions. We found that the following **.dlls** have no restrictions
+After a while we open <b>rop_suggestions.txt</b> and **rop.txt** in mona’s output directory ( <b>WinDbg</b> Debugger’s program folder). First let’s figure out a way to get the current stack address into **EAX** register. <b>EAX</b> is the register of choice because there are available gadgets of the following instruction <b>MOV EAX,DWORD PTR [EAX]</b> which will allow us to load the <b>kernel32</b> address into <b>EAX</b>. Before searching for suitable gadgets, we must also refer to the Module info inside the <b>rop_suggestions.txt</b> file in order to check which . **dll** has no restrictions. We found that the following <b>.dlls</b> have no restrictions
 </p>
 
 - [Qt5Network.dll] (C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll)
@@ -1184,7 +1184,7 @@ After a while we open **rop\_suggestions.txt** and **rop.txt** in mona’s outpu
 
 
 <p align="justify">
-As we see above, there are many modules that we could search for gadgets. Afterwards, the following gadgets have been found and used in order to load the **Kernel32** address into the EAX register.
+As we see above, there are many modules that we could search for gadgets. Afterwards, the following gadgets have been found and used in order to load the <b>Kernel32</b> address into the EAX register.
 </p>
 
 
@@ -1200,7 +1200,7 @@ As we see above, there are many modules that we could search for gadgets. Afterw
 
 
 <p align="justify">
-Now lets explain what we see above. At the first gadget we put the hex value **0x0385ff88** into the EBP register. Then, EAX register will get that offset as seen at the second gadget. Afterwards , ECX register will load the hex value **0x0362fffc.** Now at the sixth gadget above we subtract the two values and with this technique we get the following address on the stack&nbsp; **0x0022FF8C.** If we scroll down at the stack pane in **Immunity Debugger** we will see that this address is referring to a leaked **Kernel32** address.&nbsp; Before we move further, we must load the leaked **kernel32** address into EAX by using the gadget **MOV EAX,DWORD PTR [EAX].&nbsp;&nbsp;**
+Now lets explain what we see above. At the first gadget we put the hex value <b>0x0385ff88</b> into the EBP register. Then, EAX register will get that offset as seen at the second gadget. Afterwards , ECX register will load the hex value <b>0x0362fffc</b>. Now at the sixth gadget above we subtract the two values and with this technique we get the following address on the stack&nbsp; <b>0x0022FF8C</b>. If we scroll down at the stack pane in <b>Immunity Debugger</b> we will see that this address is referring to a leaked <b>Kernel32</b> address.&nbsp; Before we move further, we must load the leaked <b>kernel32</b> address into EAX by using the gadget <b>MOV EAX,DWORD PTR [EAX]</b>.&nbsp;&nbsp;
 
 In order to see this in practice lets create the following PoC script
 </p>
