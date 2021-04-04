@@ -1365,7 +1365,7 @@ As seen above in red, after the <b>MOV EAX,DWORD PTR [EAX]</b> instruction is ex
 </p>
 
 
-![Screenshot 2021-02-17 at 11.12.54]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png)
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png" alt=""/>
 
 Also we can see that the leaked <b>kernel32</b> address is loaded into EAX.
 
