@@ -1200,7 +1200,7 @@ As we see above, there are many modules that we could search for gadgets. Afterw
 
 
 <p align="justify">
-Now lets explain what we see above. At the first gadget we put the hex value <b>0x0385ff88</b> into the EBP register. Then, EAX register will get that offset as seen at the second gadget. Afterwards , ECX register will load the hex value <b>0x0362fffc</b>. Now at the sixth gadget above we subtract the two values and with this technique we get the following address on the stack&nbsp; <b>0x0022FF8C</b>. If we scroll down at the stack pane in <b>Immunity Debugger</b> we will see that this address is referring to a leaked <b>Kernel32</b> address.&nbsp; Before we move further, we must load the leaked <b>kernel32</b> address into EAX by using the gadget <b>MOV EAX,DWORD PTR [EAX]</b>.&nbsp;&nbsp;
+Now lets explain what we see above. At the first gadget we put the hex value <b>0x0385ff88</b> into the <b>EBP</b> register. Then, <b>EAX</b> register will get that offset as seen at the second gadget. Afterwards , <b>ECX</b> register will load the hex value <b>0x0362fffc</b>. Now at the sixth gadget above we subtract the two values and with this technique we get the following address on the stack&nbsp; <b>0x0022FF8C</b>. If we scroll down at the stack pane in <b>Immunity Debugger</b> we will see that this address is referring to a leaked <b>Kernel32</b> address.&nbsp; Before we move further, we must load the leaked <b>kernel32</b> address into EAX by using the gadget <b>MOV EAX,DWORD PTR [EAX]</b>.&nbsp;&nbsp;
 
 In order to see this in practice lets create the following PoC script
 </p>
