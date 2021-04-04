@@ -18,7 +18,9 @@ tags:
 <dd style="text-align:justify;">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</dd>
 <dd></dd>
 <dd style="text-align:justify;">
-<p><img class="size-full wp-image-3486 aligncenter" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="CloudMe" width="628" height="485" /></p>
+<p>
+<br><br>
+<img class="size-full wp-image-3486 aligncenter" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="CloudMe" width="628" height="485" /></p>
 <p align="justify"> </p>
 <p align="justify">Tools used for this exercise</p>
 <ul>
@@ -63,7 +65,9 @@ tags:
 <p align="justify">Before proceeding with the exercise set DEP to <code>AlwaysOn</code> using the following command:</p>
 
 ```
+
 bcdedit /set nx AlwaysOn
+
 ```
 
 </dd>
@@ -73,6 +77,7 @@ bcdedit /set nx AlwaysOn
 <dd style="text-align:justify;">
 
 ```
+
 C:\Users\pentest\Desktop\CloudMe&gt;bcdedit /enum
 [...]
 Windows Boot Loader
@@ -89,6 +94,7 @@ osdevice                partition=C:
 systemroot              \Windows
 resumeobject            {1fc46246-40d9-11ea-a45f-a2a235f15fa4}
 nx                      AlwaysOn
+
 ```
 
 </dd>
@@ -100,8 +106,10 @@ nx                      AlwaysOn
 <p align="justify">In order to find this vulnerability we first need to fuzz the target application. Before using any fuzzing framework we must search what to fuzz. When executing the <b>CloudMe</b> application, if we run the netstat command, we can see that the application is listening on port <b>8888</b>.</p>
 
 ```
+
 C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
   TCP    127.0.0.1:8888         0.0.0.0:0              LISTENING
+
 ```
 
 <p align="justify">We can also confirm this using the <b>process hacker 2</b> tool.</p>
@@ -109,6 +117,7 @@ C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
 <p align="justify">Now lets fuzz this target application using <b>boofuzz</b>. Boofuzz is a fork of and the successor to the venerable Sulley fuzzing framework. More details about the script can be found <a href="https://boofuzz.readthedocs.io/en/stable/">here</a>. The tool can also be found on <a href="https://github.com/jtpereyda/boofuzz">github </a>.The following python script used to fuzz the <b>CloudMe</b> application.</p>
 
 ```python
+
 
 #!/usr/bin/python
 
