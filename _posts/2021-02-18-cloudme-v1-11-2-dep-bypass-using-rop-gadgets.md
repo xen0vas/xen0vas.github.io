@@ -1639,7 +1639,7 @@ In order to implement the ROP chain to bypass <b>DEP</b> we will use the <b>PUSH
 <p align="justify">
 At this point we are about to create the ROP chain that will enforce DEP bypass.
 
-The PUSHAD instruction&nbsp; <b>always</b> pushes all 8 general purpose registers onto the stack. A single <b>PUSHAD</b> instruction is equivalent to the following
+The <b>PUSHAD</b> instruction&nbsp; <b>always</b> pushes all 8 general purpose registers onto the stack. A single <b>PUSHAD</b> instruction is equivalent to the following
 </p>
 
 
