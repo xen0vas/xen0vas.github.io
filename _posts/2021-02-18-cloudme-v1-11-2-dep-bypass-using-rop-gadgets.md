@@ -91,10 +91,8 @@ nx                      AlwaysOn
 <p align="justify">In order to find this vulnerability we first need to fuzz the target application. Before using any fuzzing framework we must search what to fuzz. When executing the <b>CloudMe</b> application, if we run the netstat command, we can see that the application is listening on port <b>8888</b>.</p>
 
 ```
-
 C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
   TCP    127.0.0.1:8888         0.0.0.0:0              LISTENING
-
 ```
 
 <p align="justify">We can also confirm this using the <b>process hacker 2</b> tool.</p>
@@ -102,7 +100,6 @@ C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
 <p align="justify">Now lets fuzz this target application using <b>boofuzz</b>. Boofuzz is a fork of and the successor to the venerable Sulley fuzzing framework. More details about the script can be found <a href="https://boofuzz.readthedocs.io/en/stable/">here</a>. The tool can also be found on <a href="https://github.com/jtpereyda/boofuzz">github </a>.The following python script used to fuzz the <b>CloudMe</b> application.</p>
 
 ```python
-
 
 #!/usr/bin/python
 
