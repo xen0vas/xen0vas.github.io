@@ -1251,7 +1251,7 @@ except Exception as e:
 ```
 
 <p align="justify">
-Below is the debugging session with **WinDBG** which shows the ROP gadgets in action:
+Below is the debugging session with <b>WinDbg</b> which shows the ROP gadgets in action:
 </p>
 
 ```
@@ -1361,7 +1361,7 @@ Qt5Core!ZNK12QEasingCurve4typeEv+0x4:
 
 
 <p align="justify">
-As seen above in red, after the **MOV EAX,DWORD PTR [EAX]** instruction is executed, the leaked kernel address is now loaded into EAX. Below we are doing the same demonstration with **Immunity Debugger** which shows the leaked **kernel32** address at the stack pane below:
+As seen above in red, after the <b>MOV EAX,DWORD PTR [EAX]</b> instruction is executed, the leaked kernel address is now loaded into EAX. Below we are doing the same demonstration with <b>Immunity Debugger</b> which shows the leaked **kernel32** address at the stack pane below:
 </p>
 
 
@@ -1373,7 +1373,7 @@ Also we can see that the leaked **kernel32** address is loaded into EAX.
 
 
 <p align="justify">
-At this point we can calculate the **VirtualProtect** address using the leaked **kernel32** address from the stack.
+At this point we can calculate the <b>VirtualProtect</b> address using the leaked **kernel32** address from the stack.
 </p>
 
 * * *
@@ -1389,7 +1389,7 @@ At this section we will see how to calculate the address of **VirtualProtect** i
 
 
 <p align="justify">
-So, as we see above , the **VirtualProtect** address is **0x762a20d8**.&nbsp; Because of the address randomization the base address of **kernel32.dll** could change; however, the position of **VirtualProtect** relative to the leaked **kernel32** address **0x762f3c45** remains constant. Because **VirtualProtect** ( **0x762a20d8** ) is less than the leaked address ( **0x762f3c45** ), we can get the address of **VirtualProtect** into EAX while avoiding null bytes by adding a negative offset as follows:
+So, as we see above , the <b>VirtualProtect</b> address is <b>0x762a20d8</b>.&nbsp; Because of the address randomization the base address of <b>kernel32.dll</b> could change; however, the position of <b>VirtualProtect</b> relative to the leaked <b>kernel32</b> address <b>0x762f3c45</b> remains constant. Because <b>VirtualProtect</b> ( <b>0x762a20d8</b> ) is less than the leaked address ( <b>0x762f3c45</b> ), we can get the address of <b>VirtualProtect</b> into EAX while avoiding null bytes by adding a negative offset as follows:
 </p>
 
 
