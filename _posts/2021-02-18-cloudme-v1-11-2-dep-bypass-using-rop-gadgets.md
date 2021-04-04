@@ -1136,7 +1136,7 @@ In order to make this exploit persistent and workable across multiple Windows pl
 Afterwards we will scroll down in stack view at <b>Immunity Debugger</b>. Further down the stack view, we should start seeing pointers on the stack, indicating " <b>RETURN to … from …</b>". These are saved addresses placed on the stack by functions that were called earlier. If we scroll almost all the way down, we will find a pointer to a <b>kernel32</b> address.
 </p>
 
-![Screenshot 2021-02-16 at 15.22.54]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png)
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png" alt=""/>
 
 <p align="justify">
 As previously mentioned, after scrolling down the stack view, there is a leaked <b>kernel32</b> address <b>0x0022ED28</b>
