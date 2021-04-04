@@ -60,7 +60,7 @@ tags:
 <h3>The Walkthrough</h3>
 <p align="justify">Before proceeding with the exercise set DEP to <code>AlwaysOn</code> using the following command:</p>
 
-```
+```bash
 bcdedit /set nx AlwaysOn
 ```
 
