@@ -1,12 +1,10 @@
 ---
-layout: post
+layout: single
 title: CloudMe v1.11.2 DEP bypass using ROP gadgets
-date: 2021-02-18 10:22:01.000000000 +02:00
-type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
+date: 2021-02-18
+classes: wide
+header:
+  teaser: /assets/images/2021/02/cloudme.png
 categories:
 - Expl Dev, Red Teaming, Penetration Testing
 - Exploit Development
@@ -18,30 +16,10 @@ tags:
 - Return Oriented Programming
 - ROP chains
 - ROP gadgets
-meta:
-  _last_editor_used_jetpack: block-editor
-  _wpcom_is_markdown: '1'
-  amp_status: ''
-  _coblocks_accordion_ie_support: ''
-  _coblocks_dimensions: ''
-  _coblocks_responsive_height: ''
-  _publicize_job_id: '54943900304'
-  _coblocks_attr: ''
-  spay_email: ''
-  _wpas_is_tweetstorm: '1'
-  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:24380469;s:52:"https://twitter.com/x3nva/status/1362316430193037316";}}
-  _publicize_done_22884913: '1'
-  _wpas_done_24380469: '1'
-  publicize_twitter_user: x3nva
-  timeline_notification: '1613636524'
-author:
-  login: xenovass
-  email: xenofonv@gmail.com
-  display_name: xenovas
-  first_name: Xenofon
-  last_name: Vassilakopoulos
-permalink: "/2021/02/18/cloudme-v1-11-2-dep-bypass-using-rop-gadgets/"
 ---
+
+## CloudMe v1.11.2 DEP bypass using ROP gadgets
+
 <dl>
 <dd></dd>
 <dd style="text-align:justify;">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</dd>
