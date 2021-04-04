@@ -1361,13 +1361,13 @@ Qt5Core!ZNK12QEasingCurve4typeEv+0x4:
 
 
 <p align="justify">
-As seen above in red, after the <b>MOV EAX,DWORD PTR [EAX]</b> instruction is executed, the leaked kernel address is now loaded into EAX. Below we are doing the same demonstration with <b>Immunity Debugger</b> which shows the leaked **kernel32** address at the stack pane below:
+As seen above in red, after the <b>MOV EAX,DWORD PTR [EAX]</b> instruction is executed, the leaked kernel address is now loaded into EAX. Below we are doing the same demonstration with <b>Immunity Debugger</b> which shows the leaked <b>kernel32</b> address at the stack pane below:
 </p>
 
 
 ![Screenshot 2021-02-17 at 11.12.54]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png)
 
-Also we can see that the leaked **kernel32** address is loaded into EAX.
+Also we can see that the leaked <b>kernel32</b> address is loaded into EAX.
 
 ![Screenshot 2021-02-17 at 11.22.36]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.22.36-1.png)
 
