@@ -125,11 +125,11 @@ if __name__ == "__main__":
 ```
 
 <p align="justify">Before running the script above, we will first use a tool called <b>RawCap.exe</b> which will help us sniffing the <b>127.0.0.1 (localhost/loopback)</b> interface. Then the produced <b>dump.pcap</b> file will be oppend with <b>Wireshark</b> in order to inspect further the communication on port 8888. <b>RawCap.exe</b> tool can be found <a href="https://www.netresec.com/?page=rawcap">here</a></p>
-<p><img class="size-full wp-image-3490 aligncenter" src="{{ site.baseurl }}/assets/images/2021/02/rawcap.png" alt="RawCap" width="578" height="187" /></p>
+<p><img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/rawcap.png" alt="RawCap" width="578" height="187" /></p>
 <p align="justify">At this point we are ready to run <b>boofuzz</b> tool in order to fuzz the target application using the python script above.</p>
-<figure><img class="alignnone  wp-image-3491" src="{{ site.baseurl }}/assets/images/2021/02/fuzz-e1613506773170.png" alt="fuzz" width="719" height="404" /></figure>
+<figure><img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/fuzz-e1613506773170.png" alt="fuzz" width="719" height="404" /></figure>
 <p align="justify">In order to further inspect the crash, we will load the <b>dump.pcap</b> file produced from <b>RawCap.exe</b> tool into <b>Wireshark</b>. Afterwards, searching the packets in <b>Wireshark</b>, we are able to find the data that caused the crash and also we are able to see the format as well as the length of the data sent to the vulnerable application as shown at the image below.</p>
-<p><img class="alignnone size-full wp-image-3493" src="{{ site.baseurl }}/assets/images/2021/02/wireshark-e1613506357213.png" alt="wireshark" width="1012" height="569" /></p>
+<p><img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/wireshark-e1613506357213.png" alt="wireshark" width="1012" height="569" /></p>
 <p align="justify">At this point we have enough information about the crash, so we can create a proof of concept script in python in order to reproduce the issue. We will send 5000 A's to the target application.</p>
 
 ```python
