@@ -1027,7 +1027,7 @@ Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
 ```
 
 <p align="justify">
-As we see, the <b>ESP</b> register points to <b>0x0022d694</b> which contains the pattern <b>35624334</b> (offset 0x224 from the beginning of the payload) ,which is expected considering we are jumping extra 548 bytes from the beginning of the payload ( 1916 - 1368 ).
+As we see, the <b>ESP</b> register points to <b>0x0022d694</b> which contains the pattern <b>35624334</b> (offset <b>0x224</b> from the beginning of the payload) ,which is expected considering we are jumping extra <b>548</b> bytes from the beginning of the payload ( <b>1916 - 1368</b> ).
 </p>
 
 ```
@@ -1169,7 +1169,7 @@ Before proceeding any further, let’s find all suitable ROP gadgets using **mon
 ```
 
 <p align="justify">
-After a while we open <b>rop_suggestions.txt</b> and **rop.txt** in mona’s output directory ( <b>WinDbg</b> Debugger’s program folder). First let’s figure out a way to get the current stack address into **EAX** register. <b>EAX</b> is the register of choice because there are available gadgets of the following instruction <b>MOV EAX,DWORD PTR [EAX]</b> which will allow us to load the <b>kernel32</b> address into <b>EAX</b>. Before searching for suitable gadgets, we must also refer to the Module info inside the <b>rop_suggestions.txt</b> file in order to check which . **dll** has no restrictions. We found that the following <b>.dlls</b> have no restrictions
+After a while we open <b>rop_suggestions.txt</b> and <b>rop.txt</b> in mona’s output directory ( <b>WinDbg</b> Debugger’s program folder). First let’s figure out a way to get the current stack address into <b>EAX</b> register. <b>EAX</b> is the register of choice because there are available gadgets of the following instruction <b>MOV EAX,DWORD PTR [EAX]</b> which will allow us to load the <b>kernel32</b> address into <b>EAX</b>. Before searching for suitable gadgets, we must also refer to the Module info inside the <b>rop_suggestions.txt</b> file in order to check which <b>.dll</b> has no restrictions. We found that the following <b>.dlls</b> have no restrictions
 </p>
 
 - [Qt5Network.dll] (C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll)
