@@ -12,7 +12,7 @@ tags:
 - ROP chains
 - ROP gadgets
 ---
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="" width="430" height="500" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="" width="550" height="680" />
 
 
 ## CloudMe v1.11.2 DEP bypass using ROP gadgets
