@@ -1780,7 +1780,7 @@ buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
 ```
 
 <p align="justify">
-Now lets finalize our PoC exploit script and see the registers pushed into the stack using <b>WinDbg</b> debugger. The final exploit will be as follows :
+Now lets finalize our Proof of Concept exploit script and see the registers pushed into the stack using <b>WinDbg</b> debugger. The final exploit will be as follows :
 </p>
 
 ```python
