@@ -1630,11 +1630,13 @@ BOOL WINAPI VirtualProtect(
 
 <p align="justify">
 In order to implement the <b>ROP chain</b> to bypass <b>DEP</b> we will use the <b>PUSHAD</b> technique as follows :
+</p>
 
-- Registers EAX through ESI are populated with the <b>VirtualProtect</b> function parameters and the necessary padding (<b>EDI</b> and <b>EAX</b>)
-- Registers will be pushed on the stack using the <b>PUSHAD</b> instruction.
-- <b>VirtualProtect</b> will be executed to disable DEP for a specified memory region.
+- Registers EAX through ESI are populated with the **VirtualProtect** function parameters and the necessary padding (**EDI** and **EAX**)
+- Registers will be pushed on the stack using the **PUSHAD** instruction.
+- **VirtualProtect** will be executed to disable DEP for a specified memory region.
 
+<p align="justify">
 At this point we are about to create the ROP chain that will enforce DEP bypass.
 
 The PUSHAD instruction&nbsp; <b>always</b> pushes all 8 general purpose registers onto the stack. A single <b>PUSHAD</b> instruction is equivalent to the following
