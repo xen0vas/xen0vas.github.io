@@ -5,11 +5,6 @@ date: 2021-02-18
 classes: wide
 header:
   teaser: /assets/images/2021/02/cloudme.png
-categories:
-- Expl Dev, Red Teaming, Penetration Testing
-- Exploit Development
-- Exploit Development, Penetration Testing, Red Teaming
-- InfoSec
 tags:
 - Exploitation
 - Penetration Testing
