@@ -14,9 +14,9 @@ tags:
 ---
 
 
-<p align="justify">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</p>
-<br><br>
 <img class="size-full wp-image-3486 aligncenter" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="CloudMe" width="628" height="485" /></p>
+<br><br>
+<p align="justify">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</p>
 <p align="justify">Tools used for this exercise</p>
 <ul>
 <li>windbg</li>
