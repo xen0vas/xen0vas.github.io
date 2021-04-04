@@ -1679,7 +1679,7 @@ Unfortunately, the ROP chains generated with <b>mona.py</b> won't fit our needs,
 
 
 <p align="justify">
-Also one missing gadget added to the chain ( **jmp esp** ) which has been produced by **ROPgadget** tool :
+Also one missing gadget added to the chain ( <b>jmp esp</b> ) which has been produced by <b>ROPgadget</b> tool :
 </p>
 
 ```
@@ -1726,7 +1726,7 @@ The following snippet shows the setup of **VirtualProtect** using ROP gadgets
 
 
 <p align="justify">
-The first two lines above will align our return after executing. To achieve this we will be filling EDI with a ROP-NOP as filler so the chain would continue working as intended.At line 3 the ESI register will have the address of <b>VirtualProtect</b>. At this point we have to remember that the <b>VirtualProtect</b> address, before assigned to ESI register,&nbsp; it was assigned to the EAX register, and that happened because of the gadgets we have used before in order to load the address dynamically. At lines 4 - 8 , the memory protection constant <b>0x40</b> (read-write privileges) will be put on EAX register and then into EDX in order to setup the <b>flNewProtect</b> argument. At lines 9 - 12 , we set up the size of the region whose access protection attributes are to be changed, in bytes. Here we choose to put <b>0x201</b> ( 513 bytes ). At lines 13 - 14 we set up the pointer to the location where <b>VirtualProtect</b> needs to return to. This will be the address of the shellcode on the stack. At lines 15 - 17 we set a pointer to variable that will receive the previous access protection value. At line 18 we push all general purpose registers on the stack and then at line 19 we jump to our shellcode.
+The first two lines above will align our return after executing. To achieve this we will be filling <b>EDI</b> with a <b>ROP-NOP</b> as filler so the chain would continue working as intended.At line 3 the <b>ESI</b> register will have the address of <b>VirtualProtect</b>. At this point we have to remember that the <b>VirtualProtect</b> address, before assigned to <b>ESI</b> register,&nbsp; it was assigned to the EAX register, and that happened because of the gadgets we have used before in order to load the address dynamically. At lines 4 - 8 , the memory protection constant <b>0x40</b> (read-write privileges) will be put on <b>EAX</b> register and then into <b>EDX</b> in order to setup the <b>flNewProtect</b> argument. At lines 9 - 12 , we set up the size of the region whose access protection attributes are to be changed, in bytes. Here we choose to put <b>0x201</b> ( 513 bytes ). At lines 13 - 14 we set up the pointer to the location where <b>VirtualProtect</b> needs to return to. This will be the address of the shellcode on the stack. At lines 15 - 17 we set a pointer to variable that will receive the previous access protection value. At line 18 we push all general purpose registers on the stack and then at line 19 we jump to our shellcode.
 </p>
 
 * * *
