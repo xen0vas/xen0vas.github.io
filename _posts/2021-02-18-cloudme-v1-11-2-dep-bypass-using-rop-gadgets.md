@@ -1400,7 +1400,7 @@ Evaluate expression: -334701 = fffae493
 
 
 <p align="justify">
-The following gadgets have been found and used in order to load the **VirtualProtect** address dynamically into our exploit.
+The following gadgets have been found and used in order to load the <b>VirtualProtect</b> address dynamically into our exploit.
 </p>
 
 
@@ -1411,13 +1411,13 @@ The following gadgets have been found and used in order to load the **VirtualPro
 ```
 
 <p align="justify">
-At the first gadget, EBP is assigned with the hex value **0xfffae493**. Then, adding the two values from EAX and EBP will then give us the address of **VirtualProtect** and the result will be saved in EAX.
+At the first gadget, EBP is assigned with the hex value <b>0xfffae493</b>. Then, adding the two values from EAX and EBP will then give us the address of <b>VirtualProtect</b> and the result will be saved in EAX.
 </p>
 
 ![VirtualProtect]({{ site.baseurl }}/assets/images/2021/02/virtualprotect.png)
 
 <p align="justify">
-Below is an updated PoC that implements the ROP gadgets showed before in order to calculate the **VirtualProtect** address dynamically and place it into EAX.
+Below is an updated PoC that implements the ROP gadgets showed before in order to calculate the <b>VirtualProtect</b> address dynamically and place it into EAX.
 </p>
 
 
