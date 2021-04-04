@@ -1630,7 +1630,7 @@ BOOL WINAPI VirtualProtect(
 ```
 
 <p align="justify">
-In order to implement the <b>ROP chain</b> to bypass <b>DEP</b> we will use the <b>PUSHAD</b> technique as follows
+In order to implement the ROP chain to bypass <b>DEP</b> we will use the <b>PUSHAD</b> technique as follows
 </p>
 - Registers **EAX** through **ESI** are populated with the **VirtualProtect** function parameters and the necessary padding (**EDI** and **EAX**)
 - Registers will be pushed on the stack using the **PUSHAD** instruction.
