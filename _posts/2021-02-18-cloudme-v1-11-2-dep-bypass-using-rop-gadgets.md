@@ -966,7 +966,9 @@ except Exception as e:
 
 ```
 
-Now lets put a breakpoint at the address **0x6998fb2e**
+<p align="justify">
+Now lets put a breakpoint at the address <b>0x6998fb2e</b>
+</p>
 
 ```
 0:000\> bp 0x6998fb2e 
@@ -975,7 +977,10 @@ Now lets put a breakpoint at the address **0x6998fb2e**
 0 e 6998fb2e 0001 (0001) 0:**** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
 ```
 
+<p align="justify">
 Furthermore, lets observe the crash below. As we see, we are stepping into every instruction after we hit the first breakpoint. Then, when we reach the last gadget, we check the <b>ESP</b> register once again in order to see if we have made the right calculations.
+</p>
+
 
 ```
 0:000> g
