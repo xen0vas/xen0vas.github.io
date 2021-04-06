@@ -903,7 +903,7 @@ read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 3145
 From **strace** output we are seeing that the **read** system call returned **3145** which will be assigned to **eax** register. Later on the **edx** register will be assigned with the value of **eax** register as seen below
 
 ```
-mov edx,eax&nbsp; &nbsp; &nbsp; &nbsp;; the returned value of read system call will be moved to edx register from eax register
+mov edx,eax ;the returned value of read system call will be moved to edx register from eax register
 ```
 
 Then the **eax** register will be assigned with the immediate value **0x4** which refers to the write system call as we see at the **unistd\_32.h** header file below
