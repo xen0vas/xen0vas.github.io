@@ -863,7 +863,7 @@ root@kali:~/Documents/SLAE/Assignment5# grep -i -n "__NR_read " /usr/include/i38
 
 Following is the prototype of the read system call&nbsp;
 
-```
+```C
 #include <unistd.h>
 
 ssize_t read(int _fd_ , void _buf_ , size_t _count_ );
@@ -921,7 +921,7 @@ root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unis
 
 The **write** system call prototype is as follows
 
-```
+```C
 #include <unistd.h>
 
 ssize_t write(int _fd_ , const void _buf_ , size_t _count_ );
