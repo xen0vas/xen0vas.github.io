@@ -817,7 +817,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 Then the **open** system call will be executed using **int 0x80** instruction. Moreover, the **open** system call will be constructed as follows&nbsp;
 
 ```
-**open("/etc/passwd", O\_RDONLY)**
+open("/etc/passwd", O\_RDONLY)
 ```
 
 Going further with analysis, from **ndisasm** output we see the following code snippet&nbsp;
@@ -853,14 +853,16 @@ mov eax,0x3 ; move 0x3 hex value to eax register indicating the read system call
 The above instruction moves the hex value **0x3** &nbsp;to **eax** register which indicates the **read** system call as we see from the **unistd\_32.h** header file below&nbsp;
 
 ```
-**root@kali** : **~/Documents/SLAE/Assignment5** # grep -i -n "\_\_NR\_read " /usr/include/i386-linux-gnu/asm/unistd\_32.h
-7:#define \_\_NR\_read 3
+root@kali:~/Documents/SLAE/Assignment5# grep -i -n "__NR_read " /usr/include/i386-linux-gnu/asm/unistd_32.h
+7:#define __NR_read 3
 ```
 
 Following is the prototype of the read system call&nbsp;
 
 ```
-**#include \<unistd.h\>**** ssize\_t read(int **_fd_** , void \ ***_buf_** , size\_t **_count_** );**
+#include <unistd.h>
+
+ssize_t read(int _fd_ , void _buf_ , size_t _count_ );
 ```
 
 As we see at the above prototype, the **read** system call takes two arguments, the **count** and the **buf.** More precisely and according to the man page, the **read** system call attempts to read up to **count** bytes from file descriptor **fd** into the buffer starting at **buf**. At this point and before we move further with the analysis we should check the [Linux system call reference table](http://shell-storm.org/shellcode/files/syscalls.html) to see the registers that referring to the **read** system call arguments. As we see at the table, the **ebx** register that holds the **0x5** hex value refers to the first argument of the **read** system call, the **ecx** register is referring to the second argument and **edx** register is referring to the third argument.&nbsp;
