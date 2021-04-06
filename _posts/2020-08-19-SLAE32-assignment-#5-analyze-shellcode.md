@@ -954,7 +954,7 @@ The last code portion to analyse regarding&nbsp; the **ndisasm** output is the f
 As we see above, the first instruction will move the immediate value **0x1** to **eax** register.
 
 ```
-mov eax,0x1&nbsp; &nbsp; &nbsp; &nbsp;;&nbsp; moves 0x1 to eax register
+mov eax,0x1 ;moves 0x1 to eax register
 ```
 
 As we see from the header file **unistd\_32.h,** the the value **0x1** refers to the **exit** system call as seen below&nbsp;
