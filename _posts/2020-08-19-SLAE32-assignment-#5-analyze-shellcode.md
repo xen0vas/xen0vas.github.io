@@ -25,7 +25,7 @@ pre {
     border-left: 3px solid #f36d33;
     page-break-inside: avoid;
     font-family: Courier New;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 1.6em;
     max-width: 100%;
