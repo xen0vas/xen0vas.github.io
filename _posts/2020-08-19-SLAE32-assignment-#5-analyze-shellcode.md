@@ -879,7 +879,7 @@ Furthermore, the **edx** register will hold the hex value **0x1000** ( 4096 in d
 Moreover, according with the above results, the **read** system call will be constructed as follows&nbsp;
 
 ```
-**read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096)**
+read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096)
 ```
 
 Next, we will continue to analyse the following code snippet&nbsp;
@@ -894,9 +894,9 @@ Next, we will continue to analyse the following code snippet&nbsp;
 Furthermore, the **eax** register will contain the return value of **read** system call, referring to the number of bytes read from the specified file descriptor. In order to see the number of bytes read from the specified file descriptor we will use a tool called **strace.** According to the main [site](https://strace.io/) of the **&nbsp;** [strace](http://man7.org/linux/man-pages/man1/strace.1.html) utility, the **strace** is a diagnostic, debugging and instructional userspace utility for Linux. It is used to monitor and tamper with interactions between processes and the Linux kernel, which include system calls, signal deliveries, and changes of process state. For now all we need to see &nbsp;from **strace** is the return value of the **read** system call.&nbsp;
 
 ```
-**root@kali** : **~/Documents/SLAE/Assignment5** # strace ./shellcode
+root@kali:~/Documents/SLAE/Assignment5# strace ./shellcode
 [...]
-read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = **3145**
+read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 3145
 [...]
 ```
 
@@ -909,14 +909,16 @@ mov edx,eax&nbsp; &nbsp; &nbsp; &nbsp;; the returned value of read system call w
 Then the **eax** register will be assigned with the immediate value **0x4** which refers to the write system call as we see at the **unistd\_32.h** header file below
 
 ```
-**root@kali** : **~/Documents/SLAE/Assignment5** # cat /usr/include/i386-linux-gnu/asm/unistd\_32.h | grep "\_\_NR\_write "
-#define \_\_NR\_write 4
+root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_write "
+#define __NR_write 4
 ```
 
 The **write** system call prototype is as follows
 
 ```
-**#include \<unistd.h\>**** ssize\_t write(int **_fd_** , const void \ ***_buf_** , size\_t **_count_** );**
+#include <unistd.h>
+
+ssize_t write(int _fd_ , const void _buf_ , size_t _count_ );
 ```
 
 As we see the **write** system call takes&nbsp; three arguments. According to the man page the write system call writes up to **count** bytes from the buffer starting at **buf** to the file referred to by the file descriptor **fd**. Also from the [Linux system call table](http://shell-storm.org/shellcode/files/syscalls.html) we can see the registers that referring to write the system call arguments. As we see from the table,&nbsp; the **edx** register refers to the third argument, the **ecx** register to the second and the **ebx** register to the first argument.&nbsp;
@@ -924,7 +926,7 @@ As we see the **write** system call takes&nbsp; three arguments. According to th
 Next, the file descriptor will reference the file where the **write** system call will write the counted bytes, so the file descriptor will refer to the standard output which has the value 1 and it will be assigned to the **ebx** register as seen below&nbsp;
 
 ```
-mov ebx, 0x1&nbsp; ; mov fd of standard output to ebx register
+mov ebx, 0x1 ; mov fd of standard output to ebx register
 ```
 
 Then the write system call will be called using the instruction int 0x80&nbsp;
@@ -936,7 +938,7 @@ int 0x80 ; execute the write system call
 According with the above results the **write** system call will be as follows&nbsp;
 
 ```
-**write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 3145)**
+write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 3145)
 ```
 
 The last code portion to analyse regarding&nbsp; the **ndisasm** output is the following&nbsp;
@@ -956,8 +958,8 @@ mov eax,0x1&nbsp; &nbsp; &nbsp; &nbsp;;&nbsp; moves 0x1 to eax register
 As we see from the header file **unistd\_32.h,** the the value **0x1** refers to the **exit** system call as seen below&nbsp;
 
 ```
-**root@kali** : **~/Documents/SLAE/Assignment5** # cat /usr/include/i386-linux-gnu/asm/unistd\_32.h | grep "\_\_NR\_exit "
-#define \_\_NR\_exit 1
+root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_exit "
+#define __NR_exit 1
 ```
 
 The next instruction assigns the zero value to the **exit** system call providing the value of the status argument. According to the man page of **exit** system call, the value of status is returned to the parent process as the process's exit status, and can be collected using one of the [wait](https://linux.die.net/man/2/wait) family of calls.&nbsp;The&nbsp; **exit** system call used to terminate a program. Every command returns an **exit** status (sometimes referred to as a return status ). A successful command returns zero. The following instruction assigns the **ebx** register with zero value denoting the status of the **exit** system call.&nbsp;
@@ -971,13 +973,11 @@ Next ,the final instruction **int 0x80** will be used to execute the **exit** sy
 To summarise, from the **read\_file** shellcode analysis the following system calls used&nbsp;
 
 ```
-**open("/etc/passwd", O\_RDONLY)**
-**read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096)**
-**write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 3145)**
-**exit(0)**
+open("/etc/passwd", O\_RDONLY)
+read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096)
+write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 3145)
+exit(0)
 ```
 
-<!-- wp:paragraph -->
 
-<!-- /wp:paragraph -->
 
