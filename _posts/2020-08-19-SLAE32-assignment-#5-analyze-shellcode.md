@@ -19,8 +19,8 @@ tags:
 
 <style type="text/css">
 pre {
-    color: #1A1B1C;
-    background: #FFFFFF;
+    color: white;
+    background: #000000;
     border: 1px solid #ddd;
     border-left: 3px solid #f36d33;
     page-break-inside: avoid;
