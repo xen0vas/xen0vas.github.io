@@ -15,8 +15,6 @@ tags:
 --- 
 
 
-
-
 <style type="text/css">
 pre {
     color: white;
@@ -871,7 +869,7 @@ Following is the prototype of the read system call&nbsp;
 ssize_t read(int _fd_ , void _buf_ , size_t _count_ );
 ```
 
-As we see at the above prototype, the **read** system call takes two arguments, the **count** and the **buf.** More precisely and according to the man page, the **read** system call attempts to read up to **count** bytes from file descriptor **fd** into the buffer starting at **buf**. At this point and before we move further with the analysis we should check the [Linux system call reference table](http://shell-storm.org/shellcode/files/syscalls.html) to see the registers that referring to the **read** system call arguments. As we see at the table, the **ebx** register that holds the **0x5** hex value refers to the first argument of the **read** system call, the **ecx** register is referring to the second argument and **edx** register is referring to the third argument.&nbsp;
+As we see at the above prototype, the **read** system call takes two arguments, the **count** and the **buf.** More precisely and according to the man page, the **read** system call attempts to read up to **count** bytes from file descriptor **fd** into the buffer starting at **buf**. At this point and before we move further with the analysis we should check the [Linux system call reference table](https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md#x86-32_bit) to see the registers that referring to the **read** system call arguments. As we see at the table, the **ebx** register that holds the **0x5** hex value refers to the first argument of the **read** system call, the **ecx** register is referring to the second argument and **edx** register is referring to the third argument.&nbsp;
 
 The **ecx** register which represents the second argument of the **read** system call will point at the top of the stack after the execution of the following two instructions **mov edi, esp** and **mov ecx, edi**. The second argument indicates the buffer from which the **read** system call will read the contents.&nbsp;
 
@@ -929,7 +927,7 @@ The **write** system call prototype is as follows
 ssize_t write(int _fd_ , const void _buf_ , size_t _count_ );
 ```
 
-As we see the **write** system call takes&nbsp; three arguments. According to the man page the write system call writes up to **count** bytes from the buffer starting at **buf** to the file referred to by the file descriptor **fd**. Also from the [Linux system call table](http://shell-storm.org/shellcode/files/syscalls.html) we can see the registers that referring to write the system call arguments. As we see from the table,&nbsp; the **edx** register refers to the third argument, the **ecx** register to the second and the **ebx** register to the first argument.&nbsp;
+As we see the **write** system call takes&nbsp; three arguments. According to the man page the write system call writes up to **count** bytes from the buffer starting at **buf** to the file referred to by the file descriptor **fd**. Also from the [Linux system call table](https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md#x86-32_bit) we can see the registers that referring to write the system call arguments. As we see from the table,&nbsp; the **edx** register refers to the third argument, the **ecx** register to the second and the **ebx** register to the first argument.&nbsp;
 
 Next, the file descriptor will reference the file where the **write** system call will write the counted bytes, so the file descriptor will refer to the standard output which has the value 1 and it will be assigned to the **ebx** register as seen below&nbsp;
 
