@@ -1,6 +1,6 @@
 ---
 layout: single
-title: SLAE32 - Assignment 3 - Egg Hunter
+title: 'SLAE32 - Assignment #3 - Egg Hunter'
 date: 2020-06-16
 classes: wide
 header:

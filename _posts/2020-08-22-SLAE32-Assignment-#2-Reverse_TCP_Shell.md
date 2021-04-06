@@ -1,6 +1,6 @@
 ---
 layout: single
-title: SLAE32 - Assignment 2 - Reverse TCP Shell
+title: 'SLAE32 - Assignment #2 - Reverse TCP Shell'
 date: 2020-08-22
 classes: wide
 header:
