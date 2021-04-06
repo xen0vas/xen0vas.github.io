@@ -1,6 +1,6 @@
 ---
 layout: single
-title: SLAE32 Assignment 5 - Analyze Shellcode
+title: 'SLAE32 - Assignment #5 - Analyze Shellcode'
 date: 2020-08-19
 classes: wide
 header:
