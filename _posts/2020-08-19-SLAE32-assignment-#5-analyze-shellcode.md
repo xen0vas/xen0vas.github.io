@@ -810,6 +810,8 @@ Type "help", "copyright", "credits" or "license" for more information.
   
  00000000 00000000 00000000 00000000  
   
+</pre>
+
 **O\_RDONLY**
 
 Then the **open** system call will be executed using **int 0x80** instruction. Moreover, the **open** system call will be constructed as follows&nbsp;
