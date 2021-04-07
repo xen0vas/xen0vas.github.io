@@ -15,7 +15,7 @@ tags:
 --- 
 
 
-<h2><span style="color:#339966;"><strong><img style="display: block;margin-left: auto;margin-right: auto;border:none;" src="{{ site.baseurl }}/assets/images/2020/08/slae32-1.png" alt="SLAE32" width="265" height="265" /></strong></span></h2>
+<h2><span style="color:#339966;"><strong><img style="border:none;" src="{{ site.baseurl }}/assets/images/2020/08/slae32-1.png" alt="SLAE32" width="265" height="265" /></strong></span></h2>
 
 ## SLAE32 Assignment #5 - Analyze Shellcode
 
