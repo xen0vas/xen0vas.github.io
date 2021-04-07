@@ -788,50 +788,53 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 Then the **open** system call will be executed using **int 0x80** instruction. Moreover, the **open** system call will be constructed as follows&nbsp;
 
-```
+```c
 open("/etc/passwd", O\_RDONLY)
 ```
 
 Going further with analysis, from **ndisasm** output we see the following code snippet&nbsp;
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0000000C 89C3 mov ebx,eax
 0000000E B803000000 mov eax,0x3
 00000013 89E7 mov edi,esp
 00000015 89F9 mov ecx,edi
 00000017 BA00100000 mov edx,0x1000
 0000001C CD80 int 0x80
-```
+</pre>
 
 The first instruction moves the value stored at **eax** register into **ebx** register. Using **gdb-peda** we will check the returned file descriptor at the time the **open** syscall executed when initiating the **int 0x80** instruction. Then the returned value from **open** system call will be saved at the **eax** register which will then be moved to **ebx** register.&nbsp;
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov ebx,eax ; moves the value of the eax register to the ebx register
-```
+</pre>
 
 From **gdb-peda** we see that the **eax** register will be assigned with the hex value **0x3** indicating the file descriptor of the opened file.&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 gdb-peda$ p $eax
 $2 = 0x3
-```
+</pre>
 
 The next instruction will move the hex value **0x3** to the **eax** register
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov eax,0x3 ; move 0x3 hex value to eax register indicating the read system call
-```
+</pre>
 
 The above instruction moves the hex value **0x3** &nbsp;to **eax** register which indicates the **read** system call as we see from the **unistd\_32.h** header file below&nbsp;
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment5# grep -i -n "__NR_read " /usr/include/i386-linux-gnu/asm/unistd_32.h
 7:#define __NR_read 3
-```
+</pre>
 
 Following is the prototype of the read system call&nbsp;
 
-```C
+```c
 #include <unistd.h>
 
 ssize_t read(int _fd_ , void _buf_ , size_t _count_ );
@@ -841,119 +844,118 @@ As we see at the above prototype, the **read** system call takes two arguments, 
 
 The **ecx** register which represents the second argument of the **read** system call will point at the top of the stack after the execution of the following two instructions **mov edi, esp** and **mov ecx, edi**. The second argument indicates the buffer from which the **read** system call will read the contents.&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov edi,esp ; moves esp to edi 
 mov ecx,edi ; moves edi to esp 
 mov edx,0x1000 ; moves 0x1000 ( 4096 in decimal ) to edx register
 int 0x80 ; executes the read system call
-```
+</pre>
 
 Furthermore, the **edx** register will hold the hex value **0x1000** ( 4096 in decimal ). Moreover, as we mentioned before, the **edx** register refers to the third argument of the **read** system call where the **read** system call reads up to 4096 bytes from file descriptor **fd** into the buffer starting at **buf.** After calling the instruction **int 0x80** the **read** system call will be executed and then the return value will contain the number of bytes read from the specified file descriptor.
 
 Moreover, according with the above results, the **read** system call will be constructed as follows&nbsp;
 
-```
+```c
 read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096)
 ```
 
 Next, we will continue to analyse the following code snippet&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0000001E 89C2 mov edx,eax
 00000020 B804000000 mov eax,0x4
 00000025 BB01000000 mov ebx,0x1
 0000002A CD80 int 0x80
-```
+</pre>
 
 Furthermore, the **eax** register will contain the return value of **read** system call, referring to the number of bytes read from the specified file descriptor. In order to see the number of bytes read from the specified file descriptor we will use a tool called **strace.** According to the main [site](https://strace.io/) of the **&nbsp;** [strace](http://man7.org/linux/man-pages/man1/strace.1.html) utility, the **strace** is a diagnostic, debugging and instructional userspace utility for Linux. It is used to monitor and tamper with interactions between processes and the Linux kernel, which include system calls, signal deliveries, and changes of process state. For now all we need to see &nbsp;from **strace** is the return value of the **read** system call.&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment5# strace ./shellcode
 [...]
 read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 3145
 [...]
-```
+</pre>
 
 From **strace** output we are seeing that the **read** system call returned **3145** which will be assigned to **eax** register. Later on the **edx** register will be assigned with the value of **eax** register as seen below
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov edx,eax ;the returned value of read system call will be moved to edx register from eax register
-```
+</pre>
 
 Then the **eax** register will be assigned with the immediate value **0x4** which refers to the write system call as we see at the **unistd\_32.h** header file below
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_write "
 #define __NR_write 4
-```
+</pre>
 
 The **write** system call prototype is as follows
 
 ```c
-
 #include <unistd.h>
 
 ssize_t write(int _fd_ , const void _buf_ , size_t _count_ );
-
 ```
 
 As we see the **write** system call takes&nbsp; three arguments. According to the man page the write system call writes up to **count** bytes from the buffer starting at **buf** to the file referred to by the file descriptor **fd**. Also from the [Linux system call table](https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md#x86-32_bit) we can see the registers that referring to write the system call arguments. As we see from the table,&nbsp; the **edx** register refers to the third argument, the **ecx** register to the second and the **ebx** register to the first argument.&nbsp;
 
 Next, the file descriptor will reference the file where the **write** system call will write the counted bytes, so the file descriptor will refer to the standard output which has the value 1 and it will be assigned to the **ebx** register as seen below&nbsp;
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov ebx, 0x1 ; mov fd of standard output to ebx register
-```
+</pre>
 
 Then the write system call will be called using the instruction int 0x80&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 int 0x80 ; execute the write system call
-```
+</pre>
 
 According with the above results the **write** system call will be as follows&nbsp;
 
-```
+```c
 write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 3145)
 ```
 
 The last code portion to analyse regarding&nbsp; the **ndisasm** output is the following&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0000002C B801000000 mov eax,0x1
 00000031 BB00000000 mov ebx,0x0
 00000036 CD80 int 0x80
-```
+</pre>
 
 As we see above, the first instruction will move the immediate value **0x1** to **eax** register.
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov eax,0x1 ;moves 0x1 to eax register
-```
+</pre>
 
 As we see from the header file **unistd\_32.h,** the the value **0x1** refers to the **exit** system call as seen below&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_exit "
 #define __NR_exit 1
-```
+</pre>
 
 The next instruction assigns the zero value to the **exit** system call providing the value of the status argument. According to the man page of **exit** system call, the value of status is returned to the parent process as the process's exit status, and can be collected using one of the [wait](https://linux.die.net/man/2/wait) family of calls.&nbsp;The&nbsp; **exit** system call used to terminate a program. Every command returns an **exit** status (sometimes referred to as a return status ). A successful command returns zero. The following instruction assigns the **ebx** register with zero value denoting the status of the **exit** system call.&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov ebx,0x0 ; ebx register will be assigned with zero
-```
+</pre>
 
 Next ,the final instruction **int 0x80** will be used to execute the **exit** system call in order to terminate the program gracefully.&nbsp;
 
 To summarise, from the **read\_file** shellcode analysis the following system calls used&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 open("/etc/passwd", O\_RDONLY)
 read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096)
 write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 3145)
 exit(0)
-```
+</pre>
 
 
 
