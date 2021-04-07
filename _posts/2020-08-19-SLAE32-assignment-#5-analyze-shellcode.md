@@ -789,7 +789,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 Then the **open** system call will be executed using **int 0x80** instruction. Moreover, the **open** system call will be constructed as follows&nbsp;
 
 ```c
-open("/etc/passwd", O\_RDONLY)
+open("/etc/passwd", O_RDONLY)
 ```
 
 Going further with analysis, from **ndisasm** output we see the following code snippet&nbsp;
