@@ -483,7 +483,8 @@ the following command will be used to compile the program above
 Furthermore, as seen below when the **bindshell** program runs the target machine opens up a communication port or a listener on the target machine and waits for an incoming connection.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span>#./bindshell 2222 [!] Length: 104
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span>#./bindshell 2222 
+[!] Length: 104
 </pre>
 
 
@@ -491,7 +492,8 @@ If we run **netstat** we will see that the port **2222** is open and waiting for
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># netstat -antp | grep 2222 tcp 0 0 0.0.0.0:2222 0.0.0.0:\* LISTEN 1015/./bindshell
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># netstat -antp | grep 2222 
+tcp 0 0 0.0.0.0:<span style="color:red;">2222</span> 0.0.0.0:* LISTEN 1015/./bindshell
 </pre>
 
 
