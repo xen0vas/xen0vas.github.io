@@ -889,10 +889,12 @@ root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unis
 
 The **write** system call prototype is as follows
 
-```C
+```c
+
 #include <unistd.h>
 
 ssize_t write(int _fd_ , const void _buf_ , size_t _count_ );
+
 ```
 
 As we see the **write** system call takes&nbsp; three arguments. According to the man page the write system call writes up to **count** bytes from the buffer starting at **buf** to the file referred to by the file descriptor **fd**. Also from the [Linux system call table](https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md#x86-32_bit) we can see the registers that referring to write the system call arguments. As we see from the table,&nbsp; the **edx** register refers to the third argument, the **ecx** register to the second and the **ebx** register to the first argument.&nbsp;
