@@ -293,7 +293,8 @@ After binding the <b>sockfd</b> to the target IP and PORT, a listen method must 
 push edx      ; push 0 into the stack 
 push edi      ; push sockfd descriptor
 mov ecx, esp  ; now point to Listen() syscall
-add ebx, 0x2  ; add 0x2 to ebx that has the value 0x2. 0x4 indicates the listen() syscall 
+add ebx, 0x2  ; add 0x2 to ebx that has the value 0x2. 
+              ; 0x4 indicates the listen() syscall 
 mov al, 0x66  ; call SocketCall() in order to use the SYS_LISTEN argument
 int 0x80      ; call syscall interrupt to execute the arguments
 </pre>
@@ -326,7 +327,8 @@ The <b>accept4</b> system call is available starting with <b>Linux 2.6.28</b> ; 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;;accept(sockfd, NULL, NULL);
 mov al, 0x66     ; call SocketCall() in order to use the SYS_ACCEPT argument
-inc bl           ; increase the ebx from 0x4 to 0x5 which indicates the Accept() syscall 
+inc bl           ; increase the ebx from 0x4 to 0x5 
+                 ; which indicates the Accept() syscall 
 push edx         ; push NULL into the stack
 push edx         ; push NULL into the stack
 push edi         ; push sockfd descriptor 
@@ -361,7 +363,8 @@ int 0x80          ; call dup2 syscall
 inc ecx           ; increase the value of ecx by 1 so 
                   ; it will take all values 
                   ; 0(stdin), 1(stdout), 2(stderr) 
-cmp cl, 0x2       ; compare ecx with 2 which indicates the stderr descriptor 
+cmp cl, 0x2       ; compare ecx with 2 which indicates 
+                  ; the stderr descriptor 
 jle lo            ; loop until counter is less or equal to 2
 </pre>
 
