@@ -476,7 +476,8 @@ if (argc <= 1) {
 }
 // provide binary form of the port 
 unsigned int port = htons(atoi(argv[1]));
-// copy the new port in the right shellcode offset 29 bytes from the beginning of the shellcode   
+// copy the new port in the right shellcode offset 
+// 29 bytes from the beginning of the shellcode   
 memcpy(&shellcode[PORT], &port, 2);  
 
 printf("[!] Length:  %d\n", strlen(shellcode)); 
