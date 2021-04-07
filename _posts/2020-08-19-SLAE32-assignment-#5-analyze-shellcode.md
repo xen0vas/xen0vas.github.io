@@ -275,8 +275,14 @@ push byte +0x46     <span style="color:#33cccc;">;push the setreuid() syscall id
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>pop eax      <span style="color:#33cccc;">;load the the setreuid() syscall identifier in to eax</span> 
 int 0x80     <span style="color:#33cccc;">;call the setreuid() syscall identifier</span></strong></pre>
 <p style="text-align:justify;">The main purpose of the <b>setreui</b><strong>d</strong> system call is that it sets both the real and the effective UID for the calling process. The prototype of the <strong>setreuid </strong>system call is as follows</p>
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">#include &lt;sys/types.h&gt;
-#include &lt;unistd.h&gt;<b><br /><br /></b>int setreuid(uid_t ruid, uid_t euid);</pre>
+
+```c
+#include <sys/types.h>
+#include <unistd.h>
+
+int setreuid(uid_t ruid, uid_t euid);
+```
+
 <p style="text-align:justify;">At this case the <strong>ecx</strong> register represents the second argument of the <strong>setreuid</strong> system call which is the <strong>euid</strong> and stands for the effective user Id and the <strong>ebx</strong> represents the first argument which is the <strong>ruid</strong> and stands for Real User Id. After using the <strong>xor</strong> instruction at the <strong>ecx</strong> register and the <strong>ebx</strong> register, the <strong>setreuid </strong>system call will be as follows</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>setreuid(0,0);</strong></pre>
 <p style="text-align:justify;">The function above shall set the real and effective user IDs of the current process to zero which means the current process will run with root privileges. Lets continue with the analysis of the following code</p>
