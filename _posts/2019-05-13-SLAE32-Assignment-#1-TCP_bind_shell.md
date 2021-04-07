@@ -53,8 +53,8 @@ int main()
         server.sin_family = AF_INET;
         server.sin_port = htons(PORT); // convert into network byte order
         server.sin_addr.s_addr = INADDR_ANY; // 0.0.0.0
-
-        bind(sockfd, (struct sockaddr *) &server,   sizeof(server));              listen(sockfd, 0) ;        
+        bind(sockfd, (struct sockaddr *) &server,   sizeof(server));              
+        listen(sockfd, 0) ;        
         resfd = accept(sockfd, NULL, NULL);           
         dup2(resfd, 2);
         dup2(resfd, 1);
