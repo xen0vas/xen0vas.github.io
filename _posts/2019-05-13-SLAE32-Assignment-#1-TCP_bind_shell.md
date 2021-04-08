@@ -18,7 +18,9 @@ tags:
 
 ## **Assignment 1:**
 
-The goal of this assignment is to create a Shell\_Bind\_TCP shellcode that does the following
+<p style="text-align:justify;">
+The goal of this assignment is to create a Shell_Bind_TCP shellcode that does the following
+</p>
 
 - **Binds to a port**
 - **Executes Shell on incoming connection**
@@ -34,7 +36,9 @@ The goal of this assignment is to create a Shell\_Bind\_TCP shellcode that does 
 
 > **Linux kali 5.4.0-kali2-686-pae #1 SMP Debian 5.4.8-1kali1 (2020-01-06) i686 GNU/Linux&nbsp;**
 
+<p style="text-align:justify;">
 For this assignment the following C program will be used as a base program in order to create our shellcode
+</p>
 
 ```c
 #include <sys/socket.h> 
@@ -64,7 +68,9 @@ int main()
 }
 ```
 
+<p style="text-align:justify;">
 In order to convert the above code into x86 assembly, there is a need to investigate the&nbsp; system calls being used. Specifically, the following&nbsp; system calls are used :
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 bind()
@@ -154,7 +160,7 @@ xor edx, edx
 xor edi, edi
 </pre>
 
-### SocketCall Function Synopsis
+### SocketCall Function Synopsis :
 
 ```c
 #include <linux/net.h>
@@ -180,7 +186,7 @@ In x86 Linux systems the system calls parameters are passed into the stack using
 - **ecx, edx, ebx, esi, edi, ebp** are used to pass 6 parameter arguments to system call functions
 - All other registers including **EFLAGS** are preserved across the **int 0x80** instruction.
 
-### Socket Function Synopsis
+### Socket Function Synopsis :
 
 ```c
 #include <sys/types.h> 
@@ -213,7 +219,7 @@ mov edi, eax  ; EAX will store the return value of the socket
 After the socket creation, the next step is to bind the IP address of the target machine as well as a free local port on that machine to the socket descriptor **sockfd**. Also, a port must be chosen that is unlikely to be used by any service at the target machine ( e.g. 1234 ). In order to accomplish the binding , the following system call will be used.
 </p>
 
-### Bind Function Synopsis
+### Bind Function Synopsis :
 
 ```c
 #include <sys/types.h> 
@@ -273,7 +279,7 @@ the following output shows the output of the script above used with the port num
 Port in hex Network Byte order: 0xd204
 </pre>
 
-### Listen Functions Synopsis
+### Listen Functions Synopsis :
 
 ```c
 #include <sys/types.h> 
@@ -299,7 +305,7 @@ mov al, 0x66  ; call SocketCall() in order to use the SYS_LISTEN argument
 int 0x80      ; call syscall interrupt to execute the arguments
 </pre>
 
-### Accept Function Synopsis:&nbsp;
+### Accept Function Synopsis :&nbsp;
 
 ```c
 #include <sys/types.h> 
@@ -336,7 +342,7 @@ mov ecx, esp     ; point to Accept()
 int 0x80         ; call syscall interrupt to execute the arguments
 </pre>
 
-### Dup2 Function Synopsis
+### Dup2 Function Synopsis :
 
 ```c
 #include <unistd.h> 
@@ -368,7 +374,7 @@ cmp cl, 0x2       ; compare ecx with 2 which indicates
 jle lo            ; loop until counter is less or equal to 2
 </pre>
 
-### Execve Function Synopsis
+### Execve Function Synopsis :
 
 
 <p style="text-align:justify;">
