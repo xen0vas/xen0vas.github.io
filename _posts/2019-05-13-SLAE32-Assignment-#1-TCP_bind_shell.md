@@ -81,7 +81,7 @@ execve()
 </pre>
 
 <p style="text-align:justify;">
-The above system calls except **execve** and **dup2** are socket system calls and they are referenced with **socketcall** which is a common kernel entry point. Before moving further, the following steps are mentioned in order to construct the bind connection to the client as follows:
+The above system calls except <b>execve</b> and <b>dup2</b> are socket system calls and they are referenced with <b>socketcall</b> which is a common kernel entry point. Before moving further, the following steps are mentioned in order to construct the bind connection to the client as follows:
 </p>
 
 - create a socket
