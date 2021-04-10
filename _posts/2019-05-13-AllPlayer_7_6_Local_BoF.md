@@ -286,7 +286,7 @@ If we continue the execution, we will see that the instructions in address <b>0x
 A Unicode compatible NOP or "Venetian code" is any instruction that can absorb the leading and the trailing zeros without affecting the execution flow of the program. In order to be more specific, lets observe the instructions shown at the screenshot below 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nops.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="480" height="380">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nops.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="580" height="480">
 
 <p style="text-align:justify;">
 As we can see at the picture above, there are instructions having trailing and leading zeros in them, such as the <b>ADD BYTE PTR DS:[EDX],AL</b> instruction. What we need now is to find a unicode compatible NOP instruction that will help us overcome this issue.
@@ -321,7 +321,7 @@ If we execute the script above it will update the <b>eip.m3u</b> file, but now w
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nop_com.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="680" height="480">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nop_com.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="780" height="580">
 
 <p style="text-align:justify;">
 As we see above, we have landed into our larger buffer that we control. We are now few steps behind before we can execute our shellcode. At this point, we have used a unicode compatible NOP in order to skip some unicode instructions and land to the larger buffer. 
