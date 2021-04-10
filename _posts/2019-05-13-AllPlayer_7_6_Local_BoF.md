@@ -92,7 +92,7 @@ http://AAAAAAAAAA......
 After that, we will save and close the file and then we will open the <b>filefuzz</b> fuzzer. At this point we will generate our sample files. The following screenshot shows the <b>filefuzz</b> fuzzer setup which will be used in order to create 100 sample files. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="550">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="650" height="650">
 
 <p style="text-align:justify;">
 Afterwards, we will execute <b>filefuzz</b> fuzzer by loading, one by one,  the sample files into the AllPlayer application until the crash occurs. At "Execute" tab of the <b>filefuzz</b> fuzzer, we will change the Miliseconds into 10000 and that because the application might need some time to load the samples before the filefuzz executes it again. So this is a time interval of 10 secs between loading the samples. Also we will use 4 files for this task, so <b>filefuzz</b> fuzzer will restart the target application 4 times. 
