@@ -56,11 +56,12 @@ The Unicode buffer can be imagined to be somewhat similar to a <b>Venetian blind
 
   </ul>
   <br>
-<hr>
 
- #### How to approach
+------------
 
- In order to succesfully perform the exploitation we should 
+#### How to approach
+
+In order to succesfully perform the exploitation we should 
 
 <ul>
     <li>Identiify and verify the location of character which overwrites SEH pointer</li>
@@ -74,8 +75,10 @@ The Unicode buffer can be imagined to be somewhat similar to a <b>Venetian blind
 </ul>
 
 <br>
-<hr>
-<h4>Finding the Vulnerability</h4>
+
+-----------
+
+### Finding the Vulnerability
 
 <p style="text-align:justify;">
 At this point we will fuzz the application  in order to find the vulnerability. We will use a fuzzing tool called <b>filefuzz</b>, and this because we are targeting the file format of the <b>.m3u</b> file which will be loaded to the application. What we are trying to do now, is to cause a crash via a long string in a <b>.m3u</b> (playlist) file. 
@@ -135,11 +138,13 @@ This means that if we create a file with 1011 A's ( same as the sample file <b>f
 <br><br>
 
 ```python
+
 buffer  = b"http://"
 buffer += b"\x41" * 1011
 
 f=open("player.m3u","wb")
 f.write(buffer)
+
 ```
 
 <p style="text-align:justify;">
@@ -174,7 +179,8 @@ If we follow in dump the location pointed by the EBP register, we will see the c
   </figure>
 <br><br>
 <hr>
-<h4>Controlling the Execution</h4>
+
+### Controlling the Execution
 
 <p style="text-align:justify;">
 Now that we have confirmed the crash is time to start building our exploit. At this point we will identify the location of the character which overwrites SEH pointer and thus EIP. Afterwards we will redirect the execution to the attacker controlled memory location. Then we will find an accessible Unicode compatible address in memory that contains the instructions <code>POP POP RETN</code>.Lastely, we will align the register to the beggining of our shellcode. 
@@ -343,8 +349,10 @@ If we continue the execution, we will see that the instructions in address <b>0x
 </p>
 
 <br><br>
-<hr>
-<h4>Finding a Unicode compatible NOP</h4>
+
+------------
+
+### Finding a Unicode compatible NOP
 
 <p style="text-align:justify;">
 A Unicode compatible NOP or "Venetian code" is any instruction that can absorb the leading and the trailing zeros without affecting the execution flow of the program. In order to be more specific, lets observe the instructions shown at the screenshot below 
@@ -406,8 +414,10 @@ As we see above, we have landed into our larger buffer that we control. We are n
 </p>
 
 <br><br>
-<hr>
-<h4>Register Alignment</h4>
+
+------------
+
+### Register Alignment
 
 <p style="text-align:justify;">
 In order to execute our shellcode without having any problems, we need to encode it using the <b>Alpha2</b> Alphanumeric Unicode Mixedcase Encoder. This encoder needs one of the registers to point to the shellcode. So, one way to acomplish this task, is to identify a CPU register closest to the buffer and then align this register to the location of the buffer by adding or subtracting a certain value. If we look closely at the registers at the time we have landed into our larger buffer, we will see that the closest register to use is the ESI register with 649 bytes distance from the first address in out large buffer
@@ -579,8 +589,9 @@ As we see at the screenshot below, we are now landed exactly at the begining of 
   </figure>
 <br><br>
 
-<hr>
-<h4> Bad Characters Analysis</h4>
+------------
+
+### Bad Characters Analysis
 
 <p style="text-align:justify;">
 Before generating our final shellcode, we must check about possible bad characters that could break the execution of our shellcode. At this point we should see if certain bytes are translated differently by the application. In order to perform this analysis, we will first send all possible characters from <b>0x00</b> to <b>0xff</b>, as part of our buffer, and see how these characters are dealt by the vulnerable application, after the crash occurs. Also we need to mention that <b>0x00</b> is a bad character which by default represent the null byte. Moreover, we are interested in certain range of charaters from <b>0x41 (A)</b> until <b>0x5A (Z)</b>, and that because we will later use the <b>Alpha2 Alphanumeric Uppercase Encoder</b>, in order to generate our shellcode. 
@@ -714,8 +725,10 @@ If we remove all these bad characters above and then update our PoC script, we w
 As we have said before, because we will encode our shellcode with the <b>Alpha2 Alphanumeric Uppercase Encoder</b>  encoder, we are interested only in finding bad characters in the range from <b>0x41 (A)</b> until <b>0x5A (Z)</b>. All the bad characters we found are not relevant, so we are good to go and construct our shellcode. 
 </p>
 
-<hr>
-<h4>Finalizing the Exploit</h4>
+------------
+
+### Finalizing the Exploit
+
 
 <p style="text-align:justify;">
 At this point we will create our shellcode which will be the "evil" calculator. In order to do this we will use <b>msfvenom</b> as follows 
