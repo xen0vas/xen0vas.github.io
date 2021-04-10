@@ -25,17 +25,11 @@ tags:
   </p>
     
 
-   <br><br>
-  <figure>
   <img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/linux_exec.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="450" height="350">
-  <figcaption>Fig.1 - AllPlayer 7.6</figcaption>
-  </figure>
-  <br><br>
 
-
-    <hr>
-
-	<h3>Unicode</h3> 
+  ----------------
+  
+	### Unicode
 	
   <p style="text-align:justify;">
 	A kind of a special situation in exploit development, is when the data are encoded with a specific encoding scheme. Additionally, there might be convertions to characters such as uppercase, lowercase, etc. Furthermore, one of these convertions might be the Unicode convertion. But why should we using Unicode ? In short, unicode allows a general visual representation / manipultation of data in most of the systems in a consistent manner. So, for example, the application can be used accross the globe, without having to worry about how text looks like when displayed on the screen. Unicode is different from the well known ascii representation. In essence, ascii uses 7 bits to represent 128 characters, often shorting them in 8 bits, or one byte per character. In the contrary, unicode is differend. Specifically, there are many forms of unicode, <b>UTF-16</b> is the most popular. 
