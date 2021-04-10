@@ -146,7 +146,7 @@ Inspecting further the crash, and specifically the SEH chain in Immunity Debugge
 If we follow in dump the location pointed by the EBP register, we will see the contents of our payload, and once again we will confirm the unicode format of these characters. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/dump.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="450">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/dump.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="680" height="570">
 
 -----------
 
