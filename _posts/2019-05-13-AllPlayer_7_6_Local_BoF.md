@@ -196,7 +196,7 @@ Later on, we will use <b>mona.py</b> in order to locate the exact offset as show
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/mona.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="780" height="250">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/mona.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="780" height="280">
 
 <p style="text-align:justify;">
 After executing <code>!mona findmsp</code> command, we see that <b>mona.py</b> has detected that the vulnerable application crashes at the exact the offset <b>301</b>, which is related with the pattern <b>0x0030006b</b> that we saw in <b>SEH</b> chain before. 
