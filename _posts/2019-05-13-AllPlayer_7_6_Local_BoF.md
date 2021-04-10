@@ -4,7 +4,7 @@ title: 'Exploiting Unicodes in Windows Executables - A case study'
 date: 2019-05-13
 classes: wide
 header:
-  teaser: /assets/images/2019/AllPLayer/allplayer.jpg
+  teaser: /assets/images/2019/AllPLayer/allplayer.png
 tags:
   - SEH
   - Windows
@@ -13,7 +13,7 @@ tags:
   - Unicode exploitation 
   - Venetian Blind
 --- 
-![](/assets/images/2019/AllPLayer/allplayer.jpg)
+![](/assets/images/2019/AllPLayer/allplayer.png)
 
 ## Exploiting Unicodes in Windows executables - A case study 
 
