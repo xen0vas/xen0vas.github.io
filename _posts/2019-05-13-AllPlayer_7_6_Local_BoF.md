@@ -397,7 +397,7 @@ f.close()
 As we see at the screenshot below, EAX will be pushed on the stack and then after executing the <b>retn</b> instruction, the flow will be redirected to the new location on the stack where we will place the beginning of our shellcode and will be 92 bytes further down the stack at address <b>0x0012ECEC</b> 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/align.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="700" height="350">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/align.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="800" height="450">
 
 <p style="text-align:justify;">
 As you can imagine, we now need to cover the distance of 92 bytes from the <b>retn</b> address until the begining of our shellcode. Because of the unicode format if we send the hex <b>\x90\x90</b>, it will be converted into a unicode compliant format of <b>0x00900090</b>, meaning that we will have four bytes of padding rather than two on the stack, so we need to perform the following devision 92 / 2 which will give us 46 bytes. Lets update our PoC script and check if we have performed the right calculations. We will use <b>"EEEE"</b> as our placeholder. 
