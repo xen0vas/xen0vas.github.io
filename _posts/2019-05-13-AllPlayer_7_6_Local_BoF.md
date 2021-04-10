@@ -14,8 +14,7 @@ tags:
   - Venetian Blind
 --- 
 
-
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/allplayer.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="450" height="350">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/allplayer.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="450">
 
 ## Exploiting Unicodes in Windows executables - A case study 
 
@@ -181,7 +180,6 @@ f.close()
 <p style="text-align:justify;">
 After running the script above, the <b>pattern.m3u</b> file will be generated. Afterwards, we will load the generated <b>pattern.m3u</b> file into the vulnerable <b>AllPlayer v7.6</b> application. 
 </p>
-
 
 <img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/load_file.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="450">
 
