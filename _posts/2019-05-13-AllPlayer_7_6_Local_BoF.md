@@ -470,7 +470,7 @@ As we see at the screenshot below, we are now landed exactly at the begining of 
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/correct.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="730" height="390">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/correct.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="830" height="420">
 
 ------------
 
