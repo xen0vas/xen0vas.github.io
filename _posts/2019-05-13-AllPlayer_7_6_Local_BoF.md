@@ -134,7 +134,7 @@ f.write(buffer)
 After executing the script above, if we observe the EIP register at the time of crash, we will see that it holds a specific address <b>77a477b2</b> , which is the same as the one caught from <b>filefuzz</b>. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/crash.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="450">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/crash.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="680" height="570">
 
 <p style="text-align:justify;">
 Inspecting further the crash, and specifically the SEH chain in Immunity Debugger, we realize that the SE handler was overwritten with the unicode <code>0x00410041</code>. 
