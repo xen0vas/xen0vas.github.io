@@ -13,7 +13,9 @@ tags:
   - Unicode exploitation 
   - Venetian Blind
 --- 
-![](/assets/images/2019/AllPLayer/allplayer.png)
+
+
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/allplayer.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="450" height="350">
 
 ## Exploiting Unicodes in Windows executables - A case study 
 
@@ -22,8 +24,6 @@ tags:
 This article explains the exploitation of a local buffer oveflow vulnerability and how <b>SEH</b> protection can be bypassed.   Specifically, we will demonstrate an interesting exploitation approach of a unicode based buffer overflow against the vulnerable <b> AllPlayer v7.6</b> application.
 </p>
   
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/linux_exec.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="450" height="350">
-
 ----------------
 
 ### Unicode
@@ -122,7 +122,6 @@ As we see above, we have more than one crashes. If we inspect further, we can se
 <p style="text-align:justify;">
 This means that if we create a file with 1011 A's ( same as the sample file <b>fuzz1.m3u</b> which was created with filefuzz ) we will eventually trigger the crash. At this point we will create a PoC python script in order to acomplish this crash. 
 </p>
-<br><br>
 
 ```python
 
