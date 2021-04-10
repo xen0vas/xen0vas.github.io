@@ -216,7 +216,7 @@ f.close()
 After we run the script above, if we pass the execution to the program in Immunity Debugger <b>SHIFT+F9</b>,  we see that we are finally controling EIP with <code>\x90\x90</code> ,as seen at the screenshot below 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/EIP.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="650" height="350">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/EIP.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="750" height="450">
 
 <p style="text-align:justify;">
 At this point we are able to replace the two bytes <b>\x90\x90</b> in our PoC script, with <b>POP POP RETN</b> instructions in order to bypass SEH. So, we will use <b>mona.py</b> again in order to find a reliable and Unicode compatible address in memory that contains the instructions <b>POP POP RETN</b>
