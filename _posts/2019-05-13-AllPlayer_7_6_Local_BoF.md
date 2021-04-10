@@ -51,7 +51,6 @@ Tools used for this exercise :
       <li>mona</li>
       <li>msfvenom</li>
       <li>Alpha2</li>
-
 </ul>
 
 <p></p>
