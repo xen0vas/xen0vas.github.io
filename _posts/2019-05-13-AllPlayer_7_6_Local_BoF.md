@@ -44,8 +44,6 @@ The Unicode buffer can be imagined to be somewhat similar to a <b>Venetian blind
 
 Tools used for this exercise : 
 
-<br><br>
-
 <ul>
       <li>Immunity Debugger</li>
       <li>filefuzz</li>
@@ -56,11 +54,15 @@ Tools used for this exercise :
 
 </ul>
 
+<p></p>
+
 ------------
 
 #### How to approach
 
+<p style="text-align:justify;">
 In order to succesfully perform the exploitation we should 
+</p>
 
 <ul>
     <li>Identiify and verify the location of character which overwrites SEH pointer</li>
