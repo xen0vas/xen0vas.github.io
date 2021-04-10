@@ -70,7 +70,7 @@ In order to succesfully perform the exploitation we should
         <li>Find a reliable and Unicode compatible address in memory that contains the instructions POP POP RETN</li>
         <li>Overwrite SEH with a pointer to this address</li>
     </ul>
-    <li>Find a Unicode compatible NOP 
+    <li>Find a Unicode compatible NOP</li>
     <li>Align a register to the beggining of our shellcode</li>
 </ul>
 
