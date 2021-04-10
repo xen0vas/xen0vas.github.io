@@ -102,7 +102,7 @@ Afterwards, we will execute <b>filefuzz</b> fuzzer by loading, one by one,  the 
 The following screenshot shows the filefuzz setup on "execute" tab  
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz2.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="500" height="600">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz2.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="600" height="600">
 
 <p style="text-align:justify;">
 As we see above, we have more than one crashes. If we inspect further, we can see that the application crashed for the first time when loaded the second sample ( <b>fuzz1.m3u</b> ). 
