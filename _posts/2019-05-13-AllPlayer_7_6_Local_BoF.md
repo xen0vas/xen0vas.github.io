@@ -281,13 +281,10 @@ Now, if we continue executing the instructions, we will land at the next SEH rec
 <p style="text-align:justify;">
 If we continue the execution, we will see that the instructions in address <b>0x0012EC6D</b> cannot be executed, and for that reason we should find a unicode compatible nop in order to skip the instructions that causing this issue and then be able to continue the execution to the large buffer we control. It is worth to mention that we cannot use a short jmp instruction to jump to the location we want when exploiting unicodes, because short jmp instructions usually need two bytes without any trailing or leading zeros in them.   
 </p>
-<br><br>
+
 ------------
-<br><br>
 
 ### Finding a Unicode compatible NOP
-
-<br><br>
 
 <p style="text-align:justify;">
 A Unicode compatible NOP or "Venetian code" is any instruction that can absorb the leading and the trailing zeros without affecting the execution flow of the program. In order to be more specific, lets observe the instructions shown at the screenshot below 
@@ -376,11 +373,9 @@ After some trial and error we have ended using the following shellcode in order 
 Now, lets explain the code above. At lines 1-3 we are assigning the value of ESI register to EAX register. Then at lines 4-7, we are adding <b>\x19\x11</b> to EAX and then we are subtracting <b>\x16\x11</b> from EAX. It is worth mentioning here that these two values have been chosen because when placed on the stack are converted into unicode compliant format, <b>0x11001900</b> and <b>0x11001600</b>, and thus the addition and subtraction calculations can be performed without problems. Ofcourse any values converted in unicode compliant format when placed on the stack will work. Afterwards, EAX register will hold the address <b>0x0012ECEC</b> where our shellcode will begin. Then we push the EAX register on the stack and then we return to the new location where we execute our shellcode. 
 </p>
 
-<br><br> 
 <p style="text-align:justify;">
 Lets update our PoC script and see what happens 
 </p>
-<br><br>
 
 ```python
 align=("\x56"           # push esi
@@ -494,7 +489,6 @@ Before generating our final shellcode, we must check about possible bad characte
 <p style="text-align:justify;">
 At this point we will use a tool called badchars as shown below
 </p>
-<br><br>
 
 ```c
 root@kali:/home/kali# badchars -f python
