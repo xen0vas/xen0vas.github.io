@@ -344,7 +344,7 @@ We can see this at the screenshot below
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/esi.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="500" height="250">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/ESI.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="500" height="250">
 
 <p style="text-align:justify;">
 After some trial and error we have ended using the following shellcode in order to perform the alignment. 
