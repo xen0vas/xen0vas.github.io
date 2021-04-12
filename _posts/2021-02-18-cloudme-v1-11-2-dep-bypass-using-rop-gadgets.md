@@ -66,7 +66,7 @@ bcdedit /set nx AlwaysOn
 <p> verify that the setting is enabled as shown below</p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 C:\Users\pentest\Desktop\CloudMe&gt;bcdedit /enum
 [...]
 Windows Boot Loader
@@ -83,8 +83,7 @@ osdevice                partition=C:
 systemroot              \Windows
 resumeobject            {1fc46246-40d9-11ea-a45f-a2a235f15fa4}
 nx                      AlwaysOn
-
-```
+</pre>
 
 <hr/>
 <h3>1. Finding the Vulnerability</h3>
