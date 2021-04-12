@@ -150,7 +150,7 @@ So, at this point we need to perform some encryption to the shellcode in order t
 <!-- wp:preformatted -->
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-y = (x \* ((1 \<\< 2) + 1) + 8) & ((32 \<\< 2) - 1)
+y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
 </pre>
 
 <!-- /wp:preformatted -->
@@ -164,7 +164,7 @@ In the contrary, the decryption formula used to decrypt the shellcode is the fol
 <!-- wp:preformatted -->
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-x = (y1 - 8) \* ((18 \<\< 2) + 5) & ((32 \<\< 2) - 1);
+x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 </pre>
 
 <!-- /wp:preformatted -->
@@ -392,7 +392,7 @@ Using the code snippet above into the full program below, as well as the encrypt
 
 <!-- wp:preformatted -->
 
-```C
+```c
 #include <windows.h>
 #include <iostream>
 #include <stdlib.h>
