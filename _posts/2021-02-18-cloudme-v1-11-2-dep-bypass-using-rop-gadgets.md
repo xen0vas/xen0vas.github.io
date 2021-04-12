@@ -19,7 +19,7 @@ tags:
 
 <p align="justify">Tools used for this exercise</p>
 <ul>
-<li>windbg</li>
+<li>WinDbg</li>
 <li>Immunity Debugger</li>
 <li>badchars</li>
 <li>Process Hacker 2</li>
@@ -41,7 +41,7 @@ tags:
 <li>ASLR ( Address space layout randomization )</li>
 <li>Assembly IA32</li>
 <li>Buffer Overflows</li>
-<li>Debuggers ( e.g. WinDBG, Immunity, OlyDBG, etc )</li>
+<li>Debuggers ( e.g. WinDbg, Immunity, OlyDBG, etc )</li>
 <li>exploit development using python</li>
 </ul>
 <p align="justify">The vulnerable software can be found <a href="https://www.cloudme.com/downloads/CloudMe_1112.exe">here</a></p>
@@ -148,7 +148,7 @@ except Exception as e:
     print(sys.exc_value)
 ```
 
-<p align="justify">Running the script above confirms the issue, and now we have a starting point developing the exploit. As we see below in <strong>WinDBG</strong>, when running the script above, the crash occurs</p>
+<p align="justify">Running the script above confirms the issue, and now we have a starting point developing the exploit. As we see below in <strong>WinDbg</strong>, when running the script above, the crash occurs</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 (f24.d98): Access violation - code c0000005 (first chance)
@@ -184,7 +184,7 @@ Invalid exception stack at 41414141
  !mona pattern_create 5000
 </pre>
 
-<p align="justify">From WinDBG we run :</p>
+<p align="justify">From WinDbg we run :</p>
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -467,7 +467,7 @@ except Exception as e:
 [..snip..]
 </pre>
 
-<p align="justify">The dump above shows the hex character set we have sent to the vulnerable application that starts from <b>0x0022d910</b> until <b>0x0022da0b</b> . Now its time to perform the analysis. If we take a closer look at at the character set above we can say that we might not have bad characters, but we must still investigate further in order to be sure. We can do this using <b>mona.py</b> directly from <b>windbg</b>. Lets generate the badchars with <b>mona.py</b> as follows</p>
+<p align="justify">The dump above shows the hex character set we have sent to the vulnerable application that starts from <b>0x0022d910</b> until <b>0x0022da0b</b> . Now its time to perform the analysis. If we take a closer look at at the character set above we can say that we might not have bad characters, but we must still investigate further in order to be sure. We can do this using <b>mona.py</b> directly from <b>WinDbg</b>. Lets generate the badchars with <b>mona.py</b> as follows</p>
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -783,7 +783,7 @@ Looking for A0aA in pattern of 500000 bytes
 Evaluate expression: 1368 = 00000558
 </pre>
 
-<p align="justify">So ideally, we need to find a gadget equivalent to <b>ADD ESP 558 ...POP ...POP ...RETN</b> to pivot precisely to the beginning of the payload. Nevertheless, any gadget with distance above &gt;1368 bytes will suit us. Next, in order to find a suitable stack pivot, we will use mona’s <strong>stackpivot</strong> searching functionality. At this point we will load CloudMe executable in <strong>WinDBG</strong> and then run the following command</p>
+<p align="justify">So ideally, we need to find a gadget equivalent to <b>ADD ESP 558 ...POP ...POP ...RETN</b> to pivot precisely to the beginning of the payload. Nevertheless, any gadget with distance above &gt;1368 bytes will suit us. Next, in order to find a suitable stack pivot, we will use mona’s <strong>stackpivot</strong> searching functionality. At this point we will load CloudMe executable in <strong>WinDbg</strong> and then run the following command</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !py mona stackpivot -n -o -distance 1368
@@ -1683,7 +1683,7 @@ ESI (VirtualProtect)
 EDI (ROP NOP) 
 </pre>
 
-From **Windbg** , using **mona.py** we can generate the ROP chain as follows
+From **WinDbg** , using **mona.py** we can generate the ROP chain as follows
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
