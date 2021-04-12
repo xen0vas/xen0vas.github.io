@@ -4,13 +4,13 @@ title: 'Antivirus Evasion : AV bypass using a Fully UnDetectable Cryptor'
 date: 2021-03-09
 classes: wide
 header:
-  teaser: /assets/images/2021/02/cloudme.png
+  teaser: /assets/images/2021/03/screenshot-2021-03-09-at-09.54.04.png
 tags:
-- Exploitation
-- Penetration Testing
-- Return Oriented Programming
-- ROP chains
-- ROP gadgets
+- Affine Cryptor
+- STUB
+- Fully Undetectable Cryptor
+- Shellcode
+- AntiVirus Evasion
 ---
 
 <p align="justify">
