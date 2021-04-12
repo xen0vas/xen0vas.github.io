@@ -1614,7 +1614,7 @@ cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
 Qt5Gui!ZN7QWindow4setXEi+0x77:
 61ba8137 01e8 add eax,ebp
 0:000> 
-eax=762a20d8 ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
+<span style="color:#ff0000;">eax=762a20d8</span> ebx=41414141 ecx=0362fffc edx=776d71cd esi=41414141 edi=41414141
 eip=61ba8139 esp=0022d6bc ebp=fffae493 iopl=0 nv up ei pl nz na pe cy
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000207
 Qt5Gui!ZN7QWindow4setXEi+0x79:
