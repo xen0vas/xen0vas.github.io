@@ -13,14 +13,13 @@ tags:
 - ROP gadgets
 ---
 
-<!-- wp:paragraph {"align":"justify"} -->
+<p align="justify">
 This post presents a way to evade Antivirus products using a FUD Cryptor. The main purpose of FUD Cryptors is to obfuscate the contents of a malicious executable in order to make the executable undetectable to antivirus software without interfering with the intended execution flow of the executable.
-<!-- /wp:paragraph -->
+</p>
 
-<!-- wp:paragraph {"align":"justify"} -->
-
+<p align="justify">
 These days most Antivirus engines rely mostly on dynamic analysis rather on static analysis only. Both static and dynamic analysis providing very satisfying detection results making the development of malicious software hard. Moreover, regarding the use of dynamic analysis, a malicious executable is scanned and launched in a virtual environment for a short amount of time. Furthermore, combining the results from dynamic analysis along with signature verification and heuristic analysis, allows the detection of unknown malware as well as those relying on encryption. Specifically, the malicious code is executed and self-decrypted in AV sandbox, and from the final analysis of the code, any possible suspicious behaviour will be flagged as malicious from the AV engine. Therefore, the results could provide a high probability rate in malware detection.
-
+</p>
 
 <p align="justify">
 For this exercise we will be using a bind shell generated from metasploit framework. The bind shell will be encrypted using a FUD Cryptor. Furthermore, the encryption algorithm used in this example is the [_ **Affine cipher** _](https://en.wikipedia.org/wiki/Affine_cipher). At this point it is worth mentioning that there is no need to use a complicated algorithm such as AES to encrypt the payload, because satisfying results can also be achieved using lightweight encryption. Later on, the FUD payload will be parsed from a STUB program in order to decrypt it and execute it on runtime.
@@ -118,7 +117,6 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
-
 
 <p align="justify">
 Later on, and after the compilation finishes, we can see at the image below, that the executable file <b>"simple.exe"</b> has been immediately identified as malicious from Kaspersky Endpoint Security software.
