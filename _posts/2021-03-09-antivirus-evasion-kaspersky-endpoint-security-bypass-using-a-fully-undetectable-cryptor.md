@@ -13,6 +13,8 @@ tags:
 - AntiVirus Evasion
 ---
 
+## AV bypass using a Fully UnDetectable Cryptor
+
 <p align="justify">
 This post presents a way to evade Antivirus products using a FUD Cryptor. The main purpose of FUD Cryptors is to obfuscate the contents of a malicious executable in order to make the executable undetectable to antivirus software without interfering with the intended execution flow of the executable.
 </p>
