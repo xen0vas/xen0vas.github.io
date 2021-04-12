@@ -1641,7 +1641,6 @@ BOOL WINAPI VirtualProtect(
           __in   DWORD flNewProtect,
           __out  PDWORD lpflOldProtect
     );
-
 ```
 
 <p align="justify">
