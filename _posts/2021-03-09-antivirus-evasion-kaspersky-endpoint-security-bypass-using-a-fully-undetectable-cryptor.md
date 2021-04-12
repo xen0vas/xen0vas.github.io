@@ -450,7 +450,7 @@ int main(int argc, char** argv)
 After compiling the program above, if we scan the executable file with Kaspersky Endpoint Security, we will realize that we have successfully bypassed detection. The following image shows that Kaspersky Endpoint Security didn't identified the program as malicious
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-10.03.46.png" width="578" height="387" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-10.03.46.png" width="878" height="587" />
 
 
 <p align="justify">
@@ -458,7 +458,7 @@ Then if we run the executable we will have a nice listener on port 99 as depicte
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-15.09.33.png" width="278" height="187" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-15.09.33.png" width="578" height="387" />
 
 
 
