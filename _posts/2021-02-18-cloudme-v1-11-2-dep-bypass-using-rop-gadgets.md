@@ -59,9 +59,9 @@ tags:
 <h3>The Walkthrough</h3>
 <p align="justify">Before proceeding with the exercise set DEP to <code>AlwaysOn</code> using the following command:</p>
 
-```bash
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 bcdedit /set nx AlwaysOn
-```
+</pre>
 
 <p> verify that the setting is enabled as shown below</p>
 
@@ -89,10 +89,10 @@ nx                      AlwaysOn
 <h3>1. Finding the Vulnerability</h3>
 <p align="justify">In order to find this vulnerability we first need to fuzz the target application. Before using any fuzzing framework we must search what to fuzz. When executing the <b>CloudMe</b> application, if we run the netstat command, we can see that the application is listening on port <b>8888</b>.</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
   TCP    127.0.0.1:8888         0.0.0.0:0              LISTENING
-```
+</pre>
 
 <p align="justify">We can also confirm this using the <b>process hacker 2</b> tool.</p>
 <figure><img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/phtool.png" alt="PHTool" width="630" height="143" /></figure>
