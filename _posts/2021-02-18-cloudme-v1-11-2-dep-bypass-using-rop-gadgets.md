@@ -737,7 +737,8 @@ Qt5Sql+0x1011:
 
 <p align="justify">As we see above, after hitting the breakpoint, the <b>ESP</b> is pointing to <b>0x0022cf18</b>. Now lets look at the stack to locate the beginning of the payload. In order to search for the beginning of the payload we will use the <b>ESP</b> value at the time of crash which is <b>0x0022d470</b> .After looking throughout the stack we have located the beginning of the payload at the following location (<b>0x0022d050</b>):</p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000&gt; dd 0022d470-500 L 50 
 0022cf70  00000000 00987898 00000000 00000000
 0022cf80  04ace4d8 047e19d8 00000001 00000162
@@ -773,7 +774,7 @@ Looking for A0aA in pattern of 500000 bytes
  - Pattern A0aA not found in cyclic pattern (lowercase)  
 
 [+] This mona.py action took 0:00:00.438000
-```
+</pre>
 
 <p align="justify">As we can see from the execution above, the pattern was found at position 0. Furthermore, the address <b>0x0022d470</b> we've got at the time of crash, appears to be <b>1368</b> bytes away from <b>ESP</b> when hitting the breakpoint.</p>
 
