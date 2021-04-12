@@ -22,12 +22,12 @@ These days most Antivirus engines rely mostly on dynamic analysis rather on stat
 </p>
 
 <p align="justify">
-For this exercise we will be using a bind shell generated from metasploit framework. The bind shell will be encrypted using a FUD Cryptor. Furthermore, the encryption algorithm used in this example is the [_ **Affine cipher** _](https://en.wikipedia.org/wiki/Affine_cipher). At this point it is worth mentioning that there is no need to use a complicated algorithm such as AES to encrypt the payload, because satisfying results can also be achieved using lightweight encryption. Later on, the FUD payload will be parsed from a STUB program in order to decrypt it and execute it on runtime.
+For this exercise we will be using a bind shell generated from metasploit framework. The bind shell will be encrypted using a FUD Cryptor. Furthermore, the encryption algorithm used in this example is the <a href="https://en.wikipedia.org/wiki/Affine_cipher">Affine cipher</a>. At this point it is worth mentioning that there is no need to use a complicated algorithm such as AES to encrypt the payload, because satisfying results can also be achieved using lightweight encryption. Later on, the FUD payload will be parsed from a STUB program in order to decrypt it and execute it on runtime.
 </p>
 
 
 <p align="justify">
-After the short introduction above, it is time for me to start the practical demonstration and proof of concept regarding the use of a fully undetectable cryptor, to evade the AV engine in Kaspersky Endpoint Security software. For this demonstration i needed a shellcode which could normally be considered to be a malware, so as previously mentioned, i've used a bind shell that listens on port **99** and was generated from **msfvenom** tool as follows
+After the short introduction above, it is time for me to start the practical demonstration and proof of concept regarding the use of a fully undetectable cryptor, to evade the AV engine in Kaspersky Endpoint Security software. For this demonstration i needed a shellcode which could normally be considered to be a malware, so as previously mentioned, i've used a bind shell that listens on port <b>99</b> and was generated from <b>msfvenom</b> tool as follows
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
