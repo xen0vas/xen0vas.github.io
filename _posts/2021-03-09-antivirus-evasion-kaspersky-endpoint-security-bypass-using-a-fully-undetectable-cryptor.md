@@ -118,7 +118,7 @@ int main(int argc, char** argv)
 Later on, and after the compilation finishes, we can see at the image below, that the executable file <b>"simple.exe"</b> has been immediately identified as malicious from Kaspersky Endpoint Security software.
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-09.54.04.png" width="578" height="387" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-09.54.04.png" width="878" height="587" />
 
 
 <p align="justify">
@@ -178,7 +178,7 @@ root@kali:/home/kali# ./affine -e \xba\x8f\xa2\x98\x34\xd9\xca\xd9\x74\x24\xf4\x
 
 
 <p align="justify">
-As we see from the output above we have encrypted the shellcode generated from **msfvenom** and the length of the encrypted shellcode is 710 bytes. At this point we are ready to use the encrypted shellcode into our STUB program in order to test it against the Kaspersky Endpoint Security software.
+As we see from the output above we have encrypted the shellcode generated from <b>msfvenom</b> and the length of the encrypted shellcode is 710 bytes. At this point we are ready to use the encrypted shellcode into our STUB program in order to test it against the Kaspersky Endpoint Security software.
 </p>
 
 ```c
