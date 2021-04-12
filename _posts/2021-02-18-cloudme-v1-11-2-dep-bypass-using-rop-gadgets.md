@@ -753,7 +753,7 @@ Qt5Sql+0x1011:
 0022d020  c8aa7b52 fffffffe 77b198da 005658d8
 0022d030  04ace4d8 00000002 00000004 00acf558
 0022d040  00acf564 00acef50 00000001 04ace4d8
-0022d050  41306141 61413161 33614132 41346141
+0022d050  <span style="color:#ff0000;">41306141</span> 61413161 33614132
 0022d060  61413561 37614136 41386141 62413961
 0022d070  31624130 41326241 62413362 35624134
 0022d080  41366241 62413762 39624138 41306341
@@ -871,12 +871,12 @@ Done
 
 ```
 Stack pivots, minimum distance 1368
--------------------------------------
+------------------------------------
 Non-SafeSEH protected pivots :
-------------------------------
+----------------------------
 [..snip..] 
-0x6998fb2e : {pivot 1916 / 0x77c} : **# ADD ESP,76C # POP EBX # POP ESI # POP EDI # 
-POP EBP # RETN ** [Qt5Network.dll] ** | {PAGE_EXECUTE_WRITECOPY}  
+0x6998fb2e : {pivot 1916 / 0x77c} : <strong># ADD ESP,76C # POP EBX # POP ESI # POP EDI # 
+POP EBP # RETN</strong> ** [Qt5Network.dll] ** | {PAGE_EXECUTE_WRITECOPY}  
 [..snip..]
 ```
 
