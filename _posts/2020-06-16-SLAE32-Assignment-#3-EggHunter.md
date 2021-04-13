@@ -104,16 +104,16 @@ The steps to build the <strong>Egghunter</strong> will be the following
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 _start:  
-mov ebx, 0x50905090    ; Store EGG in EDX 
-xor ecx, ecx           ; Zero out ECX  
-mul ecx                ; Zero out EAX and EDX
+mov ebx, 0x50905090    <span style="color:#33cccc;">; Store EGG in EDX </span>
+xor ecx, ecx           <span style="color:#33cccc;">; Zero out ECX  </span>
+mul ecx                <span style="color:#33cccc;">; Zero out EAX and EDX </span>
 </pre>
 
 <p style="text-align:justify;">Next, the <strong>dx</strong> register will be used to perform memory alignment while taking into consideration the smallest granular unit of memory on <em>IA32</em> which is <em>PAGE_SIZE</em> with the size of <strong>4096</strong> bytes. The memory alignment must be performed in case an invalid memory address might returned from the <em>mkdir(2)</em> syscall, where in such case all addresses in the memory page will also be invalid. So, in order to avoid shellcode from breaking because of the existence of null bytes in case of the hex representation of <strong>4096</strong> bytes (<strong>0x1000</strong>), the following technique will be followed</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 npage:                    
-or dx, 0xfff    ; Align a region of memory
+or dx, 0xfff    <span style="color:#33cccc;">; Align a region of memory</span>
 </pre>
 
 <p style="text-align:justify;">Next, <strong>pushad</strong> instruction will push all general registers into the stack in order to preserve values to be used with <em>mkdir(2)</em> syscall. Later on, the <strong>ebx</strong> register will hold the address <strong>[edx+4]</strong> and then the lower byte register <strong>al</strong> will be assigned with the immediate value <b>0x0c </b>which represents the <em>mkdir(2)</em> syscall. After that, the <strong>int 0x80</strong> instruction will call <em>mkdir(2)</em>&nbsp;syscall. Later on, the return value from <em>mkdir(2)</em>&nbsp;syscall will be compared with the hex value <strong>0xf2</strong> which represents the <strong>EFAULT</strong> errno value.</p>
@@ -121,24 +121,24 @@ or dx, 0xfff    ; Align a region of memory
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 naddr:
-inc edx                 ; increase EDX to achieve 4096 bytes page (4KiB)                                   
-pushad                  ; push the general purpose values into the stack
-lea ebx, [edx+4]        ; put address [edx+4] to ebx
-mov al, 0x4e            ; syscall for mkdir() to lower byte register al 
-int 0x80                ; call mkdir()  
-cmp al, 0xf2            ; 0xf2 is 242 in decimal - check for EFAULT (errno code 256-242 = 14 - bad file address)
+inc edx            <span style="color:#33cccc;">; increase EDX to achieve 4096 bytes page (4KiB) </span>                                  
+pushad             <span style="color:#33cccc;">; push the general purpose values into the stack </span>
+lea ebx, [edx+4]   <span style="color:#33cccc;">; put address [edx+4] to ebx </span>
+mov al, 0x4e       <span style="color:#33cccc;">; syscall for mkdir() to lower byte register al </span>
+int 0x80           <span style="color:#33cccc;">; call mkdir() </span>
+cmp al, 0xf2       <span style="color:#33cccc;">; 0xf2 is 242 in decimal - check for EFAULT (errno code 256-242 = 14 - bad file address) </span>
 </pre>
 
 <p style="text-align:justify;">Then all the registers will restore their values by using <strong>popad</strong> instruction. In case the <em>mkdir(2)</em> syscall doesn't return <strong>EFAULT</strong>, then the value stored in <strong>ebx</strong>&nbsp;will be compared with the value contained in <strong>[edx]</strong> address in order to check if the egg<strong> 0x50905090</strong>&nbsp;tag is located inside this address. Otherwise, in case the <em>mkdir(2)</em> syscall returns <strong>EFAULT</strong>, then the memory address space will be indicated as invalid and the search will be forwarded to the next page. Also in case the first comparison is successful, meaning the egg<strong> 0x50905090 </strong>tag is found, the next<em> four(4)</em> bytes will also be checked in order to find out if the second egg<strong> 0x50905090</strong>&nbsp;tag is also assigned. Furthermore, if the egg<strong> 0x50905090</strong>&nbsp;tag is not assigned to the address <strong>[edx+4], </strong>the next address will also be checked, otherwise <strong>[edx]</strong> and <strong>[edx+4]</strong> will contain the egg tag.</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-popad            ; restore the general purpose registers 
-jz npage         ; if mkdir() returned EFAULT, go to the next page 
-cmp [edx], ebx   ; check if egg 0x50905090 tag is in [edx] address
-jnz  naddr       ; if ZF=0 then it doesnt match so it goes to the next page
-cmp [edx+4], ebx ; also check if EGG second tag is found in [edx+4] 
-jne naddr        ; If egg (0x50905090) tag not found then visit next address 
-jmp edx          ; [edx] and [edx+4] contain the second egg (0x50905090)
+popad            <span style="color:#33cccc;">; restore the general purpose registers </span>
+jz npage         <span style="color:#33cccc;">; if mkdir() returned EFAULT, go to the next page </span>
+cmp [edx], ebx   <span style="color:#33cccc;">; check if egg 0x50905090 tag is in [edx] address </span>
+jnz  naddr       <span style="color:#33cccc;">; if ZF=0 then it doesnt match so it goes to the next page </span>
+cmp [edx+4], ebx <span style="color:#33cccc;">; also check if EGG second tag is found in [edx+4] </span>
+jne naddr        <span style="color:#33cccc;">; If egg (0x50905090) tag not found then visit next address </span>
+jmp edx          <span style="color:#33cccc;">; [edx] and [edx+4] contain the second egg (0x50905090) </span>
 </pre>
 
 Now lets proceed further and test the hunter. First, the program will be compiled using the following commands
