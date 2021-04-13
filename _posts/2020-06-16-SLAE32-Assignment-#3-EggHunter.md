@@ -51,8 +51,8 @@ return 0;
 After compiling and executing the program the results will be as follows
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents# gcc -o pagesize pagesize.c
-root@kali:~/Documents# ./pagesize
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents</b></span># gcc -o pagesize pagesize.c
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents</b></span># ./pagesize
 the page size is 4096 bytes.
 </pre>
 
@@ -144,14 +144,14 @@ jmp edx          ; [edx] and [edx+4] contain the second egg (0x50905090)
 Now lets proceed further and test the hunter. First, the program will be compiled using the following commands
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment3# nasm -f elf -o egg.o egg.nasm
-root@kali:~/Documents/SLAE/Assignment3# ld -z execstack -o egg egg.o
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># nasm -f elf -o egg.o egg.nasm
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># ld -z execstack -o egg egg.o
 </pre>
 
 Then the opcodes will be checked if null bytes exist using&nbsp;<strong>objdump</strong>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment3# objdump -M intel -D egg
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># objdump -M intel -D egg
 
 egg:     file format elf32-i386
 
@@ -185,7 +185,7 @@ Disassembly of section .text:
 Then the <em>shellcode&nbsp;</em>will be produced using <strong>objdump</strong>&nbsp;as follows
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment3# objdump -d ./egg|grep '[0-9a-f]:'|grep -v 
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># objdump -d ./egg|grep '[0-9a-f]:'|grep -v 
 'file'|cut -f2 -d:|cut -f1-5 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 
 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 "\xbb\x90\x50\x90\x50\x31\xc9\xf7\xe1\x66\x81\xca\xff\x0f\x42\x60\x8d\x5a\x04\xb0
@@ -225,7 +225,7 @@ if we compile and run the code above we will have a our&nbsp; execve shellcode e
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment3# gcc -fno-stack-protector -g -z execstack -m32 -o shell shell.c ./shell
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># gcc -fno-stack-protector -g -z execstack -m32 -o shell shell.c ./shell
 Shellcode Length: 33
 #
 </pre>
