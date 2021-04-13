@@ -120,7 +120,7 @@ The steps above providing a footprint to further build the bind shellcode. Furth
 
 
 <p style="text-align:justify;">
-There are several types of sockets, although stream sockets and datagram sockets are the most commonly used. The types of sockets are also defined for example in Ubuntu 12.04 inside the file /usr/include/i386-linux-gnu/bits/socket.h .The following output shows the assigned values at the stream and datagram sockets accordingly
+There are several types of sockets, although stream sockets and datagram sockets are the most commonly used. The types of sockets are also defined for example in Ubuntu 12.04 inside the file <b>/usr/include/i386-linux-gnu/bits/socket.h</b>.The following output shows the assigned values at the stream and datagram sockets accordingly
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -217,7 +217,7 @@ mov edi, eax   <span style="color:#33cccc;">; EAX will store the return value of
 
 
 <p style="text-align:justify;">
-After the socket creation, the next step is to bind the IP address of the target machine as well as a free local port on that machine to the socket descriptor **sockfd**. Also, a port must be chosen that is unlikely to be used by any service at the target machine ( e.g. 1234 ). In order to accomplish the binding , the following system call will be used.
+After the socket creation, the next step is to bind the IP address of the target machine as well as a free local port on that machine to the socket descriptor <b>sockfd</b>. Also, a port must be chosen that is unlikely to be used by any service at the target machine ( e.g. 1234 ). In order to accomplish the binding , the following system call will be used.
 </p>
 
 ### Bind Function Synopsis :
