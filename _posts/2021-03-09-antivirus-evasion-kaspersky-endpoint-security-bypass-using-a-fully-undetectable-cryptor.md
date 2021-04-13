@@ -7,10 +7,9 @@ header:
   teaser: /assets/images/2021/03/screenshot-2021-03-09-at-09.54.04.png
 tags:
 - Affine Cryptor
-- STUB
 - Fully Undetectable Cryptor
 - Shellcode
-- AntiVirus Evasion
+- Antivirus Evasion
 ---
 
 <p align="justify">
