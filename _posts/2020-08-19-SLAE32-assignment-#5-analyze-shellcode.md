@@ -829,7 +829,7 @@ The first instruction moves the value stored at **eax** register into **ebx** re
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov ebx,eax   ; moves the value of the eax register to the ebx register
+<strong>mov ebx,eax   <span style="color:#33cccc;">; moves the value of the eax register to the ebx register</span></strong>
 </pre>
 
 From **gdb-peda** we see that the **eax** register will be assigned with the hex value **0x3** indicating the file descriptor of the opened file.&nbsp;
@@ -866,10 +866,11 @@ As we see at the above prototype, the **read** system call takes two arguments, 
 The **ecx** register which represents the second argument of the **read** system call will point at the top of the stack after the execution of the following two instructions **mov edi, esp** and **mov ecx, edi**. The second argument indicates the buffer from which the **read** system call will read the contents.&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+  <strong>
 mov edi,esp  <span style="color:#33cccc;">; moves esp to edi </span>
 mov ecx,edi  <span style="color:#33cccc;">; moves edi to esp </span>
 mov edx,0x1000 <span style="color:#33cccc;">; moves 0x1000 ( 4096 in decimal ) to edx register </span>
-int 0x80 <span style="color:#33cccc;">; executes the read system call </span>
+int 0x80 <span style="color:#33cccc;">; executes the read system call </span></strong>
 </pre>
 
 Furthermore, the **edx** register will hold the hex value **0x1000** ( 4096 in decimal ). Moreover, as we mentioned before, the **edx** register refers to the third argument of the **read** system call where the **read** system call reads up to 4096 bytes from file descriptor **fd** into the buffer starting at **buf.** After calling the instruction **int 0x80** the **read** system call will be executed and then the return value will contain the number of bytes read from the specified file descriptor.
@@ -924,7 +925,7 @@ As we see the **write** system call takes&nbsp; three arguments. According to th
 Next, the file descriptor will reference the file where the **write** system call will write the counted bytes, so the file descriptor will refer to the standard output which has the value 1 and it will be assigned to the **ebx** register as seen below&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov ebx, 0x1 ; mov fd of standard output to ebx register
+<strong>mov ebx, 0x1 <span style="color:#33cccc;">; mov fd of standard output to ebx register</span></strong>
 </pre>
 
 Then the write system call will be called using the instruction int 0x80&nbsp;
@@ -963,7 +964,7 @@ root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unis
 The next instruction assigns the zero value to the **exit** system call providing the value of the status argument. According to the man page of **exit** system call, the value of status is returned to the parent process as the process's exit status, and can be collected using one of the [wait](https://linux.die.net/man/2/wait) family of calls.&nbsp;The&nbsp; **exit** system call used to terminate a program. Every command returns an **exit** status (sometimes referred to as a return status ). A successful command returns zero. The following instruction assigns the **ebx** register with zero value denoting the status of the **exit** system call.&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov ebx,0x0 ; ebx register will be assigned with zero
+<strong>mov ebx,0x0 <span style="color:#33cccc;">; ebx register will be assigned with zero</span></strong>
 </pre>
 
 Next ,the final instruction **int 0x80** will be used to execute the **exit** system call in order to terminate the program gracefully.&nbsp;
