@@ -381,7 +381,6 @@ Now that the code is ready, it is time to test it. The following commands will b
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># nasm -f elf32 -o reverse.o reverse.nasm
-
 <span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment2</b></span># ld -z execstack -o reverse reverse.o
 </pre>
 
