@@ -971,11 +971,12 @@ Next ,the final instruction **int 0x80** will be used to execute the **exit** sy
 
 To summarise, from the **read\_file** shellcode analysis the following system calls used&nbsp;
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
 open("/etc/passwd", O\_RDONLY)
 read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096)
 write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 3145)
 exit(0)
+</strong>
 </pre>
 
 
