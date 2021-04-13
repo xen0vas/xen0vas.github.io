@@ -194,7 +194,7 @@ No encoder or badchars specified, outputting raw payload
 Payload size: 97 bytes
 Final size of c file: 433 bytes
 Saved as: adduser.c
-root@kali:~/Documents/SLAE/Assignment5# res=`cat adduser.c | grep "\"" | sed 's/"//g;s/;//g' | sed ':a;N;$!ba;s/\n//g'`; echo -ne $res | ndisasm -u -
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment5</b></span># res=`cat adduser.c | grep "\"" | sed 's/"//g;s/;//g' | sed ':a;N;$!ba;s/\n//g'`; echo -ne $res | ndisasm -u -
 00000000  31C9              xor ecx,ecx
 00000002  89CB              mov ebx,ecx
 00000004  6A46              push byte +0x46
@@ -849,7 +849,7 @@ The above instruction moves the hex value **0x3** &nbsp;to **eax** register whic
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment5# grep -i -n "__NR_read " /usr/include/i386-linux-gnu/asm/unistd_32.h
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment5</b></span># grep -i -n "__NR_read " /usr/include/i386-linux-gnu/asm/unistd_32.h
 7:#define __NR_read 3
 </pre>
 
@@ -893,7 +893,7 @@ Next, we will continue to analyse the following code snippet&nbsp;
 Furthermore, the **eax** register will contain the return value of **read** system call, referring to the number of bytes read from the specified file descriptor. In order to see the number of bytes read from the specified file descriptor we will use a tool called **strace.** According to the main [site](https://strace.io/) of the **&nbsp;** [strace](http://man7.org/linux/man-pages/man1/strace.1.html) utility, the **strace** is a diagnostic, debugging and instructional userspace utility for Linux. It is used to monitor and tamper with interactions between processes and the Linux kernel, which include system calls, signal deliveries, and changes of process state. For now all we need to see &nbsp;from **strace** is the return value of the **read** system call.&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment5# strace ./shellcode
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment5</b></span># strace ./shellcode
 [...]
 read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 3145
 [...]
@@ -908,7 +908,7 @@ From **strace** output we are seeing that the **read** system call returned **31
 Then the **eax** register will be assigned with the immediate value **0x4** which refers to the write system call as we see at the **unistd\_32.h** header file below
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_write "
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment5</b></span># cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_write "
 #define __NR_write 4
 </pre>
 
@@ -931,7 +931,7 @@ Next, the file descriptor will reference the file where the **write** system cal
 Then the write system call will be called using the instruction int 0x80&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-int 0x80 ; execute the write system call
+<strong>int 0x80 <span style="color:#33cccc;">; execute the write system call</span></strong>
 </pre>
 
 According with the above results the **write** system call will be as follows&nbsp;
@@ -957,7 +957,7 @@ As we see above, the first instruction will move the immediate value **0x1** to 
 As we see from the header file **unistd\_32.h,** the the value **0x1** refers to the **exit** system call as seen below&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment5# cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_exit "
+<span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment5</b></span># cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_exit "
 #define __NR_exit 1
 </pre>
 
