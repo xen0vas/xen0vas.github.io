@@ -68,7 +68,7 @@ unsigned char code[] =
 </pre>
 
 <p align="justify">
-As we see from the output above, the only action performed on the shellcode in order to obfuscate the original code as well as to eliminate the null byte, was to encode it using the common encoder <b>shikata ga nai</b> , which is considered a poor practice to avoid AV detection these days. Furthermore, one thing we should do next, is to scan the executable file using Antivirus software in order to show how the malicious shellcode generated from metasploit can be easily detected. If we compile and build the following code snippet, we will have our malicious executable ready to be scanned.
+As we see from the output above, the only action performed on the shellcode in order to obfuscate the original code as well as to eliminate the null byte, was to encode it using the common encoder hikata ga nai. Furthermore, one thing we should do next, is to scan the executable file using Antivirus software in order to show how the malicious shellcode generated from metasploit can be easily detected. If we compile and build the following code snippet, we will have our malicious executable ready to be scanned.
 </p>
 
 ```c
