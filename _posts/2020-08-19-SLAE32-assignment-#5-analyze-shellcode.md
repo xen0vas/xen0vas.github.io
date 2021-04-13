@@ -829,7 +829,7 @@ The first instruction moves the value stored at **eax** register into **ebx** re
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov ebx,eax ; moves the value of the eax register to the ebx register
+mov ebx,eax   ; moves the value of the eax register to the ebx register
 </pre>
 
 From **gdb-peda** we see that the **eax** register will be assigned with the hex value **0x3** indicating the file descriptor of the opened file.&nbsp;
@@ -866,10 +866,10 @@ As we see at the above prototype, the **read** system call takes two arguments, 
 The **ecx** register which represents the second argument of the **read** system call will point at the top of the stack after the execution of the following two instructions **mov edi, esp** and **mov ecx, edi**. The second argument indicates the buffer from which the **read** system call will read the contents.&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov edi,esp ; moves esp to edi 
-mov ecx,edi ; moves edi to esp 
-mov edx,0x1000 ; moves 0x1000 ( 4096 in decimal ) to edx register
-int 0x80 ; executes the read system call
+mov edi,esp  <span style="color:#33cccc;">; moves esp to edi </span>
+mov ecx,edi  <span style="color:#33cccc;">; moves edi to esp </span>
+mov edx,0x1000 <span style="color:#33cccc;">; moves 0x1000 ( 4096 in decimal ) to edx register </span>
+int 0x80 <span style="color:#33cccc;">; executes the read system call </span>
 </pre>
 
 Furthermore, the **edx** register will hold the hex value **0x1000** ( 4096 in decimal ). Moreover, as we mentioned before, the **edx** register refers to the third argument of the **read** system call where the **read** system call reads up to 4096 bytes from file descriptor **fd** into the buffer starting at **buf.** After calling the instruction **int 0x80** the **read** system call will be executed and then the return value will contain the number of bytes read from the specified file descriptor.
@@ -901,7 +901,7 @@ read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 3145
 From **strace** output we are seeing that the **read** system call returned **3145** which will be assigned to **eax** register. Later on the **edx** register will be assigned with the value of **eax** register as seen below
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-mov edx,eax ;the returned value of read system call will be moved to edx register from eax register
+<strong> mov edx,eax <span style="color:#33cccc;">;the returned value of read system call will be moved to edx register from eax register</span></strong>
 </pre>
 
 Then the **eax** register will be assigned with the immediate value **0x4** which refers to the write system call as we see at the **unistd\_32.h** header file below
@@ -922,7 +922,6 @@ ssize_t write(int _fd_ , const void _buf_ , size_t _count_ );
 As we see the **write** system call takes&nbsp; three arguments. According to the man page the write system call writes up to **count** bytes from the buffer starting at **buf** to the file referred to by the file descriptor **fd**. Also from the [Linux system call table](https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md#x86-32_bit) we can see the registers that referring to write the system call arguments. As we see from the table,&nbsp; the **edx** register refers to the third argument, the **ecx** register to the second and the **ebx** register to the first argument.&nbsp;
 
 Next, the file descriptor will reference the file where the **write** system call will write the counted bytes, so the file descriptor will refer to the standard output which has the value 1 and it will be assigned to the **ebx** register as seen below&nbsp;
-
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov ebx, 0x1 ; mov fd of standard output to ebx register
