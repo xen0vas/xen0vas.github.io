@@ -322,7 +322,7 @@ int accept4(int sockfd, struct sockaddr *addr, socklen_t *addrlen, int flags);
 ```
 
 <p style="text-align:justify;">
-After the <b>listen</b> system call, the <b>accept</b> system call must be called in order to create a new accepted socket and then return the new descriptor referring to that socket. The argument <b>addr</b> is a pointer to **sockaddr** structure. The argument <b>sockfd</b> is the socket descriptor that was created using the <b>socket</b> system call and is bound to a local address using <b>bind</b> system call after it listens for connections using <b>listen</b> system call.
+After the <b>listen</b> system call, the <b>accept</b> system call must be called in order to create a new accepted socket and then return the new descriptor referring to that socket. The argument <b>addr</b> is a pointer to <b>sockaddr</b> structure. The argument <b>sockfd</b> is the socket descriptor that was created using the <b>socket</b> system call and is bound to a local address using <b>bind</b> system call after it listens for connections using <b>listen</b> system call.
 </p>
 
 <p style="text-align:justify;">
