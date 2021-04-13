@@ -14,9 +14,10 @@ tags:
 --- 
 ![](/assets/images/SLAE32/SLAE32.jpg)
 
-## **Student ID : SLAE&nbsp;- 1314**
 
-## **Assignment 1:**
+<h2><span style="color:#339966;"><strong>Student ID : SLAE - 1314</strong></span></h2>
+<h2><span style="color:#339966;"><strong>Assignment 1:</strong></span></h2>
+
 
 <p style="text-align:justify;">
 The goal of this assignment is to create a Shell_Bind_TCP shellcode that does the following
