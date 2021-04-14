@@ -39,7 +39,10 @@ As said above for this assessment&nbsp; the Affine Cipher will be used to create
 
 For the needs of this exercise only two hard-coded keys will be used. In the contrary&nbsp; if creating different ciphers from the same shellcode needed to be produced every time the crypter runs, then a randomness to the keys must be provided using a random key generator.&nbsp;&nbsp;
 
+
+<p style="text-align:justify;">
 Regarding the Affine cipher and according to wikipedia, the letters of an alphabet of size m&nbsp;are first mapped to the integers in the range&nbsp; **0 …&nbsp;m&nbsp;− 1**. It then uses modular arithmetic to transform the integer that each plaintext letter corresponds, into another integer that correspond to a cipher text letter.&nbsp;
+</p>
 
 > **lemma 1:&nbsp;**
 > 
@@ -55,13 +58,17 @@ In short, in order to know whether any two numbers are relatively prime, there i
 
 ### Encrypting
 
-At this example the payload to encrypt is the shellcode that opens a new terminal shell using the **execve** command. In order to perform the encryption functionality, the ASCII table will be used, which constitutes 128 alphanumeric values converting each letter into its numeric equivalent. For the encryption to happen&nbsp; the following equation will be used
+<p style="text-align:justify;">
+At this example the payload to encrypt is the shellcode that opens a new terminal shell using the <b>execve</b> command. In order to perform the encryption functionality, the ASCII table will be used, which constitutes 128 alphanumeric values converting each letter into its numeric equivalent. For the encryption to happen&nbsp; the following equation will be used
+</p>
 
 ![1PNG.PNG]({{ site.baseurl }}/assets/images/2019/05/1png-1.png)
 
-where modulus ' **m'** is the size of the ASCII alphanumeric values and **'a'** and **'b'** are the keys of the cipher. The value ' **a'** must be chosen such that **'a'** and **'m'** are co-prime. For this exercise a specific norm will be defined where ' **a****' **is 5, '** b' **is 8, and '** m' **is 128 since there are 128 characters in the ASCII character set that being used. Only the value of '** a'** has a restriction since it has to be co-prime with 128.&nbsp;
+<p style="text-align:justify;">
+where modulus <b>'m'</b> is the size of the ASCII alphanumeric values and <b>'a'</b> and <b>'b'</b> are the keys of the cipher. The value <b>'a'</b> must be chosen such that <b>'a'</b> and <b>'m'</b> are co-prime. For this exercise a specific norm will be defined where <b>'a'</b> is <b>5</b>, <b>'b'</p> is <b>8</b>, and <b>'m'</b> is 128 since there are 128 characters in the ASCII character set that being used. Only the value of <b>'a'</b> has a restriction since it has to be co-prime with 128.&nbsp;
 
-for this case&nbsp; the following C program will be used in order to find relative prime numbers to use for Key **'a'** and Key **' b'**.
+for this case&nbsp; the following C program will be used in order to find relative prime numbers to use for Key <b>'a'</b> and Key <b>'b'</b>.
+</p>
 
 ```c
 #include < stdio.h >
@@ -90,13 +97,17 @@ return 0;
 }
 ```
 
-As shown below, the possible values that key ' **a'** could take are **1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99, 101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125, 127.&nbsp;**
+<p style="text-align:justify;">
+As shown below, the possible values that key ' <b>a'</b> could take are <b>1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99, 101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125, 127.&nbsp;</b>
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong><span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment7</b></span># ./gcd
  1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99, 101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125, 127
 </strong></pre>
 
-The following snippet is the representation of the encryption equation **y = (5 \* x + 8) % 128** in bitwise operation using the left shifting mechanism in C.&nbsp; In case of encryption, ' **b'** can be any value.&nbsp;
+<p style="text-align:justify;">
+The following snippet is the representation of the encryption equation **y = (5 \* x + 8) % 128** in bitwise operation using the left shifting mechanism in C.&nbsp; In case of encryption, ' <b>b'</b> can be any value.&nbsp;
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
 y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
