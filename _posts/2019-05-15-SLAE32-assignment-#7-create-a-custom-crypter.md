@@ -38,7 +38,7 @@ A Crypter is a type of software that can encrypt, obfuscate, and manipulate malw
 As said above for this assessment&nbsp; the Affine Cipher will be used to create a crypter which is a kind of multiplicative cipher and has close relations with the Caesar cipher, except it uses multiplication instead of addition. The Affine Cipher will need two keys to operate: one used for the multiplicative cipher multiplication and the other one used for the Caesar cipher addition. The character selection set where the keys will be derived from, is the ASCII table that has 128 characters. The two keys will be used in order to implement encryption and decryption accordingly.
 </p>
 
-![aff.PNG]({{ site.baseurl }}/assets/images/2019/05/aff.png)
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/05/aff.png" alt="" />
 
 <p style="text-align:justify;">
 For the needs of this exercise only two hard-coded keys will be used. In the contrary&nbsp; if creating different ciphers from the same shellcode needed to be produced every time the crypter runs, then a randomness to the keys must be provided using a random key generator.&nbsp;&nbsp;
@@ -69,7 +69,7 @@ In short, in order to know whether any two numbers are relatively prime, there i
 At this example the payload to encrypt is the shellcode that opens a new terminal shell using the <b>execve</b> command. In order to perform the encryption functionality, the ASCII table will be used, which constitutes 128 alphanumeric values converting each letter into its numeric equivalent. For the encryption to happen&nbsp; the following equation will be used
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/05/1png-1.png" alt="" />
+<img style="display: block;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/05/1png-1.png" alt="" />
 
 <p style="text-align:justify;">
 where modulus <b>'m'</b> is the size of the ASCII alphanumeric values and <b>'a'</b> and <b>'b'</b> are the keys of the cipher. The value <b>'a'</b> must be chosen such that <b>'a'</b> and <b>'m'</b> are co-prime. For this exercise a specific norm will be defined where <b>'a'</b> is <b>5</b>, <b>'b'</b> is <b>8</b>, and <b>'m'</b> is 128 since there are 128 characters in the ASCII character set that being used. Only the value of <b>'a'</b> has a restriction since it has to be co-prime with 128.&nbsp;
@@ -127,11 +127,11 @@ To decrypt with the Affine cipher, there is a need to multiply by the key’s mo
 
 The decryption function is
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/05/2png.png" alt="" />
+<img style="display: block;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/05/2png.png" alt="" />
 
 where a is the modular multiplicative inverse of '**a**'' modulo m i.e., it satisfies the equation&nbsp;
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;"" src="{{ site.baseurl }}/assets/images/2019/05/3.png" alt="" />
+<img style="display: block;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/05/3.png" alt="" />
 
 <p style="text-align:justify;">
 For example, let’s find the modular inverse of <b>“5 mod 7”</b>. There is some number i where <b>(5 * i) % 7</b> will equal to <b>“1”</b>. This calculation will be brute-forced as follows:
