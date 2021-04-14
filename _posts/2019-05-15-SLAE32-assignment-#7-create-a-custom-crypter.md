@@ -98,9 +98,9 @@ As shown below, the possible values that key ' **a'** could take are **1, 3, 5, 
 
 The following snippet is the representation of the encryption equation **y = (5 \* x + 8) % 128** in bitwise operation using the left shifting mechanism in C.&nbsp; In case of encryption, ' **b'** can be any value.&nbsp;
 
-```
-**y = (x \* ((1 \<\< 2) + 1) + 8) & ((32 \<\< 2) - 1)**
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
+y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
+</strong></pre>
 
 ### Decrypting
 
@@ -163,9 +163,9 @@ root@slae:~/Documents/SLAE/Assignment7#
 
 So, as seen at the image above, the decryption key will be the number **77**. The decryption formula to use in order to convert the encrypted shellcode back to the original is the following&nbsp;
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
 x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
-</pre>
+</strong></pre>
 
 **The Affine Cipher program explanation**
 
