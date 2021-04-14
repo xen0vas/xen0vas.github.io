@@ -145,7 +145,7 @@ For example, let’s find the modular inverse of <b>“5 mod 7”</b>. There is 
 <p style="text-align:justify;">
 The encryption and decryption keys for the <b>Affine</b> cipher are two different numbers. The encryption key can be anything as long as it is relatively prime to <b>128</b> (which is the size of the ASCII symbol set). If for example, using the Affine cipher, the chosen key for encryption is five (5) , the decryption key will be the modular inverse of <b>5&nbsp;mod 128</b>
 
-In order to calculate the modular inverse to get the decryption key, a brute-force approach will be used, starting to test integer 1, then 2, and then 3, and so on, taking into consideration that will be very time-consuming for large keys. There is an algorithm for finding the modular inverse just like there was for the encryption process and is called **Euclid Extended Algorithm**.
+In order to calculate the modular inverse to get the decryption key, a brute-force approach will be used, starting to test integer 1, then 2, and then 3, and so on, taking into consideration that will be very time-consuming for large keys. There is an algorithm for finding the modular inverse just like there was for the encryption process and is called <b>Euclid Extended Algorithm</b>.
 
 for this case the following C++ program will be used in order to find the decryption key using the modular inverse of the chosen key a under modulo m
 </p>
