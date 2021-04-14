@@ -19,8 +19,6 @@ tags:
 
 <h2><span style="color:#339966;"><strong><img style="border:none;" src="{{ site.baseurl }}/assets/images/2020/08/slae32-1.png" alt="SLAE32" width="265" height="265" /></strong></span></h2>
 
-## SLAE32 Assignment #7 - Create a Custom Crypter ( Affine Cipher )
-
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;– 1314</strong></span></h2>
 <h2><span style="color:#339966;"><strong><br>Assignment 7 :</strong></span></h2>
 
