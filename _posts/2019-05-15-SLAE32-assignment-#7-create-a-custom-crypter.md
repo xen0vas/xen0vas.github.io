@@ -130,7 +130,7 @@ The decryption function is
 
 ![2PNG.PNG]({{ site.baseurl }}/assets/images/2019/05/2png.png)
 
-where a is the modular multiplicative inverse of ' **a'** modulo m i.e., it satisfies the equation&nbsp;
+where a is the modular multiplicative inverse of '**a**'' modulo m i.e., it satisfies the equation&nbsp;
 
 ![3.PNG]({{ site.baseurl }}/assets/images/2019/05/3.png)
 
@@ -179,7 +179,7 @@ return 0;
 ```
 
 <p style="text-align:justify;">
-Executing the program above using the Key a with value of **5** under&nbsp;modulo <b>128</b> , the following output will be shown at the image below&nbsp;
+Executing the program above using the Key a with value of <b>5</b> under&nbsp;modulo <b>128</b> , the following output will be shown at the image below&nbsp;
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong><span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment7</b></span># ./modinv 5 128
