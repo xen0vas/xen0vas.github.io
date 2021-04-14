@@ -114,17 +114,21 @@ where a is the modular multiplicative inverse of ' **a'** modulo m i.e., it sati
 
 ![3.PNG]({{ site.baseurl }}/assets/images/2019/05/3.png)
 
-For example, let’s find the modular inverse of **“5 mod 7”**. There is some number i where **(5 \* i) % 7** will equal to **“1”**. This calculation will be brute-forced as follows:
+<p style="text-align:justify;">
+For example, let’s find the modular inverse of <b>“5 mod 7”</b>. There is some number i where <b>(5 * i) % 7</b> will equal to <b>“1”</b>. This calculation will be brute-forced as follows:
+</p>
 
 - **1** isn’t the modular inverse of **5 mod 7** , because **(5 \* 1) % 7 = 5**
 - **2** isn’t the modular inverse of **5 mod 7** , because **(5 \* 2) % 7 = 3**
 - **3** is the modular inverse of **5 mod 7** , because **(5 \* 3) % 7 = 1**
 
-The encryption and decryption keys for the **Affine** cipher are two different numbers. The encryption key can be anything as long as it is relatively prime to **128** (which is the size of the ASCII symbol set). If for example, using the Affine cipher, the chosen key for encryption is five (5) , the decryption key will be the modular inverse of **5&nbsp;mod 128**
+<p style="text-align:justify;">
+The encryption and decryption keys for the <b>Affine</b> cipher are two different numbers. The encryption key can be anything as long as it is relatively prime to <b>128</b> (which is the size of the ASCII symbol set). If for example, using the Affine cipher, the chosen key for encryption is five (5) , the decryption key will be the modular inverse of <b>5&nbsp;mod 128</b>
 
 In order to calculate the modular inverse to get the decryption key, a brute-force approach will be used, starting to test integer 1, then 2, and then 3, and so on, taking into consideration that will be very time-consuming for large keys. There is an algorithm for finding the modular inverse just like there was for the encryption process and is called **Euclid Extended Algorithm**.
 
 for this case the following C++ program will be used in order to find the decryption key using the modular inverse of the chosen key a under modulo m
+</p>
 
 ```c
 #include <stdio.h>  
