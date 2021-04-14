@@ -116,8 +116,7 @@ As shown below, the possible values that key <b>'a'</b> could take are <b>1, 3, 
 The following snippet is the representation of the encryption equation <b>y = (5 * x + 8) % 128</b> in bitwise operation using the left shifting mechanism in C.&nbsp; In case of encryption, <b>'b'</b> can be any value.&nbsp;
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
-y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong> y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
 </strong></pre>
 
 ### Decrypting
@@ -191,8 +190,7 @@ root@slae:~/Documents/SLAE/Assignment7#
 So, as seen at the image above, the decryption key will be the number <b>77</b>. The decryption formula to use in order to convert the encrypted shellcode back to the original is the following&nbsp;
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
-x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong> x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 </strong></pre>
 
 **The Affine Cipher program explanation**
