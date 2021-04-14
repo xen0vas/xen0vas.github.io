@@ -278,7 +278,7 @@ return buf;
 
 The following function used for the purpose of decryption. Particularly, the Affine Decryption function performs the multiplication by the key’s modular inverse as described earlier
 
-```
+```c
 /*
 * Affine cipher - decryption function
 */
