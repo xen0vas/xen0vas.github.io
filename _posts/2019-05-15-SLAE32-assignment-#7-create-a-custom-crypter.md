@@ -198,7 +198,7 @@ x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 **The Affine Cipher program explanation**
 
 <p style="text-align:justify;">
-In this section i will show the <b>C</b> program which implements the Affine cipher encryption and decryption for the **execve** shellcode.
+In this section i will show the <b>C</b> program which implements the Affine cipher encryption and decryption for the <b>execve</b> shellcode.
 </p>
 
 <p style="text-align:justify;">
