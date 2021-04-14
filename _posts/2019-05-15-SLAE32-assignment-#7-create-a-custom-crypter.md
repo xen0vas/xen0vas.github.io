@@ -104,7 +104,9 @@ y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
 
 ### Decrypting
 
-To decrypt with the Affine cipher, there is a need to multiply by the key’s modular inverse. A modular inverse (which called **i** ) of two numbers (which called **a** and **m** ) is such that **(a \* i) % m == 1**.
+<p style="text-align:justify;">
+To decrypt with the Affine cipher, there is a need to multiply by the key’s modular inverse. A modular inverse (which called **i** ) of two numbers (which called <b>a</b> and <b>m</b> ) is such that <b>(a * i) % m == 1</b>.
+</p>
 
 The decryption function is
 
@@ -178,11 +180,11 @@ x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 **The Affine Cipher program explanation**
 
 <p style="text-align:justify;">
-In this section i will show the **C** program which implements the Affine cipher encryption and decryption for the **execve** shellcode.
+In this section i will show the <b>C</b> program which implements the Affine cipher encryption and decryption for the **execve** shellcode.
 </p>
 
 <p style="text-align:justify;">
-The following function is used to strip the **"\x"** chars from the string that holds the shellcode instructions. The hex values must be stripped because the ASCII hex values must be converted into the decimal equivalent in order to apply the Affine encryption.
+The following function is used to strip the <b>"\x"</b> chars from the string that holds the shellcode instructions. The hex values must be stripped because the ASCII hex values must be converted into the decimal equivalent in order to apply the Affine encryption.
 </p>
 
 ```c
