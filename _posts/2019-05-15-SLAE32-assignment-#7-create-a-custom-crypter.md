@@ -64,7 +64,7 @@ where modulus ' **m'** is the size of the ASCII alphanumeric values and **'a'** 
 for this case&nbsp; the following C program will be used in order to find relative prime numbers to use for Key **'a'** and Key **' b'**.
 
 ```c
-#include <stdio.h>
+#include < stdio.h >
 
 // Recursive function to return gcd of a and b
 int gcd(int a, int b)
@@ -159,7 +159,7 @@ Executing the program above using the Key a with value of **5** under&nbsp;modul
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong><span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment7</b></span># ./modinv 5 128
 Decryption Key is: 77
 root@slae:~/Documents/SLAE/Assignment7#
-</pre></strong>
+</strong></pre>
 
 So, as seen at the image above, the decryption key will be the number **77**. The decryption formula to use in order to convert the encrypted shellcode back to the original is the following&nbsp;
 
