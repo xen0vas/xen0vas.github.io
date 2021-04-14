@@ -154,14 +154,18 @@ return 0;
 }
 ```
 
-Executing the program above using the Key a with value of **5** under&nbsp;modulo **128** , the following output will be shown at the image below&nbsp;
+<p style="text-align:justify;">
+Executing the program above using the Key a with value of **5** under&nbsp;modulo <b>128</b> , the following output will be shown at the image below&nbsp;
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong><span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment7</b></span># ./modinv 5 128
 Decryption Key is: 77
 root@slae:~/Documents/SLAE/Assignment7#
 </strong></pre>
 
-So, as seen at the image above, the decryption key will be the number **77**. The decryption formula to use in order to convert the encrypted shellcode back to the original is the following&nbsp;
+<p style="text-align:justify;">
+So, as seen at the image above, the decryption key will be the number <b>77</b>. The decryption formula to use in order to convert the encrypted shellcode back to the original is the following&nbsp;
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
 x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
@@ -169,9 +173,13 @@ x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 
 **The Affine Cipher program explanation**
 
+<p style="text-align:justify;">
 In this section i will show the **C** program which implements the Affine cipher encryption and decryption for the **execve** shellcode.
+</p>
 
+<p style="text-align:justify;">
 The following function is used to strip the **"\x"** chars from the string that holds the shellcode instructions. The hex values must be stripped because the ASCII hex values must be converted into the decimal equivalent in order to apply the Affine encryption.
+</p>
 
 ```c
 /*
