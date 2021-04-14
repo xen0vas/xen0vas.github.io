@@ -202,7 +202,9 @@ return buf;
 }
 ```
 
+<p style="text-align:justify;">
 The following image shows a code snippet that converts char values into hexadecimal values. The reason of doing this is because there is a need to create shellcode instructions that can be executed in memory.&nbsp;
+</p>
 
 ```c
 /*
@@ -222,7 +224,9 @@ return chr;
 }
 ```
 
-Next, the **hexTochar** function is used to convert the shellcode from hex to byte array&nbsp; in order the shellcode&nbsp; to be executed successfully.&nbsp;
+<p style="text-align:justify;">
+Next, the <b>hexTochar</b> function is used to convert the shellcode from hex to byte array&nbsp; in order the shellcode&nbsp; to be executed successfully.&nbsp;
+</p>
 
 ```c
 /*
@@ -276,7 +280,9 @@ return buf;
 }
 ```
 
+<p style="text-align:justify;">
 The following function used for the purpose of decryption. Particularly, the Affine Decryption function performs the multiplication by the key’s modular inverse as described earlier
+</p>
 
 ```c
 /*
@@ -354,7 +360,9 @@ return chr;
 }
 ```
 
-The following snippet shows the main function of the program which will be used both for encryption and decryption. The arguments are provided from the standard input using the options _ **-e** _ and _ **-d** _ for ancryption and decryption accordingly. The main function will execute the decrypted shellcode once the user of the program inputs the&nbsp; encrypted shellcode.&nbsp; On the other hand, the main function will encrypt the plain shellcode once the ciphertext is provided in standard input.&nbsp;
+<p style="text-align:justify;">
+The following snippet shows the main function of the program which will be used both for encryption and decryption. The arguments are provided from the standard input using the options  <b>-e</b> and  <b>-d</b> for ancryption and decryption accordingly. The main function will execute the decrypted shellcode once the user of the program inputs the&nbsp; encrypted shellcode.&nbsp; On the other hand, the main function will encrypt the plain shellcode once the ciphertext is provided in standard input.&nbsp;
+</p>
 
 ```c
 int main(int argc, char **argv)
@@ -447,8 +455,9 @@ free(shellcode);
 return 0;
 
 ```
-
-The program above has been successfully compiled and tested in **_kali&nbsp;__linux version 4.19.0 x86_** architecture. The following **execve**  **shellcode** has been used for testing purposes which opens a **/bin/sh** command prompt.&nbsp;&nbsp;
+<p style="text-align:justify;">
+The program above has been successfully compiled and tested in kali&nbsp;linux version 4.19.0 x86 architecture. The following <b>execve</b>  <b>shellcode</b> has been used for testing purposes which opens a <b>/bin/sh</b> command prompt.&nbsp;&nbsp;
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
 \x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80
@@ -479,7 +488,9 @@ Options:
          -e : Encryption
 </strong></pre>
 
-When the Crypter runs using the **-e** option as seen below, then the encryption operation will be used to encrypt the **execve** shellcode using the Affine cipher&nbsp;
+<p style="text-align:justify;">
+When the Crypter runs using the **-e** option as seen below, then the encryption operation will be used to encrypt the <b>execve</b> shellcode using the Affine cipher&nbsp;
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong><span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment7</b></span># ./affine -e \x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80
 
