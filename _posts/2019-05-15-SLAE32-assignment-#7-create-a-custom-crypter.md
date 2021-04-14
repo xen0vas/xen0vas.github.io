@@ -519,7 +519,7 @@ Options:
 </pre>
 
 <p style="text-align:justify;">
-When the Crypter runs using the **-e** option as seen below, then the encryption operation will be used to encrypt the <b>execve</b> shellcode using the Affine cipher&nbsp;
+When the Crypter runs using the <b>-e</b> option as seen below, then the encryption operation will be used to encrypt the <b>execve</b> shellcode using the Affine cipher&nbsp;
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment7</b></span># ./affine -e \x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80
