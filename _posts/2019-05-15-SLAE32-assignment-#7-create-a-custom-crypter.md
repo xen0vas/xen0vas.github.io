@@ -458,7 +458,7 @@ The ciphertext of the **shellcode** above is the following&nbsp;
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><strong>
 \x07\x7d\x77\x78\x11\x78\x16\x20\x02\x06\x02\x06\x1b\x07\x16\x20\x16\x20\x02\x06\x16\x02\x16\x25\x16\x01\x20\x25\x01\x07\x11\x78\x20\x25\x01\x02\x11\x07\x20\x25\x01\x7d\x72\x78\x78\x72\x77\x7c\x20\x78
-</strong></span>
+</strong></pre>
 
 in order to compile the code the following command will be used
 
