@@ -33,15 +33,20 @@ A Crypter is a type of software that can encrypt, obfuscate, and manipulate malw
 
 ## The Affine Cipher
 
+
+<p style="text-align:justify;">
 As said above for this assessment&nbsp; the Affine Cipher will be used to create a crypter which is a kind of multiplicative cipher and has close relations with the Caesar cipher, except it uses multiplication instead of addition. The Affine Cipher will need two keys to operate: one used for the multiplicative cipher multiplication and the other one used for the Caesar cipher addition. The character selection set where the keys will be derived from, is the ASCII table that has 128 characters. The two keys will be used in order to implement encryption and decryption accordingly.
+</p>
 
 ![aff.PNG]({{ site.baseurl }}/assets/images/2019/05/aff.png)
 
+<p style="text-align:justify;">
 For the needs of this exercise only two hard-coded keys will be used. In the contrary&nbsp; if creating different ciphers from the same shellcode needed to be produced every time the crypter runs, then a randomness to the keys must be provided using a random key generator.&nbsp;&nbsp;
+</p>
 
 
 <p style="text-align:justify;">
-Regarding the Affine cipher and according to wikipedia, the letters of an alphabet of size m&nbsp;are first mapped to the integers in the range&nbsp; **0 …&nbsp;m&nbsp;− 1**. It then uses modular arithmetic to transform the integer that each plaintext letter corresponds, into another integer that correspond to a cipher text letter.&nbsp;
+Regarding the Affine cipher and according to wikipedia, the letters of an alphabet of size m&nbsp;are first mapped to the integers in the range&nbsp; <b>0 …&nbsp;m&nbsp;− 1</b>. It then uses modular arithmetic to transform the integer that each plaintext letter corresponds, into another integer that correspond to a cipher text letter.&nbsp;
 </p>
 
 > **lemma 1:&nbsp;**
@@ -52,9 +57,11 @@ Hence without the restriction on **'a'** , decryption might not be possible.&nbs
 
 > **lemma 2:&nbsp;**
 > 
-> In number theory, two integers ' **a'** and ' **b'** &nbsp;are said to be&nbsp;relatively prime,&nbsp;mutually prime or&nbsp;coprime&nbsp;if the only positive integer that divides both of them is **1**.
+> In number theory, two integers <b>'a'</b> and <b>'b'</b> &nbsp;are said to be&nbsp;relatively prime,&nbsp;mutually prime or&nbsp;coprime&nbsp;if the only positive integer that divides both of them is 1.
 
-In short, in order to know whether any two numbers are relatively prime, there is a need to compute the **greatest common divisor (gcd)**.&nbsp;&nbsp;
+<p style="text-align:justify;">
+In short, in order to know whether any two numbers are relatively prime, there is a need to compute the <b>greatest common divisor (gcd)</b>.&nbsp;&nbsp;
+</p>
 
 ### Encrypting
 
