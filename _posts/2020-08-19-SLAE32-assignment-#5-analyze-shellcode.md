@@ -20,7 +20,6 @@ tags:
 ## SLAE32 Assignment #5 - Analyze Shellcode
 
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;– 1314</strong></span></h2>
-
 <h2><span style="color:#339966;"><strong><br>Assignment 5 :</strong></span></h2>
 
 <p style="text-align:justify;">In this assignment (4) four <em>shellcode</em> samples from <em>msfvenom</em> will be analysed. In this particular exercise a reversing methodology will be provided in order to identify and understand the execution mechanisms of msfvenom samples. Furthermore, according to Offensive Security site, <em>msfvenom</em> is a combination of <em>Msfpayload</em> and <em>Msfencode</em> tools, putting both into a single Framework instance. The <em>msfvenom</em> tool replaced both <em>msfpayload</em> and <em>msfencode</em> as of June 8th, 2015. The <em>msfvenom</em> tool is extremely useful for generating payloads in various formats and encoding these payloads using various encoder modules.</p>
