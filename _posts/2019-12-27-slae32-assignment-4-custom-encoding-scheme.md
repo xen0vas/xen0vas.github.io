@@ -12,7 +12,8 @@ tags:
   - Shellcoding
   - Custom Encoder
 ---
-![SLAE32]({{ site.baseurl }}/assets/images/2019/12/slae32-1.png)
+
+<h2><span style="color:#339966;"><strong><img style="border:none;" src="{{ site.baseurl }}/assets/images/2020/08/slae32-1.png" alt="SLAE32" width="265" height="265" /></strong></span></h2>
 
 
 ## SLAE32 Assignment #4 - Custom Encoding Scheme
