@@ -294,18 +294,23 @@ The code structure above represents the <b>jmp/call/pop</b> technique. First, th
 08049000 &#x3C;_start>: 8049000: eb 39 jmp 804903b &#x3C;call_shellcode>
 </pre>
 
-In this case, using the **jmp short** instruction, **no**  **null** bytes produced. Furthermore, the **call decoder** instruction will set a new **stack frame,** where, the defined bytes right after the **call** instruction, will be saved into the stack. Furthermore, the **call** instruction redirects execution backwards, at label **decoder** , where **no null** bytes produced as seen in red font below. In the contrary, it is worth to mention that when a **call** instruction used to redirect execution in a forward location, then it produces **null** bytes, which is currently avoided because of using the **jmp/call/pop** technique described before.
+<p style="text-align:justify;">
+In this case, using the <b>jmp short</b> instruction, no <b>null</b> bytes produced. Furthermore, the <b>call decoder</b> instruction will set a new <b>jstack frame,</b> where, the defined bytes right after the <b>jcall</b> instruction, will be saved into the stack. Furthermore, the <b>call</b> instruction redirects execution backwards, at label <b>decoder</b> , where <b>no null</b> bytes produced as seen in red font below. In the contrary, it is worth to mention that when a <b>call</b> instruction used to redirect execution in a forward location, then it produces <b>null</b> bytes, which is currently avoided because of using the <b>jmp/call/pop</b> technique described before.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0804903b &#x3C;call_shellcode&#x3E;:
 804903b: e8 c2 ff ff ff call 8049002 &#x3C;decoder&#x3E;
 </pre>
 
-Later on, as said before, the execution of the program will be redirected to the **decoder** label, where the first instruction **pop esi** , when executed, will actually put the address of the shellcode inside the register **esi.&nbsp;**
 
-Now that the **jmp/call/pop** technique explained above, it is a good starting point to proceed further into explaining the implementation of the custom decoder.
+<p style="text-align:justify;">
+Later on, as said before, the execution of the program will be redirected to the <b>decoder</b> label, where the first instruction <b>pop esi</b> , when executed, will actually put the address of the shellcode inside the register <b>esi.&nbsp;</b>
 
-The following code snippet explains the code implemented inside the **init** label
+Now that the <b>jmp/call/pop</b> technique explained above, it is a good starting point to proceed further into explaining the implementation of the custom decoder.
+
+The following code snippet explains the code implemented inside the <b>init</b> label
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 init: 
@@ -317,7 +322,10 @@ init:
         mov dl, len
 </pre>
 
-As mentioned before,&nbsp; the **pop esi** instruction after executed will hold the address of the initial shellcode byte string ( see **EncodedShellcode** below ) **.** Afterwards, when the **push esi** instruction executed, it will push the address of the initial shellcode into the stack for later use. The next three instructions will perform a bitwise exclusive OR operation to **ebx** , **ecx** and **edx** registers in order to clear them and initialise them for later use.&nbsp; The **mov dl, len** instruction will load the shellcode length into the lower byte register **dl** ( lower byte registers are used to avoid nulls ).&nbsp; The length of the shellcode calculated as shown in red font below
+
+<p style="text-align:justify;">
+As mentioned before,&nbsp; the <b>pop esi</b> instruction after executed will hold the address of the initial shellcode byte string ( see <b>EncodedShellcode</b> below ) <b>.</b> Afterwards, when the <b>push esi</p> instruction executed, it will push the address of the initial shellcode into the stack for later use. The next three instructions will perform a bitwise exclusive OR operation to <b>ebx</b> , <b>ecx</b> and <b>edx</b> registers in order to clear them and initialise them for later use.&nbsp; The <b>mov dl, len</b> instruction will load the shellcode length into the lower byte register **dl** ( lower byte registers are used to avoid nulls ).&nbsp; The length of the shellcode calculated as shown in red font below
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 call_shellcode: 
