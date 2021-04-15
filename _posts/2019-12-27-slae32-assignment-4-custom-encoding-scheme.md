@@ -131,7 +131,8 @@ The following diagram depicts the result from the custom decoding process
 
 Afterwards, when the decoding process finishes, it is time to remove the extra bytes from every odd number location, shifting the bytes left.
 
-![removing]({{ site.baseurl }}/assets/images/2019/12/removing.png?w=1024)
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/12/removing.png" alt=""  />
+
 
 ### The Custom Encoder
 
