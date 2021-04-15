@@ -38,13 +38,13 @@ In this assignment a custom _shellcode_ encoder / decoder&nbsp; will be created 
 
 For the purposes of this assignment the custom encoder / decoder has been successfully tested at the following architecture
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 Linux kali 5.3.0-kali3-686-pae #1 SMP Debian 5.3.15-1kali1 (2019-12-09) i686 GNU/Linux
-```
+</pre>
 
 ### The encoding / decoding scheme
 
-The logic behind the creation of a custom encoding / decoding scheme, is to represent a given _shellcode_ into a form that will be different from the one it had before, with the prospect that the encoded _shellcode_ will be obfuscated. Furthermore, in order the shellcode to be executed as intended, it must be decoded into its initial form on runtime, using a decoding pattern. The following diagram shows the **execve** _shellcode_ bytes that will be used in order to apply the custom encoding scheme
+The logic behind the creation of a custom encoding / decoding scheme, is to represent a given _shellcode_ into a form that will be different from the one it had before, with the prospect that the encoded _shellcode_ will be obfuscated. Furthermore, in order the shellcode to be executed as intended, it must be decoded into its initial form on runtime, using a decoding pattern. The following diagram shows the execve _shellcode_ bytes that will be used in order to apply the custom encoding scheme
 
 ![Screenshot 2019-12-21 at 12.55.26 PM]({{ site.baseurl }}/assets/images/2019/12/screenshot-2019-12-21-at-12.55.26-pm.png?w=1024)
 
@@ -81,7 +81,9 @@ l++;
 }
 ```
 
+<p style="text-align:justify;">
 The next encoding operation in the custom encoding process is to change the values of the _shellcode_ bytes using a custom encoding pattern. The following steps are showing the custom encoding pattern
+</p>
 
 1. provide a bitwise exclusive OR operation **(xor)** to every byte in sequence with value **0x2c**
 2. **subtract** every byte with value **0x2**
@@ -107,7 +109,7 @@ shellcode2[i] = (shellcode2[i] << rot) | (shellcode2[i] >> sizeof(shellcode2[i])
 
 The following diagram depicts the result from the custom encoding process
 
-![encoded]({{ site.baseurl }}/assets/images/2019/12/encoded-2.png?w=1024)
+![encoded]({{ site.baseurl }}/assets/images/2019/12/encoded-2.png)
 
 Later on, the decoding process will take place, providing a reverse operation to the encoded bytes. The following steps used to decode the encoded payload
 
@@ -126,7 +128,7 @@ Afterwards, when the decoding process finishes, it is time to remove the extra b
 
 ### The Custom Encoder
 
-For the encoding phase, the payload used to encode is the **execve** which executes the **/bin/sh** command. The custom encoder has been implemented as shown below
+For the encoding phase, the payload used to encode is the execve which executes the /bin/sh command. The custom encoder has been implemented as shown below
 
 ```c
 #include <stdio.h>
@@ -450,7 +452,7 @@ ret();
 }
 ```
 
-compiling and running the program will give the following result which is the execution of the&nbsp; **/bash/sh** command using the **execve** shellcode.
+compiling and running the program will give the following result which is the execution of the&nbsp; /bash/sh command using the execve shellcode.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment4</b></span># gcc -fno-stack-protector -z execstack -o shell shell.c && ./shell
