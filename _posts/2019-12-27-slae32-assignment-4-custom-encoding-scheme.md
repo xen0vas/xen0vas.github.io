@@ -473,7 +473,7 @@ call_shellcode:
 
 The shellcode will be assembled and linked using the following bash script
 
-```c
+```bash
 #!/bin/bash
 
 echo '[+] Assembling with Nasm ... '
