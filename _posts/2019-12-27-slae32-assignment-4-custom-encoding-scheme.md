@@ -113,9 +113,11 @@ shellcode2[i] = (shellcode2[i] << rot) | (shellcode2[i] >> sizeof(shellcode2[i])
 
 The following diagram depicts the result from the custom encoding process
 
-![encoded]({{ site.baseurl }}/assets/images/2019/12/encoded-2.png)
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/12/encoded-2.png" alt=""  />
 
+<p style="text-align:justify;">
 Later on, the decoding process will take place, providing a reverse operation to the encoded bytes. The following steps used to decode the encoded payload
+</p>
 
 1. perform a **4 bits left rotation** **(rol)** to every byte in shellcode
 2. apply ones' complement&nbsp; arithmetic operation
@@ -124,7 +126,7 @@ Later on, the decoding process will take place, providing a reverse operation to
 
 The following diagram depicts the result from the custom decoding process
 
-![decoding]({{ site.baseurl }}/assets/images/2019/12/decoding.png?w=1024)
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/12/decoding.png" alt=""  />
 
 Afterwards, when the decoding process finishes, it is time to remove the extra bytes from every odd number location, shifting the bytes left.
 
