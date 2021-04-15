@@ -251,7 +251,7 @@ At this section, an assembly wrapper will be used to decode the encoded payload 
 </pre>
 
 <p style="text-align:justify;">
-The custom decoder implemented using the **jmp/call/pop** technique in order to achieve two basic things
+The custom decoder implemented using the <b>jmp/call/pop</b> technique in order to achieve two basic things
 </p>
 
 1. Avoid null bytes
