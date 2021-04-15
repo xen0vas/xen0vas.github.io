@@ -17,7 +17,9 @@ tags:
 
 ## SLAE32 Assignment #4 - Custom Encoding Scheme
 
+<p style="text-align:justify;">
 In this assignment a custom _shellcode_ encoder / decoder&nbsp; will be created in order to show a custom encoding technique used when deploying malicious payloads onto target systems.
+</p>
 
 **The assignment:**
 
@@ -43,12 +45,15 @@ Linux kali 5.3.0-kali3-686-pae #1 SMP Debian 5.3.15-1kali1 (2019-12-09) i686 GNU
 
 ### The encoding / decoding scheme
 
+<p style="text-align:justify;">
 The logic behind the creation of a custom encoding / decoding scheme, is to represent a given _shellcode_ into a form that will be different from the one it had before, with the prospect that the encoded _shellcode_ will be obfuscated. Furthermore, in order the shellcode to be executed as intended, it must be decoded into its initial form on runtime, using a decoding pattern. The following diagram shows the execve _shellcode_ bytes that will be used in order to apply the custom encoding scheme
+</p>
 
 ![Screenshot 2019-12-21 at 12.55.26 PM]({{ site.baseurl }}/assets/images/2019/12/screenshot-2019-12-21-at-12.55.26-pm.png)
 
-
+<p style="text-align:justify;">
 The first operation in the encoding process is to provide an insertion encoding scheme&nbsp; which will add random bytes at every odd number location at the initial _shellcode_ byte sequence. The following diagram represents the result of the insertion encoding process
+</p>
 
 ![insertion]({{ site.baseurl }}/assets/images/2019/12/insertion.png)
 
