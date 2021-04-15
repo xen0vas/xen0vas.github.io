@@ -33,8 +33,7 @@ In this assignment a custom _shellcode_ encoder / decoder&nbsp; will be created 
 > Published on
 > 
 > - [exploit-db](https://www.exploit-db.com/shellcodes/47890)
-> - [packetstormsecurity](https://packetstormsecurity.com/files/155759/Linux-x86-Encoder-Decoder-Shellcode.html)
-> - [0day.today](https://en.0day.today/exploit/description/33694)
+
 
 For the purposes of this assignment the custom encoder / decoder has been successfully tested at the following architecture
 
@@ -46,12 +45,12 @@ Linux kali 5.3.0-kali3-686-pae #1 SMP Debian 5.3.15-1kali1 (2019-12-09) i686 GNU
 
 The logic behind the creation of a custom encoding / decoding scheme, is to represent a given _shellcode_ into a form that will be different from the one it had before, with the prospect that the encoded _shellcode_ will be obfuscated. Furthermore, in order the shellcode to be executed as intended, it must be decoded into its initial form on runtime, using a decoding pattern. The following diagram shows the execve _shellcode_ bytes that will be used in order to apply the custom encoding scheme
 
-![Screenshot 2019-12-21 at 12.55.26 PM]({{ site.baseurl }}/assets/images/2019/12/screenshot-2019-12-21-at-12.55.26-pm.png?w=1024)
+![Screenshot 2019-12-21 at 12.55.26 PM]({{ site.baseurl }}/assets/images/2019/12/screenshot-2019-12-21-at-12.55.26-pm.png)
 
 
 The first operation in the encoding process is to provide an insertion encoding scheme&nbsp; which will add random bytes at every odd number location at the initial _shellcode_ byte sequence. The following diagram represents the result of the insertion encoding process
 
-![insertion]({{ site.baseurl }}/assets/images/2019/12/insertion.png?w=1024)
+![insertion]({{ site.baseurl }}/assets/images/2019/12/insertion.png)
 
 The insertion encoder has been implemented using the following code snippet
 
