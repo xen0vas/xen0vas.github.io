@@ -274,7 +274,7 @@ The code structure above represents the **jmp/call/pop** technique. First, the *
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-08049000 <_start>: 8049000: eb 39 jmp 804903b < call_shellcode >
+08049000 &#x3C;_start>: 8049000: eb 39 jmp 804903b &#x3C;call_shellcode>
 </pre>
 
 In this case, using the **jmp short** instruction, **no**  **null** bytes produced. Furthermore, the **call decoder** instruction will set a new **stack frame,** where, the defined bytes right after the **call** instruction, will be saved into the stack. Furthermore, the **call** instruction redirects execution backwards, at label **decoder** , where **no null** bytes produced as seen in red font below. In the contrary, it is worth to mention that when a **call** instruction used to redirect execution in a forward location, then it produces **null** bytes, which is currently avoided because of using the **jmp/call/pop** technique described before.
