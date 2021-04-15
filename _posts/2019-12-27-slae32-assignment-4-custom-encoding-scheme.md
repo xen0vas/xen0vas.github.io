@@ -242,21 +242,29 @@ Then, running the encoder will give the following result
 
 ### The Custom Decoder&nbsp;
 
+<p style="text-align:justify;">
 At this section, an assembly wrapper will be used to decode the encoded payload which will implement the decoding scheme. The main purpose of the custom decoder is to implement a generic solution making the decoder work in different linux environments. The decoding scheme will be applied at the following encoded payload.
-
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0x4e,0xc7,0x51,0xec,0x58,0x01,0xdb,0x3f,0xef,0xf4,0xef,0xda,0x2a,0x3e,0xdb,0x1e,0xdb,0x9b,0xef,0x9a,0x3b,0x95,0xcb,0x32,0xfb,0xf0,0xc5,0x72,0x23,0x24,0x58,0x42,0xc5,0x86,0x33,0x8c,0x28,0x55,0xc5,0x35,0x43,0x24,0x56,0x76,0xad,0x09,0x02,0x10,0x55,0x39
 </pre>
 
+<p style="text-align:justify;">
 The custom decoder implemented using the **jmp/call/pop** technique in order to achieve two basic things
+</p>
 
 1. Avoid null bytes
 2. Avoid hardcoded addresses
 
-In order the shellcode to work in other linux systems or other vulnerable programs, it should not contain hardcoded addresses. Furthermore, the shellcode&nbsp;must not contain **\x00 (null)** bytes as these used to terminate a string with a certain impact of breaking the shellcode and stop execution.
 
-Along with the above two points in mind it is time to start implementing the shellcode while first describing the **jmp/call/pop** technique as shown at the following program structure
+<p style="text-align:justify;">
+In order the shellcode to work in other linux systems or other vulnerable programs, it should not contain hardcoded addresses. Furthermore, the shellcode&nbsp;must not contain <b>\x00 (null)</b> bytes as these used to terminate a string with a certain impact of breaking the shellcode and stop execution.
+</p>
+
+<p style="text-align:justify;">
+Along with the above two points in mind it is time to start implementing the shellcode while first describing the <b>jmp/call/pop</b> technique as shown at the following program structure
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start 
@@ -276,7 +284,10 @@ call_shellcode:
       len equ $-EncodedShellcode
 </pre>
 
-The code structure above represents the **jmp/call/pop** technique. First, the **jmp**  **short** instruction used in order to redirect the program execution to a location where the **call\_shellcode** label begins. The reason that **jmp short** instruction has been chosen is that it will not generate **null** bytes when executed. In more detail, **jmp short** means **two (2)**&nbsp; **bytes** will be used to jump to a memory location in the same segment, so there are actually **2^8=256** bytes for the offset. In fact, a signed offset is used, so it actually goes from **00h** to **7Fh** for a forward **jmp** and from **80h** to **FFh** for a backward or reverse&nbsp; **jmp**. This is great because it means using a **jmp&nbsp;short** instruction will not add any **nulls** (check this [reference](https://thestarman.pcministry.com/asm/2bytejumps.htm) for more details about **jmp** instruction ). So, in current&nbsp; scenario a forward short jump will be used where the encoded output is shown in red font below
+
+<p style="text-align:justify;">
+The code structure above represents the <b>jmp/call/pop</b> technique. First, the <b>jmp</b>  <b>short</b> instruction used in order to redirect the program execution to a location where the <b>call_shellcode</b> label begins. The reason that <b>jmp short</b> instruction has been chosen is that it will not generate <b>null</b> bytes when executed. In more detail, <b>jmp short</b> means <b>two (2)</b>&nbsp; <b>bytes</b> will be used to jump to a memory location in the same segment, so there are actually <b>2^8=256</b> bytes for the offset. In fact, a signed offset is used, so it actually goes from <b>00h</b> to <b>7Fh</b> for a forward <b>jmp</b> and from <b>80h</b> to <b>FFh</b> for a backward or reverse&nbsp; <b>jmp</b>. This is great because it means using a <b>jmp&nbsp;short</b> instruction will not add any <b>nulls</b> (check this <a href="https://thestarman.pcministry.com/asm/2bytejumps.htm" >reference</a>) for more details about <b>jmp</b> instruction ). So, in current&nbsp; scenario a forward short jump will be used where the encoded output is shown in red font below
+</p>
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
