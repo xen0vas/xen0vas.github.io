@@ -18,7 +18,7 @@ tags:
 ## SLAE32 Assignment #4 - Custom Encoding Scheme
 
 <p style="text-align:justify;">
-In this assignment a custom _shellcode_ encoder / decoder&nbsp; will be created in order to show a custom encoding technique used when deploying malicious payloads onto target systems.
+In this assignment a custom shellcode encoder / decoder&nbsp; will be created in order to show a custom encoding technique used when deploying malicious payloads onto target systems.
 </p>
 
 **The assignment:**
@@ -46,13 +46,13 @@ Linux kali 5.3.0-kali3-686-pae #1 SMP Debian 5.3.15-1kali1 (2019-12-09) i686 GNU
 ### The encoding / decoding scheme
 
 <p style="text-align:justify;">
-The logic behind the creation of a custom encoding / decoding scheme, is to represent a given _shellcode_ into a form that will be different from the one it had before, with the prospect that the encoded _shellcode_ will be obfuscated. Furthermore, in order the shellcode to be executed as intended, it must be decoded into its initial form on runtime, using a decoding pattern. The following diagram shows the execve _shellcode_ bytes that will be used in order to apply the custom encoding scheme
+The logic behind the creation of a custom encoding / decoding scheme, is to represent a given shellcode into a form that will be different from the one it had before, with the prospect that the encoded shellcode will be obfuscated. Furthermore, in order the shellcode to be executed as intended, it must be decoded into its initial form on runtime, using a decoding pattern. The following diagram shows the execve shellcode bytes that will be used in order to apply the custom encoding scheme
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/12/screenshot-2019-12-21-at-12.55.26-pm.png" alt=""  />
 
 <p style="text-align:justify;">
-The first operation in the encoding process is to provide an insertion encoding scheme&nbsp; which will add random bytes at every odd number location at the initial _shellcode_ byte sequence. The following diagram represents the result of the insertion encoding process
+The first operation in the encoding process is to provide an insertion encoding scheme&nbsp; which will add random bytes at every odd number location at the initial shellcode byte sequence. The following diagram represents the result of the insertion encoding process
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/12/insertion.png" alt=""  />
@@ -86,13 +86,13 @@ l++;
 ```
 
 <p style="text-align:justify;">
-The next encoding operation in the custom encoding process is to change the values of the _shellcode_ bytes using a custom encoding pattern. The following steps are showing the custom encoding pattern
+The next encoding operation in the custom encoding process is to change the values of the shellcode bytes using a custom encoding pattern. The following steps are showing the custom encoding pattern
 </p>
 
 1. provide a bitwise exclusive OR operation **(xor)** to every byte in sequence with value **0x2c**
 2. **subtract** every byte with value **0x2**
 3. apply ones' complement&nbsp; arithmetic operation
-4. perform a **4 bits right rotation (ror)** to every byte in _shellcode_
+4. perform a **4 bits right rotation (ror)** to every byte in shellcode
 
 The above encoding pattern implemented using the code snippet below
 
@@ -117,7 +117,7 @@ The following diagram depicts the result from the custom encoding process
 
 Later on, the decoding process will take place, providing a reverse operation to the encoded bytes. The following steps used to decode the encoded payload
 
-1. perform a **4 bits left rotation** **(rol)** to every byte in _shellcode_
+1. perform a **4 bits left rotation** **(rol)** to every byte in shellcode
 2. apply ones' complement&nbsp; arithmetic operation
 3. **add** value **0x2** to every byte in sequence
 4. provide a bitwise exclusive OR operation **(xor)** to every byte with value **0x2c**
@@ -254,7 +254,7 @@ The custom decoder implemented using the **jmp/call/pop** technique in order to 
 1. Avoid null bytes
 2. Avoid hardcoded addresses
 
-In order the _shellcode_ to work in other linux systems or other vulnerable programs, it should not contain hardcoded addresses. Furthermore, the _shellcode_&nbsp;must not contain **\x00 (null)** bytes as these used to terminate a string with a certain impact of breaking the _shellcode_ and stop execution.
+In order the shellcode to work in other linux systems or other vulnerable programs, it should not contain hardcoded addresses. Furthermore, the shellcode&nbsp;must not contain **\x00 (null)** bytes as these used to terminate a string with a certain impact of breaking the shellcode and stop execution.
 
 Along with the above two points in mind it is time to start implementing the shellcode while first describing the **jmp/call/pop** technique as shown at the following program structure
 
@@ -290,7 +290,7 @@ In this case, using the **jmp short** instruction, **no**  **null** bytes produc
 804903b: e8 c2 ff ff ff call 8049002 &#x3C;decoder&#x3E;
 </pre>
 
-Later on, as said before, the execution of the program will be redirected to the **decoder** label, where the first instruction **pop esi** , when executed, will actually put the address of the _shellcode_ inside the register **esi.&nbsp;**
+Later on, as said before, the execution of the program will be redirected to the **decoder** label, where the first instruction **pop esi** , when executed, will actually put the address of the shellcode inside the register **esi.&nbsp;**
 
 Now that the **jmp/call/pop** technique explained above, it is a good starting point to proceed further into explaining the implementation of the custom decoder.
 
@@ -306,7 +306,7 @@ init:
         mov dl, len
 </pre>
 
-As mentioned before,&nbsp; the **pop esi** instruction after executed will hold the address of the initial _shellcode_ byte string ( see **EncodedShellcode** below ) **.** Afterwards, when the **push esi** instruction executed, it will push the address of the initial _shellcode_ into the stack for later use. The next three instructions will perform a bitwise exclusive OR operation to **ebx** , **ecx** and **edx** registers in order to clear them and initialise them for later use.&nbsp; The **mov dl, len** instruction will load the _shellcode_ length into the lower byte register **dl** ( lower byte registers are used to avoid nulls ).&nbsp; The length of the _shellcode_ calculated as shown in red font below
+As mentioned before,&nbsp; the **pop esi** instruction after executed will hold the address of the initial shellcode byte string ( see **EncodedShellcode** below ) **.** Afterwards, when the **push esi** instruction executed, it will push the address of the initial shellcode into the stack for later use. The next three instructions will perform a bitwise exclusive OR operation to **ebx** , **ecx** and **edx** registers in order to clear them and initialise them for later use.&nbsp; The **mov dl, len** instruction will load the shellcode length into the lower byte register **dl** ( lower byte registers are used to avoid nulls ).&nbsp; The length of the shellcode calculated as shown in red font below
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 call_shellcode: 
@@ -325,7 +325,7 @@ scheme:
        xor byte [esi], 0x2c
 </pre>
 
-The above code snippet executes the decoding scheme at the given encoded _shellcode_, where the **rol** instruction will be applied to the byte pointed by **esi**** &nbsp; **register in order to perform a** four (4) **bit left rotation. Then, the** not **instruction will be used in order to perform** one's complement **to the byte pointed by** esi **register. The** add **instruction will be used to add** two (2) **bits to the byte pointed by** esi **&nbsp;register. The last instruction of the encoding scheme will be the** xor **instruction which will implement a bitwise exclusive OR operation to the byte pointed by** esi **register with the value** 0x2c **. Furthermore,** inc esi**will be used in order to add one (1) to the contents of the byte at the effective address represented by**esi** register. This procedure will continue until the end of the _shellcode_ as shown at the following code snippet
+The above code snippet executes the decoding scheme at the given encoded shellcode, where the **rol** instruction will be applied to the byte pointed by **esi**** &nbsp; **register in order to perform a** four (4) **bit left rotation. Then, the** not **instruction will be used in order to perform** one's complement **to the byte pointed by** esi **register. The** add **instruction will be used to add** two (2) **bits to the byte pointed by** esi **&nbsp;register. The last instruction of the encoding scheme will be the** xor **instruction which will implement a bitwise exclusive OR operation to the byte pointed by** esi **register with the value** 0x2c **. Furthermore,** inc esi**will be used in order to add one (1) to the contents of the byte at the effective address represented by**esi** register. This procedure will continue until the end of the shellcode as shown at the following code snippet
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 inc esi
@@ -335,7 +335,7 @@ inc cl
 jmp short scheme
 </pre>
 
-After encoding the first _shellcode_ byte contained in **esi** register, the **esi** register will be increased by **one (1)** in order to move to the next byte using the instruction **inc esi**. Later on, &nbsp;the counter value represented by the **cl** lower byte register will be compared with the length of the _shellcode_ contained inside **dl** lower byte register using the **cmp** instruction. At the next instruction, if the comparison between the values contained at **cl** and **dl** lower byte registers are not equal, by using the **jmp** instruction, the execution will be redirected at the beginning of the **scheme** label, thus creating a loop until the values are equal. In the contrary, at the next loop, and after increasing the counter using the instruction **inc cl** , if the comparison of the values of the lower byte registers **cl** and **dl** are equal, the execution will be directed forward to **prepare** label using the instruction **je prepare**.
+After encoding the first shellcode byte contained in **esi** register, the **esi** register will be increased by **one (1)** in order to move to the next byte using the instruction **inc esi**. Later on, &nbsp;the counter value represented by the **cl** lower byte register will be compared with the length of the shellcode contained inside **dl** lower byte register using the **cmp** instruction. At the next instruction, if the comparison between the values contained at **cl** and **dl** lower byte registers are not equal, by using the **jmp** instruction, the execution will be redirected at the beginning of the **scheme** label, thus creating a loop until the values are equal. In the contrary, at the next loop, and after increasing the counter using the instruction **inc cl** , if the comparison of the values of the lower byte registers **cl** and **dl** are equal, the execution will be directed forward to **prepare** label using the instruction **je prepare**.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 prepare: 
@@ -346,7 +346,7 @@ prepare:
         xor ecx, ecx
 </pre>
 
-At the code snippet above, when the **pop esi** instruction executed, the **esi** register will point to the first byte of the initial _shellcode_. At this point, it must be mentioned that apart of the decoding process of every encoded _shellcode_ byte_,_ all the extra random bytes contained in the encoded _shellcode_ ( see the encoding process ), will be removed from every odd number location until the end of the encoded _shellcode_. Continuing further, in order to achieve this, the **edi** register must point to the next byte using the instruction **lea edi, [esi +1]**.&nbsp; Furthermore, **eax&nbsp;** and **ecx** registers will be initialised using the exclusive or ( **xor** ) operation, because **al** will be used as counter making **esi** to point into every **even** number location, and **cl** register will also used as counter in order to be compared with the length of the _shellcode_. The lower byte register **al** will&nbsp; increase its value by **two (2)** every time it is executed, which currently initialised with the immediate value **one (1)** using the **mov al, 1** instruction **,** in order to achieve counting **even numbers (1,3,5,7,...)**. The next code snippet will be used to remove the extra random bytes of the encoded _shellcode_
+At the code snippet above, when the **pop esi** instruction executed, the **esi** register will point to the first byte of the initial shellcode. At this point, it must be mentioned that apart of the decoding process of every encoded shellcode byte_,_ all the extra random bytes contained in the encoded shellcode ( see the encoding process ), will be removed from every odd number location until the end of the encoded shellcode. Continuing further, in order to achieve this, the **edi** register must point to the next byte using the instruction **lea edi, [esi +1]**.&nbsp; Furthermore, **eax&nbsp;** and **ecx** registers will be initialised using the exclusive or ( **xor** ) operation, because **al** will be used as counter making **esi** to point into every **even** number location, and **cl** register will also used as counter in order to be compared with the length of the shellcode. The lower byte register **al** will&nbsp; increase its value by **two (2)** every time it is executed, which currently initialised with the immediate value **one (1)** using the **mov al, 1** instruction **,** in order to achieve counting **even numbers (1,3,5,7,...)**. The next code snippet will be used to remove the extra random bytes of the encoded shellcode
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 remove_bytes: 
@@ -361,7 +361,7 @@ remove_bytes:
             jmp short remove_bytes
 </pre>
 
-The first instruction at the code snippet above is a comparison between the two lower byte registers **cl** and **dl** , where the lower byte register **dl** contains the length of the _shellcode_. In case the comparison is equal, the next instruction **je EncodedShellcode** will redirect execution into the code section with the label&nbsp; **EncodedShellcode**. The next instruction **mov bl, byte [esi + eax + 1] ,**will move the byte contents pointed by **[esi + eax + 1]** to lower byte register **bl** , which means it will move the next byte plus one from current location into **bl,** and that because the **bl** lower byte register must contain a _shellcode_ byte located at an odd number location inside the _shellcode_ byte sequence **.** Then, every time the **mov byte [edi], bl** instruction executes, the **edi** register will point only at the _shellcode_ bytes located at odd number locations, thus shifting the bytes of the _shellcode_ one byte left at a time, removing the inserted bytes located at even number locations. Then, the instruction **inc edi** will increase the **edi** register by one, pointing to the next location. Afterwards, because the inserted random bytes are located in every even number location of the _shellcode_ byte sequence, the lower byte **al** will increase its value by **two (2)** using the instruction **add al, 2** in order to point to achieve pointing to odd number locations. Next, The **jmp short remove\_bytes** &nbsp;will perform a reverse short **jmp** to the beginning of the **remove\_bytes&nbsp;** label creating a loop until the _shellcode_ reaches its last byte.
+The first instruction at the code snippet above is a comparison between the two lower byte registers **cl** and **dl** , where the lower byte register **dl** contains the length of the shellcode. In case the comparison is equal, the next instruction **je EncodedShellcode** will redirect execution into the code section with the label&nbsp; **EncodedShellcode**. The next instruction **mov bl, byte [esi + eax + 1] ,**will move the byte contents pointed by **[esi + eax + 1]** to lower byte register **bl** , which means it will move the next byte plus one from current location into **bl,** and that because the **bl** lower byte register must contain a shellcode byte located at an odd number location inside the shellcode byte sequence **.** Then, every time the **mov byte [edi], bl** instruction executes, the **edi** register will point only at the shellcode bytes located at odd number locations, thus shifting the bytes of the shellcode one byte left at a time, removing the inserted bytes located at even number locations. Then, the instruction **inc edi** will increase the **edi** register by one, pointing to the next location. Afterwards, because the inserted random bytes are located in every even number location of the shellcode byte sequence, the lower byte **al** will increase its value by **two (2)** using the instruction **add al, 2** in order to point to achieve pointing to odd number locations. Next, The **jmp short remove\_bytes** &nbsp;will perform a reverse short **jmp** to the beginning of the **remove\_bytes&nbsp;** label creating a loop until the shellcode reaches its last byte.
 
 The full assembly code which implements the custom decoder is shown below:
 
@@ -415,7 +415,7 @@ call_shellcode:
         len equ $-EncodedShellcode
 </pre>
 
-The _shellcode_ will be assembled and linked using the following bash script
+The shellcode will be assembled and linked using the following bash script
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 #!/bin/bash
@@ -429,13 +429,13 @@ ld -z execstack -o $1 $1.o
 echo '[+] Done!'
 </pre>
 
-The following command will produce the final _shellcode_
+The following command will produce the final shellcode
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 objdump -d ./decode|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 </pre>
 
-The produced _shellcode_ will be delivered and executed using the following program
+The produced shellcode will be delivered and executed using the following program
 
 ```c
 #include<stdio.h>
