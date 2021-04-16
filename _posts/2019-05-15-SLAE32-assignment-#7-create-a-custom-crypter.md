@@ -192,7 +192,7 @@ So, as seen at the image above, the decryption key will be the number <b>77</b>.
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"> x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 </pre>
 
-**The Affine Cipher program explanation**
+<h4><span style="color:#339966;">The Affine Cipher program explanation</span></h4>
 
 <p style="text-align:justify;">
 In this section i will show the <b>C</b> program which implements the Affine cipher encryption and decryption for the <b>execve</b> shellcode.
