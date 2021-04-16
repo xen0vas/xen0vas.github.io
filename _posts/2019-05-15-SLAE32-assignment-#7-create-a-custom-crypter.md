@@ -19,8 +19,8 @@ tags:
 
 <h2><span style="color:#339966;"><strong><img style="border:none;" src="{{ site.baseurl }}/assets/images/2020/08/slae32-1.png" alt="SLAE32" width="265" height="265" /></strong></span></h2>
 
-<h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;– 1314</strong></span></h2>
-<h2><span style="color:#339966;"><strong><br>Assignment 7 :</strong></span></h2>
+<h2><span style="color:#339966;">Student ID : SLAE &nbsp;– 1314</span></h2>
+<h2><span style="color:#339966;"><br>Assignment 7 :</span></h2>
 
 
 <p style="text-align:justify;">
@@ -31,7 +31,7 @@ A Crypter is a type of software that can encrypt, obfuscate, and manipulate malw
 
 > The full crypter source code and scripts can be found at [github](https://github.com/xvass/SLAE/tree/master/Assignment7)
 
-<h2><span style="color:#339966;"><strong>The Affine Cipher</strong></span></h2>
+<h2><span style="color:#339966;">The Affine Cipher</span></h2>
 
 <p style="text-align:justify;">
 As said above for this assessment&nbsp; the Affine Cipher will be used to create a crypter which is a kind of multiplicative cipher and has close relations with the Caesar cipher, except it uses multiplication instead of addition. The Affine Cipher will need two keys to operate: one used for the multiplicative cipher multiplication and the other one used for the Caesar cipher addition. The character selection set where the keys will be derived from, is the ASCII table that has 128 characters. The two keys will be used in order to implement encryption and decryption accordingly.
@@ -62,7 +62,7 @@ Hence without the restriction on **'a'** , decryption might not be possible.&nbs
 In short, in order to know whether any two numbers are relatively prime, there is a need to compute the <b>greatest common divisor (gcd)</b>.&nbsp;&nbsp;
 </p>
 
-<h3><span style="color:#339966;"><strong>Encrypting</strong></span></h3>
+<h3><span style="color:#339966;">Encrypting</span></h3>
 
 <p style="text-align:justify;">
 At this example the payload to encrypt is the shellcode that opens a new terminal shell using the <b>execve</b> command. In order to perform the encryption functionality, the ASCII table will be used, which constitutes 128 alphanumeric values converting each letter into its numeric equivalent. For the encryption to happen&nbsp; the following equation will be used
@@ -118,7 +118,7 @@ The following snippet is the representation of the encryption equation <b>y = (5
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"> y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
 </pre>
 
-<h3><span style="color:#339966;"><strong>Decrypting</strong></span></h3>
+<h3><span style="color:#339966;">Decrypting</span></h3>
 
 <p style="text-align:justify;">
 To decrypt with the Affine cipher, there is a need to multiply by the key’s modular inverse. A modular inverse (which called <b>i</b> ) of two numbers (which called <b>a</b> and <b>m</b> ) is such that <b>(a * i) % m == 1</b>.
