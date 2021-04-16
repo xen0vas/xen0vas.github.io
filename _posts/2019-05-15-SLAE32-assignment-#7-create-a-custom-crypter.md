@@ -31,8 +31,7 @@ A Crypter is a type of software that can encrypt, obfuscate, and manipulate malw
 
 > The full crypter source code and scripts can be found at [github](https://github.com/xvass/SLAE/tree/master/Assignment7)
 
-## The Affine Cipher
-
+<h2><span style="color:#339966;"><strong>The Affine Cipher</strong></span></h2>
 
 <p style="text-align:justify;">
 As said above for this assessment&nbsp; the Affine Cipher will be used to create a crypter which is a kind of multiplicative cipher and has close relations with the Caesar cipher, except it uses multiplication instead of addition. The Affine Cipher will need two keys to operate: one used for the multiplicative cipher multiplication and the other one used for the Caesar cipher addition. The character selection set where the keys will be derived from, is the ASCII table that has 128 characters. The two keys will be used in order to implement encryption and decryption accordingly.
@@ -63,7 +62,7 @@ Hence without the restriction on **'a'** , decryption might not be possible.&nbs
 In short, in order to know whether any two numbers are relatively prime, there is a need to compute the <b>greatest common divisor (gcd)</b>.&nbsp;&nbsp;
 </p>
 
-### Encrypting
+<h3><span style="color:#339966;"><strong>Encrypting</strong></span></h3>
 
 <p style="text-align:justify;">
 At this example the payload to encrypt is the shellcode that opens a new terminal shell using the <b>execve</b> command. In order to perform the encryption functionality, the ASCII table will be used, which constitutes 128 alphanumeric values converting each letter into its numeric equivalent. For the encryption to happen&nbsp; the following equation will be used
@@ -119,7 +118,7 @@ The following snippet is the representation of the encryption equation <b>y = (5
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"> y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
 </pre>
 
-### Decrypting
+<h3><span style="color:#339966;"><strong>Decrypting</strong></span></h3>
 
 <p style="text-align:justify;">
 To decrypt with the Affine cipher, there is a need to multiply by the key’s modular inverse. A modular inverse (which called <b>i</b> ) of two numbers (which called <b>a</b> and <b>m</b> ) is such that <b>(a * i) % m == 1</b>.
@@ -146,7 +145,7 @@ The encryption and decryption keys for the <b>Affine</b> cipher are two differen
 
 In order to calculate the modular inverse to get the decryption key, a brute-force approach will be used, starting to test integer 1, then 2, and then 3, and so on, taking into consideration that will be very time-consuming for large keys. There is an algorithm for finding the modular inverse just like there was for the encryption process and is called <b>Euclid Extended Algorithm</b>.
 
-for this case the following C++ program will be used in order to find the decryption key using the modular inverse of the chosen key a under modulo m
+for this case the following C++ program will be used in order to find the decryption key using the modular inverse of the chosen key a under modulo <b>m</b>
 </p>
 
 ```c
