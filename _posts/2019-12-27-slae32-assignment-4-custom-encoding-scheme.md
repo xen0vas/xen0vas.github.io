@@ -40,7 +40,7 @@ In this assignment a custom shellcode encoder / decoder&nbsp; will be created in
 
 For the purposes of this assignment the custom encoder / decoder has been successfully tested at the following architecture
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 Linux kali 5.3.0-kali3-686-pae #1 SMP Debian 5.3.15-1kali1 (2019-12-09) i686 GNU/Linux
 </pre>
 
@@ -234,13 +234,13 @@ printf("\n\n");
 The program above will be compiled using **gcc** as follows
 
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 gcc -o encode encoder.c
 </pre>
 
 Then, running the encoder will give the following result
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment4</b></span># ./enc
 
 Shellcode:
@@ -271,7 +271,7 @@ Encoded Shellcode Length 50
 At this section, an assembly wrapper will be used to decode the encoded payload which will implement the decoding scheme. The main purpose of the custom decoder is to implement a generic solution making the decoder work in different linux environments. The decoding scheme will be applied at the following encoded payload.
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0x4e,0xc7,0x51,0xec,0x58,0x01,0xdb,0x3f,0xef,0xf4,0xef,0xda,0x2a,0x3e,0xdb,0x1e,0xdb,0x9b,0xef,0x9a,0x3b,0x95,0xcb,0x32,0xfb,0xf0,0xc5,0x72,0x23,0x24,0x58,0x42,0xc5,0x86,0x33,0x8c,0x28,0x55,0xc5,0x35,0x43,0x24,0x56,0x76,0xad,0x09,0x02,0x10,0x55,0x39
 </pre>
 
@@ -291,7 +291,7 @@ In order the shellcode to work in other linux systems or other vulnerable progra
 Along with the above two points in mind it is time to start implementing the shellcode while first describing the <b>jmp/call/pop</b> technique as shown at the following program structure
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start 
 
 section .text 
@@ -315,7 +315,7 @@ The code structure above represents the <b>jmp/call/pop</b> technique. First, th
 </p>
 
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 08049000 &#x3C;_start>: 8049000: eb 39 jmp 804903b &#x3C;call_shellcode>
 </pre>
 
@@ -323,7 +323,7 @@ The code structure above represents the <b>jmp/call/pop</b> technique. First, th
 In this case, using the <b>jmp short</b> instruction, no <b>null</b> bytes produced. Furthermore, the <b>call decoder</b> instruction will set a new <b>jstack frame,</b> where, the defined bytes right after the <b>call</b> instruction, will be saved into the stack. Furthermore, the <b>call</b> instruction redirects execution backwards, at label <b>decoder</b> , where <b>no null</b> bytes produced as seen in red font below. In the contrary, it is worth to mention that when a <b>call</b> instruction used to redirect execution in a forward location, then it produces <b>null</b> bytes, which is currently avoided because of using the <b>jmp/call/pop</b> technique described before.
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0804903b &#x3C;call_shellcode&#x3E;:
 804903b: e8 c2 ff ff ff call 8049002 &#x3C;decoder&#x3E;
 </pre>
@@ -337,7 +337,7 @@ Now that the <b>jmp/call/pop</b> technique explained above, it is a good startin
 The following code snippet explains the code implemented inside the <b>init</b> label
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 init: 
         pop esi 
         push esi 
@@ -352,7 +352,7 @@ init:
 As mentioned before,&nbsp; the <b>pop esi</b> instruction after executed will hold the address of the initial shellcode byte string ( see <b>EncodedShellcode</b> below ) <b>.</b> Afterwards, when the <b>push esi</b> instruction executed, it will push the address of the initial shellcode into the stack for later use. The next three instructions will perform a bitwise exclusive OR operation to <b>ebx</b> , <b>ecx</b> and <b>edx</b> registers in order to clear them and initialise them for later use.&nbsp; The <b>mov dl, len</b> instruction will load the shellcode length into the lower byte register <b>dl</b> ( lower byte registers are used to avoid nulls ).&nbsp; The length of the shellcode calculated as shown in red font below
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 call_shellcode: 
               call init 
               EncodedShellcode: db 0x4e,0xc7,0x51,0xec,0x58,0x01,0xdb,0x3f,0xef,0xf4,0xef,0xda,0x2a,0x3e,0xdb,0x1e,0xdb,0x9b,0xef,0x9a,0x3b,0x95,0xcb,0x32,0xfb,0xf0,0xc5,0x72,0x23,0x24,0x58,0x42,0xc5,0x86,0x33,0x8c,0x28,0x55,0xc5,0x35,0x43,0x24,0x56,0x76,0xad,0x09,0x02,0x10,0x55,0x39,
@@ -361,7 +361,7 @@ call_shellcode:
 
 Furthermore, the custom decoding scheme will be explained as follows
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 scheme:
        rol byte [esi], 4 
        not byte [esi] 
@@ -374,7 +374,7 @@ scheme:
 The above code snippet executes the decoding scheme at the given encoded shellcode, where the <b> rol </b> instruction will be applied to the byte pointed by <b> esi </b> &nbsp; <b> register in order to perform a </b> four (4) <b> bit left rotation. Then, the </b> not <b> instruction will be used in order to perform </b> one's complement <b> to the byte pointed by </b> esi <b> register. The </b> add <b> instruction will be used to add </b> two (2) <b> bits to the byte pointed by </b> esi <b> &nbsp;register. The last instruction of the encoding scheme will be the </b> xor <b> instruction which will implement a bitwise exclusive OR operation to the byte pointed by </b> esi <b> register with the value </b> 0x2c <b> . Furthermore, </b> inc esi </b> will be used in order to add one (1) to the contents of the byte at the effective address represented by <b>esi </b> register. This procedure will continue until the end of the shellcode as shown at the following code snippet
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 inc esi
 cmp cl, dl 
 je prepare 
@@ -387,7 +387,7 @@ jmp short scheme
 After encoding the first shellcode byte contained in <b>esi </b> register, the <b>esi </b> register will be increased by <b>one (1) </b> in order to move to the next byte using the instruction <b>inc esi</b>. Later on, &nbsp;the counter value represented by the <b>cl </b> lower byte register will be compared with the length of the shellcode contained inside <b>dl </b> lower byte register using the <b>cmp </b> instruction. At the next instruction, if the comparison between the values contained at <b>cl </b> and <b>dl </b> lower byte registers are not equal, by using the <b>jmp </b> instruction, the execution will be redirected at the beginning of the <b>scheme </b> label, thus creating a loop until the values are equal. In the contrary, at the next loop, and after increasing the counter using the instruction <b>inc cl </b> , if the comparison of the values of the lower byte registers <b>cl </b> and <b>dl </b> are equal, the execution will be directed forward to <b>prepare </b> label using the instruction <b>je prepare</b>.
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 prepare: 
         pop esi 
         lea edi, [esi +1] 
@@ -401,7 +401,7 @@ prepare:
 At the code snippet above, when the <b> pop esi </b> instruction executed, the <b> esi </b> register will point to the first byte of the initial shellcode. At this point, it must be mentioned that apart of the decoding process of every encoded shellcode byte, all the extra random bytes contained in the encoded shellcode ( see the encoding process ), will be removed from every odd number location until the end of the encoded shellcode. Continuing further, in order to achieve this, the <b> edi </b> register must point to the next byte using the instruction <b> lea edi, [esi +1]</b>. Furthermore, <b> eax&nbsp; </b> and <b> ecx </b> registers will be initialised using the exclusive or ( <b> xor </b> ) operation, because <b> al </b> will be used as counter making <b> esi </b> to point into every <b> even </b> number location, and <b> cl </b> register will also used as counter in order to be compared with the length of the shellcode. The lower byte register <b> al </b> will&nbsp; increase its value by <b> two (2) </b> every time it is executed, which currently initialised with the immediate value <b> one (1) </b> using the <b> mov al, 1 </b> instruction, in order to achieve counting <b> even numbers (1,3,5,7,...)</b>. The next code snippet will be used to remove the extra random bytes of the encoded shellcode
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 remove_bytes: 
             ;; apply the random bytes removal scheme 
             cmp cl, dl 
@@ -421,7 +421,7 @@ The first instruction at the code snippet above is a comparison between the two 
 
 The full assembly code which implements the custom decoder is shown below:
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start
 
 section .text
@@ -487,7 +487,7 @@ echo '[+] Done!'
 
 The following command will produce the final shellcode
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment4</b></span># objdump -d ./decode|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 </pre>
 
@@ -516,7 +516,7 @@ ret();
 compiling and running the program will give the following result which is the execution of the&nbsp; /bash/sh command using the execve shellcode.
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment4</b></span># gcc -fno-stack-protector -z execstack -o shell shell.c && ./shell
 Shellcode Length: 114
 #
