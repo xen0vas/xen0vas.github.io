@@ -78,7 +78,7 @@ for this case&nbsp; the following C program will be used in order to find relati
 </p>
 
 ```c
-#include < stdio.h >
+#include <stdio.h>
 
 // Recursive function to return gcd of a and b
 int gcd(int a, int b)
