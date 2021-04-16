@@ -71,7 +71,7 @@ At this example the payload to encrypt is the shellcode that opens a new termina
 <img style="display: block;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2019/05/1png-1.png" alt="" />
 
 <p style="text-align:justify;">
-where modulus <b>'m'</b> is the size of the ASCII alphanumeric values and <b>'a'</b> and <b>'b'</b> are the keys of the cipher. The value <b>'a'</b> must be chosen such that <b>'a'</b> and <b>'m'</b> are co-prime. For this exercise a specific norm will be defined where <b>'a'</b> is <b>5</b>, <b>'b'</b> is <b>8</b>, and <b>'m'</b> is 128 since there are 128 characters in the ASCII character set that being used. Only the value of <b>'a'</b> has a restriction since it has to be co-prime with 128.&nbsp;
+where modulus <b>'m'</b> is the size of the ASCII alphanumeric values and <b>'a'</b> and <b>'b'</b> are the keys of the cipher. The value <b>'a'</b> must be chosen such that <b>'a'</b> and <b>'m'</b> are co-prime. For this exercise a specific norm will be defined where <b>'a'</b> is <b>5</b>, <b>'b'</b> is <b>8</b>, and <b>'m'</b> is <b>128</b> since there are <b>128</b> characters in the ASCII character set that being used. Only the value of <b>'a'</b> has a restriction since it has to be co-prime with <b>128</b>.&nbsp;
 
 for this case&nbsp; the following C program will be used in order to find relative prime numbers to use for Key <b>'a'</b> and Key <b>'b'</b>.
 </p>
