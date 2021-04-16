@@ -156,10 +156,10 @@ for this case the following C++ program will be used in order to find the decryp
 
 using namespace std;
 
-// A method to find multiplicative inverse of**
-// 'a' under modulo 'm'** 
+// A method to find multiplicative inverse of
+// 'a' under modulo 'm'
 
-int modInverse(int a, int m)**
+int modInverse(int a, int m)
 {
 a = a % m;
 for (int x=1; x < m; x++)
@@ -168,7 +168,7 @@ for (int x=1; x < m; x++)
 return -1;  
 }
 
-int main(int argc, char \*\*argv)**
+int main(int argc, char **argv)
 {
 int a = atoi(argv[1]);
 int m = atoi(argv[2]);
