@@ -15,7 +15,7 @@ tags:
 --- 
 
 <p style="text-align:justify;">
-This article explains the exploitation of a local buffer oveflow vulnerability and how <b>SEH</b> protection can be bypassed.   Specifically, we will demonstrate an interesting exploitation approach of a unicode based buffer overflow against the vulnerable <b> AllPlayer v7.6</b> application.
+This article explains the exploitation of a local buffer oveflow vulnerability and how <b>SEH</b> protection can be bypassed. Specifically, we will demonstrate an interesting exploitation approach of a unicode based buffer overflow against the vulnerable <b> AllPlayer v7.6</b> application.
 </p>
 
 <img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/allplayer.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="450">
