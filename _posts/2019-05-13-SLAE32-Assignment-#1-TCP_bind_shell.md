@@ -15,8 +15,8 @@ tags:
 ![](/assets/images/SLAE32/SLAE32.jpg)
 
 
-<h2><span style="color:#339966;"><strong>Student ID : SLAE - 1314</strong></span></h2>
-<h2><span style="color:#339966;"><strong>Assignment 1:</strong></span></h2>
+<h2><span style="color:#339966;">Student ID : SLAE - 1314</span></h2>
+<h2><span style="color:#339966;">Assignment 1:</span></h2>
 
 
 <p style="text-align:justify;">
@@ -73,7 +73,7 @@ int main()
 In order to convert the above code into x86 assembly, there is a need to investigate the&nbsp; system calls being used. Specifically, the following&nbsp; system calls are used :
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: $monospace;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 bind()
 listen()
 accept()
