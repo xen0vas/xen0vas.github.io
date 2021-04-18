@@ -397,7 +397,7 @@ polyaslr: file format elf32-i386
 
 Disassembly of section .text:
 
-08048080 <_start>:
+ 08048080 <_start>:
  8048080: 31 db xor ebx,ebx
  8048082: f7 e3 mul ebx
  8048084: 89 44 24 fc mov DWORD PTR [esp-0x4],eax
