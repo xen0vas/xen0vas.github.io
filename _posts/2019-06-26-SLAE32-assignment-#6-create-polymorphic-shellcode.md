@@ -528,7 +528,7 @@ polymorphic version length : 124
 ## **Add map in /etc/hosts file**  
 
 <p style="text-align:justify;">
-The third shellcode to analyse adds a new entry in hosts file pointing google.com to 127.1.1.1 and can be found at [shell-storm.org](http://shell-storm.org/) Also, the original shellcode can be found at this [link](http://shell-storm.org/shellcode/files/shellcode-893.php). In general, Linux systems contain a hosts file used to translate hostnames to IP addresses. The hosts file is a simple text file located in the etc folder on Linux and Mac OS ( **/etc/hosts** ).
+The third shellcode to analyse adds a new entry in hosts file pointing google.com to 127.1.1.1 and can be found at <a href="http://shell-storm.org/">shell-storm.org</a> Also, the original shellcode can be found at this <a href="http://shell-storm.org/shellcode/files/shellcode-893.php">link</a>. In general, Linux systems contain a hosts file used to translate hostnames to IP addresses. The hosts file is a simple text file located in the etc folder on Linux and Mac OS ( <b>/etc/hosts</b> ).
 
 The following output shows the assembly code from the original shellcode.
 </p>
