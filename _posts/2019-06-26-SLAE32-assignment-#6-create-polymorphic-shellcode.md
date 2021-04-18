@@ -806,7 +806,6 @@ Following is the C program file where the polymorphic <it>shellcode</it> will be
 
 
 ```c
-
 #include <stdio.h>
 #include <string.h> 
 
@@ -825,7 +824,6 @@ int (*ret)() = (int(*)())code;
 
 ret();
 }
-
 ```
 
 Next the executable will be compiled and run as seen below
