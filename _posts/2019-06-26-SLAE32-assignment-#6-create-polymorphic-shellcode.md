@@ -749,7 +749,7 @@ omap: file format elf32-i386
 
 Disassembly of section .text:
 
-08049000 <_start>:
+08049000 &lt;_start>:
 8049000: 31 c9 xor ecx,ecx
 8049002: 31 c0 xor eax,eax
 8049004: 89 4c 24 fc mov DWORD PTR [esp-0x4],ecx
