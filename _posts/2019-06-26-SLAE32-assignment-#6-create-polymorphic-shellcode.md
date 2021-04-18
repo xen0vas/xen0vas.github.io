@@ -804,6 +804,7 @@ root@kali:~/Documents/SLAE/Assignment6# objdump -d ./omap|grep '[0-9a-f]:'|grep 
 
 Following is the C program file where the polymorphic _shellcode_ will be placed in order to be compiled and run
 
+
 ```c
 
 #include <stdio.h>
@@ -820,7 +821,7 @@ int main()
 {
 printf("Shellcode Length: %d\n", strlen(code));
 
-int (\*ret)() = (int(\*)())code;
+int (*ret)() = (int(*)())code;
 
 ret();
 }
@@ -829,8 +830,7 @@ ret();
 
 Next the executable will be compiled and run as seen below
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@kali:~/Documents/SLAE/Assignment6# gcc -fno-stack-protector -g -z execstack -o sh sh.c && ./sh
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># gcc -fno-stack-protector -g -z execstack -o sh sh.c && ./sh
 Shellcode Length: 102
 </pre>
 
