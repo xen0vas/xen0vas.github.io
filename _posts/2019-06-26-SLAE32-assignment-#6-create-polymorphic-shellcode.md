@@ -409,7 +409,7 @@ _start:
 
 
 <p style="text-align:justify;">
-Now that the writing of the polymorphic _shellcode_ version finished, a test will run in order to check if it works. Following, checking about null bytes using **objdump** as shown below
+Now that the writing of the polymorphic _shellcode_ version finished, a test will run in order to check if it works. Following, checking about null bytes using <b>objdump</b> as shown below
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d polyaslr -M intel
@@ -462,7 +462,7 @@ Disassembly of section .text:
 </pre>
 
 <p style="text-align:justify;">
-From the output above it seems that there are no null bytes around, so using **objdump** the production of the _shellcode_ can be done as follows
+From the output above it seems that there are no null bytes around, so using <b>objdump</b> the production of the _shellcode_ can be done as follows
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d ./polyaslr|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
@@ -470,7 +470,7 @@ From the output above it seems that there are no null bytes around, so using **o
 </pre>
 
 <p style="text-align:justify;">
-Afterwards the produced _shellcode_ will be added into a C program named **sh.c** in order to deliver the execution of the polimorphic shellcode.
+Afterwards the produced _shellcode_ will be added into a C program named <b>sh.c</b> in order to deliver the execution of the polimorphic shellcode.
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -504,7 +504,7 @@ ret();
 </pre>
 
 <p style="text-align:justify;">
-Compiling and running the above program will change the value inside the **/proc/sys/kernel/randomize\_va\_space** from **two(2)** to **zero(0)**.
+Compiling and running the above program will change the value inside the <b>/proc/sys/kernel/randomize_va_space</b> from <b>two(2)</b> to <b>zero(0)</b>.
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat /proc/sys/kernel/randomize\_va\_space
