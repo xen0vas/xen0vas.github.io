@@ -20,20 +20,10 @@
 
 .archive__item {
   position: relative;
-  font-size: 0.9em;
-
-  a {
-    position: relative;
-    z-index: 10;
-  }
-
-  a[rel="permalink"] {
-    position: static;
-  }
 }
 
 .archive__subtitle {
-  margin: 1.414em 0 0.5em;
+  margin: 1.414em 0 0;
   padding-bottom: 0.5em;
   font-size: $type-size-5;
   color: $muted-text-color;
@@ -51,7 +41,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  a[rel="permalink"]::before {
+  a::before {
     content: '';
     position: absolute;
     left: 0;
@@ -200,14 +190,6 @@
   .page__meta {
     margin: 0 0 4px;
     font-size: 0.6em;
-  }
-
-  .page__meta-sep {
-    display: block;
-
-    &::before {
-      display: none;
-    }
   }
 
   .archive__item-title {
@@ -453,12 +435,4 @@
       padding-right: 0;
     }
   }
-}
-
-/* Place inside a single layout */
-
-.layout--single {
-	.feature__wrapper {
-		display: inline-block;
-	}
 }
