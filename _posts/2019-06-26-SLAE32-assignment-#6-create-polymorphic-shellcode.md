@@ -15,12 +15,8 @@ tags:
 --- 
 
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
-<p><!-- /wp:html --></p>
-<p><!-- wp:heading {"level":3} --></p>
 <h3><img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/2019/06/slae32-1.png" alt="" /></p>
 <p><span style="color:#339966;"><strong>Assignment 6:</strong></span></h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph {"align":"left"} --></p>
 <p class="has-text-align-left">In this assignment, polymorphism will be shown in practice. The following three <em>shellcodes </em>posted on&nbsp;<a href="http://shell-storm.org/">shell-sotrm.org</a>&nbsp;will be used<strong><br /></strong></p>
 <p><!-- /wp:paragraph --></p>
 <p><!-- wp:list --></p>
@@ -29,8 +25,6 @@ tags:
 <li><a href="http://shell-storm.org/shellcode/files/shellcode-813.php" target="_blank" rel="noopener">ASLR deactivation </a></li>
 <li><a href="http://shell-storm.org/shellcode/files/shellcode-893.php" target="_blank" rel="noopener">Add map in /etc/hosts file</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:list --></p>
 <ul>
 <li style="text-align:justify;"><strong>The goal of this assignment is to take up three shellcodes from Shell-Storm and create polymorphic versions of them to beat pattern matching</strong>.</li>
 <li style="text-align:justify;"><strong>The polymorphic versions cannot be larger 150% of the existing Shellcode <br /></strong></li>
