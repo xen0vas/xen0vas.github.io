@@ -452,7 +452,7 @@ From the output above it seems that there are no null bytes around, so using **o
 
 Afterwards the produced _shellcode_ will be added into a C program named **sh.c** in order to deliver the execution of the polimorphic shellcode.
 
-```c
+```C
 #include 
 #include 
 
