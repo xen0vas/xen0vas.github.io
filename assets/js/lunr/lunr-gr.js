@@ -1,5 +1,5 @@
 ---
-layout: none
+layout: null
 ---
 
 step1list = new Array();
@@ -474,6 +474,8 @@ var idx = lunr(function () {
     })
   }
 });
+
+console.log( jQuery.type(idx) );
 
 $(document).ready(function() {
   $('input#search').on('keyup', function () {
