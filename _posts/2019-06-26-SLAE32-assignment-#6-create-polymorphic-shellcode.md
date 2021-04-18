@@ -394,14 +394,13 @@ _start:
 
 Now that the writing of the polymorphic _shellcode_ version finished, a test will run in order to check if it works. Following, checking about null bytes using **objdump** as shown below
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-root@slae:/home/xenofon/Documents/Assignment6# objdump -d polyaslr -M intel
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"> root@slae:/home/xenofon/Documents/Assignment6# objdump -d polyaslr -M intel
 
 polyaslr: file format elf32-i386
 
 Disassembly of section .text:
 
- 08048080 <_start>:
+ 08048080 < _start >:
  8048080: 31 db xor ebx,ebx
  8048082: f7 e3 mul ebx
  8048084: 89 44 24 fc mov DWORD PTR [esp-0x4],eax
@@ -441,7 +440,7 @@ Disassembly of section .text:
  80480f6: cd 80 int 0x80
  80480f8: b0 01 mov al,0x1
  80480fa: cd 80 int 0x80
- 
+
 </pre>
 
 From the output above it seems that there are no null bytes around, so using **objdump** the production of the _shellcode_ can be done as follows
