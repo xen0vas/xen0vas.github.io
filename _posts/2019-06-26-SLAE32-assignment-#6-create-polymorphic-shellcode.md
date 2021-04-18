@@ -507,11 +507,11 @@ ret();
 Compiling and running the above program will change the value inside the <b>/proc/sys/kernel/randomize_va_space</b> from <b>two(2)</b> to <b>zero(0)</b>.
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat /proc/sys/kernel/randomize\_va\_space
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat /proc/sys/kernel/randomize_va_space
 2
 <span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span>#  gcc -fno-stack-protector -z execstack -o sh sh.c && ./sh
 Shellcode Length: 124
-<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat /proc/sys/kernel/randomize\_va\_space
+<span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat /proc/sys/kernel/randomize_va_space
 0
 </pre>
 
@@ -647,7 +647,7 @@ int 0x80
 
 <p style="text-align:justify;">
 
-The main alteration here is the <b>pop</b> and <b>push</b> instructions which altered into <b>mov.</b> Also in order to avoid null bytes the <b>edx</b> register changed into the lower byte register <b>dl</b>. Additionally the <b>\_write</b> label has been changed into <b>write_data</b>. Following, the <b>0x15</b> hex value which represents the length of the message along with the additional carriage return character has been splitted into two values <b>0x12</b> and <b>0x3</b> instead of one value, then adding them together using the <b>add</b> instruction.
+The main alteration here is the <b>pop</b> and <b>push</b> instructions which altered into <b>mov.</b> Also in order to avoid null bytes the <b>edx</b> register changed into the lower byte register <b>dl</b>. Additionally the <b>_write</b> label has been changed into <b>write_data</b>. Following, the <b>0x15</b> hex value which represents the length of the message along with the additional carriage return character has been splitted into two values <b>0x12</b> and <b>0x3</b> instead of one value, then adding them together using the <b>add</b> instruction.
 
 The next instructions to be altered are representing the <b>close</b> system call.
 </p>
@@ -702,7 +702,7 @@ call wdata
 message db "127.1.1.1 google.com",0x0A
 </pre>
 
-As said before and shown above, the label <b>_load_data</b> changed into <b>\_ldata</b> and also the label <b>_write</b> changed into <b>write_data</b> at the <b>call</b> instruction. Furthermore, the <b>google</b> tag changed into <b>message,</b> and the carriage return character has been added at the end of the message.
+As said before and shown above, the label <b>_load_data</b> changed into <b>_ldata</b> and also the label <b>_write</b> changed into <b>write_data</b> at the <b>call</b> instruction. Furthermore, the <b>google</b> tag changed into <b>message,</b> and the carriage return character has been added at the end of the message.
 
 The following output shows the final polymorphic shellcode
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
