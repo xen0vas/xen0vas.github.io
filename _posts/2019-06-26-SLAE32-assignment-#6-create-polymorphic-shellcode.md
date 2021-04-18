@@ -858,13 +858,17 @@ ret();
 }
 </pre>
 
+<p style="text-align:justify;">
 Next the executable will be compiled and run as seen below
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># gcc -fno-stack-protector -g -z execstack -o sh sh.c && ./sh
 Shellcode Length: 102
 </pre>
 
+<p style="text-align:justify;">
 Now that the <it>shellcode</it> executed, the <b>/etc/hosts</b> file will be checked to see if the new record has been inserted successfully.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 127.0.0.1 localhost
@@ -878,7 +882,9 @@ ff02::2 ip6-allrouters
 127.1.1.1 google.com
 </pre>
 
-As&nbsp; seen previously in this article, the length of the new <it>shellcode</it> must be checked in order to align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original shellcode. The calculation below shows that the exercise rule is followed. point
+<p style="text-align:justify;">
+As&nbsp; seen previously in this article, the length of the new <it>shellcode</it> must be checked in order to align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original shellcode.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 original shelcode length : 77
