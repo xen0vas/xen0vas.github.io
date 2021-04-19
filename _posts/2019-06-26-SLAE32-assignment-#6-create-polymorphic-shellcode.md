@@ -11,7 +11,7 @@ tags:
   - Linux
   - x86
   - Shellcoding
-  - x86 Shellcode Analysis 
+  - polymorphism
 --- 
 
 
