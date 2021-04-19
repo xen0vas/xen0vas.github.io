@@ -13,11 +13,9 @@ tags:
   - Custom Encoder
 ---
 
-<h2><span style="color:#339966;"><strong><img style="border:none;" src="{{ site.baseurl }}/assets/images/2020/08/slae32-1.png" alt="SLAE32" width="265" height="265" /></strong></span></h2>
-
-
-## SLAE32 Assignment #4 - Custom Encoding Scheme
-
+<img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" />
+<h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
+<p><span style="color:#339966;"><strong>Assignment 4:</strong></span>
 <p style="text-align:justify;">
 In this assignment a custom shellcode encoder / decoder&nbsp; will be created in order to show a custom encoding technique used when deploying malicious payloads onto target systems.
 </p>
