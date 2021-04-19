@@ -12,13 +12,11 @@ tags:
   - Shellcoding
   - Reverse TCP Shellcode 
 --- 
-![](/assets/images/SLAE32/SLAE32.jpg)
 
 
-## SLAE32 Assignment #2 - Reverse TCP Shell
-
-<h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;– 1314</strong></span></h2>
-<h2><span style="color:#339966;"><strong>Assignment 2</strong>:</span></h2>
+<img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" />
+<h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
+<p><span style="color:#339966;"><strong>Assignment 2:</strong></span>
 <p style="text-align:justify;">The goal of this assignment is to create a reverse <strong>TCP <em><strong>s</strong>hellcode</em></strong> that does the following</p>
 
 <ul>
