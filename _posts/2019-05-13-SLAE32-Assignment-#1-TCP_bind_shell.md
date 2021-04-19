@@ -12,15 +12,13 @@ tags:
   - Shellcoding
   - Bind TCP Shellcode 
 --- 
-![](/assets/images/SLAE32/SLAE32.jpg)
 
 
-<h2><span style="color:#339966;">Student ID : SLAE - 1314</span></h2>
-<h2><span style="color:#339966;">Assignment 1:</span></h2>
+<img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" />
+<h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
+<p><span style="color:#339966;"><strong>Assignment 6:</strong></span>
 
-
-<p style="text-align:justify;">
-The goal of this assignment is to create a Shell_Bind_TCP shellcode that does the following
+<p style="text-align:justify;">The goal of this assignment is to create a Shell_Bind_TCP shellcode that does the following
 </p>
 
 - **Binds to a port**
