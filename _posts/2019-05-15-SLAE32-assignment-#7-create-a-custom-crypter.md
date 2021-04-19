@@ -19,7 +19,7 @@ tags:
 
 <img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" />
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
-<p><span style="color:#339966;"><strong>Assignment 7:</strong></span>
+<p><span style="color:#339966;"><strong>Assignment 7:</strong></span></p>
 <p style="text-align:justify;">
 In this assignment the development process of a Crypter will be presented. The Crypter will be implemented by using the Affine cipher in order to perform encryption and decryption operations to shellcodes.
 
