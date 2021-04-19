@@ -27,7 +27,6 @@ tags:
 
 > This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert&nbsp;certification
 
-
 > **The code and scripts for this assignment can be found on** &nbsp;**[github](https://github.com/xvass/SLAE/tree/master/Assignment1)**
 
 > All the development and tests have been implemented in the following architecture

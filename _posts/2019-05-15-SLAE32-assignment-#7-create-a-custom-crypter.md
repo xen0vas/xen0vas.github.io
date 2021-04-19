@@ -17,12 +17,9 @@ tags:
   - Shellcode Obfuscation
 --- 
 
-<h2><span style="color:#339966;"><strong><img style="border:none;" src="{{ site.baseurl }}/assets/images/2020/08/slae32-1.png" alt="SLAE32" width="265" height="265" /></strong></span></h2>
-
-<h2><span style="color:#339966;">Student ID : SLAE &nbsp;– 1314</span></h2>
-<h2><span style="color:#339966;"><br>Assignment 7 :</span></h2>
-
-
+<img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" />
+<h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
+<p><span style="color:#339966;"><strong>Assignment 7:</strong></span>
 <p style="text-align:justify;">
 In this assignment the development process of a Crypter will be presented. The Crypter will be implemented by using the Affine cipher in order to perform encryption and decryption operations to shellcodes.
 
