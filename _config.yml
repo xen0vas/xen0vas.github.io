@@ -1,7 +1,7 @@
 permalink                : pretty
 
-url:                     : https://xen0vas.github.io
-baseurl:                 : "https://xen0vas.github.io"
+url                      : https://xen0vas.github.io
+baseurl                  : "https://xen0vas.github.io"
 locale                   : "en-US"
 title                    : "Tech Blog about CyberSecurity"
 title_separator          : "-"
@@ -14,7 +14,7 @@ og_image                 : "/assets/images/minimal-dark-hacker-wallpapers.png"
 
 sass:
     sass_dir:           _sass
-    style:              :compressed
+    style:              compressed
 
 author:
     name:               xen0vas
