@@ -7,13 +7,13 @@ comments: true
 ---
 
 <p style="text-align:justify;">
-<span style="font-family:'calibri';font-size: 12px">
+<span style="font-family:calibri;font-size: 15px">
 My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming.
 </span>
 </p>
 
 <p style="text-align:justify;">
-<span style="font-family:'calibri';font-size: 12px">
+<span style="font-family:calibri;font-size: 15px">
 My professional profile is available on
 <a href="https://www.linkedin.com/in/xvass/">Linkedin</a>. Sometimes I 
 <a href="https://twitter.com/xen0vas">tweet</a> about cyber security.
@@ -21,13 +21,13 @@ My professional profile is available on
 </p>
 
 <p style="text-align:justify;">
-<span style="font-family:'calibri';font-size: 12px">
-I am currently working as a penetration tester at <a href="https://twelvesec.com/">TwelveSec</a>, a highly specialized IT/computer security consultancy. Most of the open source code I have released and the projects I'm contributing to can be found <a href="https://github.com/xen0vas">on GitHub</a>.
+<span style="font-family:calibri;font-size: 15px">
+I am currently working as a penetration tester at <a href="https://twelvesec.com/">TwelveSec</a>, a highly specialized IT/computer security consultancy. Most of the open source code I have released and the projects I'm contributing to can be found on <a href="https://github.com/xen0vas">GitHub</a>.
 </span>
 </p>
 
 <p style="text-align:justify;">
-<span style="font-family:'calibri';font-size: 12px">
+<span style="font-family:calibri;font-size: 15px">
 PGP key: <a href="https://xen0vas.github.io/xen0vas_pgp.asc">1325 7FB6 02E5 64D5 ED1C C94E 01FE C410 CFC4 4DF2</a>
 </span>
 </p>
