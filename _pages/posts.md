@@ -35,8 +35,8 @@ comments: true
 
 <ul>
   <li style="color:blue;font-size:15px"><a href="https://www.exploit-db.com/exploits/48499">CloudMe 1.11.2 - Buffer Overflow (SEH,DEP,ASLR)</a></li>
-  <li><a href="https://www.exploit-db.com/exploits/48493">AbsoluteTelnet 11.21 - 'Username' Denial of Service (PoC)</a></li>
-  <li><a href="https://www.exploit-db.com/exploits/48415">Frigate 3.36 - Buffer Overflow (SEH)</a></li>
-  <li><a href="https://packetstormsecurity.com/files/157285/ALLPlayer-7.6-Buffer-Overflow.html">ALLPlayer 7.6 Buffer Overflow</a></li>
+  <li style="color:blue;font-size:15px"><a href="https://www.exploit-db.com/exploits/48493">AbsoluteTelnet 11.21 - 'Username' Denial of Service (PoC)</a></li>
+  <li style="color:blue;font-size:15px"><a href="https://www.exploit-db.com/exploits/48415">Frigate 3.36 - Buffer Overflow (SEH)</a></li>
+  <li style="color:blue;font-size:15px"><a href="https://packetstormsecurity.com/files/157285/ALLPlayer-7.6-Buffer-Overflow.html">ALLPlayer 7.6 Buffer Overflow</a></li>
 </ul>
 
