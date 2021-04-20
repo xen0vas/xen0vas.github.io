@@ -6,4 +6,20 @@ author_profile: true
 comments: true
 ---
 
-This is my blog page.
+<p>
+My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming. I'm also continuous learner and excited in cybersec.
+</p>
+
+<p>
+My professional profile is available
+<a href="https://www.linkedin.com/in/xvass/">on LinkedIn</a>. Sometimes
+<a href="https://twitter.com/xen0vas">I tweet about cyber security</a>.
+</p>
+
+<p>
+I am currently working as a penetration tester at <a href="https://twelvesec.com/">TwelveSec</a>, a highly specialized IT/computer security consultancy. Most of the open source code I have released and the projects I'm contributing to can be found <a href="https://github.com/xen0vas">on GitHub</a>.
+</p>
+
+<p>
+PGP key: <a href="https://xen0vas.github.io/xen0vas_pgp.asc">1325 7FB6 02E5 64D5 ED1C C94E 01FE C410 CFC4 4DF2</a>
+</p>
