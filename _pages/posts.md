@@ -15,7 +15,7 @@ comments: true
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 15px">
-<b><it>Shellcodes</it></b> 
+<b><i>Shellcodes</i></b> 
 </span></p>
 
 <ul>
@@ -26,10 +26,9 @@ comments: true
    <li style="color:blue;font-size:15px"><a href="https://packetstormsecurity.com/files/157990/Linux-x86-Tiny-Read-Polymorphic-Shellcode.html">Linux/x86 Tiny Read Polymorphic Shellcode</a></li>
 </ul>
 
-<br>
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 15px">
-<b><it>Exploits</it></b>
+<b><i>Exploits</i></b>
 </span></p>
 
 <ul>
