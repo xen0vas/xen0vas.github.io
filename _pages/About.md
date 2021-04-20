@@ -14,8 +14,8 @@ My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability
 
 <p style="text-align:justify;">
 <span style="font-family:'calibri';font-size: 12px">
-My professional profile is available
-<a href="https://www.linkedin.com/in/xvass/">on LinkedIn</a>. Sometimes I 
+My professional profile is available on
+<a href="https://www.linkedin.com/in/xvass/">Linkedin</a>. Sometimes I 
 <a href="https://twitter.com/xen0vas">tweet</a> about cyber security.
 </span>
 </p>
