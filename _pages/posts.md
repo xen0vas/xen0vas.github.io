@@ -6,7 +6,11 @@ author_profile: true
 comments: true
 ---
 
+
+<p style="text-align:justify;">
+<span style="font-family: Calibri (Body);font-size: 17px">
 <it>Note: More to come</it>
+
 
 > Shellcodes 
 
@@ -18,3 +22,5 @@ comments: true
 > Exploits
 
 - 
+
+</span></p>
