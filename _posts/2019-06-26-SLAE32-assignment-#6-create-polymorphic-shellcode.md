@@ -76,7 +76,7 @@ tags:
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">mov al,0x5<br />push ecx<br />push dword 0x64777373<br />push dword 0x61702f63<br />push dword 0x74652f2f<br />mov ebx,esp<br />int 0x80</pre>
 <p style="text-align:justify;">the <strong>mov al, 0x5</strong> instruction puts the immediate value <strong>0x5</strong> inside the lower byte register <strong>al,</strong> thus indicates the <strong>open</strong> system call according with the definition found at <em><strong>unistd_32.h </strong></em>header file as shown at the screenshot below</p>
 <p><img class="alignnone size-full wp-image-628" src="{{ site.baseurl }}/assets/images/2019/06/open.png" alt="open" width="839" height="163" /></p>
-<p style="text-align:justify;">Furthermore, checking the <strong>open</strong> system call synopsis found <a href="https://man7.org/linux/man-pages/man2/open.2.html>here">here</a> there are more than one prototypes, but at the current case the following used.</p>
+<p style="text-align:justify;">Furthermore, checking the <strong>open</strong> system call synopsis found <a href="https://man7.org/linux/man-pages/man2/open.2.html">here</a> there are more than one prototypes, but at the current case the following used.</p>
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><b>int open(const char *</b><i>pathname</i><b>, int </b><i>flags</i><b>);</b></pre>
 <p style="text-align:justify;">The above function takes two arguments, the <strong>pathname</strong> of type const char* and the <strong>flags </strong>of type int. The <strong>pathname</strong> indicates the location of the file inside the filesystem and the <strong>flags</strong> constitute of the bitwise 'or' separated list of values that determine the method in which the file will be opened (whether it should be read only, read/write, .etc).</p>
 <p style="text-align:justify;">The <strong>push ecx</strong> instruction pushes the <strong>ecx</strong> register ( which holds the zero value ) into the stack</p>
@@ -367,7 +367,7 @@ mov al,0x1
 int 0x80
 </pre>
 
-The _final polymorphic_ version of the original <it>shellcode</it> is shown below
+The final polymorphic version of the original <it>shellcode</it> is shown below
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 global _start
