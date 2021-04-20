@@ -10,7 +10,7 @@ comments: true
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 15px">
-<it>Note: More to come</it>
+<i>Note: More to come</i>
 </span></p>
 
 <p style="text-align:justify;">
