@@ -13,7 +13,6 @@ comments: true
 <it>Note: More to come</it>
 </span></p>
 
-<br><br>
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 15px">
 <b><it>Shellcodes</it></b> 
