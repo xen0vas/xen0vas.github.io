@@ -8,15 +8,15 @@ comments: true
 
 <p style="text-align:justify;">
 <span style="font-family:'calibri';font-size: 12px">
-My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming. I'm also continuous learner and excited in cybersec.
+My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming. I'm also continuous learner and cyber security enthusiast.
 </span>
 </p>
 
 <p style="text-align:justify;">
 <span style="font-family:'calibri';font-size: 12px">
 My professional profile is available
-<a href="https://www.linkedin.com/in/xvass/">on LinkedIn</a>. Sometimes
-<a href="https://twitter.com/xen0vas">I tweet about cyber security</a>.
+<a href="https://www.linkedin.com/in/xvass/">on LinkedIn</a>. Sometimes I 
+<a href="https://twitter.com/xen0vas">tweet</a> about cyber security.
 </span>
 </p>
 
