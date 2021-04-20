@@ -22,7 +22,7 @@ My professional profile is available on
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 19px">
-I am currently working as a penetration tester at <a href="https://twelvesec.com/">TwelveSec</a>, a highly specialized IT/computer security consultancy. Most of the open source code I have released and the projects I'm contributing to can be found on <a href="https://github.com/xen0vas">GitHub</a>.
+I am currently working as a penetration tester at <a href="https://twelvesec.com/">TwelveSec</a>, a highly specialized Cyber-Security Consultancy. Most of the open source code I have released and the projects I'm contributing to can be found on <a href="https://github.com/xen0vas">GitHub</a>.
 </span>
 </p>
 
