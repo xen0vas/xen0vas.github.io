@@ -665,9 +665,11 @@ add al,0x2
 int 0x80 ;syscall to close the file
 </pre>
 
+<p style="text-align:justify;">
 The above instructions from the original <it>shellcode</it>, <b>pop</b> and <b>push</b> are changed with the <b>add</b> instruction. The add instruction adds the <b>0x2</b> immediate value with the <b>0x4</b> value previously assigned at the lower byte register <b>al</b> in order to execute the <b>close</b> system call with <b>int 0x80</b> instruction.
 
 The next instructions to be altered are representing the <b>exit</b> system call.
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
@@ -684,9 +686,11 @@ mov al,0x1
 int 0x80 ;syscall to exit
 </pre>
 
+<p style="text-align:justify;">
 The above instructions from the original <it>shellcode</it>, <b>pop</b> and <b>push</b> are changed with the <b>xor</b> and <b>mov</b> instructions. The <b>xor</b> instruction used to zero out the <b>eax</b> register and the <b>mov</b> instruction used to assign the immediate value at the lower byte <b>al</b> register in order to execute the exit system call with <b>int 0x80</b> instruction.
 
 The final instructions exist inside the <b>load_data</b> label of the original <it>shellcode</it> and will be altered as follows :
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ;Original instructions
@@ -702,9 +706,13 @@ call wdata
 message db "127.1.1.1 google.com",0x0A
 </pre>
 
+
+<p style="text-align:justify;">
 As said before and shown above, the label <b>_load_data</b> changed into <b>_ldata</b> and also the label <b>_write</b> changed into <b>write_data</b> at the <b>call</b> instruction. Furthermore, the <b>google</b> tag changed into <b>message,</b> and the carriage return character has been added at the end of the message.
 
 The following output shows the final polymorphic shellcode
+</p>
+
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 ; poly_map.nasm
 ;
@@ -755,7 +763,10 @@ _ldata:
  message db "127.1.1.1 google.com",0x0A
 </pre>
 
+<p style="text-align:justify;">
 Proceeding further, the polymorphic <it>shellcode</it> is ready for testing. First, the program will be compiled using the following shell script
+</p>
+
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># cat compile.sh
 #!/bin/bash
 
@@ -770,7 +781,10 @@ root@kali:~/Documents/SLAE/Assignment6# ./compile.sh omap
 [+] Done!
 </pre>
 
+
+<p style="text-align:justify;">
 Then the opcodes will be checked if null bytes exist using <b>objdump</b>
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d omap -M intel
 
