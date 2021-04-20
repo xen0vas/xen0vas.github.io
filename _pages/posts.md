@@ -9,7 +9,7 @@ comments: true
 ------------
 
 <p style="text-align:justify;">
-<span style="font-family: Calibri (Body);font-size: 17px">
+<span style="font-family: Calibri (Body);font-size: 15px">
 
 <it>Note: More to come</it>
 
@@ -19,7 +19,9 @@ comments: true
 <ul>
   <li><a href="https://www.exploit-db.com/shellcodes/48592">Linux/x86 - Disable ASLR Security + Polymorphic Shellcode (124 bytes)</a></li>
   <li><a href="https://www.exploit-db.com/shellcodes/47890">Linux/x86 - execve(/bin/sh) + Random Bytes Encoder + XOR/SUB/NOT/ROR Shellcode (114 bytes)</a></li>
-  <li><a href=""></a></li>
+  <li><a href="https://packetstormsecurity.com/files/158076/Linux-x86-etc-hosts-Mapping-Add-Polymorphic-Shellcode.html">Linux/x86 /etc/hosts Mapping Add Polymorphic Shellcode</a></li>
+  <li><a href="https://packetstormsecurity.com/files/158963/Linux-x86-Reverse-TCP-Shellcode.html">Linux/x86 Reverse TCP Shellcode</a></li>
+   <li><a href="https://packetstormsecurity.com/files/157990/Linux-x86-Tiny-Read-Polymorphic-Shellcode.html">Linux/x86 Tiny Read Polymorphic Shellcode</a></li>
 </ul>
 
 
