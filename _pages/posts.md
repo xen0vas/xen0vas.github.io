@@ -17,9 +17,9 @@ comments: true
 <b><it>Shellcodes</it></b> 
 
 <ul>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
+  <li><a href=""></a></li>
+  <li><a href=""></a></li>
+  <li><a href=""></a></li>
 </ul>
 
 
@@ -28,9 +28,9 @@ comments: true
 <b><it>Exploits</it></b>
 
 <ul>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
+  <li><a href="https://www.exploit-db.com/exploits/48499">CloudMe 1.11.2 - Buffer Overflow (SEH,DEP,ASLR)</a></li>
+  <li><a href="https://www.exploit-db.com/exploits/48493">AbsoluteTelnet 11.21 - 'Username' Denial of Service (PoC)</a></li>
+  <li><a href="https://www.exploit-db.com/exploits/48415">Frigate 3.36 - Buffer Overflow (SEH)</a></li>
 </ul>
 
 </span></p>
