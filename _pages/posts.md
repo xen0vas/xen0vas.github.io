@@ -14,7 +14,10 @@ comments: true
 </span></p>
 
 <br><br>
+<p style="text-align:justify;">
+<span style="font-family: Calibri (Body);font-size: 15px">
 <b><it>Shellcodes</it></b> 
+</span></p>
 
 <ul>
   <li style="color:blue;font-size:15px"><a href="https://www.exploit-db.com/shellcodes/48592">Linux/x86 - Disable ASLR Security + Polymorphic Shellcode (124 bytes)</a></li>
@@ -25,7 +28,10 @@ comments: true
 </ul>
 
 <br>
+<p style="text-align:justify;">
+<span style="font-family: Calibri (Body);font-size: 15px">
 <b><it>Exploits</it></b>
+</span></p>
 
 <ul>
   <li style="color:blue;font-size:15px"><a href="https://www.exploit-db.com/exploits/48499">CloudMe 1.11.2 - Buffer Overflow (SEH,DEP,ASLR)</a></li>
