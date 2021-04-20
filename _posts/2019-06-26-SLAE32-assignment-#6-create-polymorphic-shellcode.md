@@ -189,7 +189,7 @@ ret();
 <li>1 - Conservative randomization. Shared libraries, stack , mmap(), VDSO and heap are randomized.</li>
 <li>2 - Full randomization. In addition to elements listed in the previous point, memory managed through <strong>brk()</strong> is also randomized.</li>
 </ul>
-<p style="text-align:justify;">Currently, the first bullet above has been used, which is about disabling randomisation. At a glance, the logic behind writing the <a>ASLR deactivation</a> from the <em>shellcode</em> writer is the following :</p>
+<p style="text-align:justify;">Currently, the first bullet above has been used, which is about disabling randomisation. At a glance, the logic behind writing the <a href="http://shell-storm.org/shellcode/files/shellcode-813.php">ASLR deactivation</a> from the <em>shellcode</em> writer is the following :</p>
 <ul>
 <li>create <strong>/proc/sys/kernel/randomize_va_space</strong> file</li>
 <li>write the zero(0) value inside <strong>randomize_va_space </strong>file</li>
@@ -213,13 +213,13 @@ ret();
 <p style="text-align:justify;">The <strong>xor ebx, ebx</strong> used to zero out the <strong>ebx</strong> register. Then the<strong> mul ebx</strong> instruction used to zero out the <strong>eax</strong> register because the <strong>mul</strong> instruction is performing multiplication with the <strong>eax</strong> register. So, in the current case there is an additional extra instruction that is performing a zero out operation to <strong>ebx</strong> register without causing any alteration of the initially intended functionality. Additionally, one possible drawback of using the extra instruction is that it could probably increase the length of the final <em>shellcode</em>, but this  will be considered later. According with the analysis until now, the <strong>creat()</strong> system call will be used to open the <strong>/proc/sys/kernel/randomize_va_space</strong> file. Furthermore, the <em>shellcode</em> will push the arguments into the stack using the stack method.</p>
 <p style="text-align:justify;">Following, the <strong>creat()</strong> system call is shown and the full synopsis can be found at <a href="https://linux.die.net/man/3/creat">creat(3)</a> man page</p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
-int creat(const char *pathname, mode</it>t mode);
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+int creat(const char *pathname, mode_t mode);
 </pre>
 
 <p style="text-align:justify;">The <strong>creat()</strong> system call returns an integer. There are also two arguments passed to the function, the first is the <strong>pathname</strong> of type<em> char*</em> and the second one is the <strong>mode</strong> of type <em>mode</it>t</em>. Additionally, according to <strong>creat()</strong> general description, the <strong>creat()</strong> system call is equivalent with the following call :</p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 open(path, O_WRONLY|O_CREAT|O_TRUNC, mode)
 </pre>
 
