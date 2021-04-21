@@ -53,7 +53,7 @@ Tools used for this exercise :
 
 ------------
 
-#### How to approach
+### How to approach
 
 <p style="text-align:justify;">
 In order to succesfully perform the exploitation we should 
