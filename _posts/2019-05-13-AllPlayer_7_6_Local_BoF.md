@@ -327,7 +327,7 @@ As we see above, we have landed into our larger buffer that we control. We are n
 ### Register Alignment
 
 <p style="text-align:justify;">
-In order to execute our shellcode without having any problems, we need to encode it using the <b>Alpha2</b> Alphanumeric Unicode Mixedcase Encoder. This encoder needs one of the registers to point to the shellcode. So, one way to acomplish this task, is to identify a CPU register closest to the buffer and then align this register to the location of the buffer by adding or subtracting a certain value. If we look closely at the registers at the time we have landed into our larger buffer, we will see that the closest register to use is the ESI register with 649 bytes distance from the first address in out large buffer
+In order to execute our shellcode without having any problems, we need to encode it using the <b>Alpha2</b> Alphanumeric Unicode Mixedcase Encoder. This encoder needs one of the registers to point to the shellcode. So, one way to acomplish this task, is to identify a CPU register closest to the buffer and then align this register to the location of the buffer by adding or subtracting a certain value. If we look closely at the registers at the time we have landed into our larger buffer, we will see that the closest register to use is the ESI register with 649 bytes distance from the first address in our large buffer
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
