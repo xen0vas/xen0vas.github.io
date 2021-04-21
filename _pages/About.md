@@ -10,21 +10,13 @@ comments: true
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 17px">
-My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming. This blog contains technical write-ups regarding Cyber Security. 
+Welcome to my blog. My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming. This blog contains technical write-ups regarding Cyber Security. 
 </span>
 </p>
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 17px">
-My professional profile is available on
-<a href="https://www.linkedin.com/in/xvass/">Linkedin</a>. Sometimes I 
-<a href="https://twitter.com/xen0vas">tweet</a> about cyber security.
-</span>
-</p>
-
-<p style="text-align:justify;">
-<span style="font-family: Calibri (Body);font-size: 17px">
-I am currently working as a penetration tester at <a href="https://twelvesec.com/">TwelveSec</a>, a highly specialized Cyber-Security Consultancy. Most of the open source code I have released and the projects I'm contributing to can be found on <a href="https://github.com/xen0vas">GitHub</a>.
+I am currently working as a penetration tester at <a href="https://twelvesec.com/">TwelveSec</a>, a highly specialized Cyber-Security Consultancy.
 </span>
 </p>
 
