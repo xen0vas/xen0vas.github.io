@@ -13,6 +13,8 @@ comments: true
 <b><i>Shellcodes</i></b> 
 </span></p>
 
+#### *Note* : _Incomplete List;More to come_
+
 <ul>
   <li style="color:blue;font-size:17px"><a href="https://www.exploit-db.com/shellcodes/48592">Linux/x86 - Disable ASLR Security + Polymorphic Shellcode (124 bytes)</a></li>
   <li style="color:blue;font-size:17px"><a href="https://www.exploit-db.com/shellcodes/47890">Linux/x86 - execve(/bin/sh) + Random Bytes Encoder + XOR/SUB/NOT/ROR Shellcode (114 bytes)</a></li>
