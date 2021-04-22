@@ -8,7 +8,7 @@ comments: true
 
 ------------
 
-<span style="font-size:14px"><i><b>Note:</b> Incomplete List;More to come :;</i></span>
+<span style="font-size:14px"><i><b>Note:</b> Incomplete List;More to come</i></span>
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 17px">
