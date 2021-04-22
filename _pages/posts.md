@@ -8,7 +8,7 @@ comments: true
 
 ------------
 
-#### *Note* : _Incomplete List;More to come_
+#### *Note*: _Incomplete List;More to come_
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 17px">
