@@ -8,12 +8,12 @@ comments: true
 
 ------------
 
+#### *Note* : _Incomplete List;More to come_
+
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 17px">
 <b><i>Shellcodes</i></b> 
 </span></p>
-
-#### *Note* : _Incomplete List;More to come_
 
 <ul>
   <li style="color:blue;font-size:17px"><a href="https://www.exploit-db.com/shellcodes/48592">Linux/x86 - Disable ASLR Security + Polymorphic Shellcode (124 bytes)</a></li>
