@@ -1,6 +1,7 @@
 ---
 layout: single
 title: 'Exploiting Unicodes in Windows Executables - A case study'
+description: "This article explains the exploitation of a local buffer oveflow vulnerability and how SEH protection can be bypassed. Specifically, we will demonstrate an interesting exploitation approach of a unicode based buffer overflow against the vulnerable AllPlayer v7.6 application."
 date: 2019-05-13
 classes: wide
 header:
