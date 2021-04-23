@@ -1,6 +1,7 @@
 ---
 layout: single
 title: 'Antivirus Evasion : AV bypass using a Fully UnDetectable Cryptor'
+description: 'This post presents a way to evade Antivirus products using a FUD Cryptor. The main purpose of FUD Cryptors is to obfuscate the contents of a malicious executable in order to make the executable undetectable to antivirus software without interfering with the intended execution flow of the executable'
 date: 2021-03-09
 classes: wide
 header:
@@ -457,7 +458,7 @@ Then if we run the executable we will have a nice listener on port 99 as depicte
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-15.09.33.png" width="578" height="387" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-15.09.33.png" width="678" height="487" />
 
 
 
