@@ -20,7 +20,7 @@ comments: true
   <li style="color:blue;font-size:17px"><a href="https://www.exploit-db.com/shellcodes/47890">Linux/x86 - execve(/bin/sh) + Random Bytes Encoder + XOR/SUB/NOT/ROR Shellcode (114 bytes)</a></li>
   <li style="color:blue;font-size:17px"><a href="https://packetstormsecurity.com/files/158076/Linux-x86-etc-hosts-Mapping-Add-Polymorphic-Shellcode.html">Linux/x86 /etc/hosts Mapping Add Polymorphic Shellcode</a></li>
   <li style="color:blue;font-size:17px"><a href="https://packetstormsecurity.com/files/158963/Linux-x86-Reverse-TCP-Shellcode.html">Linux/x86 Reverse TCP Shellcode</a></li>
-   <li style="color:blue;font-size:17px"><a href="https://packetstormsecurity.com/files/177990/Linux-x86-Tiny-Read-Polymorphic-Shellcode.html">Linux/x86 Tiny Read Polymorphic Shellcode</a></li>
+   <li style="color:blue;font-size:17px"><a href="https://packetstormsecurity.com/files/157990/Linux-x86-Tiny-Read-Polymorphic-Shellcode.html">Linux/x86 Tiny Read Polymorphic Shellcode</a></li>
 </ul>
 
 <p style="text-align:justify;">
