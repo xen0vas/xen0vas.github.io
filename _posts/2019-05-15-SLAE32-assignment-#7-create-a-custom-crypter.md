@@ -17,6 +17,7 @@ tags:
   - Encrypted shellcode 
   - Shellcode Obfuscation
 --- 
+![](/assets/images/SLAE32/SLAE32.jpg)
 
 <!--img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" /-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
