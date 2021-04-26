@@ -14,7 +14,7 @@ tags:
   - Shellcoding
   - x86 Shellcode Analysis 
 --- 
-![](/assets/images/SLAE/SLAE.jpg)
+![](/assets/images/SLAE32/SLAE32.jpg)
 
 
 <!--img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" /-->
