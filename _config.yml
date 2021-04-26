@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "contrast"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "xen0vas Tech Blog"
+title                    : "xen0vas"
 title_separator          : "-"
 name                     : "Xenofon Vassilakopoulos Blog"
 description              : "Cyber Security and Technical WriteUps"
