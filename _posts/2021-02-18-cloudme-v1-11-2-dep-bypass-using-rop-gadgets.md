@@ -3,6 +3,7 @@ layout: single
 title: CloudMe v1.11.2 DEP bypass using ROP gadgets
 date: 2021-02-18
 classes: wide
+comments: true
 header:
   teaser: /assets/images/avatar.jpg
 tags:

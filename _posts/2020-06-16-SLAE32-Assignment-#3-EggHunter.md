@@ -3,6 +3,7 @@ layout: single
 title: 'SLAE32 - Assignment #3 - Egg Hunter'
 description: 'In this assignment a working demo of the EggHunter shellcode will be shown in practice. Specifically the goal of this assignment is the following. 1) Study about the Egg Hunter shellcode 2) Create a working demo of the Egg Hunter 3) The Egg Hunter should be configurable for different payloads'
 date: 2020-06-16
+comments: false
 classes: wide
 header:
   teaser: /assets/images/SLAE32/SLAE32.jpg
@@ -15,7 +16,7 @@ tags:
 --- 
 
 
-<img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" />
+<!--img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" /-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 3:</strong></span></p>
 <p style="text-align:justify;">In this assignment a working demo of the EggHunter <em>shellcode</em> will be shown in practice. Specifically the goal of this assignment is the following</p>

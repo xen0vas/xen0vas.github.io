@@ -3,6 +3,7 @@ layout: single
 title: 'SLAE32 Assignment #4 - Custom Encoding Scheme'
 date: 2019-12-27
 classes: wide
+comments: false
 header:
   teaser: /assets/images/SLAE32/SLAE32.jpg
 tags:
@@ -13,7 +14,7 @@ tags:
   - Custom Encoder
 ---
 
-<img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" />
+<!--img class="wp-image-4320 aligncenter" style="width:280px;border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg" alt="" /-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 4:</strong></span></p>
 <p style="text-align:justify;">
