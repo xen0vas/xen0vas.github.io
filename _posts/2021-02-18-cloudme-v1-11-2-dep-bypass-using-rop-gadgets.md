@@ -4,7 +4,7 @@ title: CloudMe v1.11.2 DEP bypass using ROP gadgets
 date: 2021-02-18
 classes: wide
 header:
-  teaser: /assets/images/2021/02/cloudme.png
+  teaser: /assets/images/avatar.jpg
 tags:
 - Exploitation
 - Penetration Testing

@@ -6,7 +6,7 @@ date: 2021-03-09
 comments: true
 classes: wide
 header:
-  teaser: /assets/images/2021/03/screenshot-2021-03-09-at-09.54.04.png
+  teaser: /assets/images/avatar.jpg
 tags:
 - Affine Cryptor
 - Fully Undetectable Cryptor

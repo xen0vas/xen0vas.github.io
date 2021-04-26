@@ -5,7 +5,7 @@ description: "This article explains the exploitation of a local buffer oveflow v
 date: 2019-05-13
 classes: wide
 header:
-  teaser: /assets/images/2019/AllPLayer/allplayer.png
+  teaser: /assets/images/avatar.jpg
 tags:
   - SEH
   - Windows
