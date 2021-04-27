@@ -296,7 +296,7 @@ int main(int argc, char** argv)
 
 
 <p align="justify">
-After running the program, and checking the results from Antivirus software, we will see that it has identified our executable as malicious again.. But.. what happened here ? We have encrypted our shellcode, and this shouldn't happen, right ? Well, not exactly.. As said before, modern antivirus engines are not relying only to static code analysis techniques, they also executing the malware sample in a sandbox, in order to dynamically observe its behaviour. At this point we should try harder and figure out how to avoid detection providing additional evasion techniques.
+After running the program and checking the results from Antivirus software, we see that it has identified our executable as malicious again.. But.. what happened here ? We have encrypted our shellcode, and this shouldn't happen, right ? Well, not exactly.. As said before, modern antivirus engines are not relying only to static code analysis techniques, they also executing the malware sample in a sandbox, in order to dynamically observe its behaviour. At this point we should try harder and figure out how to avoid detection providing additional evasion techniques.
 </p>
 
 <p align="justify">
