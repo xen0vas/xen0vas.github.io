@@ -448,7 +448,7 @@ int main(int argc, char** argv)
 ```
 
 <p align="justify">
-After compiling the program above, if we scan the executable file with Kaspersky Endpoint Security, we will realize that we have successfully bypassed detection. The following image shows that Kaspersky Endpoint Security didn't identified the program as malicious
+After compiling the program above, if we scan the executable file with Kaspersky Endpoint Security, we realize that we have successfully bypassed detection. The following image shows that Kaspersky Endpoint Security didn't identified the program as malicious
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/03/screenshot-2021-03-09-at-10.03.46.png" width="878" height="587" />
