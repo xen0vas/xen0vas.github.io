@@ -10,7 +10,7 @@ comments: true
 
 <p style="text-align:justify;">
 <span style="font-family: Calibri (Body);font-size: 17px">
-Welcome to my blog. My name is Xenofon (xen0vas) Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming. This blog contains technical write-ups regarding Cyber Security. 
+Welcome to my blog. My name is Xenofon Vassilakopoulos and I'm interested in vulnerability research, exploit development, reverse engineering, source code auditing and red teaming. This blog contains technical write-ups in the field of Cyber Security. 
 </span>
 </p>
 
