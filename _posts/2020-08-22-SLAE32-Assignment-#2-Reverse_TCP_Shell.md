@@ -16,7 +16,7 @@ tags:
 
 
 
-<img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.jpg"/>
+<img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/>
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 2:</strong></span></p>
 <p style="text-align:justify;">The goal of this assignment is to create a reverse <strong>TCP <em><strong>s</strong>hellcode</em></strong> that does the following</p>
