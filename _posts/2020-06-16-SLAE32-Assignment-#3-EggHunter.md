@@ -6,7 +6,7 @@ date: 2020-06-16
 comments: false
 classes: wide
 header:
-  teaser: /assets/images/SLAE32/SLAE32.jpg
+  teaser: /assets/images/SLAE32/SLAE32.png
 tags:
   - SLAE
   - Linux

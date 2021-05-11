@@ -5,7 +5,7 @@ date: 2019-12-27
 classes: wide
 comments: false
 header:
-  teaser: /assets/images/SLAE32/SLAE32.jpg
+  teaser: /assets/images/SLAE32/SLAE32.png
 tags:
   - SLAE
   - Linux

@@ -5,7 +5,7 @@ date: 2020-08-19
 classes: wide
 comments: false
 header:
-  teaser: /assets/images/SLAE32/SLAE32.jpg
+  teaser: /assets/images/SLAE32/SLAE32.png
 tags:
   - SLAE32
   - Pentester Academy
