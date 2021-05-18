@@ -40,10 +40,7 @@ tags:
 <li>ROP ( Return Oriented Programming )</li>
 <li>DEP ( Data Execution Prevention )</li>
 <li>ASLR ( Address space layout randomization )</li>
-<li>Assembly IA32</li>
-<li>Buffer Overflows</li>
 <li>Debuggers ( e.g. WinDbg, Immunity, OlyDBG, etc )</li>
-<li>exploit development using python</li>
 </ul>
 <p align="justify">The vulnerable software can be found <a href="https://www.cloudme.com/downloads/CloudMe_1112.exe">here</a></p>
 <blockquote>
