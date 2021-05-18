@@ -110,7 +110,7 @@ analytics:
 # Site Author
 author:
   name             : "Xenofon Vassilakopoulos"
-  avatar           : "/assets/images/xen.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "OSCE, OSCP, OSWP | Research and Exploitation" #"Im constantly seeking for knowledge in Cyber Security "
   location         : "Athens Greece"
   email            :
