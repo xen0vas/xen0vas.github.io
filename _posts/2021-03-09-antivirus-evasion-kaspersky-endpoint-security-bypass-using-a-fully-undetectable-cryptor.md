@@ -2,7 +2,7 @@
 layout: single
 title: 'Antivirus Evasion : AV bypass using a Fully UnDetectable Cryptor'
 date: 2021-03-09
-comments: true
+comments: false
 classes: wide
 header:
   teaser: /assets/images/avatar.jpg
