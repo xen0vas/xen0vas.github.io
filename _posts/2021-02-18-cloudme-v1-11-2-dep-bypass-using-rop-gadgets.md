@@ -366,7 +366,7 @@ pip3 install badchars
 <p align="justify">Then we will generate the hex chars as follows</p>
 
 
-<script id="asciicast-Zgp40P151NjlTYOvmGCeXQFc2" src="https://asciinema.org/a/Zgp40P151NjlTYOvmGCeXQFc2.js" autoplay=1 async data-autoplay="true" data-size="small"></script>
+<script id="asciicast-Zgp40P151NjlTYOvmGCeXQFc2" src="https://asciinema.org/a/Zgp40P151NjlTYOvmGCeXQFc2.js" autoplay=1 loop=1 async data-autoplay="true" data-size="small"></script>
 
 <!--pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>/home/kali</b></span># badchars -f python
