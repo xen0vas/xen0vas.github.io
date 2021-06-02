@@ -365,9 +365,11 @@ pip3 install badchars
 
 <p align="justify">Then we will generate the hex chars as follows</p>
 
-<script id="asciicast-Zgp40P151NjlTYOvmGCeXQFc2" src="https://asciinema.org/a/Zgp40P151NjlTYOvmGCeXQFc2.js" async></script>
-
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+<script id="asciicast-Zgp40P151NjlTYOvmGCeXQFc2" src="https://asciinema.org/a/Zgp40P151NjlTYOvmGCeXQFc2.js" async></script>
+</pre>
+
+<!--pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>/home/kali</b></span># badchars -f python
 badchars = (
   "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
@@ -387,7 +389,7 @@ badchars = (
   "\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0"
   "\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"
 )
-</pre>
+</pre-->
 
 <p align="justify">We will use the hex chars above to identify badchars in our target. In order to do that, we will use the following python script</p>
 
