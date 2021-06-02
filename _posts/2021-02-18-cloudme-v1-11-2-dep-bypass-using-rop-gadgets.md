@@ -16,7 +16,7 @@ tags:
 
 <p align="justify">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="" width="550" height="680" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="" width="550" height="680" />
 
 <p align="justify">Tools used for this exercise</p>
 <ul>
@@ -93,7 +93,7 @@ C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
 </pre>
 
 <p align="justify">We can also confirm this using the <b>process hacker 2</b> tool.</p>
-<figure><img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/phtool.png" alt="PHTool" width="630" height="143" /></figure>
+<figure><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/phtool.png" alt="PHTool" width="630" height="143" /></figure>
 <p align="justify">Now lets fuzz this target application using <b>boofuzz</b>. Boofuzz is a fork of and the successor to the venerable Sulley fuzzing framework. More details about the script can be found <a href="https://boofuzz.readthedocs.io/en/stable/">here</a>. The tool can also be found on <a href="https://github.com/jtpereyda/boofuzz">github </a>.The following python script used to fuzz the <b>CloudMe</b> application.</p>
 
 ```python
@@ -1152,7 +1152,7 @@ In order to make this exploit persistent and workable across multiple Windows pl
 Afterwards we will scroll down in stack view at <b>Immunity Debugger</b>. Further down the stack view, we should start seeing pointers on the stack, indicating " <b>RETURN to … from …</b>". These are saved addresses placed on the stack by functions that were called earlier. If we scroll almost all the way down, we will find a pointer to a <b>kernel32</b> address.
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png" alt=""/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png" alt=""/>
 
 <p align="justify">
 As previously mentioned, after scrolling down the stack view, there is a leaked <b>kernel32</b> address <b>0x0022ED28</b>
@@ -1381,12 +1381,12 @@ As seen above in red, after the <b>MOV EAX,DWORD PTR [EAX]</b> instruction is ex
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png" alt=""/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png" alt=""/>
 
 Also we can see that the leaked <b>kernel32</b> address is loaded into EAX.
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 2px solid black;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.22.36-1.png" alt=""/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.22.36-1.png" alt=""/>
 
 
 <p align="justify">
