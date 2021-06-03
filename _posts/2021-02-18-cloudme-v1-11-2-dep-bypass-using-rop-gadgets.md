@@ -367,7 +367,7 @@ pip3 install badchars
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-<script id="asciicast-Zgp40P151NjlTYOvmGCeXQFc2" src="https://asciinema.org/a/Zgp40P151NjlTYOvmGCeXQFc2.js" autoplay=1 loop async data-size="small"></script>
+<script id="asciicast-Zgp40P151NjlTYOvmGCeXQFc2" src="https://asciinema.org/a/Zgp40P151NjlTYOvmGCeXQFc2.js" autoplay=1 loop async></script>
 </pre>
 
 <!--pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
