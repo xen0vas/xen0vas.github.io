@@ -20,7 +20,7 @@ tags:
 This article explains the exploitation of a local buffer oveflow vulnerability and how <b>SEH</b> protection can be bypassed. Specifically, we will demonstrate an interesting exploitation approach of a unicode based buffer overflow against the vulnerable <b> AllPlayer v7.6</b> application.
 </p>
 
-<img src="{{site.baseurl}}/assets/images/2019/AllPLayer/allplayer.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="450">
+<img src="{{site.baseurl}}/assets/images/2019/AllPLayer/allplayer.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="550" height="450">
 
 ----------------
 
@@ -91,7 +91,7 @@ http://AAAAAAAAAA......
 After that, we will save and close the file and then we will open the <b>filefuzz</b> fuzzer. At this point we will generate our sample files. The following screenshot shows the <b>filefuzz</b> fuzzer setup which will be used in order to create 100 sample files. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="650" height="650">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="650" height="650">
 
 <p style="text-align:justify;">
 Afterwards, we will execute <b>filefuzz</b> fuzzer by loading, one by one,  the sample files into the AllPlayer application until the crash occurs. At "Execute" tab of the <b>filefuzz</b> fuzzer, we will change the Miliseconds into 10000 and that because the application might need some time to load the samples before the filefuzz executes it again. So this is a time interval of 10 secs between loading the samples. Also we will use 4 files for this task, so <b>filefuzz</b> fuzzer will restart the target application 4 times. 
@@ -101,7 +101,7 @@ Afterwards, we will execute <b>filefuzz</b> fuzzer by loading, one by one,  the 
 The following screenshot shows the filefuzz setup on "execute" tab  
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz2.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="600" height="600">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/filefuzz2.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="600" height="600">
 
 <p style="text-align:justify;">
 As we see above, we have more than one crashes. If we inspect further, we can see that the application crashed for the first time when loaded the second sample ( <b>fuzz1.m3u</b> ). 
@@ -133,19 +133,19 @@ f.write(buffer)
 After executing the script above, if we observe the EIP register at the time of crash, we will see that it holds a specific address <b>77a477b2</b> , which is the same as the one caught from <b>filefuzz</b>. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/crash.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="680" height="570">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/crash.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="680" height="570">
 
 <p style="text-align:justify;">
 Inspecting further the crash, and specifically the SEH chain in Immunity Debugger, we realize that the SE handler was overwritten with the unicode <code>0x00410041</code>. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/seh.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="450" height="350">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/seh.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="450" height="350">
 
 <p style="text-align:justify;">
 If we follow in dump the location pointed by the EBP register, we will see the contents of our payload, and once again we will confirm the unicode format of these characters. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/dump.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="680" height="570">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/dump.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="680" height="570">
 
 -----------
 
@@ -178,20 +178,20 @@ f.close()
 After running the script above, the <b>pattern.m3u</b> file will be generated. Afterwards, we will load the generated <b>pattern.m3u</b> file into the vulnerable <b>AllPlayer v7.6</b> application. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/load_file.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="550" height="450">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/load_file.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="550" height="450">
 
 <p style="text-align:justify;">
 If we inspect the <b>SEH</b> chain in <b>Immunity Debugger</b> we will see the pattern <b>0x0030006b</b>. The following screenshot shows the specified pattern
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/pattern_seh.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="450" height="250">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/pattern_seh.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="450" height="250">
 
 <p style="text-align:justify;">
 Later on, we will use <b>mona.py</b> in order to locate the exact offset as shown at the screenshot below 
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/mona.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="850" height="580">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/mona.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="850" height="580">
 
 <p style="text-align:justify;">
 After executing <code>!mona findmsp</code> command, we see that <b>mona.py</b> has detected that the vulnerable application crashes at the exact the offset <b>301</b>, which is related with the pattern <b>0x0030006b</b> that we saw in <b>SEH</b> chain before. 
@@ -211,7 +211,7 @@ f.close()
 After we run the script above, if we pass the execution to the program in Immunity Debugger <b>SHIFT+F9</b>,  we see that we are finally controling EIP with <code>\x90\x90</code> ,as seen at the screenshot below 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/EIP.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="750" height="450">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/EIP.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="750" height="450">
 
 <p style="text-align:justify;">
 At this point we are able to replace the two bytes <b>\x90\x90</b> in our PoC script, with <b>POP POP RETN</b> instructions in order to bypass SEH. So, we will use <b>mona.py</b> again in order to find a reliable and Unicode compatible address in memory that contains the instructions <b>POP POP RETN</b>
@@ -228,7 +228,7 @@ If we then check the log window in <b>Immunity Debugger</b>, we will see the out
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/unicodes.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="880" height="580">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/unicodes.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="880" height="580">
 
 <p style="text-align:justify;">
 Moreover, one restriction of choosing the right address from the results produced by <b>mona.py</b>, is that, any possible selected address needs to have the null byte as a leading character. As we see from the results at the screenshot above there are some addresses starting with the null byte. At this point the address <b>0x0074007a</b> seems to be a good candidate. 
@@ -253,21 +253,21 @@ Running the script above, the <b>eip.m3u</b> file will be generated. Then we wil
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/overwrites.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="880" height="380">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/overwrites.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="880" height="380">
 
 <p style="text-align:justify;">
 From the screenshot above we can also confirm that the EIP has been overwritten with the Unicode address <b>0x0074007a</b>. So, at this point we control EIP, and we can now execute the <b>POP POP RETN</b> instructions as we should without any problems. If we now put a breakpoint in Immunity Debugger at the Unicode address  <b>0x0074007a</b> ,and then pass the exception to the program by pressing <b>SHIFT+F9 </b>, we will see that we have stepped into our breakpoint as shown at the following screenshot
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/pop.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="880" height="380">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/pop.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="880" height="380">
 
 <p style="text-align:justify;">
 Now, if we continue executing the instructions, we will land at the next SEH record, which has been overwritten with <b>0x00420042</b>. We can now confirm that we also control NSEH. If we see further at the disassembler in Immunity Debugger, we will realize that a large buffer full of D's is located few bytes away from NSEH record.    
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/disas.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="480" height="380">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/disas.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="480" height="380">
 
 <p style="text-align:justify;">
 If we continue the execution, we will see that the instructions in address <b>0x0012EC6D</b> cannot be executed, and for that reason we should find a unicode compatible nop in order to skip the instructions that causing this issue and then be able to continue the execution to the large buffer we control. It is worth to mention that we cannot use a short jmp instruction to jump to the location we want when exploiting unicodes, because short jmp instructions usually need two bytes without any trailing or leading zeros in them.   
@@ -281,7 +281,7 @@ If we continue the execution, we will see that the instructions in address <b>0x
 A Unicode compatible NOP or "Venetian code" is any instruction that can absorb the leading and the trailing zeros without affecting the execution flow of the program. In order to be more specific, lets observe the instructions shown at the screenshot below 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nops.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="580" height="480">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nops.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="580" height="480">
 
 <p style="text-align:justify;">
 As we can see at the picture above, there are instructions having trailing and leading zeros in them, such as the <b>ADD BYTE PTR DS:[EDX],AL</b> instruction. What we need now is to find a unicode compatible NOP instruction that will help us overcome this issue.
@@ -316,7 +316,7 @@ If we execute the script above it will update the <b>eip.m3u</b> file, but now w
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nop_com.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="780" height="580">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/nop_com.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="780" height="580">
 
 <p style="text-align:justify;">
 As we see above, we have landed into our larger buffer that we control. We are now few steps behind before we can execute our shellcode. At this point, we have used a unicode compatible NOP in order to skip some unicode instructions and land to the larger buffer. 
@@ -339,7 +339,7 @@ We can see this at the screenshot below
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/ESI.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="700" height="350">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/ESI.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="700" height="350">
 
 <p style="text-align:justify;">
 After some trial and error we have ended using the following shellcode in order to perform the alignment. 
@@ -394,7 +394,7 @@ f.close()
 As we see at the screenshot below, EAX will be pushed on the stack and then after executing the <b>retn</b> instruction, the flow will be redirected to the new location on the stack where we will place the beginning of our shellcode and will be 92 bytes further down the stack at address <b>0x0012ECEC</b> 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/align.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="800" height="450">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/align.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="800" height="450">
 
 <p style="text-align:justify;">
 As you can imagine, we now need to cover the distance of 92 bytes from the <b>retn</b> address until the begining of our shellcode. Because of the unicode format if we send the hex <b>\x90\x90</b>, it will be converted into a unicode compliant format of <b>0x00900090</b>, meaning that we will have four bytes of padding rather than two on the stack, so we need to perform the following devision 92 / 2 which will give us 46 bytes. Lets update our PoC script and check if we have performed the right calculations. We will use <b>"EEEE"</b> as our placeholder. 
@@ -430,7 +430,7 @@ f.close()
 After executing the script above and loading the <b>payload.m3u</b> file in the vulnerable application, we will perform our debugging session until we finally reach our placeholder on the stack. But rather seeing the desired value <b>"EEEE"</b> follwed by D's at the begining of EAX register, we see that EAX is not pointing at the begining of our shellcode. In order to fix this, we will send 45 nops rather than 46. 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/extra.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="700" height="350">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/extra.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="700" height="350">
 
 <p style="text-align:justify;">
 We will now update the PoC script and try again. 
@@ -467,7 +467,7 @@ As we see at the screenshot below, we are now landed exactly at the begining of 
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/correct.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="830" height="420">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/correct.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="830" height="420">
 
 ------------
 
@@ -558,14 +558,14 @@ According with what we see at the memory dump in Immunity Debugger, we can reali
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/bad.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="530" height="390">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/bad.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="530" height="390">
 
 <p style="text-align:justify;">
 After running the script again, we can see that the bytes <b>"\x0d"</b> and <b>"\x80"</b> are bad characters. At this point we will update the PoC script removing the characters "\x00\x0a\x0d\x80". If we run the script and examine the memory dump again, we will see that the problem with the bad characters stil exists in the range of characters from <b>0x82</b> until <b>0xA0</b>. 
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/0x82 - 0xA0.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="530" height="390">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/0x82 - 0xA0.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="530" height="390">
 
 <p style="text-align:justify;">
 Later on, we have identified that the bad characters are the following
@@ -580,7 +580,7 @@ If we remove all these bad characters above and then update our PoC script, we w
 </p>
 
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/clear.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="530" height="390">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/clear.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="530" height="390">
 
 
 <p style="text-align:justify;">
@@ -722,4 +722,4 @@ f.close()
 if we now execute the python script above, the <b>evil.m3u</b> file will be generated and when we load this file into our vulnerable <b>AllPlayer</b> application, then we will have our calculator executed 
 </p>
 
-<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/calc.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid #1A1B1C;" width="400" height="350">
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/calc.png" style="display:block;margin-left:auto;margin-right:auto;border:1px solid red #1A1B1C;" width="400" height="350">
