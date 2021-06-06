@@ -160,7 +160,8 @@ As seen below, we will generate the pattern from metasploit in order to locate t
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-<script id="asciicast-zGEFtsRDvl5QfxtysBLk0TY30" src="https://asciinema.org/a/zGEFtsRDvl5QfxtysBLk0TY30.js" async></script>
+<!--script id="asciicast-zGEFtsRDvl5QfxtysBLk0TY30" src="https://asciinema.org/a/zGEFtsRDvl5QfxtysBLk0TY30.js" async></script-->
+<img src="{{ site.baseurl }}/assets/images/2019/AllPLayer/msf-pattern.gif" style="display:block;margin-left:auto;margin-right:auto; #1A1B1C;" width="550" height="450">
 </pre>
 
 <p style="text-align:justify;">
