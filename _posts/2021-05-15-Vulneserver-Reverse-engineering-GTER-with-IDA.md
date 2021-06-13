@@ -256,15 +256,15 @@ At this point as we see at the following screenshot that there is a call to mall
 
 If we follow the <b>loc_402DC0</b>, we will see that there is a jump to the offset <b>off_406198</b> which indicates the call to malloc as seen at the image below 
 
- <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="800" height="200" />
+ <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="900" height="300" />
 
 After some instructions, we see that there is a call to <b>loc_4017CE</b> 
 
- <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="800" height="200" />
+ <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="900" height="300" />
 
 If we continue the execution we see the following code 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-2.png" alt="bp-windbg-hit" width="600" height="300" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-2.png" alt="bp-windbg-hit" width="700" height="400" />
 
 <p align="justify">
 After some instructions, we see at the address <b>0x004017D7</b>, when the <code><b>mov eax, [ebp+8]</b></code> executes, the <b>eax</b> register holds the user input, which will be copied using the <b>strcpy</b> function. The remaining 4820 bytes that sent from the poc script will be cut off because exceeded the length of the memory boundaries that have been set using the malloc function before.   
