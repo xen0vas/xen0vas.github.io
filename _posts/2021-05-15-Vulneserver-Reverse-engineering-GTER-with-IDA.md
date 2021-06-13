@@ -144,13 +144,13 @@ WINDBG>dd ebp-410h L1
 ```
 
 <p align="justify">
-Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <b><code>[ebp-410h]</code></b>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <b><code>loc_4024B6</code></b>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b>loc_4024B6</b>, the connection with the <b>vulnserver</b> would be closed. 
+Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <b><code>[ebp-410h]</code></b>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <b><code>loc_4024B6</code></b>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b><cdoe>loc_4024B6</cdoe></b>, the connection with the <b>vulnserver</b> would be closed. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 <p align="justify">
-At this point we won't be redirected to <b><code>loc_4024B6</code></b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <b>loc_4024E8</b> ,following the termination of the socket connection. 
+At this point we won't be redirected to <b><code>loc_4024B6</code></b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <b><code>loc_4024E8</code></b> ,following the termination of the socket connection. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
@@ -170,7 +170,7 @@ As we see at the assembly code above, some values are placed on the stack in ord
 
 
 <p align="justify">
-Specifically, the immediate value 5 is placed on the stack at address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code>[ebp-10h]</code>. 
+Specifically, the immediate value 5 is placed on the stack at address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code><b>[ebp-10h]</b></code>. 
 <br><br>
 Lets see the arguments of <b>strncmp</b> function in WinDbg 
 <br><br>
@@ -204,7 +204,7 @@ WINDBG>dc poi(ebp-10h)
 ```
 
 <p align="justify">
-Afterwards, when the arguments placed on the stack, a call to <b>strncmp</b> function is done, which then returns the hex value <b>0xFFFFFFFF</b> on <b>eax</b> register as seen in WinDbg output below
+Afterwards, when the arguments placed on the stack, a call to <b>strncmp</b> function is done, which then returns the hex value <b><code>0xFFFFFFFF</code></b> on <b>eax</b> register as seen in WinDbg output below
 </p>
 
 ```
