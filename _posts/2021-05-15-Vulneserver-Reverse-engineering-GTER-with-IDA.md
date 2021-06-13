@@ -250,11 +250,11 @@ At this point we will not take the jump (JNE) to address <b><code>0x00402099</co
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/GTER.png" alt="bp-windbg-hit" width="750" height="650" />
 
-At this point as we see at the following screenshot that there is a call to malloc function ( <b>loc_402DC0</b> ), which allocates 180 bytes (0xb4). 
+At this point as we see at the following screenshot that there is a call to malloc function ( <b><code>loc_402DC0</code></b> ), which allocates 180 bytes (0xb4). 
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-1.png" alt="bp-windbg-hit" width="900" height="90" />
 
-If we follow the <b>loc_402DC0</b>, we will see that there is a jump to the offset <b>off_406198</b> which indicates the call to malloc as seen at the image below 
+If we follow the <b><code>loc_402DC0</code></b>, we will see that there is a jump to the offset <b><code>off_406198</code></b> which indicates the call to malloc as seen at the image below 
 
  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="900" height="300" />
 
