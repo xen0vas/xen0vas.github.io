@@ -24,9 +24,7 @@ This article is the first part of an exploit development series regarding the ex
 The tools used for this demonstration are the following</p>
 
 * IDA Pro
-
 * API Monitor v2 32-bit
-
 * WinDbg
 
 Starting our binary analysis, we run API Monitor v2 in order to have a first site about how to perform communication with the vulnserver. 
