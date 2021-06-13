@@ -130,7 +130,7 @@ Once we run the poc script, we immediately hit the breakpoint in <b>WinDbg</b> w
 Moreover, <b>recv</b> function is not of much interest at this time, so we will continue execution until return from <b>recv</b> function. After returning from <b>recv</b> we will land to the address <code>0x00401958</code>
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="750" height="400" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
 Now, lets try to understand the code portion marked with the red square as seen at the screenshot above. First, <b>esp</b> register will reserve some space on the stack, specifically <b>10h</b> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred at <b>[ebp-410h]</b> , which moved there using the <code>mov [ebp-410h], eax</code> instruction. The hex value 0x1000 that stored onto the stack at the address <b>0x0103fb60</b> is the return value of the <b>recv</b> function, which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
