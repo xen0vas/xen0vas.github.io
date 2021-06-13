@@ -91,7 +91,7 @@ s.close()
 ```
 
 <p align="justify">
-At this point we are ready to run the script above in order to observe the functional behaviour of the vulnserver. For this reason we will be using windbg and IDA Pro. First we will run vulnserver on the target machine and then we will start IDA and attach Windbg as seen below  
+At this point we are ready to run the script above in order to observe the functional behaviour of the vulnserver. For this reason we will be using WinDbg and IDA Pro. First we will run vulnserver on the target machine and then we will start IDA and attach Windbg as seen below  
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" width="750" height="443" /> <!-- width="650" height="443"-->
