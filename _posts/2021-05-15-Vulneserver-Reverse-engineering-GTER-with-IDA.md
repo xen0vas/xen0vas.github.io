@@ -112,7 +112,7 @@ int recv(
 ```
 
 <p align="justify">
-The <b>recv</b> function is the first entry point that will be used in order to receive the bytes coming from the user input. At this point we will put a breakpoint at the <b>recv</b> function as follows 
+The <code><b>recv</b></code> function is the first entry point that will be used in order to receive the bytes coming from the user input. At this point we will put a breakpoint at the <code><b>recv</b></code> function as follows 
 </p>
 
 <p align="justify">
@@ -129,7 +129,7 @@ Once we run the poc script, we immediately hit the breakpoint in WinDbg which is
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/windbg-bp-recv.png" alt="bp-windbg-hit" width="750" height="343" />
 
 <p align="justify">
-Moreover, <code><b>recv</b></code> function is not of much interest at this time, so we will continue execution until return from <code><b>recv</b></code> function. After returning from <b>recv</b> we will land to the address <code><b>0x00401958</b></code>
+Moreover, the <code><b>recv</b></code> function is not of much interest at this time, so we will continue execution until return from <code><b>recv</b></code> function. After returning from <b>recv</b> we will land to the address <code><b>0x00401958</b></code>
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
@@ -152,7 +152,7 @@ Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compar
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 <p align="justify">
-At this point we won't be redirected to <code><b>loc_4024B6</b></code>, and the execution flow will continue as is. If no data returned from <code><b>recv</b></code> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <code><b>loc_4024E8</b></code> ,following the termination of the socket connection. 
+At this point it won't be a redirection to <code><b>loc_4024B6</b></code>, and the execution flow will continue as is. If no data returned from <code><b>recv</b></code> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <code><b>loc_4024E8</b></code> ,following the termination of the socket connection. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
