@@ -38,14 +38,12 @@ As we can see at the image above, when we run vulnserver, we have an overview of
 </p>
 
 ```c
-
 INT WSAAPI getaddrinfo(
   PCSTR           pNodeName,
   PCSTR           pServiceName,
   const ADDRINFOA *pHints,
   PADDRINFOA      *ppResult
 );
-
 ```
 
 <p align="justify">
@@ -58,11 +56,9 @@ Similar information regarding the port number we also get from the <b>ntohs</b> 
 
 
 ```c
-
 u_short ntohs(
   u_short netshort
 );
-
 ```
 
 <p align="justify">
