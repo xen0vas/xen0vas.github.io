@@ -165,7 +165,7 @@ Now, lets explain the following code portion inside the red square as seen at th
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address-2.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
-As we see at the assembly code above, some values are placed on the stack in order to be placed at the <code><b>strncmp</b></code> function as arguments later. Moreover, an interesting instruction we see on IDA is the <code><b>call near ptr unk_402Db8</b></code>. This instruction specifies a near call to a relative address of the next instruction that as we see below, it contains a <code><b>jmp</b></code> instruction to an offset which points to <code><b>strncmp</b></code> function. 
+As we see at the assembly code above, some values are placed on the stack in order to be placed later at the <code><b>strncmp</b></code> function as arguments. Moreover, an interesting instruction we see on IDA is the <code><b>call near ptr unk_402Db8</b></code>. This instruction specifies a near call to a relative address of the next instruction that as we see below, it contains a <code><b>jmp</b></code> instruction to an offset which points to <code><b>strncmp</b></code> function. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="850" height="500" />
@@ -248,19 +248,28 @@ vulnserver+0x1fe9:
 00401fe9 0f85aa000000    jne     vulnserver+0x2099 (00402099)            [br=0]
 ```
 
-At this point we will not take the jump (JNE) to address <code><b>0x00402099</b></code> on the stack. Alternatively, the execution flow will continue to address <code><b>0x00401FEF</b></code> as seen at the image below. 
+<p align="justify">
+At this point the jump (JNE) to address <code><b>0x00402099</b></code> will not be taken. Alternatively, the execution flow will continue to address <code><b>0x00401FEF</b></code> as seen at the image below. 
+</p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/GTER.png" alt="bp-windbg-hit" width="750" height="650" />
 
+<p align="justify">
 At this point as we see at the following screenshot that there is a call to <code><b>malloc</b></code> function ( <code><b>loc_402DC0</b></code> ), which allocates 180 bytes (0xb4). 
+</p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-1.png" alt="bp-windbg-hit" width="900" height="90" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-1.png" alt="bp-windbg-hit" width="
+900" height="90" />
 
+<p align="justify">
 If we follow the <code><b>loc_402DC0</b></code>, we will see that there is a jump to the offset <code><b>off_406198</b></code> which indicates the call to malloc as seen at the image below 
+</p>
 
  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="900" height="300" />
 
-After some instructions, we see that there is a call to <code><b>loc_4017CE</b></code> 
+<p align="justify">
+Further down, we see that there is a call to <code><b>loc_4017CE</b></code> 
+</p>
 
  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="950" height="350" />
 
@@ -337,7 +346,9 @@ cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00010246
 42424242 ??              ???
 ```
 
+<p align="justify">
 We also see the same results in IDA Pro as follows 
+</p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/RIP.png" alt="bp-windbg-hit" width="450" height="400" />
 
