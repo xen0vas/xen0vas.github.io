@@ -34,7 +34,8 @@ Starting our binary analysis, we run API Monitor v2 in order to have a first sit
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/apimonitor.png" alt="APIMonitor" width="950" height="343" />
 
 <p align="justify">
-As we can see at the image above, when we run vulnserver, we have an overview of the socket functions that we expect. According to msdn, the <b>getaddrinfo</b> function provides protocol-independent translation from an ANSI host name to an address. Following, is the prototype of the <b>getaddrinfo</b> function.</p>
+As we can see at the image above, when we run vulnserver, we have an overview of the socket functions that we expect. According to msdn, the <b>getaddrinfo</b> function provides protocol-independent translation from an ANSI host name to an address. Following, is the prototype of the <b>getaddrinfo</b> function.
+</p>
 
 ```c
 
@@ -49,8 +50,11 @@ INT WSAAPI getaddrinfo(
 
 <p align="justify">
 As we see above, the second argument is a pointer to a NULL-terminated ANSI string that contains either a service name or port number which is represented as a string.
+</p>
 
+<p align="justify">
 Similar information regarding the port number we also get from the <b>ntohs</b> function, which,  in general terms and according to MSDN, converts a <b>u_short</b> from TCP/IP network byte order to host byte order (which is little-endian on Intel processors). The <b>ntohs</b> function can be used to convert an IP port number in network byte order to the IP port number in host byte order. Following, is the prototype of the <b>ntohs</b> function
+</p>
 
 
 ```c
@@ -61,6 +65,7 @@ u_short ntohs(
 
 ```
 
+<p align="justify">
 Having this information, we can confirm that the server listens on port 9999. As we see below, we are running netcat tool to connect to port 9999</p>
 
 <script id="asciicast-mkwzV0kymb3F0BmRStGe45boN" style="display: block;margin-left: auto;margin-right: auto;" src="https://asciinema.org/a/mkwzV0kymb3F0BmRStGe45boN.js" async></script>
