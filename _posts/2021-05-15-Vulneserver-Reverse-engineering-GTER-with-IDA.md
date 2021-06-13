@@ -127,7 +127,7 @@ Once we run the poc script, we immediately hit the breakpoint in WinDbg which is
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/windbg-bp-recv.png" alt="bp-windbg-hit" width="750" height="343" />
 
 <p align="justify">
-Moreover, <code><b>recv</b></code> function is not of much interest at this time, so we will continue execution until return from <b>recv</b> function. After returning from <b>recv</b> we will land to the address <code><b>0x00401958</b></code>
+Moreover, <code><b>recv</b></code> function is not of much interest at this time, so we will continue execution until return from <code><b>recv</b></code> function. After returning from <b>recv</b> we will land to the address <code><b>0x00401958</b></code>
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
@@ -135,7 +135,7 @@ Moreover, <code><b>recv</b></code> function is not of much interest at this time
 <p align="justify">
 Now, lets try to understand the code portion marked with a red square as seen at the screenshot above. First, <code><b>esp</b></code> register will reserve some space on the stack, specifically <code><b>10h</b></code> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <code><b>[ebp-410h]</b></code> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <code><b>0x1000</b></code> that stored onto the stack at the address <code><b>0x0103fb60</b></code> is the return value of the <code><b>recv</b></code> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
 
-So, as we now see at WinDbg debugger the value <cdoe><b>0x1000</b></cdoe> is stored in address <code><b>0x0103fb60</b></code> on the stack. 
+So, as we now see at WinDbg debugger the value <code><b>0x1000</b></code> is stored in address <code><b>0x0103fb60</b></code> on the stack. 
 </p>
 
 ```
@@ -144,7 +144,7 @@ WINDBG>dd ebp-410h L1
 ```
 
 <p align="justify">
-Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <code><b>[ebp-410h]</b></code>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <code><b>loc_4024B6</b></code>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b><cdoe>loc_4024B6</cdoe></b>, the connection with the <b>vulnserver</b> would be closed. 
+Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <code><b>[ebp-410h]</b></code>, with value <code><b>0</b></code>, and if the value is less than or equal to <code><b>0</b></code>, then the program flow should be redirected to the location <code><b>loc_4024B6</b></code>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b><code>loc_4024B6</code></b>, the connection with the vulnserver would be closed. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
