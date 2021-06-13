@@ -163,7 +163,7 @@ Now, lets explain the following code portion inside the red square as seen at th
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address-2.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
-As we see at the assembly code above, some values are placed on the stack in order to be placed at the <code><b>strncmp</b></code> function as arguments later. Moreover, an interesting instruction we see on IDA is the <code><b>call near ptr unk_402Db8</b></code>. This instruction specifies a near call to a relative address of the next instruction that as we see below it contains a <code><b>jmp</b></code> instruction to an offset which points to <code><b>strncmp</b></code> function. 
+As we see at the assembly code above, some values are placed on the stack in order to be placed at the <code><b>strncmp</b></code> function as arguments later. Moreover, an interesting instruction we see on IDA is the <code><b>call near ptr unk_402Db8</b></code>. This instruction specifies a near call to a relative address of the next instruction that as we see below, it contains a <code><b>jmp</b></code> instruction to an offset which points to <code><b>strncmp</b></code> function. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="850" height="500" />
