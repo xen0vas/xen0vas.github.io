@@ -260,11 +260,11 @@ If we follow the <b>loc_402DC0</b>, we will see that there is a jump to the offs
 
 After some instructions, we see that there is a call to <b>loc_4017CE</b> 
 
- <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="700" height="100" />
+ <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="800" height="200" />
 
 If we continue the execution we see the following code 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-2.png" alt="bp-windbg-hit" width="500" height="200" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-2.png" alt="bp-windbg-hit" width="600" height="300" />
 
 <p align="justify">
 After some instructions, we see at the address <b>0x004017D7</b>, when the <code><b>mov eax, [ebp+8]</b></code> executes, the <b>eax</b> register holds the user input, which will be copied using the <b>strcpy</b> function. The remaining 4820 bytes that sent from the poc script will be cut off because the copy to the destination exceeded the memory boundaries that have been set using the malloc function before.   
@@ -289,12 +289,12 @@ WINDBG>dc eax L30
 then, the function <b>strcpy</b> will be called using the instruction <code><b>call loc_402DC8</b></code>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="700" height="150" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="800" height="250" />
 
 
 at this point, if we continue the execution, the program will crash, and the following screenshot will be provided at the stack view in IDA Pro. 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="350" height="500" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="450" height="600" />
 
 Now that we know the presence of a buffer overflow vulnerability, we should coninue further and write a poc script in order to control the <b>EIP</b> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <b>esp</b> resister ) stopped at the address <b>0x00EAF9C8</b>. With this in mind, we will create the following poc sctipt 
 
