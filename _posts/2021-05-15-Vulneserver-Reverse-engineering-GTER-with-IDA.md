@@ -235,7 +235,7 @@ Afterwards, when the comparison with <b>"HELP"</b> won't match, we will land to 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/rtime.png" alt="bp-windbg-hit" width="750" height="450" />
 
 <p align="justify">
-At this point we realize that there is a pattern of string comparison with all possible commands offered by the vulnserver. Specifically, the execution flow will continue in the same way until we match the string <b>"GTER"</b>. From the following WinDbg output, we see that the <b>eax</b> register holds tha value <code><b>0x00000000</b></code>, which is the return value from <code><b>strncmp</b></code> function and indicates that there is a match with <b>"GTER"</b> string.    
+At this point we realize that there is a pattern of string comparison with all possible commands offered by the vulnserver. Specifically, the execution flow will continue in the same way until we match the string <b>"GTER"</b>. From the following WinDbg output, we see that the <code><b>eax</b></code> register holds tha value <code><b>0x00000000</b></code>, which is the return value from <code><b>strncmp</b></code> function and indicates that there is a match with <b>"GTER"</b> string.    
 </p>
 
 ```
@@ -258,7 +258,7 @@ If we follow the <code><b>loc_402DC0</b></code>, we will see that there is a jum
 
  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="900" height="300" />
 
-After some instructions, we see that there is a call to <b>loc_4017CE</b> 
+After some instructions, we see that there is a call to <code><b>loc_4017CE</b></code> 
 
  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="950" height="350" />
 
@@ -299,7 +299,7 @@ at this point, if we continue the execution, the program will crash, and the fol
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="450" height="600" />
 
 <p align="justify">
-Now that we know the presence of a buffer overflow vulnerability, we should continue further and write a poc script in order to control the <code><b>eip</b></code> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <b>esp</b> resister ) stopped at the address <code><b>0x00EAF9C8</b></code>. With this in mind, we will create the following poc sctipt 
+Now that we know the presence of a buffer overflow vulnerability, we should continue further and write a poc script in order to control the <code><b>eip</b></code> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <code><b>esp</b></code> resister ) stopped at the address <code><b>0x00EAF9C8</b></code>. With this in mind, we will create the following poc sctipt 
 </p>
 
 ```python
