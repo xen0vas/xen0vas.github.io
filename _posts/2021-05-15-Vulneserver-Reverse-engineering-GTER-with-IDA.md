@@ -18,7 +18,7 @@ tags:
 
 
 <p align="justify">
-This article is the first part of an exploit development series regarding the exploitation process of the GTER command of the vulnserver executable. Furthermore, at this article we will analyse the vulnserver executable using WinDbg debugger assisted with reverse engineering techniques using IDA Pro disassembler/decompiler, in order to understand how the binary works as well as to search for vulnerabilities that may lead to exploitation. In this article we will not be focusing on fuzzing techniques, but rather we'll focusing most in reverse engineering techniques in order to find potential security issues. 
+This article is the first part of an exploit development series regarding the exploitation process of the GTER command of the vulnserver executable. Furthermore, at this article we will analyse the vulnserver executable using WinDbg debugger assisted with reverse engineering techniques using IDA Pro disassembler/decompiler, in order to understand how the binary works as well as to search for vulnerabilities that may lead to exploitation. In this article we will not be focusing on fuzzing techniques, but rather we will be focusing most in reverse engineering techniques in order to find potential security issues. 
 
 <br><br>
 The tools used for this demonstration are the following</p>
@@ -27,7 +27,9 @@ The tools used for this demonstration are the following</p>
 * API Monitor v2 32-bit
 * WinDbg
 
-Starting our binary analysis, we run API Monitor v2 in order to have a first site about how to perform communication with the vulnserver. 
+<p align="justify">
+Starting our binary analysis, we will run API Monitor v2 in order to have a first site about how to communicate with the vulnserver. 
+</p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/apimonitor.png" alt="APIMonitor"  /> <!--  -->
 
