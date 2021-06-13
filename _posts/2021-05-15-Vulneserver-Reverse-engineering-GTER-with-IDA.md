@@ -166,7 +166,7 @@ Now, lets explain the following code portion inside the red square as seen at th
 As we see at the assembly code above, some values are placed on the stack in order to be placed at the <b>strncmp</b> function as arguments later. One interesting instruction we see on IDA is the <code>call near ptr unk_402Db8</code>. This instruction specifies a near call to a relative address of the next instruction that as we see below it contains a jmp instruction to an offset which points to <b>msvcrt_strncmp</b> function. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="650" height="300" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="750" height="400" />
 
 
 <p align="justify">
@@ -220,7 +220,7 @@ vulnserver+0x19f1:
 The returned value stored at <b>eax</b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <b>CF</b> and <b>ZF</b> on IDA Pro. Specifically the <b>CF</b> flag has the value 1 and the <b>ZF</b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="350" height="350" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="450" height="450" />
 
 <p align="justify">
 At this point as we also see at the image below the execution flow will be forwarded to the location <b>loc_4019D6</b> 
