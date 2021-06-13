@@ -114,7 +114,7 @@ The <b>recv</b> function is the first entry point that will be used in order to 
 </p>
 
 <p align="justify">
-We start by seting a breakpoint at the <b>recv</b> function using the command <code><b>bp ws2_32!recv</b></code>
+We start by seting a breakpoint at the <b>recv</b> function using the command <code><b>bp ws2_32!recv</code></b>
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/breakpoint-ws2_32.png" alt="bp-ws2_32" /> <!-- width="450" height="143" -->
@@ -133,7 +133,7 @@ Moreover, <b>recv</b> function is not of much interest at this time, so we will 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
-Now, lets try to understand the code portion marked with a red square as seen at the screenshot above. First, <b><code>esp</code></b> register will reserve some space on the stack, specifically <b>10h</b> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <b><code>[ebp-410h]</code></b> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <b>0x1000</b> that stored onto the stack at the address <b><code>0x0103fb60</code></b> is the return value of the <b><code>recv</code></b> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
+Now, lets try to understand the code portion marked with a red square as seen at the screenshot above. First, <code><b>esp</code></b> register will reserve some space on the stack, specifically <b>10h</b> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <code><b>[ebp-410h]</code></b> , which has been moved there using the <code><b>mov [ebp-410h], eax</code></b> instruction. The hex value <code><b>0x1000</code></b> that stored onto the stack at the address <code><b>0x0103fb60</code></b> is the return value of the <code><b>recv</code></b> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
 
 So, as we now see at WinDbg debugger the value <b>0x1000</b> is stored in address <b>0x0103fb60</b> on the stack. 
 </p>
@@ -144,13 +144,13 @@ WINDBG>dd ebp-410h L1
 ```
 
 <p align="justify">
-Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <b><code>[ebp-410h]</code></b>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <b><code>loc_4024B6</code></b>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b><cdoe>loc_4024B6</cdoe></b>, the connection with the <b>vulnserver</b> would be closed. 
+Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</code></b> will compare the value pointed by <code><b>[ebp-410h]</code></b>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <code><b>loc_4024B6</code></b>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b><cdoe>loc_4024B6</cdoe></b>, the connection with the <b>vulnserver</b> would be closed. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 <p align="justify">
-At this point we won't be redirected to <b><code>loc_4024B6</code></b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <b><code>loc_4024E8</code></b> ,following the termination of the socket connection. 
+At this point we won't be redirected to <code><b>loc_4024B6</code></b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <code><b>loc_4024E8</code></b> ,following the termination of the socket connection. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
@@ -170,7 +170,7 @@ As we see at the assembly code above, some values are placed on the stack in ord
 
 
 <p align="justify">
-Specifically, the immediate value 5 is placed on the stack at address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code><b>[ebp-10h]</b></code>. 
+Specifically, the immediate value 5 is placed on the stack at address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code><b>[ebp-10h]</code></b>. 
 <br><br>
 Lets see the arguments of <b>strncmp</b> function in WinDbg 
 <br><br>
@@ -204,7 +204,7 @@ WINDBG>dc poi(ebp-10h)
 ```
 
 <p align="justify">
-Afterwards, when the arguments placed on the stack, a call to <b>strncmp</b> function is done, which then returns the hex value <b><code>0xFFFFFFFF</code></b> on <b><code>eax</code></b> register as seen in WinDbg output below
+Afterwards, when the arguments placed on the stack, a call to <b>strncmp</b> function is done, which then returns the hex value <code><b>0xFFFFFFFF</code></b> on <code><b>eax</code></b> register as seen in WinDbg output below
 </p>
 
 ```
@@ -217,7 +217,7 @@ vulnserver+0x19f1:
 ```
 
 <p align="justify">
-The returned value stored at <b><code>eax</code></b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <b><code>CF</code></b> and <b><code>ZF</code></b> on IDA Pro. Specifically the <b><code>CF</code></b> flag has the value 1 and the <b><code>ZF</code></b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
+The returned value stored at <code><b>eax</code></b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <code><b>CF</code></b> and <code><b>ZF</code></b> on IDA Pro. Specifically the <code><b>CF</code></b> flag has the value 1 and the <code><b>ZF</code></b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="550" height="550" />
@@ -229,13 +229,13 @@ At this point as we also see at the image below the execution flow will be forwa
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/4019d6.png" alt="bp-windbg-hit" width="850" height="550" />
 
 <p align="justify">
-Afterwards, when the comparison with <b>"HELP"</b> won't match, we will land to the location <b><code>loc_401A4B</code></b>. At this point we see that there is also a string comparison with  <b>"STATS"</b> and then, if there is again no match, the same code pattern will be repeated at the next code portion in order to compare with the string <b>"RTIME"</b>, and so on and so forth, until all vulnserver commands will be checked. 
+Afterwards, when the comparison with <b>"HELP"</b> won't match, we will land to the location <code><b>loc_401A4B</code></b>. At this point we see that there is also a string comparison with  <b>"STATS"</b> and then, if there is again no match, the same code pattern will be repeated at the next code portion in order to compare with the string <b>"RTIME"</b>, and so on and so forth, until all vulnserver commands will be checked. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/rtime.png" alt="bp-windbg-hit" width="750" height="450" />
 
 <p align="justify">
-At this point we realize that there is a pattern of string comparison with all possible commands offered by the vulnserver. Specifically, the execution flow will continue in the same way until we match the string <b>"GTER"</b>. From the following WinDbg output, we see that the <b>eax</b> register holds tha value <code><b>0x00000000</b></code>, which is the return value from <b><code>strncmp</code></b> function and indicates that there is a match with <b>"GTER"</b> string.    
+At this point we realize that there is a pattern of string comparison with all possible commands offered by the vulnserver. Specifically, the execution flow will continue in the same way until we match the string <b>"GTER"</b>. From the following WinDbg output, we see that the <b>eax</b> register holds tha value <code><b>0x00000000</code></b>, which is the return value from <code><b>strncmp</code></b> function and indicates that there is a match with <b>"GTER"</b> string.    
 </p>
 
 ```
@@ -246,15 +246,15 @@ vulnserver+0x1fe9:
 00401fe9 0f85aa000000    jne     vulnserver+0x2099 (00402099)            [br=0]
 ```
 
-At this point we will not take the jump (JNE) to address <b><code>0x00402099</code></b> on the stack. Alternatively, the execution flow will continue to address <b><code>0x00401FEF</code></b> as seen at the image below. 
+At this point we will not take the jump (JNE) to address <code><b>0x00402099</code></b> on the stack. Alternatively, the execution flow will continue to address <code><b>0x00401FEF</code></b> as seen at the image below. 
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/GTER.png" alt="bp-windbg-hit" width="750" height="650" />
 
-At this point as we see at the following screenshot that there is a call to malloc function ( <b><code>loc_402DC0</code></b> ), which allocates 180 bytes (0xb4). 
+At this point as we see at the following screenshot that there is a call to malloc function ( <code><b>loc_402DC0</code></b> ), which allocates 180 bytes (0xb4). 
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-1.png" alt="bp-windbg-hit" width="900" height="90" />
 
-If we follow the <b><code>loc_402DC0</code></b>, we will see that there is a jump to the offset <b><code>off_406198</code></b> which indicates the call to malloc as seen at the image below 
+If we follow the <code><b>loc_402DC0</code></b>, we will see that there is a jump to the offset <code><b>off_406198</code></b> which indicates the call to malloc as seen at the image below 
 
  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="900" height="300" />
 
@@ -267,7 +267,7 @@ If we continue the execution we see the following code
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-2.png" alt="bp-windbg-hit" width="700" height="400" />
 
 <p align="justify">
-After some instructions, we see at the address <b><code>0x004017D7</code></b>, when the <code><b>mov eax, [ebp+8]</b></code> executes, the <b><code>eax</code></b> register holds the user input, which will be copied using the <b><code>strcpy</code></b> function. The remaining 4820 bytes that sent from the poc script will be cut off because exceeded the length of the memory boundaries that have been set using the <b><code>malloc</code></b> function before.   
+After some instructions, we see at the address <code><b>0x004017D7</code></b>, when the <code><b>mov eax, [ebp+8]</code></b> executes, the <code><b>eax</code></b> register holds the user input, which will be copied using the <code><b>strcpy</code></b> function. The remaining 4820 bytes that sent from the poc script will be cut off because exceeded the length of the memory boundaries that have been set using the <code><b>malloc</code></b> function before.   
 </p>
 
 ```
@@ -287,7 +287,7 @@ WINDBG>dc eax L30
 ```
 
 <p align="justify">
-then, the function <b>strcpy</b> will be called using the instruction <code><b>call loc_402DC8</b></code>
+then, the function <b>strcpy</b> will be called using the instruction <code><b>call loc_402DC8</code></b>
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="900" height="350" />
