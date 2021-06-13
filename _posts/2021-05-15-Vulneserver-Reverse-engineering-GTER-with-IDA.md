@@ -332,7 +332,7 @@ cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00010246
 
 We also see the same results in IDA Pro as follows 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/RIP.png" alt="bp-windbg-hit" width="350" height="300" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/RIP.png" alt="bp-windbg-hit" width="450" height="400" />
 
 At this point we can continue with the exploitation of the buffer overflow vulnerability in order to gain a shell. All of these will be shown at a second part of this article.   
 
