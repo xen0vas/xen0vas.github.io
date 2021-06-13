@@ -299,7 +299,7 @@ at this point, if we continue the execution, the program will crash, and the fol
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="450" height="600" />
 
 <p align="justify">
-Now that we know the presence of a buffer overflow vulnerability, we should coninue further and write a poc script in order to control the <b>EIP</b> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <b>esp</b> resister ) stopped at the address <b>0x00EAF9C8</b>. With this in mind, we will create the following poc sctipt 
+Now that we know the presence of a buffer overflow vulnerability, we should continue further and write a poc script in order to control the <b>EIP</b> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <b>esp</b> resister ) stopped at the address <b>0x00EAF9C8</b>. With this in mind, we will create the following poc sctipt 
 </p>
 
 ```python
