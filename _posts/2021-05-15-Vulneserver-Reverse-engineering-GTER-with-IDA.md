@@ -135,7 +135,7 @@ Moreover, <b>recv</b> function is not of much interest at this time, so we will 
 <p align="justify">
 Now, lets try to understand the code portion marked with a red square as seen at the screenshot above. First, <code><b>esp</code></b> register will reserve some space on the stack, specifically <b>10h</b> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <code><b>[ebp-410h]</code></b> , which has been moved there using the <code><b>mov [ebp-410h], eax</code></b> instruction. The hex value <code><b>0x1000</code></b> that stored onto the stack at the address <code><b>0x0103fb60</code></b> is the return value of the <code><b>recv</code></b> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
 
-So, as we now see at WinDbg debugger the value <b>0x1000</b> is stored in address <b>0x0103fb60</b> on the stack. 
+So, as we now see at WinDbg debugger the value <b>0x1000</b> is stored in address <code><b>0x0103fb60</b></code> on the stack. 
 </p>
 
 ```
