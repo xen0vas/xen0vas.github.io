@@ -260,7 +260,7 @@ If we follow the <b>loc_402DC0</b>, we will see that there is a jump to the offs
 
 After some instructions, we see that there is a call to <b>loc_4017CE</b> 
 
- <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="900" height="300" />
+ <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="950" height="350" />
 
 If we continue the execution we see the following code 
 
