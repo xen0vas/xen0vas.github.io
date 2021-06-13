@@ -18,7 +18,7 @@ tags:
 
 
 <p align="justify">
-This article is the first part of an exploit development series regarding the exploitation process of the GTER command of the vulnserver executable. Furthermore, at this article we will analyse the vulnserver executable using WinDbg debugger assisted with reverse engineering techniques using IDA Pro disassembler/decompiler, in order to understand how the binary works as well as to search for vulnerabilities that may lead to exploitation. In this article we will not be focusing on fuzzing techniques, but rather we'll focus in reverse engineering techniques. 
+This article is the first part of an exploit development series regarding the exploitation process of the GTER command of the vulnserver executable. Furthermore, at this article we will analyse the vulnserver executable using WinDbg debugger assisted with reverse engineering techniques using IDA Pro disassembler/decompiler, in order to understand how the binary works as well as to search for vulnerabilities that may lead to exploitation. In this article we will not be focusing on fuzzing techniques, but rather we'll focusing most in reverse engineering techniques in order to find potential security issues. 
 
 <br><br>
 The tools used for this demonstration are the following</p>
@@ -100,6 +100,7 @@ At this point we are ready to run the script above in order to observe the funct
 
 <p align="justify">
 After attaching the vulnserver process to WinDbg we will be ready to start debugging. As we saw earlier, the application when starts, it binds to a specific port where it listens for incoming connections. All the related functions used to implement the raw socket connection is refered at the <b>ws2_32.dll</b> module. Specifically, one interesting function is <b>recv</b>, which according to msdn has the following prototype, 
+</p>
 
 ```c
 int recv(
@@ -110,6 +111,7 @@ int recv(
 );
 ```
 
+<p align="justify">
 The <b>recv</b> function is the first entry point that will be used from the vulnserver in order to receive the bytes coming from the user input. At this point we will put a breakpoint at the <b>recv</b> function as follows 
 </p>
 
