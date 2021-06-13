@@ -36,7 +36,7 @@ Starting our binary analysis, we run API Monitor v2 in order to have a first sit
 <p align="justify">
 As we can see at the image above, when we run vulnserver, we have an overview of the socket functions that we expect. According to msdn, the <b>getaddrinfo</b> function provides protocol-independent translation from an ANSI host name to an address. Following, is the prototype of the <b>getaddrinfo</b> function.</p>
 
-```C
+```c
 
 INT WSAAPI getaddrinfo(
   PCSTR           pNodeName,
@@ -53,7 +53,7 @@ As we see above, the second argument is a pointer to a NULL-terminated ANSI stri
 Similar information regarding the port number we also get from the <b>ntohs</b> function, which,  in general terms and according to MSDN, converts a <b>u_short</b> from TCP/IP network byte order to host byte order (which is little-endian on Intel processors). The <b>ntohs</b> function can be used to convert an IP port number in network byte order to the IP port number in host byte order. Following, is the prototype of the <b>ntohs</b> function
 
 
-```C
+```c
 
 u_short ntohs(
   u_short netshort
