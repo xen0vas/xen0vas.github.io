@@ -286,18 +286,21 @@ WINDBG>dc eax L30
 00ce4990  41414141 00000000 3df6ae3b 00002a68  AAAA
 ```
 
+<p align="justify">
 then, the function <b>strcpy</b> will be called using the instruction <code><b>call loc_402DC8</b></code>
-
+</p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="800" height="250" />
 
-
+<p align="justify">
 at this point, if we continue the execution, the program will crash, and the following screenshot will be provided at the stack view in IDA Pro. 
+</p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="450" height="600" />
 
+<p align="justify">
 Now that we know the presence of a buffer overflow vulnerability, we should coninue further and write a poc script in order to control the <b>EIP</b> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <b>esp</b> resister ) stopped at the address <b>0x00EAF9C8</b>. With this in mind, we will create the following poc sctipt 
-
+</p>
 
 ```python
 #!/usr/bin/python
@@ -320,7 +323,9 @@ print s.recv(1024)
 s.close()
 ```
 
+<p align="justify">
 If we execute the above script, we will see that we control the EIP register.
+</p>
 
 ``` 
 WINDBG>r
@@ -334,8 +339,9 @@ We also see the same results in IDA Pro as follows
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/RIP.png" alt="bp-windbg-hit" width="450" height="400" />
 
+<p align="justify">
 At this point we can continue with the exploitation of the buffer overflow vulnerability in order to gain a shell. All of these will be shown at a second part of this article.   
-
+</p>
 
 
 
