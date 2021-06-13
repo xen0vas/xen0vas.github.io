@@ -67,7 +67,7 @@ Having this information, we can confirm that the server listens on port <code><b
 <script id="asciicast-mkwzV0kymb3F0BmRStGe45boN" style="display: block;margin-left: auto;margin-right: auto;" src="https://asciinema.org/a/mkwzV0kymb3F0BmRStGe45boN.js" async></script>
 
 <p align="justify">
-As we see, there are some commands used by the vulnserver that need more investigation. At this point we will perform some research regarding the functionality of vulnserver. We will be using the following poc script in order to send some junk data to the vulnserver.   
+As we see, there are some commands used by the vulnserver that should be investigated more. At this point we will perform some research regarding the functionality of the vulnserver. We will be using the following poc script in order to send some junk data to the vulnserver.   
 
 </p>
 
