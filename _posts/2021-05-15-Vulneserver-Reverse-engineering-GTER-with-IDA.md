@@ -223,7 +223,7 @@ The returned value stored at <code><b>eax</b></code> is an indicator that the tw
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="550" height="550" />
 
 <p align="justify">
-At this point as we also see at the image below the execution flow will be forwarded to the location <b>loc_4019D6</b> 
+At this point as we also see at the image below the execution flow will be forwarded to the location <code><b>loc_4019D6</b></code> 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/4019d6.png" alt="bp-windbg-hit" width="850" height="550" />
@@ -299,7 +299,7 @@ at this point, if we continue the execution, the program will crash, and the fol
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="450" height="600" />
 
 <p align="justify">
-Now that we know the presence of a buffer overflow vulnerability, we should continue further and write a poc script in order to control the <b>eip</b> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <b>esp</b> resister ) stopped at the address <b>0x00EAF9C8</b>. With this in mind, we will create the following poc sctipt 
+Now that we know the presence of a buffer overflow vulnerability, we should continue further and write a poc script in order to control the <code><b>eip</b></code> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <b>esp</b> resister ) stopped at the address <code><b>0x00EAF9C8</b></code>. With this in mind, we will create the following poc sctipt 
 </p>
 
 ```python
