@@ -124,7 +124,7 @@ Once we run the poc script, we immediately hit the breakpoint in <b>WinDbg</b> w
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/windbg-bp-recv.png" alt="bp-windbg-hit" width="650" height="243" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/windbg-bp-recv.png" alt="bp-windbg-hit" width="750" height="343" />
 
 <p align="justify">
 Moreover, <b>recv</b> function is not of much interest at this time, so we will continue execution until return from <b>recv</b> function. After returning from <b>recv</b> we will land to the address <code>0x00401958</code>
