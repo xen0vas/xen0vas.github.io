@@ -133,7 +133,7 @@ Moreover, <b>recv</b> function is not of much interest at this time, so we will 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
-Now, lets try to understand the code portion marked with a red square as seen at the screenshot above. First, <b>esp</b> register will reserve some space on the stack, specifically <b>10h</b> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <b>[ebp-410h]</b> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <b>0x1000</b> that stored onto the stack at the address <b>0x0103fb60</b> is the return value of the <b>recv</b> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
+Now, lets try to understand the code portion marked with a red square as seen at the screenshot above. First, <b><code>esp</code></b> register will reserve some space on the stack, specifically <b>10h</b> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <b><code>[ebp-410h]</code></b> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <b>0x1000</b> that stored onto the stack at the address <b>0x0103fb60</b> is the return value of the <b>recv</b> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
 
 So, as we now see at WinDbg debugger the value <b>0x1000</b> is stored in address <b>0x0103fb60</b> on the stack. 
 </p>
@@ -144,13 +144,13 @@ WINDBG>dd ebp-410h L1
 ```
 
 <p align="justify">
-Then the instruction <code>cmp dword ptr [ebp-410h], 0</code> will compare the value pointed by <b>[ebp-410h]</b>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <b>loc_4024B6</b>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b>loc_4024B6</b>, the connection with the <b>vulnserver</b> would be closed. 
+Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <b><code>[ebp-410h]</code></b>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <b><code>loc_4024B6</code></b>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b>loc_4024B6</b>, the connection with the <b>vulnserver</b> would be closed. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 <p align="justify">
-At this point we won't be redirected to <b>loc_4024B6</b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <b>loc_4024E8</b> ,following the termination of the socket connection. 
+At this point we won't be redirected to <b><code>loc_4024B6</code></b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <b>loc_4024E8</b> ,following the termination of the socket connection. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
