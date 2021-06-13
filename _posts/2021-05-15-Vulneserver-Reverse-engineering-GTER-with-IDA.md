@@ -255,7 +255,7 @@ At this point the jump (JNE) to address <code><b>0x00402099</b></code> will not 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/GTER.png" alt="bp-windbg-hit" width="750" height="650" />
 
 <p align="justify">
-At this point as we see at the following screenshot that there is a call to <code><b>malloc</b></code> function ( <code><b>loc_402DC0</b></code> ), which allocates 180 bytes (0xb4). 
+At this point as we see at the following screenshot, there is a call to <code><b>malloc</b></code> function ( <code><b>loc_402DC0</b></code> ), which allocates 180 bytes (0xb4). 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-1.png" alt="bp-windbg-hit" width="
