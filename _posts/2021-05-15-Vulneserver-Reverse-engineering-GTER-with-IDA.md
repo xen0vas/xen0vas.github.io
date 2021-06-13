@@ -160,7 +160,7 @@ At this point we won't be redirected to <b>loc_4024B6</b>, and the execution flo
 Now, lets explain the following code portion inside the red square as seen at the screenshot below.    
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address-2.png" alt="bp-windbg-hit" width="750" height="400" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address-2.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
 As we see at the assembly code above, some values are placed on the stack in order to be placed at the <b>strncmp</b> function as arguments later. One interesting instruction we see on IDA is the <code>call near ptr unk_402Db8</code>. This instruction specifies a near call to a relative address of the next instruction that as we see below it contains a jmp instruction to an offset which points to <b>msvcrt_strncmp</b> function. 
