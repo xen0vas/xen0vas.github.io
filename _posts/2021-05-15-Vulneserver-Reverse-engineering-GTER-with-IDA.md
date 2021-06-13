@@ -290,7 +290,7 @@ WINDBG>dc eax L30
 then, the function <b>strcpy</b> will be called using the instruction <code><b>call loc_402DC8</b></code>
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="800" height="250" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="900" height="350" />
 
 <p align="justify">
 at this point, if we continue the execution, the program will crash, and the following screenshot will be provided at the stack view in IDA Pro. 
