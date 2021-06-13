@@ -31,7 +31,7 @@ The tools used for this demonstration are the following</p>
 
 Starting our binary analysis, we run API Monitor v2 in order to have a first site about how to perform communication with the vulnserver. 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="/Users/xenovas/Documents/xen0vas.github.io/assets/images/2021/04/apimonitor.png" alt="APIMonitor" width="950" height="343" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/apimonitor.png" alt="APIMonitor" width="950" height="343" />
 
 <p align="justify">
 As we can see at the image above, when we run vulnserver, we have an overview of the socket functions that we expect. According to msdn, the <b>getaddrinfo</b> function provides protocol-independent translation from an ANSI host name to an address. Following, is the prototype of the <b>getaddrinfo</b> function.</p>
@@ -91,7 +91,7 @@ s.close()
 At this point we are ready to run the script above in order to observe the functional behaviour of the vulnserver. For this reason we will be using windbg and IDA Pro. First we will run vulnserver on the target machine and then we will start IDA and attach Windbg as seen below  
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{baseUrl}}/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" width="650" height="443" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" width="650" height="443" />
 
 <p align="justify">
 After attaching the vulnserver process to WinDbg we will be ready to start debugging. As we saw earlier, the application when starts, it binds to a specific port where it listens for incoming connections. All the related functions used to implement the raw socket connection is refered at the <b>ws2_32.dll</b> module. Specifically, one interesting function is <b>recv</b>, which according to msdn has the following prototype, 
