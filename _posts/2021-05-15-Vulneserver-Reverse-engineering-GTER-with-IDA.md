@@ -204,7 +204,7 @@ WINDBG>dc poi(ebp-10h)
 ```
 
 <p align="justify">
-Afterwards, when the arguments placed on the stack, a call to <b>strncmp</b> function is done, which then returns the hex value <b><code>0xFFFFFFFF</code></b> on <b>eax</b> register as seen in WinDbg output below
+Afterwards, when the arguments placed on the stack, a call to <b>strncmp</b> function is done, which then returns the hex value <b><code>0xFFFFFFFF</code></b> on <b><code>eax</code></b> register as seen in WinDbg output below
 </p>
 
 ```
@@ -217,7 +217,7 @@ vulnserver+0x19f1:
 ```
 
 <p align="justify">
-The returned value stored at <b>eax</b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <b>CF</b> and <b>ZF</b> on IDA Pro. Specifically the <b>CF</b> flag has the value 1 and the <b>ZF</b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
+The returned value stored at <b><code>eax</code></b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <b><code>CF</code></b> and <b><code>ZF</code></b> on IDA Pro. Specifically the <b>CF</b> flag has the value 1 and the <b>ZF</b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="550" height="550" />
