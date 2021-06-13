@@ -120,7 +120,7 @@ We start by seting a breakpoint at the <code><b>recv</b></code> function using t
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/breakpoint-ws2_32.png" alt="bp-ws2_32" /> <!-- width="450" height="143" -->
 
 <p align="justify">
-Once we run the poc script, we immediately hit the breakpoint in <b>WinDbg</b> which is set at <b>recv</b> function inside the <b>ws2_32.dll</b> module. 
+Once we run the poc script, we immediately hit the breakpoint in WinDbg which is set at <code><b>recv</b></code> function inside the <code><b>ws2_32.dll</b></code> module. 
 </p>
 
 
