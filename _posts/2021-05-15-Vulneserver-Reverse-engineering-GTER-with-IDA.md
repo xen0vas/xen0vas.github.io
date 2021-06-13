@@ -144,7 +144,7 @@ WINDBG>dd ebp-410h L1
 ```
 
 <p align="justify">
-Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <code><b>[ebp-410h]</b></code>, with value <code><b>0</b></code>, and if the value is less than or equal to <code><b>0</b></code>, then the program flow should be redirected to the location <code><b>loc_4024B6</b></code>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b><code>loc_4024B6</code></b>, the connection with the vulnserver would be closed. 
+Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <code><b>[ebp-410h]</b></code>, with value <code><b>0</b></code>, and if the value is less than or equal to <code><b>0</b></code>, then the program flow should be redirected to the location <code><b>loc_4024B6</b></code>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <code><b>loc_4024B6</b></code>, the connection with the vulnserver would be closed. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
@@ -172,7 +172,7 @@ As we see at the assembly code above, some values are placed on the stack in ord
 <p align="justify">
 Specifically, the immediate value 5 is placed on the stack at address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code><b>[ebp-10h]</b></code>. 
 <br><br>
-Lets see the arguments of <b>strncmp</b> function in WinDbg 
+Lets see the arguments of <code><b>strncmp</b></code> function in WinDbg 
 <br><br>
 Below we see the address that holds the immediate value 0x5 on the stack
 </p>
