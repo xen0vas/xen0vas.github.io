@@ -147,13 +147,13 @@ WINDBG>dd ebp-410h L1
 Then the instruction <code>cmp dword ptr [ebp-410h], 0</code> will compare the value pointed by <b>[ebp-410h]</b>, with value <b>0</b>, and if the value is less than or equal to <b>0</b>, then the program flow should be redirected to the location <b>loc_4024B6</b>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <b>loc_4024B6</b>, the connection with the <b>vulnserver</b> would be closed. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="650" height="243" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="750" height="343" />
 
 <p align="justify">
 At this point we won't be redirected to <b>loc_4024B6</b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <b>loc_4024E8</b> ,following the termination of the socket connection. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="650" height="243" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="750" height="343" />
 
 
 <p align="justify">
