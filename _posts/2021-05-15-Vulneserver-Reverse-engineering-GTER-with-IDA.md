@@ -153,7 +153,7 @@ Then the instruction <code>cmp dword ptr [ebp-410h], 0</code> will compare the v
 At this point we won't be redirected to <b>loc_4024B6</b>, and the execution flow will continue as is. If no data returned from <b>recv</b> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <b>loc_4024E8</b> ,following the termination of the socket connection. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="750" height="343" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 
 <p align="justify">
@@ -166,7 +166,7 @@ Now, lets explain the following code portion inside the red square as seen at th
 As we see at the assembly code above, some values are placed on the stack in order to be placed at the <b>strncmp</b> function as arguments later. One interesting instruction we see on IDA is the <code>call near ptr unk_402Db8</code>. This instruction specifies a near call to a relative address of the next instruction that as we see below it contains a jmp instruction to an offset which points to <b>msvcrt_strncmp</b> function. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="750" height="400" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="850" height="500" />
 
 
 <p align="justify">
@@ -220,13 +220,13 @@ vulnserver+0x19f1:
 The returned value stored at <b>eax</b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <b>CF</b> and <b>ZF</b> on IDA Pro. Specifically the <b>CF</b> flag has the value 1 and the <b>ZF</b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="450" height="450" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="550" height="550" />
 
 <p align="justify">
 At this point as we also see at the image below the execution flow will be forwarded to the location <b>loc_4019D6</b> 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/4019d6.png" alt="bp-windbg-hit" width="650" height="350" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/4019d6.png" alt="bp-windbg-hit" width="750" height="450" />
 
 <p align="justify">
 Afterwards, when the comparison with <b>"HELP"</b> won't match, we will land to the location <b>loc_401A4B</b>. At this point we see that there is also a string comparison with  <b>"STATS"</b> and then, if there is again no match, the same code pattern will be repeated at the next code portion in order to compare with the string <b>"RTIME"</b>, and so on and so forth, until all vulnserver commands will be checked. 
