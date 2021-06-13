@@ -31,7 +31,7 @@ The tools used for this demonstration are the following</p>
 
 Starting our binary analysis, we run API Monitor v2 in order to have a first site about how to perform communication with the vulnserver. 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/apimonitor.png" alt="APIMonitor" width="950" height="343" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/apimonitor.png" alt="APIMonitor"  />
 
 <p align="justify">
 As we can see at the image above, when we run vulnserver, we have an overview of the socket functions that we expect. According to msdn, the <b>getaddrinfo</b> function provides protocol-independent translation from an ANSI host name to an address. Following, is the prototype of the <b>getaddrinfo</b> function.
