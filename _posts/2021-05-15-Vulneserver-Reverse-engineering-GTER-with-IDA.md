@@ -96,7 +96,7 @@ s.close()
 At this point we are ready to run the script above in order to observe the functional behaviour of the vulnserver. For this reason we will be using windbg and IDA Pro. First we will run vulnserver on the target machine and then we will start IDA and attach Windbg as seen below  
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" /> <!-- width="650" height="443"-->
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" width="850" height="543" /> <!-- width="650" height="443"-->
 
 <p align="justify">
 After attaching the vulnserver process to WinDbg we will be ready to start debugging. As we saw earlier, the application when starts, it binds to a specific port where it listens for incoming connections. All the related functions used to implement the raw socket connection is refered at the <b>ws2_32.dll</b> module. Specifically, one interesting function is <b>recv</b>, which according to msdn has the following prototype, 
