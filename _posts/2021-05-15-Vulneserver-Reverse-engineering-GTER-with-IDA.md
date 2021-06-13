@@ -217,7 +217,7 @@ vulnserver+0x19f1:
 ```
 
 <p align="justify">
-The returned value stored at <b><code>eax</code></b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <b><code>CF</code></b> and <b><code>ZF</code></b> on IDA Pro. Specifically the <b>CF</b> flag has the value 1 and the <b>ZF</b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
+The returned value stored at <b><code>eax</code></b> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <b><code>CF</code></b> and <b><code>ZF</code></b> on IDA Pro. Specifically the <b><code>CF</code></b> flag has the value 1 and the <b><code>ZF</code></b> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="550" height="550" />
@@ -229,13 +229,13 @@ At this point as we also see at the image below the execution flow will be forwa
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/4019d6.png" alt="bp-windbg-hit" width="850" height="550" />
 
 <p align="justify">
-Afterwards, when the comparison with <b>"HELP"</b> won't match, we will land to the location <b>loc_401A4B</b>. At this point we see that there is also a string comparison with  <b>"STATS"</b> and then, if there is again no match, the same code pattern will be repeated at the next code portion in order to compare with the string <b>"RTIME"</b>, and so on and so forth, until all vulnserver commands will be checked. 
+Afterwards, when the comparison with <b>"HELP"</b> won't match, we will land to the location <b><code>loc_401A4B</code></b>. At this point we see that there is also a string comparison with  <b>"STATS"</b> and then, if there is again no match, the same code pattern will be repeated at the next code portion in order to compare with the string <b>"RTIME"</b>, and so on and so forth, until all vulnserver commands will be checked. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/rtime.png" alt="bp-windbg-hit" width="750" height="450" />
 
 <p align="justify">
-At this point we realize that there is a pattern of string comparison with all possible commands offered by the vulnserver. Specifically, the execution flow will continue in the same way until we match the string <b>"GTER"</b>. From the following WinDbg output, we see that the <b>eax</b> register holds tha value 0x00000000, which is the return value from <b>strncmp</b> function and indicates that there is a match with <b>"GTER"</b> string.    
+At this point we realize that there is a pattern of string comparison with all possible commands offered by the vulnserver. Specifically, the execution flow will continue in the same way until we match the string <b>"GTER"</b>. From the following WinDbg output, we see that the <b>eax</b> register holds tha value <code><b>0x00000000</b></code>, which is the return value from <b><code>strncmp</code></b> function and indicates that there is a match with <b>"GTER"</b> string.    
 </p>
 
 ```
@@ -246,7 +246,7 @@ vulnserver+0x1fe9:
 00401fe9 0f85aa000000    jne     vulnserver+0x2099 (00402099)            [br=0]
 ```
 
-At this point we will not take the jump (JNE) to address <b>0x00402099</b> on the stack. Alternatively, the execution flow will continue to address <b>0x00401FEF</b> as seen at the image below. 
+At this point we will not take the jump (JNE) to address <b><code>0x00402099</code></b> on the stack. Alternatively, the execution flow will continue to address <b><code>0x00401FEF</code></b> as seen at the image below. 
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/GTER.png" alt="bp-windbg-hit" width="750" height="650" />
 
