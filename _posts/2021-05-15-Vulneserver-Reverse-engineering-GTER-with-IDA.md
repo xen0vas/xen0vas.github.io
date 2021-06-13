@@ -114,7 +114,7 @@ The <b>recv</b> function is the first entry point that will be used in order to 
 </p>
 
 <p align="justify">
-We start by seting a breakpoint at the <b>recv</b> function using the command <code><b>bp ws2_32!recv</b></code>
+We start by seting a breakpoint at the <code><b>recv</b></code> function using the command <code><b>bp ws2_32!recv</b></code>
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/breakpoint-ws2_32.png" alt="bp-ws2_32" /> <!-- width="450" height="143" -->
