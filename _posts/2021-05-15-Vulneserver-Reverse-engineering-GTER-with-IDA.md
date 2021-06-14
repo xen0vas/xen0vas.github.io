@@ -172,7 +172,7 @@ As we see at the assembly code above, some values are placed on the stack in ord
 
 
 <p align="justify">
-Specifically, the immediate value 5 is placed on the stack at address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code><b>[ebp-10h]</b></code>. 
+Specifically, the immediate value 5 is placed on the stack at the address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code><b>[ebp-10h]</b></code>. 
 <br><br>
 Lets see the arguments of <code><b>strncmp</b></code> function in WinDbg 
 <br><br>
