@@ -99,7 +99,7 @@ At this point we are ready to run the script above in order to observe the funct
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" width="750" height="443" /> <!-- width="650" height="443"-->
 
 <p align="justify">
-After attaching the vulnserver process to WinDbg we will be ready to start debugging. As we saw earlier, the application when starts, it binds to a specific port where it listens for incoming connections. All the related functions used to implement the raw socket connection is refered at the <code><b>ws2_32.dll</b></code> module. Specifically, one interesting function is <code><b>recv</b></code>, which according to msdn has the following prototype, 
+After attaching the vulnserver process to WinDbg, we will be ready to start debugging. As we saw earlier, when the application starts, it binds to a specific port where it listens for incoming connections. All the related functions used to implement the raw socket connection is refered at the <code><b>ws2_32.dll</b></code> module. Specifically, one interesting function is <code><b>recv</b></code>, which according to msdn has the following prototype, 
 </p>
 
 ```c
@@ -135,7 +135,7 @@ Moreover, the <code><b>recv</b></code> function is not of much interest at this 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
-Now, lets try to understand the code portion marked with a red square as seen at the screenshot above. First, <code><b>esp</b></code> register will reserve some space on the stack, specifically <code><b>10h</b></code> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <code><b>[ebp-410h]</b></code> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <code><b>0x1000</b></code> that stored onto the stack at the address <code><b>0x0103fb60</b></code> is the return value of the <code><b>recv</b></code> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
+Now, lets try to understand the code marked with a red square as seen at the screenshot above. First, <code><b>esp</b></code> register will reserve some space on the stack, specifically <code><b>10h</b></code> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <code><b>[ebp-410h]</b></code> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <code><b>0x1000</b></code> that stored onto the stack at the address <code><b>0x0103fb60</b></code> is the return value of the <code><b>recv</b></code> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
 
 So, as we now see at WinDbg debugger the value <code><b>0x1000</b></code> is stored in address <code><b>0x0103fb60</b></code> on the stack. 
 </p>
@@ -152,14 +152,14 @@ Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compar
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 <p align="justify">
-At this point it won't be a redirection to <code><b>loc_4024B6</b></code>, and the execution flow will continue as is. If no data returned from <code><b>recv</b></code> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <code><b>loc_4024E8</b></code> ,following the termination of the socket connection. 
+At this point it won't be a redirection to <code><b>loc_4024B6</b></code>, and the execution flow will continue as is. If no data returned from <code><b>recv</b></code> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <code><b>loc_4024E8</b></code> following the termination of the socket connection. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 
 <p align="justify">
-Now, lets explain the following code portion inside the red square as seen at the screenshot below.    
+Now, lets explain the following code inside the red square as seen at the screenshot below.    
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address-2.png" alt="bp-windbg-hit" width="850" height="500" />
