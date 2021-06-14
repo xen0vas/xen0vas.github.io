@@ -183,7 +183,7 @@ Below we see the address that holds the immediate value 0x5 on the stack
 WINDBG>dc esp+8 L1
 00edf9d0  00000005  
 ```
-The second argument ( the string ( "HELP ")
+The second argument ( the string "HELP " )
 
 ```
 WINDBG>dc 00404244 L2
