@@ -353,7 +353,7 @@ We also see the same results in IDA Pro as follows
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/RIP.png" alt="bp-windbg-hit" width="450" height="400" />
 
 <p align="justify">
-At this point we can continue with the exploitation of the buffer overflow vulnerability in order to gain a shell. All of these will be shown at a second part of this article.   
+At this point we can continue with the exploitation of the buffer overflow vulnerability in order to gain a shell. The exploitation of the vulnserver GTER command will be shown at a second part of this article.   
 </p>
 
 
