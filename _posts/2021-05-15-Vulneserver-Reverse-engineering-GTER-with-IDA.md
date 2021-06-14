@@ -62,7 +62,7 @@ u_short ntohs(
 ```
 
 <p align="justify">
-Having this information, we can confirm that the server listens on port <code><b>9999</b></code>. As we see below, we are running netcat tool to connect to port <code><b>9999</b></code></p>
+Now that we got this information, we can confirm that the server listens on port <code><b>9999</b></code>. As we see below, we are running netcat tool to connect to port <code><b>9999</b></code></p>
 
 <script id="asciicast-mkwzV0kymb3F0BmRStGe45boN" style="display: block;margin-left: auto;margin-right: auto;" src="https://asciinema.org/a/mkwzV0kymb3F0BmRStGe45boN.js" async></script>
 
@@ -206,7 +206,7 @@ WINDBG>dc poi(ebp-10h)
 ```
 
 <p align="justify">
-Afterwards, when the arguments placed on the stack, a call to <code><b>strncmp</b></code> function is done, which then returns the hex value <code><b>0xFFFFFFFF</b></code> on <code><b>eax</b></code> register as seen in WinDbg output below
+Afterwards, when the arguments are placed on the stack, a call to <code><b>strncmp</b></code> function is happened, which then returns the hex value <code><b>0xFFFFFFFF</b></code> on <code><b>eax</b></code> register as seen in WinDbg output below
 </p>
 
 ```
