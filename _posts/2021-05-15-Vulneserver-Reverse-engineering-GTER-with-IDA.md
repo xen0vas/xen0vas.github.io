@@ -18,7 +18,7 @@ tags:
 
 
 <p align="justify">
-This article is the first part of an exploit development series regarding the exploitation process of the GTER command of the vulnserver executable. Furthermore, at this article we will analyse the vulnserver executable using WinDbg debugger assisted with reverse engineering techniques using IDA Pro disassembler/decompiler, in order to understand how the binary works as well as to search for vulnerabilities that may lead to exploitation. In this article we will not be focusing on fuzzing techniques, but rather we will be focusing most in reverse engineering techniques in order to find potential security issues. 
+This article is the first part of an exploit development series regarding the exploitation process of the GTER command of the vulnserver executable. Furthermore, at this article we will analyse the vulnserver executable using WinDbg debugger assisted with reverse engineering techniques using IDA Pro, in order to understand how the binary works as well as to search for vulnerabilities that may lead to exploitation. In this article we will not be focusing on fuzzing techniques, but rather we will be focusing most in reverse engineering techniques in order to find potential security issues. 
 
 <br><br>
 The tools used for this exercise are the following</p>
