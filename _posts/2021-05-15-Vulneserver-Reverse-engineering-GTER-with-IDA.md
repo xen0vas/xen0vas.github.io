@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 'Vulnserver - [ Part 1 ] - Reverse Engineering GTER using IDA Pro'
+title: '[ExplDev] Vulnserver - pt. 1 - Reverse Engineering GTER using IDA Pro'
 description: 'This blog post shows how to reverse engineer vulneserver to find a buffer overflow issue in GTER command'
 date: 2021-05-15
 classes: wide
