@@ -1,7 +1,7 @@
 ---
 layout: single
 title: 'SLAE32 - Assignment #7 - Create a Custom Crypter ( Affine Cipher )'
-date: 2020-06-16
+date: 2020-04-06
 classes: wide
 comments: false
 header:
