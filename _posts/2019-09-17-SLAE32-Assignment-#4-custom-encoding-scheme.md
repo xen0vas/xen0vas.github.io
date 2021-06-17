@@ -1,7 +1,7 @@
 ---
 layout: single
 title: 'SLAE32 Assignment #4 - Custom Encoding Scheme'
-date: 2019-12-27
+date: 2019-09-17
 classes: wide
 comments: false
 header:

@@ -2,7 +2,7 @@
 layout: single
 title: 'SLAE32 - Assignment #3 - Egg Hunter'
 description: 'In this assignment a working demo of the EggHunter shellcode will be shown in practice. Specifically the goal of this assignment is the following. 1) Study about the Egg Hunter shellcode 2) Create a working demo of the Egg Hunter 3) The Egg Hunter should be configurable for different payloads'
-date: 2020-06-16
+date: 2019-08-05
 comments: false
 classes: wide
 header:
