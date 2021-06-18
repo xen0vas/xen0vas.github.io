@@ -16,7 +16,7 @@ tags:
 
 <p align="justify">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/cloudme.png" alt="" width="550" height="680" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/cloudme.png" alt="" width="550" height="680" />
 
 <p align="justify">Tools used for this exercise</p>
 <ul>
@@ -93,7 +93,7 @@ C:\Users\pentest\Desktop&gt;netstat -an | find "8888"
 </pre>
 
 <p align="justify">We can also confirm this using the <b>process hacker 2</b> tool.</p>
-<figure><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/phtool.png" alt="PHTool" width="630" height="143" /></figure>
+<figure><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/phtool.png" alt="PHTool" width="630" height="143" /></figure>
 <p align="justify">Now lets fuzz this target application using <b>boofuzz</b>. Boofuzz is a fork of and the successor to the venerable Sulley fuzzing framework. More details about the script can be found <a href="https://boofuzz.readthedocs.io/en/stable/">here</a>. The tool can also be found on <a href="https://github.com/jtpereyda/boofuzz">github </a>.The following python script used to fuzz the <b>CloudMe</b> application.</p>
 
 ```python
@@ -122,11 +122,11 @@ if __name__ == "__main__":
 ```
 
 <p align="justify">Before running the script above, we will first use a tool called <b>RawCap.exe</b> which will help us sniffing the <b>127.0.0.1 (localhost/loopback)</b> interface. Then the produced <b>dump.pcap</b> file will be oppend with <b>Wireshark</b> in order to inspect further the communication on port 8888. <b>RawCap.exe</b> tool can be found <a href="https://www.netresec.com/?page=rawcap">here</a></p>
-<p><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/rawcap.png" alt="RawCap" width="678" height="287" /></p>
+<p><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/rawcap.png" alt="RawCap" width="678" height="287" /></p>
 <p align="justify">At this point we are ready to run <b>boofuzz</b> tool in order to fuzz the target application using the python script above.</p>
-<figure><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/fuzz-e1613506773170.png" alt="fuzz" width="719" height="404" /></figure>
+<figure><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/fuzz-e1613506773170.png" alt="fuzz" width="719" height="404" /></figure>
 <p align="justify">In order to further inspect the crash, we will load the <b>dump.pcap</b> file produced from <b>RawCap.exe</b> tool into <b>Wireshark</b>. Afterwards, searching the packets in <b>Wireshark</b>, we are able to find the data that caused the crash and also we are able to see the format as well as the length of the data sent to the vulnerable application as shown at the image below.</p>
-<p><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/wireshark-e1613506357213.png" alt="wireshark" width="1012" height="569" /></p>
+<p><img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/wireshark-e1613506357213.png" alt="wireshark" width="1012" height="569" /></p>
 <p align="justify">At this point we have enough information about the crash, so we can create a proof of concept script in python in order to reproduce the issue. We will send 5000 A's to the target application.</p>
 
 ```python
@@ -366,7 +366,7 @@ pip3 install badchars
 <p align="justify">Then we will generate the hex chars as follows</p>
 
 <!--script id="asciicast-Zgp40P151NjlTYOvmGCeXQFc2" src="https://asciinema.org/a/Zgp40P151NjlTYOvmGCeXQFc2.js" async></script-->
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/badchars.gif" alt=""/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/badchars.gif" alt=""/>
 
 <!--pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 <span style="color:#cd0000;"><b>root@kali</b></span>:<span style="color:#a7a7f3;"><b>/home/kali</b></span># badchars -f python
@@ -1151,7 +1151,7 @@ In order to make this exploit persistent and workable across multiple Windows pl
 Afterwards we will scroll down in stack view at <b>Immunity Debugger</b>. Further down the stack view, we should start seeing pointers on the stack, indicating " <b>RETURN to … from …</b>". These are saved addresses placed on the stack by functions that were called earlier. If we scroll almost all the way down, we will find a pointer to a <b>kernel32</b> address.
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png" alt=""/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/screenshot-2021-02-16-at-15.22.54.png" alt=""/>
 
 <p align="justify">
 As previously mentioned, after scrolling down the stack view, there is a leaked <b>kernel32</b> address <b>0x0022ED28</b>
@@ -1380,12 +1380,12 @@ As seen above in red, after the <b>MOV EAX,DWORD PTR [EAX]</b> instruction is ex
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png" alt=""/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/screenshot-2021-02-17-at-11.12.54-1.png" alt=""/>
 
 Also we can see that the leaked <b>kernel32</b> address is loaded into EAX.
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/02/screenshot-2021-02-17-at-11.22.36-1.png" alt=""/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/screenshot-2021-02-17-at-11.22.36-1.png" alt=""/>
 
 
 <p align="justify">
@@ -1428,7 +1428,7 @@ The following gadgets have been found and used in order to load the <b>VirtualPr
 At the first gadget, EBP is assigned with the hex value <b>0xfffae493</b>. Then, adding the two values from EAX and EBP will then give us the address of <b>VirtualProtect</b> and the result will be saved in EAX.
 </p>
 
-![VirtualProtect]({{ site.baseurl }}/assets/images/2021/02/virtualprotect.png)
+![VirtualProtect](https://xen0vas.github.io/assets/images/2021/02/virtualprotect.png)
 
 <p align="justify">
 Below is an updated PoC that implements the ROP gadgets showed before in order to calculate the <b>VirtualProtect</b> address dynamically and place it into EAX.
