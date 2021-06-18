@@ -21,7 +21,7 @@ title_separator          : "-"
 name                     : "Xenofon Vassilakopoulos Blog"
 description              : "Cyber Security Blog"
 url                      : "https://xen0vas.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "https://xen0vas.github.io" # the subpath of your site, e.g. "/blog"
+baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "xen0vas/xen0vas.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : /assets/images/minimal.png
 logo                     : #"/assets/images/minimal-dark-hacker.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
