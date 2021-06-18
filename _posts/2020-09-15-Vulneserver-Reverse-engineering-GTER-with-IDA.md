@@ -31,7 +31,7 @@ The tools used for this exercise are the following</p>
 Starting our binary analysis, we will run API Monitor v2 in order to have a first site about how to communicate with the vulnserver. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/apimonitor.png" alt="APIMonitor"  /> <!--  -->
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/apimonitor.png" alt="APIMonitor"  /> <!--  -->
 
 <p align="justify">
 As we can see at the image above, when we run vulnserver, we have an overview of the socket functions that we expect. According to msdn, the <code><b>getaddrinfo</b></code> function provides protocol-independent translation from an ANSI host name to an address. Following, is the prototype of the <code><b>getaddrinfo</b></code> function.
@@ -96,7 +96,7 @@ s.close()
 At this point we are ready to run the script above in order to observe the functional behaviour of the vulnserver. For this reason we will be using WinDbg and IDA Pro. First we will run vulnserver on the target machine and then we will start IDA and attach WinDbg as seen below  
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" width="750" height="443" /> <!-- width="650" height="443"-->
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/attachwindbg.png" alt="Windbg_Attach_On_IDA" width="750" height="443" /> <!-- width="650" height="443"-->
 
 <p align="justify">
 After attaching the vulnserver process to WinDbg, we will be ready to start debugging. As we saw earlier, when the application starts, it binds to a specific port where it listens for incoming connections. All the related functions used to implement the raw socket connection are referred at the <code><b>ws2_32.dll</b></code> module. Specifically, one interesting function is <code><b>recv</b></code>, which according to msdn has the following prototype, 
@@ -119,20 +119,20 @@ The <code><b>recv</b></code> function is the first entry point that will be used
 We start by seting a breakpoint at the <code><b>recv</b></code> function using the command <code><b>bp ws2_32!recv</b></code>
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/breakpoint-ws2_32.png" alt="bp-ws2_32" /> <!-- width="450" height="143" -->
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/breakpoint-ws2_32.png" alt="bp-ws2_32" /> <!-- width="450" height="143" -->
 
 <p align="justify">
 Once we run the poc script, we immediately hit the breakpoint in WinDbg which is set at <code><b>recv</b></code> function inside the <code><b>ws2_32.dll</b></code> module. 
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/windbg-bp-recv.png" alt="bp-windbg-hit" width="750" height="343" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/windbg-bp-recv.png" alt="bp-windbg-hit" width="750" height="343" />
 
 <p align="justify">
 Moreover, the <code><b>recv</b></code> function is not of much interest at this time, so we will continue execution until return from <code><b>recv</b></code> function. After returning from <b>recv</b> we will land to the address <code><b>0x00401958</b></code>
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
 Now, lets try to understand the code marked with a red square as seen at the screenshot above. First, <code><b>esp</b></code> register will reserve some space on the stack, specifically <code><b>10h</b></code> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <code><b>[ebp-410h]</b></code> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <code><b>0x1000</b></code> that stored onto the stack at the address <code><b>0x0103fb60</b></code> is the return value of the <code><b>recv</b></code> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
@@ -149,26 +149,26 @@ WINDBG>dd ebp-410h L1
 Then the instruction <code><b>cmp dword ptr [ebp-410h], 0</b></code> will compare the value pointed by <code><b>[ebp-410h]</b></code>, with value <code><b>0</b></code>, and if the value is less than or equal to <code><b>0</b></code>, then the program flow should be redirected to the location <code><b>loc_4024B6</b></code>. Also, as we see at the screenshot below, if there is a redirection of the execution flow to the location <code><b>loc_4024B6</b></code>, the connection with the vulnserver would be closed. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 <p align="justify">
 At this point it won't be a redirection to <code><b>loc_4024B6</b></code>, and the execution flow will continue as is. If no data returned from <code><b>recv</b></code> function, then the socket connection would be closed. The following graph from IDA depicts the case where the execution flow would be redirected to the location <code><b>loc_4024E8</b></code> following the termination of the socket connection. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/Graph-loc_4024B6.png" alt="loc_4024B6" width="850" height="443" />
 
 
 <p align="justify">
 Now, lets explain the following code inside the red square as seen at the screenshot below.    
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/landing-address-2.png" alt="bp-windbg-hit" width="850" height="500" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/landing-address-2.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
 As we see at the assembly code above, some values are placed on the stack in order to be placed later at the <code><b>strncmp</b></code> function as arguments. Moreover, an interesting instruction we see on IDA is the <code><b>call near ptr unk_402Db8</b></code>. This instruction specifies a near call to a relative address of the next instruction that as we see below, it contains a <code><b>jmp</b></code> instruction to an offset which points to <code><b>strncmp</b></code> function. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="850" height="500" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/strncmp.png" alt="bp-windbg-hit" width="850" height="500" />
 
 
 <p align="justify">
@@ -222,19 +222,19 @@ vulnserver+0x19f1:
 The returned value stored at <code><b>eax</b></code> is an indicator that the two strings are not equal. If we want to inspect the results further, we can observe the global flags <code><b>CF</b></code> and <code><b>ZF</b></code> on IDA Pro. Specifically the <code><b>CF</b></code> flag has the value 1 and the <code><b>ZF</b></code> has the value 0 which indicates that the source string ( the user input ) is bigger than the destination string ( src > dst ). 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="550" height="550" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/return-strncmp.png" alt="bp-windbg-hit" width="550" height="550" />
 
 <p align="justify">
 At this point as we also see at the image below the execution flow will be forwarded to the location <code><b>loc_4019D6</b></code> 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/4019d6.png" alt="bp-windbg-hit" width="850" height="550" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/4019d6.png" alt="bp-windbg-hit" width="850" height="550" />
 
 <p align="justify">
 Afterwards, when the comparison with <b>"HELP"</b> won't match, we will land to the location <code><b>loc_401A4B</b></code>. At this point we see that there is also a string comparison with  <b>"STATS"</b> and then, if there is again no match, the same code pattern will be repeated at the next code portion in order to compare with the string <b>"RTIME"</b>, and so on and so forth, until all vulnserver commands will be checked. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/rtime.png" alt="bp-windbg-hit" width="750" height="450" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/rtime.png" alt="bp-windbg-hit" width="750" height="450" />
 
 <p align="justify">
 At this point we realize that there is a pattern of string comparison with all possible commands offered by the vulnserver. Specifically, the execution flow will continue in the same way until we match the string <b>"GTER"</b>. From the following WinDbg output, we see that the <code><b>eax</b></code> register holds tha value <code><b>0x00000000</b></code>, which is the return value from <code><b>strncmp</b></code> function and indicates that there is a match with <b>"GTER"</b> string.    
@@ -252,30 +252,30 @@ vulnserver+0x1fe9:
 At this point the jump (JNE) to address <code><b>0x00402099</b></code> will not be taken. Alternatively, the execution flow will continue to address <code><b>0x00401FEF</b></code> as seen at the image below. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/GTER.png" alt="bp-windbg-hit" width="750" height="650" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/GTER.png" alt="bp-windbg-hit" width="750" height="650" />
 
 <p align="justify">
 At this point as we see at the following screenshot, there is a call to <code><b>malloc</b></code> function ( <code><b>loc_402DC0</b></code> ), which allocates 180 bytes (0xb4). 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-1.png" alt="bp-windbg-hit" width="
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/malloc-1.png" alt="bp-windbg-hit" width="
 900" height="90" />
 
 <p align="justify">
 If we follow the <code><b>loc_402DC0</b></code>, we will see that there is a jump to the offset <code><b>off_406198</b></code> which indicates the call to <code><b>malloc</b></code> as seen at the image below 
 </p>
 
- <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="900" height="300" />
+ <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/malloc-2.png" alt="bp-windbg-hit" width="900" height="300" />
 
 <p align="justify">
 Further down, we see that there is a call to <code><b>loc_4017CE</b></code> 
 </p>
 
- <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="950" height="350" />
+ <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/strcpy-1.png" alt="bp-windbg-hit" width="950" height="350" />
 
 If we continue the execution we see the following code 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-2.png" alt="bp-windbg-hit" width="700" height="400" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/strcpy-2.png" alt="bp-windbg-hit" width="700" height="400" />
 
 <p align="justify">
 After some instructions, we see at the address <code><b>0x004017D7</b></code> that when the instruction <code><b>mov eax, [ebp+8]</b></code> executes, the <code><b>eax</b></code> register holds the user input, which then will be copied using the <code><b>strcpy</b></code> function. The remaining bytes that sent from the poc script will be cut off because the memory boundary has been exceeded.   
@@ -301,13 +301,13 @@ WINDBG>dc eax L30
 then, the function <code><b>strcpy</b></code> will be called using the instruction <code><b>call loc_402DC8</b></code>
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="900" height="350" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/strcpy-3.png" alt="bp-windbg-hit" width="900" height="350" />
 
 <p align="justify">
 at this point, if we continue the execution, the program will crash, and the following screenshot will be shown at the stack view in IDA Pro. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="450" height="600" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/stack-view.png" alt="bp-windbg-hit" width="450" height="600" />
 
 <p align="justify">
 Now that we know the presence of a buffer overflow vulnerability, we should continue further and write a poc script in order to control the <code><b>eip</b></code> register. As we also see at the stack view in IDA Pro, when the program crashed, the stack pointer ( <code><b>esp</b></code> resister ) stopped at the address <code><b>0x00EAF9C8</b></code>. With this in mind, we will create the following poc script 
@@ -350,7 +350,7 @@ cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00010246
 We also see the same results in IDA Pro as follows 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="{{ site.baseurl }}/assets/images/2021/04/RIP.png" alt="bp-windbg-hit" width="450" height="400" />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/RIP.png" alt="bp-windbg-hit" width="450" height="400" />
 
 <p align="justify">
 At this point we can continue with the exploitation of the buffer overflow vulnerability in order to gain a shell. The exploitation of the vulnserver GTER command will be shown at a second part of this article.   
