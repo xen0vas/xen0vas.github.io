@@ -135,7 +135,7 @@ Moreover, the <code><b>recv</b></code> function is not of much interest at this 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/04/landing-address.png" alt="bp-windbg-hit" width="850" height="500" />
 
 <p align="justify">
-Now, lets try to understand the code marked with a red square as seen at the screenshot above. First, <code><b>esp</b></code> register will reserve some space on the stack, specifically <code><b>10h</b></code> ( 16 bytes in decimal ), in order to put there the value pointed at the address referred by <code><b>[ebp-410h]</b></code> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <code><b>0x1000</b></code> that stored onto the stack at the address <code><b>0x0103fb60</b></code> is the return value of the <code><b>recv</b></code> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
+Now, lets try to understand the code marked with a red square as seen at the screenshot above. First, <code><b>esp</b></code> register will reserve some space on the stack, specifically <code><b>10h</b></code> ( 16 bytes in decimal ), in order to put there the value in <b>eax</b> to the memory address contained in <code><b>ebp-410h</b></code> , which has been moved there using the <code><b>mov [ebp-410h], eax</b></code> instruction. The hex value <code><b>0x1000</b></code> that stored onto the stack at the address <code><b>0x0103fb60</b></code> is the return value of the <code><b>recv</b></code> function which shows clearly that 4096 bytes have been written to the buffer, and this also indicates that there are data coming from user input. 
 
 So, as we now see at WinDbg debugger the value <code><b>0x1000</b></code> is stored in address <code><b>0x0103fb60</b></code> on the stack. 
 </p>
@@ -172,7 +172,7 @@ As we see at the assembly code above, some values are placed on the stack in ord
 
 
 <p align="justify">
-Specifically, the immediate value 5 is placed on the stack at the address referred by <code>[esp+8]</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at an address referred by <code>[esp+4]</code>. then the string from user input will be placed on the stack at position referred by <code><b>[ebp-10h]</b></code>. 
+Specifically, the immediate value 5 is placed on the stack at the memory address contained in <code>esp+8</code> which indicates the length of the <b>"HELP "</b> command including the white space. Then the <b>"HELP "</b> string is placed on the stack at a memory address contained in <code>esp+4</code>. Then the string from user input will be placed on the stack at the memory address contained in <code><b>ebp-10h</b></code>. 
 <br><br>
 Lets see the arguments of <code><b>strncmp</b></code> function in WinDbg 
 <br><br>
