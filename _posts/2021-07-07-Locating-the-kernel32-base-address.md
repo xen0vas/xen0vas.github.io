@@ -368,8 +368,7 @@ From the instruction above, as we saw earlier, using the <code>lodsd</code> inst
 Finally, we will use the following C program in order to test our assembly instructions and check the addresses in the specified registers. In order to test our assembly instructions we will use Visual Studio 
 
 
-```C
-
+```c
 #include < windows.h >
 int main(int argc, char* argv[])
 {
@@ -387,7 +386,6 @@ int main(int argc, char* argv[])
    }
    return 0;
 }
-
 ```
 
 <p align="justify">
