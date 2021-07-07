@@ -332,6 +332,7 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 
 <p align="justify">
 As we see above, the <code>BaseDllName</code> holds the <code>kernel32.dll</code> name at offset <code>0x02c</code> and the <code>DllBase</code> holds its address <code>0x765f0000</code> at offset <code>0x18</code>. So in order to gain the <code>kernel32.dll</code> base address, we need to use the following command in WinDbg, as well as to do the appropriate calculations. 
+</p>
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
