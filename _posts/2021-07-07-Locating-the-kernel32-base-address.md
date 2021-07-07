@@ -20,7 +20,7 @@ tags:
   - Windows Internals 
 --- 
 
-<b><span style="color:black;font-size:30px">Locating the kernel32.dll base address</span></b>
+<b><span style="color:#339966;font-size:30px">Locating the kernel32.dll base address</span></b>
 <p align="justify">
 This article focuses on how to locate the base address of the kernel32.dll module using x86 assembly. We will first exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through it to search for the pointer to a <code>PEB_LDR_DATA</code> structure which will then provide information about loaded modules. Moreover, using this Windows internal information will also help us to locate the <b>kernel32.dll</b> base address. In WinDbg we can see the TEB structure using the command <code><b>dt _teb</b></code> as shown below
 </p>
