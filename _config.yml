@@ -112,7 +112,7 @@ author:
   name             : "Xenofon Vassilakopoulos"
   avatar           : "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "OSCE, OSCP, OSWP | Research and Exploitation" #"Im constantly seeking for knowledge in Cyber Security "
-  location         : "Athens Greece"
+  location         : ""
   email            :
   links:
     - label: "Email"
