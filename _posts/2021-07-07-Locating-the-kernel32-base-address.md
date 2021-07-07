@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 'Locating the kernel32.dll base address with assembly'
+title: 'Locating the kernel32.dll base address using x86 Assembly'
 description: 'This blog post shows how to locate the kernel32.dll base address using winDbg debugger and x86 assembly language'
 date: 2021-07-07
 classes: wide
@@ -25,7 +25,7 @@ tags:
 This article focuses on how to locate the base address of the kernel32.dll module using x86 assembly. We will first exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through it to search for the pointer to a <code>PEB_LDR_DATA</code> structure which will then provide information about loaded modules. Moreover, using this Windows internal information will also help us to locate the <b>kernel32.dll</b> base address. In WinDbg we can see the TEB structure using the command <code><b>dt _teb</b></code> as shown below
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> dt _teb
 ntdll!_TEB
    +0x000 NtTib            : _NT_TIB
@@ -38,27 +38,26 @@ ntdll!_TEB
    +0x038 CountOfOwnedCriticalSections : Uint4B
    +0x03c CsrClientThread  : Ptr32 Void
 [...SNIP...]
-
-```
+</pre>
 
 <p align="justify">
 As we see from the ouput above we have out first information about the offset that the PEB structure is located ( offset <code>0x30</code> ) from the start of the TEB structure. Windows uses the FS register to store the address of the TEB structure
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> dg fs
                                   P Si Gr Pr Lo
 Sel    Base     Limit     Type    l ze an es ng Flags
 ---- -------- -------- ---------- - -- -- -- -- --------
 0053 0033a000 00000fff Data RW Ac 3 Bg By P  Nl 000004f3
-```
+</pre>
 
 <p align="justify">
 So, as we see from the output above, the TEB structure is located at the address <code>0033a000</code>. In WinDbg we can see the PEB structure using the command <code><b>!peb</b></code> as shown below
 </p>
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> !peb
 PEB at 00337000
     InheritedAddressSpace:    No
@@ -82,13 +81,13 @@ PEB at 00337000
         76530000 C:\Windows\System32\RPCRT4.dll
         62500000 4ce61c00 Nov 19 08:41:04 2010 C:\Users\Xenofon\Desktop\vulnserver-master\essfunc.dll
    [...SNIP...]
-```
+</pre>
 
 <p align="justify">
 As we see, there is some valuable information available from the command used above regarding the PEB stucture, which can help us significantly, giving us a foothold on how to move further. According to this information we can now check the <code>ldr</code> pointer at <code>0x77254d80</code> to clarify that indeed points to the <code>_PEB_LDR_DATA</code> structure. We can check this by using the command <code>dt _peb @$peb</code> in WinDbg as seen below
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> dt _peb @$peb
 ntdll!_PEB
    +0x000 InheritedAddressSpace : 0 ''
@@ -111,21 +110,22 @@ ntdll!_PEB
    +0x018 ProcessHeap      : 0x007b0000 Void
    +0x01c FastPebLock      : 0x77254b40 _RTL_CRITICAL_SECTION
  [...SNIP...]
-```
+</pre>
 
 <p align="justify">
 There is indeed the <code>_PEB_LDR_DATA</code> structure located at address <code>0x77254d80</code>, and the pointer of that structure is located at offset <code>0x00c</code>. 
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> ? poi(@$peb+0xc)
 Evaluate expression: 1998933376 = 77254d80
-```
+</pre>
+
 <p align="justify">
 Furthermore, we will use this address in order to find the exact offset of <code>InMemoryOrderModuleList</code> as seen below 
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> dt _PEB_LDR_DATA 0x77254d80
 ntdll!_PEB_LDR_DATA
    +0x000 Length           : 0x30
@@ -137,21 +137,22 @@ ntdll!_PEB_LDR_DATA
    +0x024 EntryInProgress  : (null) 
    +0x028 ShutdownInProgress : 0 ''
    +0x02c ShutdownThreadId : (null)
-```
+</pre>
 
 <p align="justify">
 Now lets get the <code>InMemoryOrderModuleList</code> adddress since we know the offset ( <code>0x014</code> )
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> ? poi(poi(@$peb+0xc)+0x14)
 Evaluate expression: 8075568 = 007b3930
-```
+</pre>
+
 <p align="justify">
 Following is the <code>_PEB_LDR_DATA</code> structure prototype
 </p>
 
-```C
+```c
 typedef struct _PEB_LDR_DATA {
   BYTE       Reserved1[8];
   PVOID      Reserved2[3];
@@ -183,10 +184,10 @@ As seen above, we realize that the <code>InMemoryOrderModuleList</code> is locat
 At this point lets start constructing our shellcode
 
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 XOR ECX, ECX                  ; zero out ECX
 MOV EAX, FS:[ecx + 0x30]      ; EAX = PEB
-```
+</pre>
 
 <p align="justify">
 At the first two lines above, the first instruction sets the <code>ecx</code> register to zero and the second instruction uses <code>ecx</code> to avoid null bytes. Lets explain this a bit.. If we use the <code>mov eax,fs:[30]</code> instruction, it will be assembled to the following opcode sequence, <code>64 A1 30 00 00 00</code>, which apparently produces null bytes. In the contrary, if we use the instruction <code>mov eax, fs:[ecx+0x30]</code>, it will be assembled to <code>64 8B 41 30</code>, which does not contain null bytes. 
@@ -194,22 +195,21 @@ At the first two lines above, the first instruction sets the <code>ecx</code> re
 Below we see this in practice using the <code>msf-nasm</code> tool from metasploit framework.  
 </p>
 
-
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 nasm > MOV EAX, FS:[ecx + 0x30]
 00000000  648B4130          mov eax,[fs:ecx+0x30]
 nasm > MOV EAX, FS:[0x30]
 00000000  64A130000000      mov eax,[fs:0x30]
-```
+</pre>
 
 <p align="justify">
 At this point we need to move further and find the address of the <code>InMemoryOrderModuleList</code>, and then the pointer to <code>LDR_DATA_TABLE_ENTRY</code> structure, which as said before will help us to find the exact offset of <code>kernel32.dll</code> module and finaly load it into <code>ebx</code> register as we'll see later
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 MOV EAX, [EAX + 0xc]          ; EAX = PEB->Ldr
 MOV ESI, [EAX + 0x14]         ; ESI = PEB->Ldr.InMemoryOrderModuleList
-```
+</pre>
 
 <p align="justify">
 At the first line above, we have the <code>ldr</code> pointer loaded in the <code>eax</code> register. The <code>mov</code> instruction saves the address of the <code>PEB_LDR_DATA</code> structure in <code>eax</code> register. The <code>PEB_LDR_DATA</code> structure is located at the offset <code>0x0C</code> at the <code>PEB</code> structure. Moreover, in case we follow that pointer in the <code>PEB_LDR_DATA</code>, then, at offset <code>0x14</code>  we have the <code>InMemoryOrderModuleList</code>. Here, the first element is a forward link or <code><b>Flink</b></code>, which is a pointer to the next module in the doubled linked list. In addition to this, as we see above, the pointer placed inside the <code>esi</code> register.
@@ -298,9 +298,9 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 <p align="justify">
 We can verify that the address of the <code>ntdll.dll</code> is <code>0x77130000</code> as seen at offset <code>0x18</code> at <code>DllBase</code> above. The <code>lodsd</code> instruction below will follow the pointer specified by the <code>esi</code> register and the results will be placed inside the <code>eax</code> register. In such case the memory address of the second list entry structure will be loaded in <code>eax</code> register.   
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 LODSD  ; memory address of the second list entry structure
-```
+</pre>
 
 <p align="justify">
 Now that we know the address of the <code>ntdll.dll</code> module, we can proceed further in the linked list to find the third list entry structure which will give us the offset of the <code>kernel32.dll</code> module.
@@ -308,10 +308,10 @@ Now that we know the address of the <code>ntdll.dll</code> module, we can procee
 In order to do this we will follow the linked list and see where it points next. The <code>lodsd</code> instruction will follow the pointer specified by the <code>esi</code> register and the results will be placed inside the <code>eax</code> register. As we know, after the <code>lodsd</code> instruction assigns the value pointed to the address loaded in <code>esi</code> register into the <code>eax</code> register, then increments <code>esi</code> by 4 (pointing to the next dword) pointing to the next list entry structure. For that reason, before using the <code>lodsd</code> instruction for the second time, we should first use the <code>xchg</code> instruction in order to assign the next pointer to <code>esi</code> register. This means that after executing the <code>lodsd</code> instruction, the address of the third list entry structure, will be placed inside the <code>eax</code> register. Furthermore, inside this list entry structure we can find the offset ( <code>0x18</code> ) which holds the base address of the <code>kernel32.dll</code> module.  
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 XCHG EAX, ESI ; EAX = ESI , ESI = EAX 
 LODSD  ; memory address of the third list entry structure
-```
+</pre>
 
 <p align="justify">
 At this point, we will search for the <code>kernel32.dll</code> base address offset using WinDbg 
@@ -356,9 +356,9 @@ Symbol not found at address <span style="color:#cd0000;"><b>765f0000</b></span>.
 As we see from the output above, the <code>kernel32.dll</code> base address is located at offset <code>0x18 - 0x8 = 0x10 </code>. At this point the following instruction will take place 
 </p>
 
-```
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 MOV EBX, [EAX + 0x10]   ; EBX = Base address
-```
+</pre>
 
 <p align="justify">
 From the instruction above, as we saw earlier, using the <code>lodsd</code> instruction, the <code>eax</code> register holds a pointer to the second list entry of the <b>InMemoryOrderLinks</b> stucture. Furthermore, if we add <code>0x10</code> bytes to <code>eax</code> register, we will have the <b>DllBase</b> pointer, which points to the memory address of the <b>kernel32.dll</b> module.
