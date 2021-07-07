@@ -25,6 +25,10 @@ This article focuses on how to locate the base address of the kernel32.dll modul
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
+In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will find out the addresses of these functions with the use of the <code>GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code>LoadLibraryA</code>, which is located in <code>kernel32.dll</code> module. 
+</p>
+
+<p align="justify">
 We will first exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through it to search for the pointer to a <code>PEB_LDR_DATA</code> structure which will then provide information about loaded modules. Moreover, using this Windows internal information will also help us to locate the <b>kernel32.dll</b> base address. In WinDbg we can see the TEB structure using the command <code><b>dt _teb</b></code> as shown below
 </p>
 
