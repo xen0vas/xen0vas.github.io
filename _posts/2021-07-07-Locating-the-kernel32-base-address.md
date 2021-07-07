@@ -391,5 +391,5 @@ int main(int argc, char* argv[])
 Furthermore, as we see at the screenshot below, the <code>ebx</code> register holds the <code>kernel32.dll</code> base address, so our instructions are working as expected. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="/Users/xenovas/Desktop/visual-studio.png" alt="APIMonitor"  />
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/visual-studio.png" alt="APIMonitor"  />
 
