@@ -19,7 +19,7 @@ tags:
 --- 
 
 <p align="justify">
-This article focuses on how to locate the base address of the kernel32.dll module using x86 assembly. This is the first part of a series of blog posts focusing on how to create a custom win32 reverse tcp shellcode. The following blog post inspired me to write this article, which i strongly suggest for further reading 
+This article focuses on how to locate the base address of the kernel32.dll module. This is the first part of a series of blog posts focusing on how to create a custom win32 reverse tcp shellcode. The following blog post inspired me to write this article, which i strongly suggest for further reading 
 </p>
 
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
