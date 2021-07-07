@@ -10,8 +10,6 @@ header:
 tags:
   - WinDbg
   - kernel32 base address
-  - Vulnserver
-  - Exploit Development
   - Windows API
   - x86 Assembly
   - Visual Studio
