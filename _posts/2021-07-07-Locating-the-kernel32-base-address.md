@@ -179,8 +179,9 @@ ntdll!_PEB_LDR_DATA
 As seen above, we realize that the <code>InMemoryOrderModuleList</code> is located at offset <code>0x014</code>. 
 </p>
 
+<p align="justify">
 At this point lets start constructing our instructions
-
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 XOR ECX, ECX                  ; zero out ECX
@@ -294,7 +295,8 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 </pre>
 
 <p align="justify">
-We can verify that the address of the <code>ntdll.dll</code> is <code>0x77130000</code> as seen at offset <code>0x18</code> at <code>DllBase</code> above. The <code>lodsd</code> instruction below will follow the pointer specified by the <code>esi</code> register and the results will be placed inside the <code>eax</code> register. In such case the memory address of the second list entry structure will be loaded in <code>eax</code> register.   
+We can verify that the address of the <code>ntdll.dll</code> is <code>0x77130000</code> as seen at offset <code>0x18</code> at <code>DllBase</code> above. The <code>lodsd</code> instruction below will follow the pointer specified by the <code>esi</code> register and the results will be placed inside the <code>eax</code> register. In such case the memory address of the second list entry structure will be loaded in <code>eax</code> register.  
+</p> 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 LODSD  ; memory address of the second list entry structure
