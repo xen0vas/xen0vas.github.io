@@ -129,7 +129,7 @@ Evaluate expression: 1998933376 = 77254d80
 </pre>
 
 <p align="justify">
-Moreover, we will use this address to find the exact offset of <code>InMemoryOrderModuleList</code> as seen below 
+Moreover, we will use this address to find the exact offset of <code>InMemoryOrderModuleList</code> inside the <code>_PEB_LDR_DATA</code> structure as seen below 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
