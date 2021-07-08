@@ -91,7 +91,7 @@ PEB at 00337000
 </pre>
 
 <p align="justify">
-As we see, there is some valuable information available from the command used above regarding the PEB stucture, which can help us significantly, giving us a foothold on how to move further. According to this information we can now check the <code>ldr</code> pointer at <code>0x77254d80</code> to clarify that indeed points to the <code>_PEB_LDR_DATA</code> structure. We can check this by using the command <code>dt _peb @$peb</code> in WinDbg as seen below
+As we see, there is some valuable information available regarding the PEB stucture after initiating the command above, which can help us significantly and give us a foothold on how to move further. According to this information we can now check the <code>ldr</code> pointer at <code>0x77254d80</code> to clarify that indeed points to the <code>_PEB_LDR_DATA</code> structure. We can check this by using the command <code>dt _peb @$peb</code> in WinDbg as seen below
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
