@@ -168,7 +168,7 @@ typedef struct _PEB_LDR_DATA {
 ```
 
 <p align="justify">
-At this point we are interested mainly in the <code>InMemoryOrderModuleList</code> which according to msdn, is the head of a doubly-linked list that contains the loaded modules for the process. Each item in the list is a pointer to an <code>LDR_DATA_TABLE_ENTRY</code> structure. Lets check this out
+At this point we are interested mainly in the <code>InMemoryOrderModuleList</code>, which according to msdn, is the head of a doubly-linked list that contains the loaded modules for the process. Each item in the list is a pointer to an <code>LDR_DATA_TABLE_ENTRY</code> structure. Lets check this out
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
