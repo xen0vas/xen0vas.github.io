@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 'win32 reverse tcp shellcode - pt .1 - Locating the kernel32.dll base address'
+title: 'Win32 reverse shellcode - pt .1 - Locating the kernel32.dll base address'
 description: 'This blog post shows how to locate the kernel32.dll base address using winDbg debugger and x86 assembly language'
 date: 2021-07-07
 classes: wide
@@ -19,7 +19,7 @@ tags:
 --- 
 
 <p align="justify">
-This article focuses on how to locate the base address of the kernel32.dll module. This is the first part of blog post series, focusing on how to create a custom win32 reverse tcp shellcode. The following blog post inspired me to write this article, which i strongly suggest for further reading 
+This article focuses on how to locate the base address of the kernel32.dll module. This is the first part of a blog series, focusing on how to create a custom Win32 reverse shellcode. The following blog post inspired me to write this article, which i strongly suggest for further reading 
 </p>
 
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
