@@ -4,7 +4,7 @@ title: 'Win32 reverse shellcode - pt .1 - Locating the kernel32.dll base address
 description: 'This blog post shows how to locate the kernel32.dll base address using winDbg debugger and x86 assembly language'
 date: 2021-07-07
 classes: wide
-comments: false
+comments: true
 header:
   teaser: /assets/images/avatar.jpg
 tags:
