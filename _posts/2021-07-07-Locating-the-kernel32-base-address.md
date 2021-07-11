@@ -386,14 +386,14 @@ int main(int argc, char* argv[])
    LoadLibrary("user32.dll");
    _asm
    {
-      XOR ECX, ECX; zero out ECX
-      MOV EAX, FS:[ecx + 0x30]; EAX = PEB
-      MOV EAX, [EAX + 0x0c]; EAX = PEB->Ldr
-      MOV ESI, [EAX + 0x14]; ESI = PEB->Ldr.InMemoryOrderModuleList
-      LODSD ; memory address of the second list entry structure
-      XCHG EAX, ESI ; EAX = ESI , ESI = EAX 
-      LODSD ; memory address of the third list entry structure
-      MOV EBX, [EAX + 0x10]; EBX = Base address
+      XOR ECX, ECX              // zero out ECX
+      MOV EAX, FS:[ecx + 0x30]  // EAX = PEB
+      MOV EAX, [EAX + 0x0c]     // EAX = PEB->Ldr
+      MOV ESI, [EAX + 0x14]     // ESI = PEB->Ldr.InMemoryOrderModuleList
+      LODSD                     // memory address of the second list entry structure
+      XCHG EAX, ESI             // EAX = ESI , ESI = EAX 
+      LODSD                     // memory address of the third list entry structure
+      MOV EBX, [EAX + 0x10]     // EBX = Base address
    }
    return 0;
 }
