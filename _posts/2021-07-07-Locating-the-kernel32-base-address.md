@@ -29,7 +29,7 @@ In order to create a reverse tcp shellcode we need to know the addresses of the 
 </p>
 
 <p align="justify">
-At this point we are ready to start our analysis. First, we will exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through it to search for the pointer to a <code>PEB_LDR_DATA</code> structure which will then provide information about loaded modules. Moreover, using this Windows internal information will also help us to locate the <code>kernel32.dll</code> base address. In WinDbg we can see the TEB structure using the command <code><b>dt _teb</b></code> as shown below
+At this point we are ready to start our analysis. First, we will exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through PEB to search for the pointer to the <code>PEB_LDR_DATA</code> structure that will provide information about loaded modules. Moreover, this Windows internal information will also help us to locate the <code>kernel32.dll</code> base address. In WinDbg we can see the TEB structure using the command <code><b>dt _teb</b></code> as shown below
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
