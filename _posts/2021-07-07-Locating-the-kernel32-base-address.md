@@ -48,7 +48,7 @@ ntdll!_TEB
 </pre>
 
 <p align="justify">
-As we see from the ouput above, we have the offset of the PEB structure ( offset <code>0x30</code> ) from the start of the TEB structure. Windows uses the FS register to store the address of the TEB structure
+As we see from the ouput above, we have the offset of the PEB structure ( offset <code>0x30</code> ). Windows uses the FS register to store the address of the TEB structure
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
