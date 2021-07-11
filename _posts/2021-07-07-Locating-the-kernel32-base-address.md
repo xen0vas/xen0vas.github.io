@@ -25,7 +25,7 @@ This article focuses on how to locate the base address of the kernel32.dll modul
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
-In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will find out the addresses of these functions with the use of the <code>GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code>LoadLibraryA</code>, which is located in <code>kernel32.dll</code> module. 
+In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will search the functions using the <code>GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code>LoadLibraryA</code>, which is located in <code>kernel32.dll</code> module. 
 </p>
 
 <p align="justify">
@@ -48,7 +48,7 @@ ntdll!_TEB
 </pre>
 
 <p align="justify">
-As we see from the ouput above we have out first information about the offset that the PEB structure is located ( offset <code>0x30</code> ) from the start of the TEB structure. Windows uses the FS register to store the address of the TEB structure
+As we see from the ouput above we have our first information about the offset that the PEB structure is located ( offset <code>0x30</code> ) from the start of the TEB structure. Windows uses the FS register to store the address of the TEB structure
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
