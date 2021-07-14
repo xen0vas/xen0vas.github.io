@@ -25,11 +25,11 @@ This article focuses on how to locate the base address of the kernel32.dll modul
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
-In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will search the functions using the <code  style="background-color: lightblue;"  style="background-color: lightblue;">GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightblue;">LoadLibraryA</code>, which is located in <code  style="background-color: lightblue;">kernel32.dll</code> module. 
+In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will search the functions using the <code  style="background-color: lightgray;"  style="background-color: lightgray;">GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightgray;">LoadLibraryA</code>, which is located in <code  style="background-color: lightgray;">kernel32.dll</code> module. 
 </p>
 
 <p align="justify">
-At this point we are ready to start our analysis. First, we will exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through PEB to search for the pointer to the <code  style="background-color: lightblue;">PEB_LDR_DATA</code> structure that will provide information about the loaded modules. Moreover, this Windows internal information will also help us to locate the <code  style="background-color: lightblue;">kernel32.dll</code> base address. In WinDbg we can see the TEB structure using the command <code  style="background-color: lightblue;"><b>dt _teb</b></code> as shown below
+At this point we are ready to start our analysis. First, we will exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through PEB to search for the pointer to the <code  style="background-color: lightgray;">PEB_LDR_DATA</code> structure that will provide information about the loaded modules. Moreover, this Windows internal information will also help us to locate the <code  style="background-color: lightgray;">kernel32.dll</code> base address. In WinDbg we can see the TEB structure using the command <code  style="background-color: lightgray;"><b>dt _teb</b></code> as shown below
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -48,7 +48,7 @@ ntdll!_TEB
 </pre>
 
 <p align="justify">
-As we see from the ouput above, we have the offset of the PEB structure ( offset <code  style="background-color: lightblue;">0x30</code> ). Windows uses the FS register to store the address of the TEB structure
+As we see from the ouput above, we have the offset of the PEB structure ( offset <code  style="background-color: lightgray;">0x30</code> ). Windows uses the FS register to store the address of the TEB structure
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -60,7 +60,7 @@ Sel    Base     Limit     Type    l ze an es ng Flags
 </pre>
 
 <p align="justify">
-So, as we see from the output above, the TEB structure is located at the address <code  style="background-color: lightblue;">0x0033a000</code>. In WinDbg we can see the PEB structure using the command <code  style="background-color: lightblue;"><b>!peb</b></code> as shown below
+So, as we see from the output above, the TEB structure is located at the address <code  style="background-color: lightgray;">0x0033a000</code>. In WinDbg we can see the PEB structure using the command <code  style="background-color: lightgray;"><b>!peb</b></code> as shown below
 </p>
 
 
@@ -91,7 +91,7 @@ PEB at 00337000
 </pre>
 
 <p align="justify">
-As we see above, there is some valuable information available regarding the PEB stucture after initiating the command above, which can help us significantly, giving us a foothold on how to move further. According to this information we can now check the <code  style="background-color: lightblue;">ldr</code> pointer at address <code  style="background-color: lightblue;">0x77254d80</code> ,to clarify that indeed points to the <code  style="background-color: lightblue;">_PEB_LDR_DATA</code> structure. Furthermore, we can check this by using the command <code  style="background-color: lightblue;">dt _peb @$peb</code> in WinDbg as seen below
+As we see above, there is some valuable information available regarding the PEB stucture after initiating the command above, which can help us significantly, giving us a foothold on how to move further. According to this information we can now check the <code  style="background-color: lightgray;">ldr</code> pointer at address <code  style="background-color: lightgray;">0x77254d80</code> ,to clarify that indeed points to the <code  style="background-color: lightgray;">_PEB_LDR_DATA</code> structure. Furthermore, we can check this by using the command <code  style="background-color: lightgray;">dt _peb @$peb</code> in WinDbg as seen below
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -120,7 +120,7 @@ ntdll!_PEB
 </pre>
 
 <p align="justify">
-There is indeed the <code  style="background-color: lightblue;">_PEB_LDR_DATA</code> structure located at address <code  style="background-color: lightblue;">0x77254d80</code>, and the pointer of that structure is located at offset <code  style="background-color: lightblue;">0xc</code>. 
+There is indeed the <code  style="background-color: lightgray;">_PEB_LDR_DATA</code> structure located at address <code  style="background-color: lightgray;">0x77254d80</code>, and the pointer of that structure is located at offset <code  style="background-color: lightgray;">0xc</code>. 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -129,7 +129,7 @@ Evaluate expression: 1998933376 = 77254d80
 </pre>
 
 <p align="justify">
-Moreover, we will use this address to find the exact offset of <code  style="background-color: lightblue;">InMemoryOrderModuleList</code> inside the <code  style="background-color: lightblue;">_PEB_LDR_DATA</code> structure as seen below 
+Moreover, we will use this address to find the exact offset of <code  style="background-color: lightgray;">InMemoryOrderModuleList</code> inside the <code  style="background-color: lightgray;">_PEB_LDR_DATA</code> structure as seen below 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -147,7 +147,7 @@ ntdll!_PEB_LDR_DATA
 </pre>
 
 <p align="justify">
-Now lets get the <code  style="background-color: lightblue;">InMemoryOrderModuleList</code> adddress since we know the offset ( <code  style="background-color: lightblue;">0x14</code> )
+Now lets get the <code  style="background-color: lightgray;">InMemoryOrderModuleList</code> adddress since we know the offset ( <code  style="background-color: lightgray;">0x14</code> )
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -156,7 +156,7 @@ Evaluate expression: 8075568 = 007b3930
 </pre>
 
 <p align="justify">
-Following is the <code  style="background-color: lightblue;">_PEB_LDR_DATA</code> structure prototype
+Following is the <code  style="background-color: lightgray;">_PEB_LDR_DATA</code> structure prototype
 </p>
 
 ```c
@@ -168,7 +168,7 @@ typedef struct _PEB_LDR_DATA {
 ```
 
 <p align="justify">
-At this point we are interested mainly in the <code  style="background-color: lightblue;">InMemoryOrderModuleList</code>, which according to msdn, is the head of a doubly-linked list that contains the loaded modules for the process. Each item in the list is a pointer to an <code  style="background-color: lightblue;">LDR_DATA_TABLE_ENTRY</code> structure. Lets check this out
+At this point we are interested mainly in the <code  style="background-color: lightgray;">InMemoryOrderModuleList</code>, which according to msdn, is the head of a doubly-linked list that contains the loaded modules for the process. Each item in the list is a pointer to an <code  style="background-color: lightgray;">LDR_DATA_TABLE_ENTRY</code> structure. Lets check this out
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -186,7 +186,7 @@ ntdll!_PEB_LDR_DATA
 </pre>
 
 <p align="justify">
-As seen above, we realize that the <code  style="background-color: lightblue;">InMemoryOrderModuleList</code> is located at offset <code  style="background-color: lightblue;">0x14</code>. 
+As seen above, we realize that the <code  style="background-color: lightgray;">InMemoryOrderModuleList</code> is located at offset <code  style="background-color: lightgray;">0x14</code>. 
 </p>
 
 <p align="justify">
@@ -199,9 +199,9 @@ MOV EAX, FS:[ecx + 0x30]      ; EAX = PEB
 </pre>
 
 <p align="justify">
-At the first two lines above, the first instruction sets the <code  style="background-color: lightblue;">ecx</code> register to zero and the second instruction uses <code  style="background-color: lightblue;">ecx</code> to avoid null bytes. Lets explain this a bit.. If we use the <code  style="background-color: lightblue;">mov eax,fs:[30]</code> instruction, it will be assembled to the following opcode sequence, <code  style="background-color: lightblue;">64 A1 30 00 00 00</code>, which apparently produces null bytes. In the contrary, if we use the instruction <code  style="background-color: lightblue;">mov eax, fs:[ecx+0x30]</code>, it will be assembled to <code  style="background-color: lightblue;">64 8B 41 30</code>, which does not contain null bytes. 
+At the first two lines above, the first instruction sets the <code  style="background-color: lightgray;">ecx</code> register to zero and the second instruction uses <code  style="background-color: lightgray;">ecx</code> to avoid null bytes. Lets explain this a bit.. If we use the <code  style="background-color: lightgray;">mov eax,fs:[30]</code> instruction, it will be assembled to the following opcode sequence, <code  style="background-color: lightgray;">64 A1 30 00 00 00</code>, which apparently produces null bytes. In the contrary, if we use the instruction <code  style="background-color: lightgray;">mov eax, fs:[ecx+0x30]</code>, it will be assembled to <code  style="background-color: lightgray;">64 8B 41 30</code>, which does not contain null bytes. 
 <br><br>
-Below we see this in practice using the <code  style="background-color: lightblue;">msf-nasm</code> tool from metasploit framework.  
+Below we see this in practice using the <code  style="background-color: lightgray;">msf-nasm</code> tool from metasploit framework.  
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -212,7 +212,7 @@ nasm > MOV EAX, FS:[0x30]
 </pre>
 
 <p align="justify">
-At this point we need to move further and find the address of the <code  style="background-color: lightblue;">InMemoryOrderModuleList</code>, and then the pointer to <code  style="background-color: lightblue;">LDR_DATA_TABLE_ENTRY</code> structure, which as said before will help us to find the exact offset of <code  style="background-color: lightblue;">kernel32.dll</code> module and finaly load it into <code  style="background-color: lightblue;">ebx</code> register as we'll see later
+At this point we need to move further and find the address of the <code  style="background-color: lightgray;">InMemoryOrderModuleList</code>, and then the pointer to <code  style="background-color: lightgray;">LDR_DATA_TABLE_ENTRY</code> structure, which as said before will help us to find the exact offset of <code  style="background-color: lightgray;">kernel32.dll</code> module and finaly load it into <code  style="background-color: lightgray;">ebx</code> register as we'll see later
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -221,7 +221,7 @@ MOV ESI, [EAX + 0x14]         ; ESI = PEB->Ldr.InMemoryOrderModuleList
 </pre>
 
 <p align="justify">
-At the first line above, we have the <code  style="background-color: lightblue;">ldr</code> pointer loaded in the <code  style="background-color: lightblue;">eax</code> register. The <code  style="background-color: lightblue;">mov</code> instruction saves the address of the <code  style="background-color: lightblue;">PEB_LDR_DATA</code> structure in <code  style="background-color: lightblue;">eax</code> register. The <code  style="background-color: lightblue;">PEB_LDR_DATA</code> structure is located at the offset <code  style="background-color: lightblue;">0x0C</code> at the <code  style="background-color: lightblue;">PEB</code> structure. Moreover, in case we follow that pointer in the <code  style="background-color: lightblue;">PEB_LDR_DATA</code>, then, at offset <code  style="background-color: lightblue;">0x14</code>  we have the <code  style="background-color: lightblue;">InMemoryOrderModuleList</code>. Here, the first element is a forward link or <code  style="background-color: lightblue;"><b>Flink</b></code>, which is a pointer to the next module in the doubled linked list. In addition to this, as we see above, the pointer placed inside the <code  style="background-color: lightblue;">esi</code> register.
+At the first line above, we have the <code  style="background-color: lightgray;">ldr</code> pointer loaded in the <code  style="background-color: lightgray;">eax</code> register. The <code  style="background-color: lightgray;">mov</code> instruction saves the address of the <code  style="background-color: lightgray;">PEB_LDR_DATA</code> structure in <code  style="background-color: lightgray;">eax</code> register. The <code  style="background-color: lightgray;">PEB_LDR_DATA</code> structure is located at the offset <code  style="background-color: lightgray;">0x0C</code> at the <code  style="background-color: lightgray;">PEB</code> structure. Moreover, in case we follow that pointer in the <code  style="background-color: lightgray;">PEB_LDR_DATA</code>, then, at offset <code  style="background-color: lightgray;">0x14</code>  we have the <code  style="background-color: lightgray;">InMemoryOrderModuleList</code>. Here, the first element is a forward link or <code  style="background-color: lightgray;"><b>Flink</b></code>, which is a pointer to the next module in the doubled linked list. In addition to this, as we see above, the pointer placed inside the <code  style="background-color: lightgray;">esi</code> register.
 </p>
 
 
@@ -248,7 +248,7 @@ ntdll!_PEB_LDR_DATA
 </pre>
 
 <p align="justify">
-Furthermore, we can also move streight to the address that we are interested in using the WinDbg command <code  style="background-color: lightblue;">dt _PEB_LDR_DATA poi(poi(@$peb+0xc)+0x14)</code>
+Furthermore, we can also move streight to the address that we are interested in using the WinDbg command <code  style="background-color: lightgray;">dt _PEB_LDR_DATA poi(poi(@$peb+0xc)+0x14)</code>
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -267,7 +267,7 @@ ntdll!_PEB_LDR_DATA
 </pre>
 
 <p align="justify">
-Now lets verify that the <code  style="background-color: lightblue;">0x7b3828</code> is indeed the address of <code  style="background-color: lightblue;">ntdll.dll</code> module. 
+Now lets verify that the <code  style="background-color: lightgray;">0x7b3828</code> is indeed the address of <code  style="background-color: lightgray;">ntdll.dll</code> module. 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -285,7 +285,7 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 </pre>
 
 <p align="justify">
-Well, there is an error above as you can see <code  style="background-color: lightblue;">"--- memory read error at address 0x0000ffff ---"</code>. Thats because the <code  style="background-color: lightblue;">InMemoryOrderLinks</code> is located at offset <code  style="background-color: lightblue;">0x8</code> ( highlighted in red above ). In order to fix this issue we subtract <code  style="background-color: lightblue;">0x8</code> from the address <code  style="background-color: lightblue;">0x7b3828</code>
+Well, there is an error above as you can see <code  style="background-color: lightgray;">"--- memory read error at address 0x0000ffff ---"</code>. Thats because the <code  style="background-color: lightgray;">InMemoryOrderLinks</code> is located at offset <code  style="background-color: lightgray;">0x8</code> ( highlighted in red above ). In order to fix this issue we subtract <code  style="background-color: lightgray;">0x8</code> from the address <code  style="background-color: lightgray;">0x7b3828</code>
 </p>
 
 
@@ -305,7 +305,7 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 </pre>
 
 <p align="justify">
-We can verify that the address of the <code  style="background-color: lightblue;">ntdll.dll</code> is <code  style="background-color: lightblue;">0x77130000</code> as seen at offset <code  style="background-color: lightblue;">0x18</code> at <code  style="background-color: lightblue;">DllBase</code> above. The <code  style="background-color: lightblue;">lodsd</code> instruction below will follow the pointer specified by the <code  style="background-color: lightblue;">esi</code> register and the results will be placed inside the <code  style="background-color: lightblue;">eax</code> register. In such case the memory address of the second list entry structure will be loaded in <code  style="background-color: lightblue;">eax</code> register.  
+We can verify that the address of the <code  style="background-color: lightgray;">ntdll.dll</code> is <code  style="background-color: lightgray;">0x77130000</code> as seen at offset <code  style="background-color: lightgray;">0x18</code> at <code  style="background-color: lightgray;">DllBase</code> above. The <code  style="background-color: lightgray;">lodsd</code> instruction below will follow the pointer specified by the <code  style="background-color: lightgray;">esi</code> register and the results will be placed inside the <code  style="background-color: lightgray;">eax</code> register. In such case the memory address of the second list entry structure will be loaded in <code  style="background-color: lightgray;">eax</code> register.  
 </p> 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -313,9 +313,9 @@ LODSD  ; memory address of the second list entry structure
 </pre>
 
 <p align="justify">
-Now that we know the address of the <code  style="background-color: lightblue;">ntdll.dll</code> module, we can proceed further in the linked list to find the third list entry structure which will give us the offset of the <code  style="background-color: lightblue;">kernel32.dll</code> module.
+Now that we know the address of the <code  style="background-color: lightgray;">ntdll.dll</code> module, we can proceed further in the linked list to find the third list entry structure which will give us the offset of the <code  style="background-color: lightgray;">kernel32.dll</code> module.
 
-In order to do this we will follow the linked list and see where it points next. The <code  style="background-color: lightblue;">lodsd</code> instruction will follow the pointer specified by the <code  style="background-color: lightblue;">esi</code> register and the results will be placed inside the <code  style="background-color: lightblue;">eax</code> register. As we know, after the <code  style="background-color: lightblue;">lodsd</code> instruction assigns the value pointed to the address loaded in <code  style="background-color: lightblue;">esi</code> register into the <code  style="background-color: lightblue;">eax</code> register, then increments <code  style="background-color: lightblue;">esi</code> by 4 (pointing to the next dword) pointing to the next list entry structure. For that reason, before using the <code  style="background-color: lightblue;">lodsd</code> instruction for the second time, we should first use the <code  style="background-color: lightblue;">xchg</code> instruction in order to assign the next pointer to <code  style="background-color: lightblue;">esi</code> register. This means that after executing the <code  style="background-color: lightblue;">lodsd</code> instruction, the address of the third list entry structure, will be placed inside the <code  style="background-color: lightblue;">eax</code> register. Furthermore, inside this list entry structure we can find the offset ( <code  style="background-color: lightblue;">0x18</code> ) which holds the base address of the <code  style="background-color: lightblue;">kernel32.dll</code> module.  
+In order to do this we will follow the linked list and see where it points next. The <code  style="background-color: lightgray;">lodsd</code> instruction will follow the pointer specified by the <code  style="background-color: lightgray;">esi</code> register and the results will be placed inside the <code  style="background-color: lightgray;">eax</code> register. As we know, after the <code  style="background-color: lightgray;">lodsd</code> instruction assigns the value pointed to the address loaded in <code  style="background-color: lightgray;">esi</code> register into the <code  style="background-color: lightgray;">eax</code> register, then increments <code  style="background-color: lightgray;">esi</code> by 4 (pointing to the next dword) pointing to the next list entry structure. For that reason, before using the <code  style="background-color: lightgray;">lodsd</code> instruction for the second time, we should first use the <code  style="background-color: lightgray;">xchg</code> instruction in order to assign the next pointer to <code  style="background-color: lightgray;">esi</code> register. This means that after executing the <code  style="background-color: lightgray;">lodsd</code> instruction, the address of the third list entry structure, will be placed inside the <code  style="background-color: lightgray;">eax</code> register. Furthermore, inside this list entry structure we can find the offset ( <code  style="background-color: lightgray;">0x18</code> ) which holds the base address of the <code  style="background-color: lightgray;">kernel32.dll</code> module.  
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -324,7 +324,7 @@ LODSD  ; memory address of the third list entry structure
 </pre>
 
 <p align="justify">
-At this point, we will search for the <code  style="background-color: lightblue;">kernel32.dll</code> base address offset using WinDbg 
+At this point, we will search for the <code  style="background-color: lightgray;">kernel32.dll</code> base address offset using WinDbg 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -343,7 +343,7 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 </pre>
 
 <p align="justify">
-As we see above, the <code  style="background-color: lightblue;">BaseDllName</code> holds the <code  style="background-color: lightblue;">kernel32.dll</code> name at offset <code  style="background-color: lightblue;">0x02c</code> and the <code  style="background-color: lightblue;">DllBase</code> holds its address <code  style="background-color: lightblue;">0x765f0000</code> at offset <code  style="background-color: lightblue;">0x18</code>. So in order to gain the <code  style="background-color: lightblue;">kernel32.dll</code> base address, we need to use the following command in WinDbg, as well as to do the appropriate calculations. 
+As we see above, the <code  style="background-color: lightgray;">BaseDllName</code> holds the <code  style="background-color: lightgray;">kernel32.dll</code> name at offset <code  style="background-color: lightgray;">0x02c</code> and the <code  style="background-color: lightgray;">DllBase</code> holds its address <code  style="background-color: lightgray;">0x765f0000</code> at offset <code  style="background-color: lightgray;">0x18</code>. So in order to gain the <code  style="background-color: lightgray;">kernel32.dll</code> base address, we need to use the following command in WinDbg, as well as to do the appropriate calculations. 
 </p>
 
 
@@ -364,7 +364,7 @@ Symbol not found at address <span style="color:#cd0000;"><b>765f0000</b></span>.
 </pre>
 
 <p align="justify">
-As we see from the output above, the <code  style="background-color: lightblue;">kernel32.dll</code> base address is located at offset <code  style="background-color: lightblue;">0x18 - 0x8 = 0x10 </code>. At this point the following instruction will take place 
+As we see from the output above, the <code  style="background-color: lightgray;">kernel32.dll</code> base address is located at offset <code  style="background-color: lightgray;">0x18 - 0x8 = 0x10 </code>. At this point the following instruction will take place 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -372,7 +372,7 @@ MOV EBX, [EAX + 0x10]   ; EBX = Base address
 </pre>
 
 <p align="justify">
-From the instruction above, as we saw earlier, using the <code  style="background-color: lightblue;">lodsd</code> instruction, the <code  style="background-color: lightblue;">eax</code> register holds a pointer to the second list entry of the <b>InMemoryOrderLinks</b> stucture. Furthermore, if we add <code  style="background-color: lightblue;">0x10</code> bytes to <code  style="background-color: lightblue;">eax</code> register, we will have the <b>DllBase</b> pointer, which points to the memory address of the <b>kernel32.dll</b> module.
+From the instruction above, as we saw earlier, using the <code  style="background-color: lightgray;">lodsd</code> instruction, the <code  style="background-color: lightgray;">eax</code> register holds a pointer to the second list entry of the <b>InMemoryOrderLinks</b> stucture. Furthermore, if we add <code  style="background-color: lightgray;">0x10</code> bytes to <code  style="background-color: lightgray;">eax</code> register, we will have the <b>DllBase</b> pointer, which points to the memory address of the <b>kernel32.dll</b> module.
 </p>
 
 <p align="justify">
@@ -400,13 +400,13 @@ int main(int argc, char* argv[])
 ```
 
 <p align="justify">
-Furthermore, as we see at the screenshot below, the <code  style="background-color: lightblue;">ebx</code> register holds the <code  style="background-color: lightblue;">kernel32.dll</code> base address, so our instructions are working as expected. 
+Furthermore, as we see at the screenshot below, the <code  style="background-color: lightgray;">ebx</code> register holds the <code  style="background-color: lightgray;">kernel32.dll</code> base address, so our instructions are working as expected. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/visual-studio.png" alt="APIMonitor"  />
 
 <p align="justify">
-Thats it for now. The second part of the custom win32 reverse tcp shellcode development series will be focusing on how to find the export table of <code  style="background-color: lightblue;">kernel32.dll</code>. 
+Thats it for now. The second part of the custom win32 reverse tcp shellcode development series will be focusing on how to find the export table of <code  style="background-color: lightgray;">kernel32.dll</code>. 
 </p>
 
 <p align="justify">
