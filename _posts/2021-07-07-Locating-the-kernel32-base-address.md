@@ -25,7 +25,7 @@ This article focuses on how to locate the base address of the <code  style="back
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
-In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will search the functions using the <code  style="background-color: lightblue; color:black;">GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightblue; color:black;">LoadLibraryA</code>, which is located in <code  style="background-color: lightblue; color:black;">kernel32.dll</code> module. 
+In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will search the functions using the <code  style="background-color: lightblue; color:black;"><b>GetProcAddress</b></code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightblue; color:black;">LoadLibraryA</code>, which is located in <code  style="background-color: lightblue; color:black;">kernel32.dll</code> module. 
 </p>
 
 <p align="justify">
