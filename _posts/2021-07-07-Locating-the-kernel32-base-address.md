@@ -19,13 +19,13 @@ tags:
 --- 
 
 <p align="justify">
-This article focuses on how to locate the base address of the kernel32.dll module. This is the first part of a blog series, focusing on how to create a custom Win32 reverse shellcode. The following blog post inspired me to write this article, which i strongly suggest for further reading 
+This article focuses on how to locate the base address of the <code  style="background-color: lightblue; color:black;">kernel32.dll</code> module. This is the first part of a blog series, focusing on how to create a custom Win32 reverse shellcode. The following blog post inspired me to write this article, which i strongly suggest for further reading 
 </p>
 
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
-In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will search the functions using the <code  style="background-color: lightblue; color:black;"  style="background-color: lightblue; color:black;">GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightblue; color:black;">LoadLibraryA</code>, which is located in <code  style="background-color: lightblue; color:black;">kernel32.dll</code> module. 
+In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will search the functions using the <code  style="background-color: lightblue; color:black;">GetProcAddress</code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightblue; color:black;">LoadLibraryA</code>, which is located in <code  style="background-color: lightblue; color:black;">kernel32.dll</code> module. 
 </p>
 
 <p align="justify">
