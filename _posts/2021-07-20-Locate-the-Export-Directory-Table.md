@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 'Constructing a custom Win32 reverse tcp shellcode ( pt .2 )'
+title: 'Win32 reverse shellcode - pt .2 - Constructing a custom Win32 reverse tcp shellcode'
 description: 'This blog post shows how to locate the Export Directory Table of the current image using assembly'
 date: 2021-07-20
 classes: wide
