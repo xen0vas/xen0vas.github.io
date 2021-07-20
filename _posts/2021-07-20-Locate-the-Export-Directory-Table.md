@@ -34,8 +34,7 @@ According to MSDN,
 <br>
 <hr>
 <b><span style="color:green;font-size:26px">Search for the Export Directory Table</span></b>
-<br>
-<br>
+
 <p align="justify">
 Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> address, we need to parse the PE structure to find the export table. Before we move further, we need to locate the exact offset of the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code>. The <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> field is a 4-byte offset into the file where the PE file header is located. It is necessary to use this offset to locate the PE header in the file. In WinDbg we run the <code  style="background-color: lightgrey; color:black;">dt -n _IMAGE_DOS_HEADER</code> as follows
 </p>
