@@ -183,9 +183,9 @@ As we see above, if we go down the structure, we will see ( highlighted in red a
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> dd 76a70000+92C90
-76b02c90  <span style="color:#cd0000;"><b>00000000 7e8f02e1 00000000 00096b6a
-76b02ca0  00000001 00000645 00000645 00092cb8
-76b02cb0  000945cc 00095ee0</b></span> 0001f970 00096ba4
+76b02c90  <span style="color:#cd0000;"><b>00000000 7e8f02e1 00000000 00096b6a</b></span>
+76b02ca0  <span style="color:#cd0000;"><b>00000001 00000645 00000645 00092cb8</b></span>
+76b02cb0  <span style="color:#cd0000;"><b>000945cc 00095ee0</b></span> 0001f970 00096ba4
 76b02cc0  00082030 00096bee 00096c24 00020a20
 76b02cd0  00020360 00019500 0001b830 00023b70
 76b02ce0  00023b80 00096caa 000352b0 00052100
