@@ -26,7 +26,7 @@ The first part can be found at the following link
 
 <p align="justify">
 According to MSDN, 
-<br><br>
+<br>
 
 <blockquote class="">
 <p align="justify">
