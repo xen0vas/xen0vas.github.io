@@ -17,10 +17,10 @@ tags:
   - Export Table 
 --- 
 
-<b><span style="color:green;font-size:30px">Win32 reverse shellcode - pt .2 - Locate the Export Directory Table from the PE file structure </span></b>
+<b><span style="color:green;font-size:30px">Win32 reverse shellcode - pt .2 - locating the Export Directory Table</span></b>
 
 <p align="justify">
-This article focuses on how to locate the Export Directory Table of the current image. This is the second part of a blog series, focusing on how to create a custom Win32 reverse shellcode. The first part can be found at the following link 
+This article focuses on how to locate the Export Directory Table from the PE file structure. This is the second part of a blog series that focuses on how to create a custom Win32 reverse shellcode. The first part can be found at the following link 
 </p>
 
 * [Win32 reverse shellcode - pt .1 - Locating the kernel32.dll base address](https://xen0vas.github.io/Locating-the-kernel32-base-address/)
