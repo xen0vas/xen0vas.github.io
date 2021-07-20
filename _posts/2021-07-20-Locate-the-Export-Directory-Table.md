@@ -9,15 +9,12 @@ header:
   teaser: /assets/images/avatar.jpg
 tags:
   - WinDbg
-  - Win32 shellcoding
-  - Vulnserver
+  - Win32 assembly
   - Exploit Development
   - Windows API
   - PE file structure
   - Export Table 
 --- 
-
-<b><span style="color:green;font-size:30px">Win32 reverse shellcode - pt .2 - locating the Export Directory Table</span></b>
 
 <p align="justify">
 This article focuses on how to locate the Export Directory Table from the PE file structure. This is the second part of a blog series that focuses on how to create a custom Win32 reverse shellcode. The first part can be found at the following link 
