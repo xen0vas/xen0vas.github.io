@@ -1,7 +1,7 @@
 ---
 layout: single
-title: 'Win32 reverse shellcode - pt .2 - Constructing a custom Win32 reverse tcp shellcode'
-description: 'This blog post shows how to locate the Export Directory Table of the current image using assembly'
+title: 'Win32 reverse shellcode - pt .2 - locating the Export Directory Table'
+description: 'This blog post shows how to locate the Export Directory Table from the PE file structure '
 date: 2021-07-20
 classes: wide
 comments: false
@@ -17,8 +17,7 @@ tags:
   - Export Table 
 --- 
 
-<b><span style="color:green;font-size:30px">Win32 reverse shellcode - pt .2 - Locate the Export Directory Table of the current image using assembly</span></b>
-
+<b><span style="color:green;font-size:30px">Win32 reverse shellcode - pt .2 - Locate the Export Directory Table from the PE file structure </span></b>
 
 <p align="justify">
 This article focuses on how to locate the Export Directory Table of the current image. This is the second part of a blog series, focusing on how to create a custom Win32 reverse shellcode. The first part can be found at the following link 
