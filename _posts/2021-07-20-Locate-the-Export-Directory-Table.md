@@ -29,7 +29,9 @@ According to MSDN,
 <br><br>
 
 <blockquote class="">
+<p align="justify">
 <i>The export symbol information begins with the export directory table, which describes the remainder of the export symbol information. The export directory table contains address information that is used to resolve imports to the entry points within this image. Following, the export address table contains the address of exported entry points and exported data and absolutes. An ordinal number is used as an index into the export address table. If the address specified is not within the export section (as defined by the address and length that are indicated in the optional header), the field is an export RVA, which is an actual address in code or data. Otherwise, the field is a forwarder RVA, which names a symbol in another DLL.</i>
+</p>
 </blockquote>
 </p>
 
