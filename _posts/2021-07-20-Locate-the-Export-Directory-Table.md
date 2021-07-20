@@ -25,7 +25,7 @@ The first part can be found at the following link
 * [Win32 reverse shellcode - pt .1 - Locating the kernel32.dll base address](https://xen0vas.github.io/Locating-the-kernel32-base-address/)
 
 <p align="justify">
-According to MSDN, 
+According to Microsoft Docs, 
 <br>
 
 <blockquote class="">
