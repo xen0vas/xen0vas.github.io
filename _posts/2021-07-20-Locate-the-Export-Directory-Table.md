@@ -173,7 +173,9 @@ OPTIONAL HEADER VALUES
 
 </pre>
 
+<p align="justify">
 As we see above, if we go down the structure, we will see ( highlighted in red above ), that the export table exists at offset <code  style="background-color: lightgrey; color:black;"><b>92C90</b></code> from the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. So, according to this information, we are able to locate all the values of the arguments passed to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> as seen below highlighted in red. 
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> dd 76a70000+92C90
@@ -187,7 +189,10 @@ As we see above, if we go down the structure, we will see ( highlighted in red a
 76b02d00  00019790 00032a30 000312d0 00096de3
 </pre>
 
+
+<p align="justify">
 And all the above information can be mapped using the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> structure as seen below 
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
  public struct IMAGE_EXPORT_DIRECTORY
@@ -206,7 +211,9 @@ And all the above information can be mapped using the <code  style="background-c
     }
 </pre>
 
+<p align="justify">
 At this point we are most interested at the structure fields <code  style="background-color: lightgrey; color:black;"><b>AddressOfFunctions</b></code>, <code  style="background-color: lightgrey; color:black;"><b>AddressOfNames</b></code> and <code  style="background-color: lightgrey; color:black;"><b>AddressOfNameOrdinals</b></code>
+</p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 MOV EDX,DWORD PTR DS:[EBX+3C] ; EDX = DOS->e_lfanew
@@ -283,9 +290,6 @@ At seventh line, we have the correct index for the <code  style="background-colo
 
 <p align="justify">
 This was the second part of the custom win32 reverse tcp shellcode development series. At this second part, we have achieved to be in a position to use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function from <code  style="background-color: lightgrey; color:black;">Kernel32.dll</code> all the way during the reverse tcp shellcode construction, which means we can find addresses from functions that used to load other libraries, for example by using the <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code> function. At the thirt part of this series, we will be focusing on the rest of the construction of the reverse tcp shellcode. 
-
-
-
-
-
 </p>
+
+
