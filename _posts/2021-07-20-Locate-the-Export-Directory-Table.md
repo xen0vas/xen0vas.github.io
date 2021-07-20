@@ -24,14 +24,14 @@ This article focuses on how to locate the Export Directory Table from the PE fil
 
 <p align="justify">
 According to MSDN, 
-<br></br>
+<br><br>
 
 <i>The export symbol information begins with the export directory table, which describes the remainder of the export symbol information. The export directory table contains address information that is used to resolve imports to the entry points within this image. Following, the export address table contains the address of exported entry points and exported data and absolutes. An ordinal number is used as an index into the export address table. If the address specified is not within the export section (as defined by the address and length that are indicated in the optional header), the field is an export RVA, which is an actual address in code or data. Otherwise, the field is a forwarder RVA, which names a symbol in another DLL.</i>
 </p>
 
 <br>
 <hr>
-<b><span style="color:black;font-size:20px">Search for the Export Directory Table</span></b>
+<b><span style="color:green;font-size:24px">Search for the Export Directory Table</span></b>
 <br>
 <br>
 <p align="justify">
