@@ -13,7 +13,7 @@ tags:
   - Exploit Development
   - Windows API
   - PE file structure
-  - Export Table 
+  - Export Directory Table 
 --- 
 
 <p align="justify">
@@ -31,7 +31,7 @@ According to MSDN,
 
 <br>
 <hr>
-<b><span style="color:green;font-size:24px">Search for the Export Directory Table</span></b>
+<b><span style="color:green;font-size:26px">Search for the Export Directory Table</span></b>
 <br>
 <br>
 <p align="justify">
