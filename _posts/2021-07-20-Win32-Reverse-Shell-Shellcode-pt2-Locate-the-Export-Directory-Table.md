@@ -216,7 +216,7 @@ And all the above information can be mapped using the <code  style="background-c
 </pre>
 
 <p align="justify">
-At this point we are most interested at the structure fields <code  style="background-color: lightgrey; color:black;"><b>AddressOfFunctions</b></code>, <code  style="background-color: lightgrey; color:black;"><b>AddressOfNames</b></code> and <code  style="background-color: lightgrey; color:black;"><b>AddressOfNameOrdinals</b></code>
+At this point we are most interested at the following structure fields, <code  style="background-color: lightgrey; color:black;"><b>AddressOfFunctions</b></code>, <code  style="background-color: lightgrey; color:black;"><b>AddressOfNames</b></code> and <code  style="background-color: lightgrey; color:black;"><b>AddressOfNameOrdinals</b></code>
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -293,7 +293,7 @@ At seventh line, we have the correct index for the <code  style="background-colo
 </p>
 
 <p align="justify">
-This was the second part of the custom win32 reverse tcp shellcode development series. At this second part, we have achieved to be in a position to use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function from <code  style="background-color: lightgrey; color:black;">Kernel32.dll</code> library. In conclusion, after reading this post, we understand that we are at the point where we can use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code>, and this is a crucial part before we continue with the reverse tcp shellcode construction as we will see in a later blog post. The important thing here is that we are now able to find for example the address of  <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code> function, which can help us loading other libraries where we can further use their functions. At the thirt part of this custom win32 reverse tcp shellcode development series, we will be focusing on the rest of the construction of the reverse tcp shellcode. 
+This was the second part of the <i>custom win32 reverse tcp shellcode development</i> series. At this second part, we have achieved to be in a position to use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function from <code  style="background-color: lightgrey; color:black;">Kernel32.dll</code> library. In conclusion, after reading this post, we understand that we are at the point where we can use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code>, and this is a crucial part before we continue with the reverse tcp shellcode construction as we will see in a later blog post. The important thing here is that we are now able to find for example the address of  <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code> function, which can help us loading other libraries where we can further use their functions. At the thirt part of this custom win32 reverse tcp shellcode development series, we will be focusing on the rest of the construction of the reverse tcp shellcode. 
 </p>
 
 
