@@ -68,7 +68,7 @@ ntdll!_IMAGE_DOS_HEADER
 </pre>
 
 <p align="justify">
-According to <a href="https://blog.kowalczyk.info/articles/pefileformat.html">[ this ]</a> blog ,the MS-DOS header occupies the first 64 bytes of the PE file. A structure representing its content is described below
+As we see above, the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> exists at offset <code  style="background-color: lightgrey; color:black;"><b>0x03c</b></code>. According to <a href="https://blog.kowalczyk.info/articles/pefileformat.html">[ this ]</a> blog ,the MS-DOS header occupies the first 64 bytes of the PE file. A structure representing its content is described below
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -96,7 +96,7 @@ typedef struct _IMAGE_DOS_HEADER {
 </pre>
 
 <p align="justify">
-As we see above, the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> exists at offset <code  style="background-color: lightgrey; color:black;"><b>0x03c</b></code>. Now that we know the location of the PE header, we will move further to locate the offset of the Export Directory from the <code  style="background-color: lightgrey; color:black;"><b>_IMAGE_EXPORT_DIRECTORY</b></code> structure. First we will locate the base address of the  <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> module 
+Now that we know the location of the PE header, we will move further to locate the offset of the Export Directory Table from the <code  style="background-color: lightgrey; color:black;"><b>_IMAGE_EXPORT_DIRECTORY</b></code> structure. First we will locate the base address of the  <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> module 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -111,7 +111,7 @@ start    end        module name
 </pre>
 
 <p align="justify">
-At this point we will use the base address of <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> module marked in red above in order to find the offset of the Export Directory for the specific DLL 
+At this point we will use the base address of <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> module marked in red above in order to find the offset of the Export Directory Table for the specific DLL 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -178,7 +178,7 @@ OPTIONAL HEADER VALUES
 </pre>
 
 <p align="justify">
-As we see above, if we go down the structure, we will see ( highlighted in red above ), that the export table exists at offset <code  style="background-color: lightgrey; color:black;"><b>92C90</b></code> from the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. So, according to this information, we are able to locate all the values of the arguments passed to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> as seen below highlighted in red. 
+As we see above, and if we go down the structure, we will see ( highlighted in red above ), that the Export Directory exists at offset <code  style="background-color: lightgrey; color:black;"><b>92C90</b></code> from the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. So, according to this information, we are able to locate all the values of the arguments passed to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> as seen below highlighted in red. 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
