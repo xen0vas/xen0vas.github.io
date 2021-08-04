@@ -51,7 +51,7 @@ The image above has been taken from the following blog post which explains the P
 * [PE File Format](https://dandylife.net/blog/archives/388)
 
 <p align="justify">
-Before we move further, we need to locate the exact offset of the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code>. The <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> field is a 4-byte offset into the file where the PE file header is located. It is necessary to use this offset to locate the PE header in the file. In WinDbg we run the <code  style="background-color: lightgrey; color:black;">dt -n _IMAGE_DOS_HEADER</code> as follows
+Before moving further, we need to locate the exact offset of the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code>. The <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> field is a 4-byte offset into the file where the PE file header is located. It is necessary to use this offset to locate the PE header in the file. In WinDbg we run the <code  style="background-color: lightgrey; color:black;">dt -n _IMAGE_DOS_HEADER</code> as follows
 </p>
 
 
