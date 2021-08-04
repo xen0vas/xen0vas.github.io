@@ -45,6 +45,12 @@ From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Sh
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/pe.png" alt="PE File Structure Format"/>
 
 <p align="justify">
+The image above has been taken from the following blog post which explains the PE file structure format in more detail. 
+</p>
+
+* [PE File Format](https://dandylife.net/blog/archives/388)
+
+<p align="justify">
 Before we move further, we need to locate the exact offset of the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code>. The <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> field is a 4-byte offset into the file where the PE file header is located. It is necessary to use this offset to locate the PE header in the file. In WinDbg we run the <code  style="background-color: lightgrey; color:black;">dt -n _IMAGE_DOS_HEADER</code> as follows
 </p>
 
