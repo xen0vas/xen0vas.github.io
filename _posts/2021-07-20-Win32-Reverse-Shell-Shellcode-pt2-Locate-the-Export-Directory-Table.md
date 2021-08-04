@@ -39,7 +39,11 @@ According to Microsoft Docs,
 <b><span style="color:green;font-size:26px">Search for the Export Directory Table</span></b>
 
 <p align="justify">
-From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-pt1-Locating-the-kernel32-base-address/">[pt .1]</a>, we have accomplished to locate the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> address, we need to parse the PE file structure to find the offset of the export directory table. Before we move further, we need to locate the exact offset of the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code>. The <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> field is a 4-byte offset into the file where the PE file header is located. It is necessary to use this offset to locate the PE header in the file. In WinDbg we run the <code  style="background-color: lightgrey; color:black;">dt -n _IMAGE_DOS_HEADER</code> as follows
+From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-pt1-Locating-the-kernel32-base-address/">[pt .1]</a>, we have accomplished to locate the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> address, we need to parse the PE file structure to find the offset of the export directory table. It is worth to mention here that we will not proceed further in details about the PE file structure, but the following screenshot can provide useful information about the organization of the PE file structure.
+
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/pe.png" alt="PE Structure"/>
+
+Before we move further, we need to locate the exact offset of the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code>. The <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> field is a 4-byte offset into the file where the PE file header is located. It is necessary to use this offset to locate the PE header in the file. In WinDbg we run the <code  style="background-color: lightgrey; color:black;">dt -n _IMAGE_DOS_HEADER</code> as follows
 </p>
 
 
