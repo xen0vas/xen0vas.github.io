@@ -45,7 +45,7 @@ From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Sh
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/pe.png" alt="PE File Structure Format"/>
 
 <p align="justify">
-The image above has been taken from the following blog post which explains the PE file structure format in more detail. 
+The image above has been taken from the following blog post which explains the PE format in more detail. 
 </p>
 
 * [PE File Format](https://dandylife.net/blog/archives/388)
