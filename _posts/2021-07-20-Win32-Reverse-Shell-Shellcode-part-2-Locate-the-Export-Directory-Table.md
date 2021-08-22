@@ -22,7 +22,7 @@ This article focuses on how to locate the Export Directory Table from the PE fil
 The first part can be found at the following link 
 </p>
 
-* [Win32 reverse shellcode - pt .1 - Locating the kernel32.dll base address](https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernelbase-address)
+* [Win32 reverse shellcode - pt .1 - Locating the kernelbase.dll base address](https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernelbase-address)
 
 <p align="justify">
 According to Microsoft Docs, 
@@ -39,7 +39,7 @@ According to Microsoft Docs,
 <b><span style="color:green;font-size:26px">Search for the Export Directory Table</span></b>
 
 <p align="justify">
-From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernelbase-address/">[pt .1]</a>, we have accomplished to locate the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> address, we need to parse the PE file structure to find the offset of the export directory table. It is worth to mention here that we will not proceed further in details about the PE file structure, but the following screenshot can provide useful information about the format of the PE file structure.
+From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernelbase-address/">[pt .1]</a>, we have accomplished to locate the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> base address. Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> address, we need to parse the PE file structure to find the offset of the export directory table. It is worth to mention here that we will not proceed further in details about the PE file structure, but the following screenshot can provide useful information about the format of the PE file structure.
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/pe.png" alt="PE File Structure Format"/>
@@ -108,7 +108,7 @@ typedef struct _IMAGE_DOS_HEADER {
 </pre>
 
 <p align="justify">
-Now that we know the location of the PE header, we will move further to locate the offset of the Export Directory Table from the <code  style="background-color: lightgrey; color:black;"><b>_IMAGE_EXPORT_DIRECTORY</b></code> structure. First we will locate the base address of the  <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> module 
+Now that we know the location of the PE header, we will move further to locate the offset of the Export Directory Table from the <code  style="background-color: lightgrey; color:black;"><b>_IMAGE_EXPORT_DIRECTORY</b></code> structure. First we will locate the base address of the  <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> module 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -123,7 +123,7 @@ start    end        module name
 </pre>
 
 <p align="justify">
-At this point we will use the base address of <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> module marked in red above in order to find the offset of the Export Directory Table for the specific DLL 
+At this point we will use the base address of <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> module marked in red above in order to find the offset of the Export Directory Table for the specific DLL 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -190,7 +190,7 @@ OPTIONAL HEADER VALUES
 </pre>
 
 <p align="justify">
-As we see above, and if we go down the structure, we will see ( highlighted in red above ), that the Export Directory exists at offset <code  style="background-color: lightgrey; color:black;"><b>92C90</b></code> from the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. So, according to this information, we are able to locate all the values of the arguments passed to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> as seen below highlighted in red. 
+As we see above, and if we go down the structure, we will see ( highlighted in red above ), that the Export Directory exists at offset <code  style="background-color: lightgrey; color:black;"><b>92C90</b></code> from the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> base address. So, according to this information, we are able to locate all the values of the arguments passed to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> as seen below highlighted in red. 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -244,7 +244,7 @@ XOR ECX,ECX                   ; EXC = 0
 <p align="justify">
 At the first line we will move the pointer to <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> to the <code  style="background-color: lightgrey; color:black;">edx</code> register at offset <code  style="background-color: lightgrey; color:black;">0x3C</code>, because the size of the <b>MS-DOS</b> header is <code  style="background-color: lightgrey; color:black;">0x40</code> bytes and the last 4 bytes are the <code  style="background-color: lightgrey; color:black;"><b>e_lfanew</b></code> pointer. At the second line we add the value in <code  style="background-color: lightgrey; color:black;">edx</code> to the base address, because the pointer is relative to the base address.
 <br><br>
-At the third line, the offset <code  style="background-color: lightgrey; color:black;">0x78</code> of the PE header holds the <code  style="background-color: lightgrey; color:black;"><b>DataDirectory</b></code> for the exports. We know this because the size of all PE headers (<code  style="background-color: lightgrey; color:black;"><b>Signature</b></code>, <code  style="background-color: lightgrey; color:black;"><b>FileHeader</b></code> and <code  style="background-color: lightgrey; color:black;"><b>OptionalHeader</b></code>) before the <code  style="background-color: lightgrey; color:black;"><b>DataDirectory</b></code> is exactly <code  style="background-color: lightgrey; color:black;">0x78</code> bytes and the export is the first entry in the <code  style="background-color: lightgrey; color:black;"><b>DataDirectory</b></code> table. At the fourth line, we add this value to the <code  style="background-color: lightgrey; color:black;">edx</code> register and after that we should be placed on the export table of the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code>.
+At the third line, the offset <code  style="background-color: lightgrey; color:black;">0x78</code> of the PE header holds the <code  style="background-color: lightgrey; color:black;"><b>DataDirectory</b></code> for the exports. We know this because the size of all PE headers (<code  style="background-color: lightgrey; color:black;"><b>Signature</b></code>, <code  style="background-color: lightgrey; color:black;"><b>FileHeader</b></code> and <code  style="background-color: lightgrey; color:black;"><b>OptionalHeader</b></code>) before the <code  style="background-color: lightgrey; color:black;"><b>DataDirectory</b></code> is exactly <code  style="background-color: lightgrey; color:black;">0x78</code> bytes and the export is the first entry in the <code  style="background-color: lightgrey; color:black;"><b>DataDirectory</b></code> table. At the fourth line, we add this value to the <code  style="background-color: lightgrey; color:black;">edx</code> register and after that we should be placed on the export table of the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code>.
 </p>
 
 <p align="justify">
@@ -252,7 +252,7 @@ At the fifth line, in the <code  style="background-color: lightgrey; color:black
 </p>
 
 <p align="justify">
-We are now located at the <code  style="background-color: lightgrey; color:black;"><b>AddressOfNames</b></code>, an array of pointers ( relative to the image base address, which is the address where <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> is loaded into memory ). So each 4 bytes will represent a pointer to a function name. Moreover, we can find the function name, and the function name ordinal ( the <code  style="background-color: lightgrey; color:black;"><b>number</b></code> of the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function ) as shown below:
+We are now located at the <code  style="background-color: lightgrey; color:black;"><b>AddressOfNames</b></code>, an array of pointers ( relative to the image base address, which is the address where <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> is loaded into memory ). So each 4 bytes will represent a pointer to a function name. Moreover, we can find the function name, and the function name ordinal ( the <code  style="background-color: lightgrey; color:black;"><b>number</b></code> of the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function ) as shown below:
 </p>
 
 
@@ -271,7 +271,7 @@ JNZ SHORT GetFunction              ; jump to GetFunction label if not "ddre"
 </pre>
 
 <p align="justify">
-First we will increment <code  style="background-color: lightgrey; color:black;">ecx</code> register, which is the counter of the functions and the function ordinal number. Next we will use the <code  style="background-color: lightgrey; color:black;">esi</code> register as the pointer to the first function name. The <code  style="background-color: lightgrey; color:black;">lodsd</code> instruction will load in <code  style="background-color: lightgrey; color:black;">eax</code> the offset to the function name and then the value in <code  style="background-color: lightgrey; color:black;">eax</code> will be added to the <code  style="background-color: lightgrey; color:black;">ebx</code> ( <code  style="background-color: lightgrey; color:black;"><b>kernel32</b></code> base address ) in order to find the correct pointer. Note that the <code  style="background-color: lightgrey; color:black;">lodsd</code> instruction will also increment the <code  style="background-color: lightgrey; color:black;">esi</code> register value by 4. This helps us because we do not have to increment it manually, we just need to call again <code  style="background-color: lightgrey; color:black;">lodsd</code> in order to get the next pointer which points to the next module.
+First we will increment <code  style="background-color: lightgrey; color:black;">ecx</code> register, which is the counter of the functions and the function ordinal number. Next we will use the <code  style="background-color: lightgrey; color:black;">esi</code> register as the pointer to the first function name. The <code  style="background-color: lightgrey; color:black;">lodsd</code> instruction will load in <code  style="background-color: lightgrey; color:black;">eax</code> the offset to the function name and then the value in <code  style="background-color: lightgrey; color:black;">eax</code> will be added to the <code  style="background-color: lightgrey; color:black;">ebx</code> ( <code  style="background-color: lightgrey; color:black;"><b>kernelbase</b></code> base address ) in order to find the correct pointer. Note that the <code  style="background-color: lightgrey; color:black;">lodsd</code> instruction will also increment the <code  style="background-color: lightgrey; color:black;">esi</code> register value by 4. This helps us because we do not have to increment it manually, we just need to call again <code  style="background-color: lightgrey; color:black;">lodsd</code> in order to get the next pointer which points to the next module.
 </p>
 
 <p align="justify">
@@ -294,11 +294,11 @@ ADD EDX,EBX                       ; EDX = GetProcAddress
 </pre>
 
 <p align="justify">
-At the first line above, in <code  style="background-color: lightgrey; color:black;">edx</code> we have a pointer to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> structure. At offset <code  style="background-color: lightgrey; color:black;">0x24</code> of the structure we can find the <code  style="background-color: lightgrey; color:black;"><b>AddressOfNameOrdinals</b></code> offset. In second line, we add this offset to <code  style="background-color: lightgrey; color:black;">ebx</code> register which is the image base of the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> so we get a valid pointer to the name ordinals table.
+At the first line above, in <code  style="background-color: lightgrey; color:black;">edx</code> we have a pointer to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> structure. At offset <code  style="background-color: lightgrey; color:black;">0x24</code> of the structure we can find the <code  style="background-color: lightgrey; color:black;"><b>AddressOfNameOrdinals</b></code> offset. In second line, we add this offset to <code  style="background-color: lightgrey; color:black;">ebx</code> register which is the image base of the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> so we get a valid pointer to the name ordinals table.
 <br><br>
 At the third line, the <code  style="background-color: lightgrey; color:black;">esi</code> register contains the pointer to the name ordinals array. This array contains two bytes. We have the name ordinal byte (index) of <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function in <code  style="background-color: lightgrey; color:black;">ecx</code> register, so this way we can get the function address ordinal (index). This will help us to get the function address. In fourth line we have to decrement the ordinal byte because the name ordinals starts from zero (0).
 <br><br>
-At the fifth line, at the offset <code  style="background-color: lightgrey; color:black;">0x1c</code> we can find the <code  style="background-color: lightgrey; color:black;"><b>AddressOfFunctions</b></code>, the pointer to the function pointer array. At the sixth line we just add the image base of <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code>. Then we will be placed at the beginning of the array.
+At the fifth line, at the offset <code  style="background-color: lightgrey; color:black;">0x1c</code> we can find the <code  style="background-color: lightgrey; color:black;"><b>AddressOfFunctions</b></code>, the pointer to the function pointer array. At the sixth line we just add the image base of <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code>. Then we will be placed at the beginning of the array.
 
 <br><br>
 At seventh line, we have the correct index for the <code  style="background-color: lightgrey; color:black;"><b>AddressOfFunctions</b></code> array in <code  style="background-color: lightgrey; color:black;">ecx</code>. There we have found the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function pointer (relative to the image base) at the <code  style="background-color: lightgrey; color:black;">ecx</code> location. Furthermore, we use <code  style="background-color: lightgrey; color:black;">ecx * 4</code> because each pointer has 4 bytes and <code  style="background-color: lightgrey; color:black;">esi</code> points to the beginning of the array. In eighth line, we add the image base, so in the <code  style="background-color: lightgrey; color:black;">edx</code> register we will have the pointer to the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function.

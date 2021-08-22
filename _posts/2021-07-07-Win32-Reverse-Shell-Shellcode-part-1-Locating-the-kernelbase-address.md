@@ -476,7 +476,7 @@ Furthermore, as we see at the screenshot below, the <code  style="background-col
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/visual-studio.png" alt="Visual Studio Debugging"  />
 <br>
 <p align="justify">
-The following screenshot also shows the debugging process and results with the base address of the <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> module to be assigned to <code  style="background-color: lightgrey; color:black;">EBX</code> register
+The following screenshot also shows the debugging process and provides results with the base address of the <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> module to be assigned to <code  style="background-color: lightgrey; color:black;">EBX</code> register
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/windbg.png" alt="WinDbg debugging"  />
