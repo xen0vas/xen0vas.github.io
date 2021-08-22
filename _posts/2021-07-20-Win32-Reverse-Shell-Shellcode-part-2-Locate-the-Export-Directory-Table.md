@@ -114,12 +114,12 @@ Now that we know the location of the PE header, we will move further to locate t
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 0:000> lm  
 start    end        module name
-000f0000 0010f000   testasm    (deferred)             
-6f100000 6f274000   ucrtbased   (deferred)             
-6f280000 6f29b000   VCRUNTIME140D   (deferred)             
-76640000 76853000   KERNELBASE   (deferred)             
-<span style="color:#cd0000;"><b>76a70000</b></span> 76b60000   KERNEL32   (deferred)             
-77ad0000 77c72000   ntdll      (pdb symbols)          c:\symbols\wntdll.pdb\DBC8C8F74C0E3696E951B77F0BB8569F1\wntdll.pdb
+000a0000 000bf000   testasm  C (private pdb symbols)  C:\symbols\testasm\testasm.pdb
+712c0000 71434000   ucrtbased   (deferred)             
+71440000 7145b000   VCRUNTIME140D   (deferred)             
+760a0000 76190000   KERNEL32   (deferred)             
+<span style="color:#cd0000;"><b>76190000</b></span> 763a3000   KERNELBASE   (pdb symbols)          c:\symbols\wkernelbase.pdb\4FB470EF91F049226E7209E0E1ADD6791\wkernelbase.pdb
+77630000 777d2000   ntdll      (pdb symbols)          c:\symbols\wntdll.pdb\DBC8C8F74C0E3696E951B77F0BB8569F1\wntdll.pdb
 </pre>
 
 <p align="justify">
@@ -127,14 +127,13 @@ At this point we will use the base address of <code  style="background-color: li
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-0:000> !dh 76a70000  -f 
+0:000> !dh 76190000 -f
 
 File Type: DLL
 FILE HEADER VALUES
      14C machine (i386)
        6 number of sections
-7E8F02E1 time date stamp Tue Apr 14 08:00:01 2037
-
+AE908B72 time date stamp
        0 file pointer to symbol table
        0 number of symbols
       E0 size of optional header
@@ -146,22 +145,22 @@ FILE HEADER VALUES
 OPTIONAL HEADER VALUES
      10B magic #
    14.20 linker version
-   64000 size of code
-   32000 size of initialized data
+  1D5E00 size of code
+   39000 size of initialized data
        0 size of uninitialized data
-   1F5A0 address of entry point
-   10000 base of code
+  114030 address of entry point
+    1000 base of code
          ----- new -----
-76a70000 image base
-   10000 section alignment
-    1000 file alignment
+76190000 image base
+    1000 section alignment
+     200 file alignment
        3 subsystem (Windows CUI)
    10.00 operating system version
    10.00 image version
    10.00 subsystem version
-   F0000 size of image
-    1000 size of headers
-   9CCF7 checksum
+  213000 size of image
+     400 size of headers
+  2237E3 checksum
 00040000 size of stack reserve
 00001000 size of stack commit
 00100000 size of heap reserve
@@ -170,39 +169,39 @@ OPTIONAL HEADER VALUES
             Dynamic base
             NX compatible
             Guard
-   <span style="color:#cd0000;"><b>92C90 [    DB50] address [size] of Export Directory</b></span>
-   A07E0 [     780] address [size] of Import Directory
-   D0000 [     520] address [size] of Resource Directory
+  <span style="color:#cd0000;"><b>1C8030 [    EDC0] address [size] of Export Directory</b></span>
+  1DBAF4 [      3C] address [size] of Import Directory
+  1E2000 [     548] address [size] of Resource Directory
        0 [       0] address [size] of Exception Directory
-   97000 [    36E8] address [size] of Security Directory
-   E0000 [    4808] address [size] of Base Relocation Directory
-   85230 [      70] address [size] of Debug Directory
+  20CE00 [    6BF0] address [size] of Security Directory
+  1E3000 [   2F998] address [size] of Base Relocation Directory
+   81860 [      70] address [size] of Debug Directory
        0 [       0] address [size] of Description Directory
        0 [       0] address [size] of Special Directory
        0 [       0] address [size] of Thread Storage Directory
-   80138 [      AC] address [size] of Load Configuration Directory
+    11C0 [      AC] address [size] of Load Configuration Directory
        0 [       0] address [size] of Bound Import Directory
-   80B50 [    14D8] address [size] of Import Address Table Directory
-   92ABC [      60] address [size] of Delay Import Directory
+  1DB000 [     AE8] address [size] of Import Address Table Directory
+  1C6020 [     480] address [size] of Delay Import Directory
        0 [       0] address [size] of COR20 Header Directory
        0 [       0] address [size] of Reserved Directory
 
 </pre>
 
 <p align="justify">
-As we see above, and if we go down the structure, we will see ( highlighted in red above ), that the Export Directory exists at offset <code  style="background-color: lightgrey; color:black;"><b>92C90</b></code> from the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> base address. So, according to this information, we are able to locate all the values of the arguments passed to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> as seen below highlighted in red. 
+As we see above, and if we go down the structure, we will see ( highlighted in red above ), that the Export Directory exists at offset <code  style="background-color: lightgrey; color:black;"><b>1C8030</b></code> from the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> base address. So, according to this information, we are able to locate all the values of the arguments passed to the <code  style="background-color: lightgrey; color:black;"><b>IMAGE_EXPORT_DIRECTORY</b></code> as seen below highlighted in red. 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-0:000> dd 76a70000+92C90
-76b02c90  <span style="color:#cd0000;"><b>00000000 7e8f02e1 00000000 00096b6a</b></span>
-76b02ca0  <span style="color:#cd0000;"><b>00000001 00000645 00000645 00092cb8</b></span>
-76b02cb0  <span style="color:#cd0000;"><b>000945cc 00095ee0</b></span> 0001f970 00096ba4
-76b02cc0  00082030 00096bee 00096c24 00020a20
-76b02cd0  00020360 00019500 0001b830 00023b70
-76b02ce0  00023b80 00096caa 000352b0 00052100
-76b02cf0  00052160 00032a00 00020ea0 00032a10
-76b02d00  00019790 00032a30 000312d0 00096de3
+0:000> dd 76190000+1C8030
+76358030  <span style="color:#cd0000;"><b>00000000 ae908b72 00000000 001cca86</b></span>
+76358040  <span style="color:#cd0000;"><b>00000001 0000076b 0000076b 001c8058</b></span>
+76358050  <span style="color:#cd0000;"><b>001c9e04 001cbbb0</b></span> 00183ee0 001216a0
+76358060  00114e40 001ccaeb 00128350 0011ec40
+76358070  001dbaf0 00128010 001ac010 00127770
+76358080  001ac0b0 001ac160 001ac1d0 001ac290
+76358090  001ccc2b 001ccc61 001779e0 00124f40
+763580a0  00123720 000fd490 001ac350 001ac3a0
 </pre>
 
 
@@ -214,16 +213,16 @@ And all the above information can be mapped using the <code  style="background-c
  public struct IMAGE_EXPORT_DIRECTORY
     {
         public UInt32 Characteristics;       <span style="color:#cd0000;"><b>// 00000000</b></span>
-        public UInt32 TimeDateStamp;         <span style="color:#cd0000;"><b>// 7e8f02e1</b></span>
+        public UInt32 TimeDateStamp;         <span style="color:#cd0000;"><b>// ae908b72</b></span>
         public UInt16 MajorVersion;          <span style="color:#cd0000;"><b>// 0000</b></span>
         public UInt16 MinorVersion;          <span style="color:#cd0000;"><b>// 0000</b></span>
-        public UInt32 Name;                  <span style="color:#cd0000;"><b>// 00096b6a</b></span>
+        public UInt32 Name;                  <span style="color:#cd0000;"><b>// 001cca86</b></span>
         public UInt32 Base;                  <span style="color:#cd0000;"><b>// 00000001</b></span>
-        public UInt32 NumberOfFunctions;     <span style="color:#cd0000;"><b>// 00000645</b></span>
-        public UInt32 NumberOfNames;         <span style="color:#cd0000;"><b>// 00000645</b></span>
-        public UInt32 AddressOfFunctions;    <span style="color:#cd0000;"><b>// 00092cb8 </b></span>
-        public UInt32 AddressOfNames;        <span style="color:#cd0000;"><b>// 000945cc</b></span>
-        public UInt32 AddressOfNameOrdinals; <span style="color:#cd0000;"><b>// 00095ee0</b></span>
+        public UInt32 NumberOfFunctions;     <span style="color:#cd0000;"><b>// 0000076b</b></span>
+        public UInt32 NumberOfNames;         <span style="color:#cd0000;"><b>// 0000076b</b></span>
+        public UInt32 AddressOfFunctions;    <span style="color:#cd0000;"><b>// 001c8058 </b></span>
+        public UInt32 AddressOfNames;        <span style="color:#cd0000;"><b>// 001c9e04</b></span>
+        public UInt32 AddressOfNameOrdinals; <span style="color:#cd0000;"><b>// 001cbbb0</b></span>
     }
 </pre>
 
