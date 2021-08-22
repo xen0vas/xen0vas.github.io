@@ -302,7 +302,7 @@ ucrtbased!_PEB_LDR_DATA
 </pre>
 
 <p align="justify">
-Now lets verify that the <code  style="background-color: lightgrey; color:black;">0x963a50</code> is indeed the address of <code  style="background-color: lightgrey; color:black;">ntdll.dll</code> module. 
+Now lets verify that the LDR Data Table is indeed holding the offset of the <code  style="background-color: lightgrey; color:black;">ntdll.dll</code> module. 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -320,7 +320,7 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 </pre>
 
 <p align="justify">
-Well, there is an error above as you can see <code  style="background-color: lightgrey; color:black;">"--- memory read error at address 0x0000ffff ---"</code>. Thats because the <code  style="background-color: lightgrey; color:black;">InMemoryOrderLinks</code> is located at offset <code  style="background-color: lightgrey; color:black;">0x8</code> ( highlighted in red above ). In order to fix this issue we subtract <code  style="background-color: lightgrey; color:black;">0x8</code> from the address <code  style="background-color: lightgrey; color:black;">0x963a50</code>
+Well, there is an error above as you can see <code  style="background-color: lightgrey; color:black;">"--- memory read error at address 0x0000ffff ---"</code>. Thats because the <code  style="background-color: lightgrey; color:black;">InMemoryOrderLinks</code> is located at offset <code  style="background-color: lightgrey; color:black;">0x8</code> ( highlighted in red above ). In order to fix this issue we subtract <code  style="background-color: lightgrey; color:black;">0x8</code> from <code  style="background-color: lightgrey; color:black;">0x963a50</code>
 </p>
 
 
