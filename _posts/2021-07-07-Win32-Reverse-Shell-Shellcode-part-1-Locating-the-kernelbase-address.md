@@ -30,8 +30,7 @@ In order to create a reverse tcp shellcode we need to know the addresses of the 
 
 <blockquote class="">
 <p align="justify">
-<i>in order to improve internal engineering efficiencies and improve foundations for future work, we have relocated some functionality to new low-level binaries. This refactoring will make it possible for future installs of Windows to provide subsets of functionality to reduce surface area (disk and memory requirements, servicing, and attack surface). As an example of functionality that have been moved to low-level binaries, <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> gets functionality from <code style="background-color: lightgrey; color:black;">kernel32.dll</code> and <code style="background-color: lightgrey; color:black;">advapi32.dll</code>. </i>
-</p></blockquote>
+<i>in order to improve internal engineering efficiencies and improve foundations for future work, we have relocated some functionality to new low-level binaries. This refactoring will make it possible for future installs of Windows to provide subsets of functionality to reduce surface area (disk and memory requirements, servicing, and attack surface). As an example of functionality that have been moved to low-level binaries,</i> <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> <i> gets functionality from </i> <code style="background-color: lightgrey; color:black;">kernel32.dll</code><i> and </i> <code style="background-color: lightgrey; color:black;">advapi32.dll</code>.</p></blockquote>
 
 <p align="justify">
 For the development process the following dummy program used 
