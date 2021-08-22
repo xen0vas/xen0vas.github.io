@@ -106,7 +106,7 @@ PEB at 00a12000
           cd0000 6122500c Aug 22 15:24:28 2021 C:\Users\Xenofon\source\repos\testasm\Debug\testasm.exe
         77340000 1bdbc4b8 Oct 23 15:52:56 1984 C:\Windows\SYSTEM32\ntdll.dll
         77000000 7e8f02e1 Apr 14 08:00:01 2037 C:\Windows\System32\KERNEL32.DLL
-        76140000 C:\Windows\System32\KERNELBASE.dll
+        <span style="color:#cd0000;"><b>76140000</b></span> C:\Windows\System32\KERNELBASE.dll
         6e530000 5d30ea7d Jul 18 23:54:05 2019 C:\Windows\SYSTEM32\VCRUNTIME140D.dll
         6e3b0000 731fe41b Mar 17 01:24:11 2031 C:\Windows\SYSTEM32\ucrtbased.dll
         76df0000 3f7ceca3 Oct 03 05:27:31 2003 C:\Windows\System32\user32.dll
@@ -288,8 +288,6 @@ ucrtbased!_PEB_LDR_DATA
    +0x024 EntryInProgress  : 0x00180016 Void
    +0x028 ShutdownInProgress : 0x6a 'j'
    +0x02c ShutdownThreadId : 0x00002acc Void
-
-
 </pre>
 
 <p align="justify">
