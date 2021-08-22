@@ -136,7 +136,7 @@ ntdll!_PEB
    +0x003 IsLongPathAwareProcess : 0y0
    +0x004 Mutant           : 0xffffffff Void
    +0x008 ImageBaseAddress : 0x00cd0000 Void
-   +0x00c Ldr              : 0x77464d80 _PEB_LDR_DATA
+   +0x00c Ldr              : <span style="color:#cd0000;"><b>0x77464d80</b></span> _PEB_LDR_DATA
    +0x010 ProcessParameters : 0x010a1ec0 _RTL_USER_PROCESS_PARAMETERS
    +0x014 SubSystemData    : (null) 
    +0x018 ProcessHeap      : 0x010a0000 Void
