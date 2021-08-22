@@ -22,7 +22,7 @@ This article focuses on how to locate the Export Directory Table from the PE fil
 The first part can be found at the following link 
 </p>
 
-* [Win32 reverse shellcode - pt .1 - Locating the kernel32.dll base address](https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-pt1-Locating-the-kernel32-base-address/)
+* [Win32 reverse shellcode - pt .1 - Locating the kernel32.dll base address](https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernelbase-address)
 
 <p align="justify">
 According to Microsoft Docs, 
@@ -39,7 +39,7 @@ According to Microsoft Docs,
 <b><span style="color:green;font-size:26px">Search for the Export Directory Table</span></b>
 
 <p align="justify">
-From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernel32-base-address/">[pt .1]</a>, we have accomplished to locate the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> address, we need to parse the PE file structure to find the offset of the export directory table. It is worth to mention here that we will not proceed further in details about the PE file structure, but the following screenshot can provide useful information about the format of the PE file structure.
+From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernelbase-address/">[pt .1]</a>, we have accomplished to locate the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> base address. Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> address, we need to parse the PE file structure to find the offset of the export directory table. It is worth to mention here that we will not proceed further in details about the PE file structure, but the following screenshot can provide useful information about the format of the PE file structure.
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/pe.png" alt="PE File Structure Format"/>
