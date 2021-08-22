@@ -25,16 +25,16 @@ This article focuses on how to locate the base address of the <code  style="back
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
-In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will get the address of these functions using the <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code>, which is located in <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> module. Traditionally the aforementioned functionality has been located in  <code  style="background-color: lightgrey; color:black;">kernel32.dll</code> library, but according to microsoft  <a href="https://docs.microsoft.com/en-us/windows/win32/win7appqual/new-low-level-binaries">[ref .1]</a>, since 05/31/2018 on Windows 7 and Windows Server 2008 R2, 
+In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will get the address of these functions using the <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code>, which is located in <code style="background-color: lightgrey; color:black;">kernelbase.dll</code> module. Traditionally the aforementioned functionality has been located in  <code  style="background-color: lightgrey; color:black;">kernel32.dll</code> library, but according to microsoft  <a href="https://docs.microsoft.com/en-us/windows/win32/win7appqual/new-low-level-binaries">[ref .1]</a>, since 05/31/2018 on Windows 7 and Windows Server 2008 R2, 
 </p>
 
 <blockquote class="">
 <p align="justify">
-<i>in order to improve internal engineering efficiencies and improve foundations for future work, we have relocated some functionality to new low-level binaries. This refactoring will make it possible for future installs of Windows to provide subsets of functionality to reduce surface area (disk and memory requirements, servicing, and attack surface). As an example of functionality that have been moved to low-level binaries, <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> gets functionality from <code  style="background-color: lightgrey; color:black;">kernel32.dll</code> and <code  style="background-color: lightgrey; color:black;">advapi32.dll</code>. </i>
+<i>in order to improve internal engineering efficiencies and improve foundations for future work, we have relocated some functionality to new low-level binaries. This refactoring will make it possible for future installs of Windows to provide subsets of functionality to reduce surface area (disk and memory requirements, servicing, and attack surface). As an example of functionality that have been moved to low-level binaries, <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> gets functionality from <code style="background-color: lightgrey; color:black;">kernel32.dll</code> and <code style="background-color: lightgrey; color:black;">advapi32.dll</code>. </i>
 </p></blockquote>
 
 <p align="justify">
-For the development process the following dummy program will be used 
+For the development process the following dummy program used 
 </p>
 
 ```c
