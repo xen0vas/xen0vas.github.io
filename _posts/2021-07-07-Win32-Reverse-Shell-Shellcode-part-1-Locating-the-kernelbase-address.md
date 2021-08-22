@@ -53,6 +53,19 @@ int main(int argc, char* argv[])
 ```
 
 <p align="justify">
+Before we move further with the analysis, we will check in WinDbg in order to see that indeed the GetProcAddress function has moved to kernelbase.dll module. 
+</p>
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+00331736 33c0            xor     eax,eax
+0:000> x kernel32!GetProcAddress
+0:000> 
+0:000> 
+0:000> x kernelbase!GetProcAddress
+<span style="color:#cd0000;"><b>762563a0 KERNELBASE!GetProcAddress (void)</b></span>
+</pre>
+
+<p align="justify">
 At this point we are ready to start our analysis. First, we will exemine the Thread Environment Block (TEB) structure in order to find the exact location of the Process Environment Block (PEB) structure. Then we will navigate through PEB to search for the pointer to the <code  style="background-color: lightgrey; color:black;">PEB_LDR_DATA</code> structure that will provide information about the loaded modules. Moreover, this Windows internal information will also help us to locate the <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> base address. In WinDbg we can see the TEB structure using the command <code  style="background-color: lightgrey; color:black;"><b>dt _teb</b></code> as shown below
 </p>
 
