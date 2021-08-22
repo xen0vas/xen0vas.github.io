@@ -339,6 +339,7 @@ LODSD  ; memory address of the second list entry structure
 
 <p align="justify">
 Now that we know the address of the <code  style="background-color: lightgrey; color:black;">ntdll.dll</code> module, we can proceed further in the linked list to find the third list entry structure which will give us the offset of the <code  style="background-color: lightgrey; color:black;">kernel32.dll</code> module. In order to do this we will follow the linked list and see where it points next. 
+</p>
 
 <p align="justify">
 At this point, we will search for the <code  style="background-color: lightgrey; color:black;">kernel32.dll</code> base address using WinDbg 
