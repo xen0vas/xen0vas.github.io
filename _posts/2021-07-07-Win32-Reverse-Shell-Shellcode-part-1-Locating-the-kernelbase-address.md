@@ -1,7 +1,7 @@
 ---
 layout: single
-title: 'Win32 reverse shellcode - pt .1 - Locating the kernebase.dll base address'
-description: 'This blog post shows how to locate the kernelbase.dll base address using winDbg debugger and x86 assembly language'
+title: 'Win32 reverse shellcode - pt .1 - Locating the kernelbase.dll address'
+description: 'This blog post shows how to locate the kernelbase.dll address using winDbg debugger and x86 assembly language'
 date: 2021-07-07
 classes: wide
 comments: false
@@ -56,7 +56,6 @@ Before we move further with the analysis, we will check in WinDbg in order to se
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
-00331736 33c0            xor     eax,eax
 0:000> x kernel32!GetProcAddress
 0:000> 
 0:000> 
