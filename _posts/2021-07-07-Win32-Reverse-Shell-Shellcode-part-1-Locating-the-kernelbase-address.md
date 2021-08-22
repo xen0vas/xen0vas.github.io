@@ -164,7 +164,7 @@ ucrtbased!_PEB_LDR_DATA
    +0x004 Initialized      : 0x1 ''
    +0x008 SsHandle         : (null) 
    +0x00c InLoadOrderModuleList : _LIST_ENTRY [ 0x963b50 - 0x974bf8 ]
-   +0x014 InMemoryOrderModuleList : _LIST_ENTRY [ 0x963b58 - 0x974c00 ]
+   +0x014 InMemoryOrderModuleList : _LIST_ENTRY [ <span style="color:#cd0000;"><b>0x963b58</b></span> - 0x974c00 ]
    +0x01c InInitializationOrderModuleList : _LIST_ENTRY [ 0x964310 - 0x974e38 ]
    +0x024 EntryInProgress  : (null) 
    +0x028 ShutdownInProgress : 0x1 ''
@@ -470,7 +470,6 @@ The following screenshot also shows the debugging process and results with the b
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/windbg.png" alt="WinDbg debugging"  />
 
-<br>
 <p align="justify">
 Thats it for now. The second part of the custom win32 reverse tcp shellcode development series will be focusing on how to find the export table of <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code>. 
 </p>
