@@ -263,9 +263,9 @@ LODSD                              ; Get name offset
 ADD EAX,EBX                        ; Get function name
 CMP dword [EAX], 0x50746547        ; "PteG"
 JNZ SHORT GetFunction              ; jump to GetFunction label if not "GetP"
-CMP dword [EAX + 0x4], 0x41636F72  ; "rocA"
+CMP dword [EAX + 0x4], 0x41636F72  ; "Acor" 
 JNZ SHORT GetFunction              ; jump to GetFunction label if not "rocA"
-CMP dword [EAX + 0x8],0x65726464   ; "ddre"
+CMP dword [EAX + 0x8],0x65726464   ; "erdd"
 JNZ SHORT GetFunction              ; jump to GetFunction label if not "ddre"
 </pre>
 
@@ -274,7 +274,7 @@ First we will increment <code  style="background-color: lightgrey; color:black;"
 </p>
 
 <p align="justify">
-Furthermore, the correct pointer to the exported function name has been loaded in the <code  style="background-color: lightgrey; color:black;">eax</code> register. Now we need to check if the exported function name is the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code>. For that reason we compare the exported function name with <code  style="background-color: lightgrey; color:black;">0x50746547</code>. This value is actually <code  style="background-color: lightgrey; color:black;">50 74 65 47</code> in hex, which in little endian means <b>"PteG"</b> in ascii char format. So, we compare if the first 4 bytes of the current function name are <b>"GetP"</b>. If they are not, <code  style="background-color: lightgrey; color:black;">jnz</code> instruction will jump again at our label <code  style="background-color: lightgrey; color:black;">GetFunction</code> and then will continue with the next function name. If it is, we will also check the next 4 bytes, which must be <b>"rocA"</b> and the next 4 bytes <b>"ddre"</b> until to be sure we do not find other function that starts with <b>"GetP"</b>.
+Furthermore, the correct pointer to the exported function name has been loaded in the <code  style="background-color: lightgrey; color:black;">eax</code> register. Now we need to check if the exported function name is the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code>. For that reason we compare the exported function name with <code  style="background-color: lightgrey; color:black;">0x50746547</code>. This value is actually <code  style="background-color: lightgrey; color:black;">50 74 65 47</code> in hex, which in little endian means <b>"PteG"</b> in ascii char format. So, we compare if the first 4 bytes of the current function name are <b>"GetP"</b>. If they are not, <code  style="background-color: lightgrey; color:black;">jnz</code> instruction will jump again at our label <code  style="background-color: lightgrey; color:black;">GetFunction</code> and then will continue with the next function name. If it is, we will also check the next 4 bytes, which must be <b>"Acor"</b> and the next 4 bytes <b>"erdd"</b> until to be sure we do not find other function that starts with <b>"GetP"</b>.
 </p>
 
 <p align="justify">
