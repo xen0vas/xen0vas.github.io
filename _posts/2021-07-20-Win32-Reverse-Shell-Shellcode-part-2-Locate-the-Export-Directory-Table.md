@@ -369,7 +369,7 @@ int main(int argc, char* argv[])
         PUSH 0x64616F4C                     //"daoL"
         PUSH ESP                            //"LoadLibrary"
         PUSH EBX                            //Kernel32 base address
-        MOV  ESI, EBX                       //save the kernel32 address in esi for later
+        MOV  ESI, EBX                       //save the kernelbase address in esi for later
         CALL EDX                            //GetProcAddress(LoadLibraryA)
     }
     return 0;
@@ -384,7 +384,7 @@ Furthermore, if we load the <code  style="background-color: lightgrey; color:bla
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/WinDbg-EAX-LoadLibraryA.png" alt="WinDbg debugging"  />
 
 <p align="justify">
-This was the second part of the <i>custom win32 reverse tcp shellcode development</i> series. At this second part, we have achieved to be in a position to use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function from <code  style="background-color: lightgrey; color:black;">Kernel32.dll</code> library. In conclusion, after reading this post, we understand that we are at the point where we can use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function, and this is a crucial part before we continue with the reverse tcp shellcode construction, as we will see in a later blog post. What is  important here, is that we are now able to find the address of  <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code> function, which can help us loading other libraries where we can further use their functions. At the thirt part of this <i>custom win32 reverse tcp shellcode development</i> series, we will be focusing on the rest of the construction of the reverse tcp shellcode. 
+This was the second part of the <i>custom win32 reverse tcp shellcode development</i> series. At this second part, we have achieved to be in a position to use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function from <code  style="background-color: lightgrey; color:black;">Kernelbase.dll</code> library. In conclusion, after reading this post, we understand that we are at the point where we can use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function, and this is a crucial part before we continue with the reverse tcp shellcode construction, as we will see in a later blog post. What is  important here, is that we are now able to find the address of  <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code> function, which can help us loading other libraries where we can further use their functions. At the thirt part of this <i>custom win32 reverse tcp shellcode development</i> series, we will be focusing on the rest of the construction of the reverse tcp shellcode. 
 </p>
 
 
