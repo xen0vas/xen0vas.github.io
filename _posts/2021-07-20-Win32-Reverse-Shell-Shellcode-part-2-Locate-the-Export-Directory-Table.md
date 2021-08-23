@@ -361,14 +361,14 @@ int main(int argc, char* argv[])
 
         // Get the Address of LoadLibraryA function 
         XOR ECX, ECX                        //ECX = 0
-        PUSH EBX                            //Kernel32 base address
+        PUSH EBX                            //Kernelbase base address
         PUSH EDX                            //GetProcAddress
         PUSH ECX                            //0
         PUSH 0x41797261                     //"Ayra"
         PUSH 0x7262694C                     //"rbiL"
         PUSH 0x64616F4C                     //"daoL"
         PUSH ESP                            //"LoadLibrary"
-        PUSH EBX                            //Kernel32 base address
+        PUSH EBX                            //Kernelbase base address
         MOV  ESI, EBX                       //save the kernelbase address in esi for later
         CALL EDX                            //GetProcAddress(LoadLibraryA)
     }
