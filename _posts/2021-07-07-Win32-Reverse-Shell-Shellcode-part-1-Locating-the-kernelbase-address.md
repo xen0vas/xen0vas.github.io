@@ -485,6 +485,33 @@ Furthermore, as we see at the screenshot below, the <code  style="background-col
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/visual-studio.png" alt="Visual Studio Debugging"  />
 <br>
 <p align="justify">
+Afterwards, we open WinDbg and then by pressing <code  style="background-color: lightgrey; color:black;">Ctrl+E</code> we are able to load the executable. In my Windows machine the path of the executable is at <code  style="background-color: lightgrey; color:black;"><b>C:\Users\Xenofon\source\repos\testasm\Debug</b></code>. Now, its time to load the debug symbols, so we first run the <code  style="background-color: lightgrey; color:black;"><b>.symfix</b></code> command and then the <code  style="background-color: lightgrey; color:black;"><b>.sympath+ C:\Users\Xenofon\source\repos\testasm\testasm\Debug</b></code> in order to load the symbols from the corresponding <code  style="background-color: lightgrey; color:black;"><b>.pdb</b></code> file. Then we run the command <code  style="background-color: lightgrey; color:black;"><b>.reload</b></code> in order to reload the symbols in WinDbg. In order to see the symbols we run <code  style="background-color: lightgrey; color:black;"><b>x testasm!*</b></code>
+</p>
+
+<p align="justify">
+Afterwards, we run <code  style="background-color: lightgrey; color:black;"><b>bu testasm!main</b></code> in order to put a breakpoint in the main function of the executable. 
+</p>
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+0:000> bu testasm!main
+0:000> bl
+     0 e Disable Clear  00f916f0     0001 (0001)  0:**** testasm!main
+</pre>
+
+<p align="justify">
+Then, by running <code  style="background-color: lightgrey; color:black;"><b>g</b></code> command, the execution will stop at the first breakpoint ( which is at the main function ), and then we should be able to see the source code as seen at the screenshot below 
+</p>
+
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/Windbg-SC-Window.png" alt="WinDbg debugging and Source Code window"  />
+
+
+<p align="justify">
+Furthermore, we are in a position to put a breakpoint at the last instruction <code  style="background-color: lightgrey; color:black;"><b>MOV EBX, [EAX + 0x10]</b></code>, using the WinDbg command <code style="background-color: lightgrey; color:black;"><b>bp 0x00c21733</b></code>. Moreover, we can proceed further and press <code  style="background-color: lightgrey; color:black;"><b>Alt+7</b></code> or press <code  style="background-color: lightgrey; color:black;"><b>view->disassembly</b></code> in order to open a new dissasembly window that shows the instructions and corresponding addresses of the provided source code as we also see at the image below.  
+</p>
+
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/Windbg-SC-Window-2.png" alt="WinDbg debugging and Source Code window"  />
+
+<p align="justify">
 The following screenshot also shows the debugging process and provides results with the base address of the <code  style="background-color: lightgrey; color:black;">kernelbase.dll</code> module to be assigned to <code  style="background-color: lightgrey; color:black;">EBX</code> register
 </p>
 
