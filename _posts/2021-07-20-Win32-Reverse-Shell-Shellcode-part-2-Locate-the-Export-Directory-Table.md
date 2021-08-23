@@ -304,7 +304,7 @@ At seventh line, we have the correct index for the <code  style="background-colo
 </p>
 
 <p align="justify">
-at this point we can see the full program we have implemented so far from the previous blog posts until now 
+At this point we can see the full implementation we did so far from the previous blog posts until now 
 
 </p>
 
