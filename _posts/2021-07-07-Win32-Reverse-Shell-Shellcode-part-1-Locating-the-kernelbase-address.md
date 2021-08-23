@@ -490,7 +490,7 @@ Afterwards, we open WinDbg and then by pressing <code style="background-color: l
 </p>
 
 <p align="justify">
-At the running Windows machine, the path of the executable is located at <code style="background-color: lightgrey; color:black;"><b>C:\Users\Xenofon\source\repos\testasm\Debug</b></code>
+At the current Windows machine, the path of the executable is located at the following path <code style="background-color: lightgrey; color:black;"><b>C:\Users\Xenofon\source\repos\testasm\Debug</b></code>
 </p>
 
 <p align="justify">
