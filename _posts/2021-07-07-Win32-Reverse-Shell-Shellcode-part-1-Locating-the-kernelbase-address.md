@@ -449,7 +449,7 @@ MOV EBX, [EAX + 0x10]   ; EBX = Base address
 </pre>
 
 <p align="justify">
-From the instruction above, as we saw earlier, using the <code  style="background-color: lightgrey; color:black;">lodsd</code> instruction, the <code  style="background-color: lightgrey; color:black;">eax</code> register holds a pointer to the second list entry of the <code  style="background-color: lightgrey; color:black;"><b>InMemoryOrderLinks</b></code> stucture. Furthermore, if we add <code  style="background-color: lightgrey; color:black;">0x10</code> bytes to <code  style="background-color: lightgrey; color:black;">eax</code> register, we will have the <code  style="background-color: lightgrey; color:black;"><b>DllBase</b></code> pointer, which points to the memory address of the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> module.
+As we saw earlier, using the <code  style="background-color: lightgrey; color:black;">lodsd</code> instruction, the <code  style="background-color: lightgrey; color:black;">eax</code> register holds a pointer to the second list entry of the <code  style="background-color: lightgrey; color:black;"><b>InMemoryOrderLinks</b></code> stucture. Furthermore, if we add <code  style="background-color: lightgrey; color:black;">0x10</code> bytes to <code  style="background-color: lightgrey; color:black;">eax</code> register, we will have the <code  style="background-color: lightgrey; color:black;"><b>DllBase</b></code> pointer, which points to the memory address of the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> module.
 </p>
 
 <p align="justify">
