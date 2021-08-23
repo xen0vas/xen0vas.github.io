@@ -378,7 +378,7 @@ int main(int argc, char* argv[])
 ```
 
 <p align="justify">
-And if we load the <code  style="background-color: lightgrey; color:black;">testasm.exe</code> in Windbg debugger, we will see that after the last instruction <code  style="background-color: lightgrey; color:black;">CALL EDX</code> executed, the <code  style="background-color: lightgrey; color:black;">eax</code> register will finally hold the return value from the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function, which will be the address of the <code  style="background-color: lightgrey; color:black;">LoadLobraryA</code> function. 
+Furthermore, if we load the <code  style="background-color: lightgrey; color:black;">testasm.exe</code> in Windbg debugger, we will see that after the last instruction <code  style="background-color: lightgrey; color:black;">CALL EDX</code> executed, the <code  style="background-color: lightgrey; color:black;">eax</code> register will finally hold the return value from the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function, which will be the address of the <code  style="background-color: lightgrey; color:black;">LoadLobraryA</code> function. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/WinDbg-EAX-LoadLibraryA.png" alt="WinDbg debugging"  />
