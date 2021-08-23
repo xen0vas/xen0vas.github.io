@@ -504,14 +504,14 @@ Afterwards, we run <code  style="background-color: lightgrey; color:black;"><b>b
 </pre>
 
 <p align="justify">
-Then, by running <code  style="background-color: lightgrey; color:black;"><b>g</b></code> command, the execution will stop at the first breakpoint ( which is at the main function ), and then we should be able to see the source code as seen at the screenshot below 
+Then, by running <code  style="background-color: lightgrey; color:black;"><b>g</b></code> command, the execution will stop at the first breakpoint ( which is at the main function ). Also, we should be able to see the source code as seen at the screenshot below 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/Windbg-SC-Window.png" alt="WinDbg debugging and Source Code window"  />
 
 
 <p align="justify">
-Furthermore, we are in a position to put a breakpoint at the last instruction <code  style="background-color: lightgrey; color:black;"><b>MOV EBX, [EAX + 0x10]</b></code>, using the WinDbg command <code style="background-color: lightgrey; color:black;"><b>bp 0x00c21733</b></code>. Moreover, we can proceed further and press <code  style="background-color: lightgrey; color:black;"><b>Alt+7</b></code> or press <code  style="background-color: lightgrey; color:black;"><b>view->disassembly</b></code> in order to open a new dissasembly window that shows the instructions and the corresponding addresses of the provided source code as we also see at the image below.  
+Furthermore, we are in a position to put a breakpoint at the last instruction <code  style="background-color: lightgrey; color:black;"><b>MOV EBX, [EAX + 0x10]</b></code>. Moreover, we can proceed further and press <code  style="background-color: lightgrey; color:black;"><b>Alt+7</b></code> or press <code  style="background-color: lightgrey; color:black;"><b>view->disassembly</b></code> in order to open a new dissasembly window that shows the instructions and the corresponding addresses of the provided source code. At this point we can examine the stack addresses in order to find the address for our breakpoint. As we see in the disassembly window at the image below, we can put the breakpoint at the address <code style="background-color: lightgrey; color:black;"><b>0x00c21733</b></code> using the WinDbg command <code style="background-color: lightgrey; color:black;"><b>bp 0x00c21733</b></code>  
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/Windbg-SC-Window-2.png" alt="WinDbg debugging and Source Code window"  />
