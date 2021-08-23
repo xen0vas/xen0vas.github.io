@@ -69,7 +69,7 @@ Another way to justify that the <code  style="background-color: lightgrey; color
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 C:\Users\Xenofon>dumpbin /exports c:\windows\system32\kernelbase.dll | findstr "GetProcAddress"
-        682  2A8 00040C60 GetProcAddress
+        <span style="color:#cd0000;"><b>682  2A8 00040C60 GetProcAddress</b></span>
         683  2A9 00005370 GetProcAddressForCaller
 </pre>
 
