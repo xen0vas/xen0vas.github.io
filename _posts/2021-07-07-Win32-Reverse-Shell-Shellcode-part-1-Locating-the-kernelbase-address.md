@@ -484,9 +484,9 @@ Furthermore, as we see at the screenshot below, the <code  style="background-col
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/visual-studio.png" alt="Visual Studio Debugging"  />
 <br>
-<p align="justify">
-Afterwards, we open WinDbg and then by pressing <code  style="background-color: lightgrey; color:black;">Ctrl+E</code> we are able to load the executable. In my Windows machine the path of the executable is at <code  style="background-color: lightgrey; color:black;"><b>C:\Users\Xenofon\source\repos\testasm\Debug</b></code>. Now, its time to load the debug symbols, so we first run the <code  style="background-color: lightgrey; color:black;"><b>.symfix</b></code> command and then the <code  style="background-color: lightgrey; color:black;"><b>.sympath+ C:\Users\Xenofon\source\repos\testasm\testasm\Debug</b></code> in order to load the symbols from the corresponding <code  style="background-color: lightgrey; color:black;"><b>.pdb</b></code> file. Then we run the command <code  style="background-color: lightgrey; color:black;"><b>.reload</b></code> in order to reload the symbols in WinDbg. In order to see the symbols we run <code  style="background-color: lightgrey; color:black;"><b>x testasm!*</b></code>
-</p>
+
+
+Afterwards, we open WinDbg and then by pressing <code style="background-color: lightgrey; color:black;">Ctrl+E</code> we are able to load the executable. In my Windows machine the path of the executable is at <code  style="background-color: lightgrey; color:black;"><b>C:\Users\Xenofon\source\repos\testasm\Debug</b></code>. Now, its time to load the debug symbols, so we first run the <code  style="background-color: lightgrey; color:black;"><b>.symfix</b></code> command and then the <code  style="background-color: lightgrey; color:black;"><b>.sympath+ C:\Users\Xenofon\source\repos\testasm\testasm\Debug</b></code> in order to load the symbols from the corresponding <code  style="background-color: lightgrey; color:black;"><b>.pdb</b></code> file. Then we run the command <code  style="background-color: lightgrey; color:black;"><b>.reload</b></code> in order to reload the symbols in WinDbg. In order to see the symbols we run <code  style="background-color: lightgrey; color:black;"><b>x testasm!*</b></code>
 
 <p align="justify">
 Afterwards, we run <code  style="background-color: lightgrey; color:black;"><b>bu testasm!main</b></code> in order to put a breakpoint in the main function of the executable. 
