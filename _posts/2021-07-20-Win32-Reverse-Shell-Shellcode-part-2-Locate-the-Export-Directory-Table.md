@@ -330,17 +330,17 @@ int main(int argc, char* argv[])
 
 
         // Export Table 
-        MOV EDX, DWORD PTR DS : [EBX + 0x3C]    //EDX = DOS->e_lfanew
+        MOV EDX, DWORD PTR DS:[EBX + 0x3C]      //EDX = DOS->e_lfanew
         ADD EDX, EBX                            //EDX = PE Header
-        MOV EDX, DWORD PTR DS : [EDX + 0x78]    //EDX = Offset export table
+        MOV EDX, DWORD PTR DS:[EDX + 0x78]      //EDX = Offset export table
         ADD EDX, EBX                            //EDX = Export table
-        MOV ESI, DWORD PTR DS : [EDX + 0x20]    //ESI = Offset names table
+        MOV ESI, DWORD PTR DS:[EDX + 0x20]      //ESI = Offset names table
         ADD ESI, EBX                            //ESI = Names table
         XOR ECX, ECX                            //EXC = 0
 
         GetFunction :
 
-        INC ECX; increment counter
+        INC ECX                             //increment counter
         LODSD                               //Get name offset
         ADD EAX, EBX                        //Get function name
         CMP[EAX], 0x50746547                //"PteG"
@@ -350,13 +350,13 @@ int main(int argc, char* argv[])
         CMP[EAX + 0x8], 0x65726464          //"ddre"
         JNZ SHORT GetFunction               //jump to GetFunction label if not "ddre"
 
-        MOV ESI, DWORD PTR DS : [EDX + 0x24]    //ESI = Offset ordinals
+        MOV ESI, DWORD PTR DS:[EDX + 0x24]      //ESI = Offset ordinals
         ADD ESI, EBX                            //ESI = Ordinals table
-        MOV CX, WORD PTR DS : [ESI + ECX * 2]   //CX = Number of function
+        MOV CX, WORD PTR DS:[ESI + ECX * 2]     //CX = Number of function
         DEC ECX                                 //Decrement the ordinal
-        MOV ESI, DWORD PTR DS : [EDX + 0x1C]    //ESI = Offset address table
+        MOV ESI, DWORD PTR DS:[EDX + 0x1C]      //ESI = Offset address table
         ADD ESI, EBX                            //ESI = Address table
-        MOV EDX, DWORD PTR DS : [ESI + ECX * 4] //EDX = Pointer(offset)
+        MOV EDX, DWORD PTR DS:[ESI + ECX * 4]   //EDX = Pointer(offset)
         ADD EDX, EBX                            //EDX = GetProcAddress
 
         // Get the Address of LoadLibraryA function 
