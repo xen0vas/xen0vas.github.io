@@ -329,7 +329,7 @@ ntdll!_LDR_DATA_TABLE_ENTRY
 </pre>
 
 <p align="justify">
-Well, there is an error above as you can see <code  style="background-color: lightgrey; color:black;">"--- memory read error at address 0x0000ffff ---"</code>. Thats because the <code  style="background-color: lightgrey; color:black;">InMemoryOrderLinks</code> is located at offset <code  style="background-color: lightgrey; color:black;">0x8</code> ( highlighted in red above ). In order to fix this issue we subtract <code  style="background-color: lightgrey; color:black;">0x8</code> from <code  style="background-color: lightgrey; color:black;">0x963a50</code>
+Well, there is an error above as you can see <code  style="background-color: lightgrey; color:black;">"--- memory read error at address 0x0000ffff ---"</code>. Thats because the <code  style="background-color: lightgrey; color:black;">InMemoryOrderLinks</code> list entry is located at offset <code  style="background-color: lightgrey; color:black;">0x8</code> ( highlighted in red above ). In order to fix this issue we subtract <code  style="background-color: lightgrey; color:black;">0x8</code> from <code  style="background-color: lightgrey; color:black;">0x963a50</code>
 </p>
 
 
