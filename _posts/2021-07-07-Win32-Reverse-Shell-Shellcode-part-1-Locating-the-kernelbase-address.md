@@ -486,7 +486,11 @@ Furthermore, as we see at the screenshot below, the <code  style="background-col
 <br>
 
 <p align="justify">
-Afterwards, we open WinDbg and then by pressing <code style="background-color: lightgrey; color:black;">Ctrl+E</code>, we are able to load the executable. In my Windows machine, the path of the executable is at <code style="background-color: lightgrey; color:black;"><b>C:\Users\Xenofon\source\repos\testasm\Debug</b></code>
+Afterwards, we open WinDbg and then by pressing <code style="background-color: lightgrey; color:black;">Ctrl+E</code>, we are able to load the executable. 
+</p>
+
+<p align="justify">
+In my Windows machine, the path of the executable is at <code style="background-color: lightgrey; color:black;"><b>C:\Users\Xenofon\source\repos\testasm\Debug</b></code>
 </p>
 
 <p align="justify">
