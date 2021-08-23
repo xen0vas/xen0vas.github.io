@@ -318,7 +318,7 @@ Now lets verify that the LDR Data Table is indeed holding the offset and the bas
 0:000>  dt _LDR_DATA_TABLE_ENTRY 0x963a50
 ntdll!_LDR_DATA_TABLE_ENTRY
    +0x000 InLoadOrderLinks : _LIST_ENTRY [ 0x963f38 - 0x963b58 ]
-   +0x008 InMemoryOrderLinks : _LIST_ENTRY [ 0x96db88 - 0x964170 ]
+   <span style="color:#cd0000;"><b>+0x008 InMemoryOrderLinks : _LIST_ENTRY [ 0x96db88 - 0x964170 ]</b></span>
    +0x010 InInitializationOrderLinks : _LIST_ENTRY [ 0x77340000 - 0x0 ]
    +0x018 DllBase          : 0x001a2000 Void
    +0x01c EntryPoint       : 0x003c003a Void
