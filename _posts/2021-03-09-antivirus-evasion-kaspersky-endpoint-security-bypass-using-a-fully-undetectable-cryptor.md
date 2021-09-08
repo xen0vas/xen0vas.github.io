@@ -333,7 +333,7 @@ return 0;
 ```
 
 <p align="justify">
-In the code above, most AV scanners will just stop during the malloc, while the condition verification on allocated pointer is not even needed
+At the above code, most AV scanners will just stop during the malloc, while the condition verification on allocated pointer is not even needed
 </p>
 
 <p align="justify">
