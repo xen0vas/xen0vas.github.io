@@ -170,7 +170,7 @@ Afterwards, we run <code  style="background-color: lightgrey; color:black;"><b>b
 </pre>
 
 <p align="justify">
-Moreover, at this exercise, WinDbg has been opened using a workspace with the dark-green theme loaded. The dark-green theme can found it at this <a href="https://github.com/nextco/windbg-readable-theme">repo</a> . Using the theme, we can see many windows in WinDbg without running extra commands, which is very usefull. Among other windows, the following screenshot shows the source code window. Running the <code  style="background-color: lightgrey; color:black;"><b>g</b></code> command the execution will continue until we hit the breakpoint and the line of code will be highlighted in red as also seen at the screenshot below. 
+Moreover, at this exercise, WinDbg has been opened using a workspace with the dark-green theme loaded. The dark-green theme can found it at this <a href="https://github.com/nextco/windbg-readable-theme">repo</a> . Using the theme, we can see many windows in WinDbg without running extra commands, which is very usefull. Among other windows, the following screenshot shows the source code window. Running the <code  style="background-color: lightgrey; color:black;"><b>g</b></code> command, the execution will continue until we hit the breakpoint and the line of code is highlighted in red as seen at the screenshot below. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/08/source_code.png" alt="WinDbg Source Code"/>
