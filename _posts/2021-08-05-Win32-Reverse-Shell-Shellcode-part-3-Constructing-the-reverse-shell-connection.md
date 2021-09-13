@@ -65,7 +65,7 @@ Furthermore, we will push the <code  style="background-color: lightgrey; color:b
 In order to figure out that the above code works well, we must perform some debugging using WinDbg. First we must load the executable that we have previously compiled and build using Virtual Studio 2017. Below we see the source code of the <code  style="background-color: lightgrey; color:black;"><b>testasm.exe</b></code> executable. 
 </p>
 
-```C
+```c
 
 #include <windows.h>
 
@@ -133,9 +133,6 @@ int main(int argc, char* argv[])
   }
   return 0;
 }
-
-
-
 ```
 
 <p align="justify">
@@ -203,7 +200,7 @@ These functions can be found inside the following <b>.dll</b> library
 At this point we need to load the  <code  style="background-color: lightgrey; color:black;"><b>ws2_32.dll</b></code> library by using <code  style="background-color: lightgrey; color:black;"><b>LoadLibraryA</b></code>. So, to find the address of the functions above, we will first load the <code  style="background-color: lightgrey; color:black;"><b>ws2_32.dll</b></code> library using the assembly code below 
 </p>
 
-```C
+```c
 ADD ESP,0xC          ; pop "LoadLibraryA"
 POP EDX              ; EDX = 0
 PUSH EAX             ; EAX = LoadLibraryA
@@ -228,7 +225,7 @@ Now it is time to call <code  style="background-color: lightgrey; color:black;">
 At this point we first need to find the address of the following function 
 </p>
 
-```C
+```c
 ; Find the address of WSAStartup
 ADD  ESP,0x10                      ; Clean stack
 MOV  EDX, [ESP+0x4]                ; EDX = GetProcAddress
@@ -281,7 +278,7 @@ Now its time to call <code  style="background-color: lightgrey; color:black;"><b
 Now that we know the address of <code  style="background-color: lightgrey; color:black;"><b>WSAStartup</b></code> function, it is time to call and execute this function. Acording to Microsoft Docs, the function prototype of the <code  style="background-color: lightgrey; color:black;"><b>WSAStartup</b></code> function is the following 
 </p>
 
-```C
+```c
 
 int WSAStartup(
   WORD      wVersionRequired,
@@ -306,7 +303,7 @@ Function parameters :
 The <code  style="background-color: lightgrey; color:black;"><b>WSAStartup</b></code> function initializes the utilization of the <b>winsock DLL</b>. The following code used to implement the <code  style="background-color: lightgrey; color:black;"><b>WSAStartup</b></code> function.
 </p>
 
-```C
+```c
 ;; Call WSAStartup
 XOR  EBX, EBX          ; zero out ebx register
 MOV  BX,  0x0190       ; EAX = sizeof( struct WSAData )
@@ -320,7 +317,7 @@ CALL EAX               ; Call WSAStartUp
 At the first line above, the <code  style="background-color: lightgrey; color:black;"><b>ebx</b></code> register is zeroed out. Then, at the second line, the hex value <code  style="background-color: lightgrey; color:black;"><b>0x190</b></code> which is the length of the <code  style="background-color: lightgrey; color:black;"><b>WSAData</b></code> structure will be moved to the lower register <code  style="background-color: lightgrey; color:black;"><b>BX</b></code>. In order to be sure about the length of the <code  style="background-color: lightgrey; color:black;"><b>WSAData</b></code> structure, we can compile and run the following program in visual studio 
 </p>
 
-```C
+```c
 
 #define WIN32_LEAN_AND_MEAN
 
@@ -359,7 +356,7 @@ As seen at the screenshot below, the length of the <code  style="background-colo
 At this point we are in position to search for the address of <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function. The following assembly code will be used in order to find the address of the <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function
 </p>
 
-```C
+```c
 ;;Find the address of WSASocketA
 ADD  ESP,0x10                  ;Align the stack
 XOR  EBX, EBX                  ;zero out the EBX register
