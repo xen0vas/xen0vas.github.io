@@ -18,7 +18,15 @@ tags:
 
 <p align="justify">
 This article focuses on finalizing the construction of a tcp socket connection as well as explains the instructions regarding the establishment of a cmd shell interaction with the attacking machine using x86 assembly. This is the third and final part of a blog series that focuses on how to create a custom Win32 reverse shell shellcode. 
+
 <br><br>
+The full shellcode, the STUB and assembly instructions can be found at 
+</p>
+
+* [exploit-db](https://www.exploit-db.com/shellcodes/50291)
+
+
+<p align="justify">
 The first and second part of the blog series can be found at the following links 
 </p>
 
