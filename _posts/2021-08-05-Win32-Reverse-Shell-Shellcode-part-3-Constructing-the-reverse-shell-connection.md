@@ -31,7 +31,7 @@ At the previous blog posts we have accomplished to find the kernelbase base addr
 </p>
 
 <hr>
-<b><span style="color:black;font-size:20px">Search for the LoadLibraryA function address</span></b>
+<b><span style="color:green;font-size:26px">Search for the LoadLibraryA function address</span></b>
 <br><br>
 
 <p align="justify">
@@ -177,7 +177,7 @@ Furthermore, we are now in position to put a breakpoint at the first instruction
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/07/Disassembly-Window-GetProcAddress.png" alt="WinDbg Disassembly Window"/>
 
-<b><span style="color:black;font-size:20px">Call the LoadLibraryA to load ws2_32.dll</span></b>
+<b><span style="color:green;font-size:26px">Call the LoadLibraryA to load ws2_32.dll</span></b>
 
 <p align="justify">
 In order to find the addresses of the following functions 
@@ -218,7 +218,7 @@ First we clean up the stack. In line two, before pushing the address of <code  s
 Now it is time to call <code  style="background-color: lightgrey; color:black;"><b>LoadLibrary("ws2_32.dll")</b></code>. So we need to place the string <code  style="background-color: lightgrey; color:black;"><b>"ws2_32.dll"</b></code> on the stack. Moreover, the string length is not a multiple of 4 bytes and we cannot directly place it onto the stack. Instead, we  push the <code  style="background-color: lightgrey; color:black;"><b>edx</b></code> register on the stack, which has the <code  style="background-color: lightgrey; color:black;"><b>0x0</b></code> value, and then we use the <code  style="background-color: lightgrey; color:black;"><b>dx</b></code> register to place the <b>"ll"</b> string on the stack ( <code  style="background-color: lightgrey; color:black;"><b>0x6C6C</b></code> in hex ). Afterwards, we push the <code  style="background-color: lightgrey; color:black;"><b>"ws2_32.d"</b></code> string on the stack and then by pushing the <code  style="background-color: lightgrey; color:black;"><b>esp</b></code> register on the stack we are located at the begining of the<code  style="background-color: lightgrey; color:black;"><b>"ws2_32.dll"</b></code> string. Then, by calling <code  style="background-color: lightgrey; color:black;"><b>eax</b></code>, the <code  style="background-color: lightgrey; color:black;"><b>ws2_32.dll</b></code> library is loaded. Then, the base address of <code  style="background-color: lightgrey; color:black;"><b>ws2_32.dll</b></code> is the address where the DLL is loaded into the memory and it will be returned in <code  style="background-color: lightgrey; color:black;"><b>eax</b></code> register.
 </p>
 
-<b><span style="color:black;font-size:20px">Get the WSAStartup address using GetProcAddress</span></b>
+<b><span style="color:green;font-size:26px">Get the WSAStartup address using GetProcAddress</span></b>
 
 <p align="justify">
 At this point we first need to find the address of the following function 
@@ -270,7 +270,7 @@ We can also see this in the Disassembly Window in Windbg
 Now its time to call <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress(ws2_32.dll, "WSAStartup")</b></code>, so we need to push <b>"WSAStartup"</b> string on the stack. Moreover, the string length is not a multiple of 4 bytes and we cannot directly place it on the stack. Instead, we will first push <code  style="background-color: lightgrey; color:black;"><b>0x61617075</b></code> hex value on the stack which represents the value <b>"aapu"</b> in ascii char format. Then, the next instruction will remove the two suplementary a's leaving the <b>"pu"</b> part of the string untouched. Afterwards the string <b>"trat"</b> and then the string <b>"SASW"</b> will also be pushed into the stack in little endian format. Next, we will push the <code  style="background-color: lightgrey; color:black;"><b>eax</b></code> register which contains the <b>ws2_32.dll</b> base address and then before we call the <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function, we should save its address in <code  style="background-color: lightgrey; color:black;"><b>EDI</b></code> register to use it later. Then, we will call <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code>. At this point we will have the address of <code  style="background-color: lightgrey; color:black;"><b>WSAStartup</b></code> function in <code  style="background-color: lightgrey; color:black;"><b>eax</b></code> register. 
 </p>
 
-<b><span style="color:black;font-size:20px">Call the WSAStartup function</span></b>
+<b><span style="color:green;font-size:26px">Call the WSAStartup function</span></b>
 <br><br>
 
 <p align="justify">
@@ -349,7 +349,7 @@ As seen at the screenshot below, the length of the <code  style="background-colo
  Furthemore, at the third line we are making some space on the stack for the <code  style="background-color: lightgrey; color:black;"><b>WSAData</b></code> structure and then <code  style="background-color: lightgrey; color:black;"><b>esp</b></code> points to <code  style="background-color: lightgrey; color:black;"><b>WSAData</b></code> structure. A pointer to the <code  style="background-color: lightgrey; color:black;"><b>WSAData</b></code> structure is generally used to receive details of the <b>Windows Sockets</b> implementation. Then at the fifth line we will push the version of the <code  style="background-color: lightgrey; color:black;"><b>WSAData</b></code> structure. The fifth instruction worked because, if the version requested by the application is equal to or higher than the lowest version supported by the <code  style="background-color: lightgrey; color:black;"><b>Winsock DLL</b></code>, the call succeeds and the <code  style="background-color: lightgrey; color:black;"><b>Winsock DLL</b></code> returns detailed information in the <code  style="background-color: lightgrey; color:black;"><b>WSADATA</b></code> structure pointed to by the <code  style="background-color: lightgrey; color:black;"><b>lpWSAData</b></code> parameter. For this reason we have used the length of the <code  style="background-color: lightgrey; color:black;"><b>WSAData</b></code> stored at <code  style="background-color: lightgrey; color:black;"><b>EBX</b></code>, because the value is much bigger than the supported version and this allow us to use lesser assembly code which also means lesser opcodes. In general, the current version of the <b>Windows Sockets</b> specification is version 2.2. At the last line we execute the <code  style="background-color: lightgrey; color:black;"><b>WSAStartup</b></code> function. 
 </p>
 
-<b><span style="color:black;font-size:20px">Get WSASocketA using GetProcAddress</span></b>
+<b><span style="color:green;font-size:26px">Get WSASocketA using GetProcAddress</span></b>
 
 <p align="justify">
 At this point we are in position to search for the address of <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function. The following assembly code will be used in order to find the address of the <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function
@@ -451,7 +451,7 @@ Then, we add the <code  style="background-color: lightgrey; color:black;"><b>ESP
 Now, we <code  style="background-color: lightgrey; color:black;"><b>push edi</b></code> in order to save the address of <code  style="background-color: lightgrey; color:black;"><b>ws2_32.dll</b></code> library on the stack for later use. 
 </p>
 
-<b><span style="color:black;font-size:20px">Call the WSASocketA function</span></b>
+<b><span style="color:green;font-size:26px">Call the WSASocketA function</span></b>
 
 <p align="justify">
 Now that we know the address of <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> function, it is time to call and execute the function. Acording to Microsoft Docs, the function prototype of the <code  style="background-color: lightgrey; color:black;"><b>WSASocketA</b></code> is the following 
@@ -535,7 +535,7 @@ At the first line we zero out <code  style="background-color: lightgrey; color:b
 </p>
 
 
-<b><span style="color:black;font-size:20px">Get connect using GetProcAddress</span></b>
+<b><span style="color:green;font-size:26px">Get connect using GetProcAddress</span></b>
 
 <p align="justify">
 At this point we are ready to search for the address of connect function.
@@ -570,7 +570,7 @@ CALL EDX                             ;call GetProcAddress
 At the first line, <code  style="background-color: lightgrey; color:black;"><b>edi</b></code> register has the address of <code  style="background-color: lightgrey; color:black;"><b>ws2_32.dll</b></code>. At the second line, we are aligning the stack. At lines 3-6, we are getting the address of the <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function. At lines 7-9, we are pushing the string, <b>"connect"</b>, in reverse order due to little endian format. At the tenth line, we are pushing the second argument of <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> which is the name of the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function. This is done by pushing the <code  style="background-color: lightgrey; color:black;"><b>esp</b></code> register on the stack. Then, we push the first argument of <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> on the stack, which is the <code  style="background-color: lightgrey; color:black;"><b>ws32_2.dll</b></code> address. Afterwards, we are saving the socket descriptor we have aquired earlier into the <code  style="background-color: lightgrey; color:black;"><b>ebp</b></code> register to use it later. Then we call <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> and then the address of <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function will be returned in <code  style="background-color: lightgrey; color:black;"><b>eax</b></code> register    
 </p>
 
-<b><span style="color:black;font-size:20px">Call the connect function</span></b>
+<b><span style="color:green;font-size:26px">Call the connect function</span></b>
 
 <p align="justify">
 Next, we implement the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function. According to Microsoft Docs, the <code  style="background-color: lightgrey; color:black;"><b>connect</b></code> function establishes a connection to a specified socket. 
@@ -626,7 +626,7 @@ At lines 1-6, we are setting the <code  style="background-color: lightgrey; colo
 </p>
 
 
-<b><span style="color:black;font-size:20px">Get CreateProcessA using GetProcAddress</span></b>
+<b><span style="color:green;font-size:26px">Get CreateProcessA using GetProcAddress</span></b>
 
 <p align="justify">
 At this point we will search for the address of <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function. 
@@ -665,7 +665,7 @@ At the first line we are aligning the stack. Then, at lines 2-5 we are getting t
 </p>
 
 
-<b><span style="color:black;font-size:20px">Call the CreateProcessA function</span></b>
+<b><span style="color:green;font-size:26px">Call the CreateProcessA function</span></b>
 
 <p align="justify">
 Next, the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function will be implemented. According to Microsoft Docs, the <code  style="background-color: lightgrey; color:black;"><b>CreateProcessA</b></code> function creates a new process and its primary thread. The new process runs in the security context of the calling process.
@@ -815,7 +815,7 @@ At the code above, we are now starting the setup of <code  style="background-col
 </p>
 
 
-<b><span style="color:black;font-size:20px">Full Reverse TCP Shellcode </span></b>
+<b><span style="color:green;font-size:26px">Full Reverse TCP Shellcode </span></b>
 
 <p align="justify">
 The following assembly code represents the code used to perform a reverse tcp socket connection at IP address <code  style="background-color: lightgrey; color:black;"><b>192.168.201.11</b></code> and port <code  style="background-color: lightgrey; color:black;"><b>4444</b></code>
