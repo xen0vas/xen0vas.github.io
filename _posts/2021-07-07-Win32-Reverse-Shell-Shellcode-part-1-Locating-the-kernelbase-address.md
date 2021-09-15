@@ -25,6 +25,10 @@ This article focuses on how to locate the base address of the <code  style="back
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
+Thanks goes to <a href="https://securitycafe.ro/author/ionutpopescu1337/">Ionut Popescu</a> for the very informative walkthroughs
+</p>
+
+<p align="justify">
 In order to create a reverse tcp shellcode we need to know the addresses of the functions used in a windows tcp socket connection. For this reason, we will get the address of these functions using the <code  style="background-color: lightgrey; color:black;"><b>GetProcAddress</b></code> function. Additionally, in order to be able to search for such functions, we need to load the appropriate libraries. Moreover, a function that is crucial to use in order to load the wanted modules, is the <code  style="background-color: lightgrey; color:black;">LoadLibraryA</code>, which is located in <code style="background-color: lightgrey; color:black;">kernelbase.dll</code> module. Traditionally the aforementioned functionality has been located in  <code  style="background-color: lightgrey; color:black;">kernel32.dll</code> library, but according to microsoft  <a href="https://docs.microsoft.com/en-us/windows/win32/win7appqual/new-low-level-binaries">[ref .1]</a>, since 05/31/2018, 
 </p>
 
