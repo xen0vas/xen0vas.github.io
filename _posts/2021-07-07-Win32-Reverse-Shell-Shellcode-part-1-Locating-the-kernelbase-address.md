@@ -25,7 +25,7 @@ This article focuses on how to locate the base address of the <code  style="back
 * [Introduction to Windows shellcode development – Part 3](https://securitycafe.ro/2016/02/15/introduction-to-windows-shellcode-development-part-3/)
 
 <p align="justify">
-Thanks goes to <a href="https://securitycafe.ro/author/ionutpopescu1337/">Ionut Popescu</a> for the very informative walkthroughs
+Kudos goes to <a href="https://securitycafe.ro/author/ionutpopescu1337/">Ionut Popescu</a> for the very informative walkthroughs
 </p>
 
 <p align="justify">
