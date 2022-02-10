@@ -118,6 +118,9 @@ author:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: mailto:xenofonv@gmail.com
+    - label: "PGP Key (Email)"
+      icon: "fas fa-user-lock"
+      url: "https://xen0vas.github.io/xen0vas_pgp.asc"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
