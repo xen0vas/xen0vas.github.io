@@ -1,0 +1,106 @@
+### Disassemble Windows asm
+
+--------------------
+
+Compile asm programs 
+
+```
+ml /c /coff win.asm
+
+```
+
+Link obj files 
+
+
+```
+link /subsystem:windows win.obj
+
+``` 
+
+
+
+By typing
+
+```
+
+where dumppe
+
+```
+
+> for me dumppe.exe turns out to be in the same directory as ml.exe; masm32\bin\dumppe.exe
+> for a rough disassembly you can enter;
+
+```
+dumppe -quiet -disassem [file-name-here]
+```
+
+alternatively you could enter;
+
+```
+dumppe -quiet -disassem:![lable-here] [file-name-here]
+```
+
+> or for more info just type "dumppe" at the cmd prompt.
+
+> I also have a windows version of grep installed on my windows and when i use the cmd
+
+```
+dumppe -disassem -quiet win.exe | grep -A10 start:
+
+```
+
+> Then i get
+
+```
+
+00401000                    start:
+00401000 6A00                   push    0
+00401002 680F304000             push    offset off_0040300F     ; 'program statment!!!',000h
+00401007 6800304000             push    offset off_00403000     ; 'hello world!!!',000h
+0040100C 6A00                   push    0
+0040100E E80D000000             call    jmp_MessageBoxA
+00401013 6A00                   push    0
+00401015 E800000000             call    jmp_ExitProcess
+
+0040101A                    jmp_ExitProcess:            ; Xref 00401015
+0040101A FF2500204000           jmp     dword ptr [ExitProcess]
+
+```
+
+A comparason to when i use objdump
+
+```
+objdump -M intel -D win.exe | grep -A10 text.:
+```
+
+which is pretty much the same as
+
+```
+objdump -M intel -d win.exe
+```
+
+I get
+
+```
+00401000 <.text>:
+  401000:       6a 00                   push   0x0
+  401002:       68 0f 30 40 00          push   0x40300f
+  401007:       68 00 30 40 00          push   0x403000
+  40100c:       6a 00                   push   0x0
+  40100e:       e8 0d 00 00 00          call   0x401020
+  401013:       6a 00                   push   0x0
+  401015:       e8 00 00 00 00          call   0x40101a
+  40101a:       ff 25 00 20 40 00       jmp    DWORD PTR ds:0x402000
+  401020:       ff 25 08 20 40 00       jmp    DWORD PTR ds:0x402008
+```
+
+An alternative should be 
+
+```
+dumpbin /DISASM /out:log.txt file.exe
+```
+
+
+
+
+

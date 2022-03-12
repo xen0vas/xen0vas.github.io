@@ -111,8 +111,8 @@ analytics:
 author:
   name             : "Xenofon Vassilakopoulos"
   avatar           : "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "R&XD" #"Im constantly seeking for knowledge in Cyber Security "
-  location         : "Everywhere"
+  bio              : "A blog about security research, penetration testing, secure coding and security engineering"
+  location         : ""
   email            :
   links:
     - label: "Email"
