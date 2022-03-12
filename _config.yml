@@ -112,7 +112,7 @@ author:
   name             : "Xenofon Vassilakopoulos"
   avatar           : "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "A blog about security research, penetration testing, secure coding and security engineering"
-  location         : ""
+  #location        : ""
   email            :
   links:
     - label: "Email"
