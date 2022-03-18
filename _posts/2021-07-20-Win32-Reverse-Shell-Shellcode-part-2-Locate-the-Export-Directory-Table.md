@@ -4,7 +4,7 @@ title: 'Win32 reverse shellcode - pt .2 - locating the Export Directory Table'
 description: 'This blog post shows how to locate the Export Directory Table from the PE file structure '
 date: 2021-07-20
 classes: wide
-comments: false
+comments: true
 header:
   teaser: /assets/images/avatar.jpg
 tags:
