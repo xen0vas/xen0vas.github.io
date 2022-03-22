@@ -11,7 +11,7 @@ header:
   overlay_image: /assets/images/2021/07/Disassembly-Window-GetProcAddress.png
   overlay_filter: rgba(0, 0, 0, 0.5)
   actions:
-    - label: "View the Win32 reverse TCP Shellcode"
+      - label: "View the Win32 reverse TCP Shellcode"
       url: "https://github.com/xen0vas/Win32-Reverse-TCP-Shellcode"
 tags:
   - WinDbg
