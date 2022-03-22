@@ -5,8 +5,14 @@ description: 'This blog post shows how to construct a reverse shell connection'
 date: 2021-08-05
 classes: wide
 comments: false
+excerpt: "This blog post shows how to construct a reverse shell connection"
 header:
   teaser: /assets/images/avatar.jpg
+  overlay_image: /assets/images/2021/07/Disassembly-Window-GetProcAddress.png
+  overlay_filter: rgba(0, 0, 0, 0.5)
+   actions:
+    - label: "View the Win32 reverse TCP Shellcode"
+      url: "https://github.com/xen0vas/Win32-Reverse-TCP-Shellcode"
 tags:
   - WinDbg
   - Win32 assembly
