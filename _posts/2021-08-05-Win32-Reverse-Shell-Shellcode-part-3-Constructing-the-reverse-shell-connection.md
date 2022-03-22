@@ -1,11 +1,11 @@
 ---
 layout: single
 title: 'Win32 reverse shellcode - pt .3 - Constructing the reverse shell connection'
-description: 'This blog post shows how to construct a reverse shell connection'
 date: 2021-08-05
 classes: wide
 comments: false
 excerpt: "This blog post explains how to construct a Win32 TCP reverse shell connection"
+
 header:
   teaser: /assets/images/avatar.jpg
   overlay_image: /assets/images/2021/07/Disassembly-Window-GetProcAddress.png
