@@ -25,12 +25,11 @@ This article focuses on finalizing the construction of a tcp socket connection a
 <b><span style="color:green;font-size:26px">TL;DR</span></b>
 <br><br>
 
-The full shellcode, the STUB and assembly instructions can be found at 
+The full shellcode, and assembly instructions can also be found at 
 </p>
 
 
 * [exploit-db](https://www.exploit-db.com/shellcodes/50291)
-* [github](https://github.com/xen0vas/Windows-x86_64-Reverse-TCP-Shellcode)
 * [packetstormsecurity](https://packetstormsecurity.com/files/164131/Windows-x86-Reverse-TCP-Shellcode.html)
 
 
