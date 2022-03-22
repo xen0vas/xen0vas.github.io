@@ -4,7 +4,7 @@ title: 'Win32 reverse shellcode - pt .3 - Constructing the reverse shell connect
 date: 2021-08-05
 classes: wide
 tags: WinDbg Win32 assembly Exploit Development
-excerpt: "This blog post explains how to construct a Win32 TCP reverse shell connection"
+excerpt: "This blog post explains how to construct a Win32 TCP reverse shell connection in x86 assembly"
 
 header:
   teaser: /assets/images/avatar.jpg
