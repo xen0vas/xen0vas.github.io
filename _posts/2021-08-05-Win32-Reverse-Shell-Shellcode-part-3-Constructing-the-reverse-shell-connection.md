@@ -6,6 +6,7 @@ classes: wide
 comments: false
 tags: WinDbg Win32 assembly Exploit Development Windows API Windows Sockets
 excerpt: "This blog post explains how to construct a Win32 TCP reverse shell connection"
+
 header:
   teaser: /assets/images/avatar.jpg
   overlay_image: /assets/images/2021/07/Disassembly-Window-GetProcAddress.png
