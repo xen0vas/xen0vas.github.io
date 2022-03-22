@@ -5,8 +5,16 @@ description: 'This blog post shows how to locate the Export Directory Table from
 date: 2021-07-20
 classes: wide
 comments: true
+excerpt: "This blog post explains how to locate the Export Directory Table from the PE file structure"
+
 header:
   teaser: /assets/images/avatar.jpg
+  overlay_image: /assets/images/2021/07/Disassembly-Window-GetProcAddress.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View Win32 reverse tcp shellcode"
+      url: "https://github.com/xen0vas/Win32-Reverse-TCP-Shellcode/"
+
 tags:
   - WinDbg
   - Win32 assembly

@@ -1,12 +1,19 @@
 ---
 layout: single
 title: 'Win32 reverse shellcode - pt .1 - Locating the kernelbase.dll address'
-description: 'This blog post shows how to locate the kernelbase.dll address using winDbg debugger and x86 assembly language'
+description: 'This blog post shows how to locate the kernelbase.dll address using winDbg debugger in x86 assembly language'
 date: 2021-07-07
 classes: wide
 comments: false
+excerpt: "This blog post explains how to locate the kernelbase.dll address using winDbg debugger in x86 assembly"
+
 header:
   teaser: /assets/images/avatar.jpg
+  overlay_image: /assets/images/2021/07/Disassembly-Window-GetProcAddress.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View Win32 reverse tcp shellcode"
+      url: "https://github.com/xen0vas/Win32-Reverse-TCP-Shellcode/"
 tags:
   - WinDbg
   - kernelbase base address
