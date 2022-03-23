@@ -4,8 +4,15 @@ title: 'Antivirus Evasion : AV bypass using a Fully UnDetectable Cryptor'
 date: 2021-03-09
 comments: false
 classes: wide
+excerpt: "This post shows a way to bypass AV using a Fully UnDetectable Cryptor"
+
 header:
   teaser: /assets/images/avatar.jpg
+  overlay_image: /assets/images/2019/12/Affine.png
+  overlay_filter: rgba(0, 1, 0, 0.25)
+  actions:
+    - label: "View Affine Cryptor"
+      url: "https://github.com/xen0vas/Affine-Cryptor"
 tags:
 - Affine Cryptor
 - Fully Undetectable Cryptor
