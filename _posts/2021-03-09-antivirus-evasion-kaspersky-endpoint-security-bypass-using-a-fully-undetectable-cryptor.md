@@ -9,7 +9,7 @@ excerpt: "This post shows a way to bypass AV using a Fully UnDetectable Cryptor"
 header:
   teaser: /assets/images/avatar.jpg
   overlay_image: /assets/images/2019/12/Affine.png
-  overlay_filter: rgba(0, 1, 0, 0.25)
+  overlay_filter: rgba(0, 0, 0, 0.5)
   actions:
     - label: "View Affine Cryptor"
       url: "https://github.com/xen0vas/Affine-Cryptor"
