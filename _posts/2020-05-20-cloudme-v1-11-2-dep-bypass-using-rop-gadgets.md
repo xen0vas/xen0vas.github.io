@@ -4,8 +4,15 @@ title: CloudMe v1.11.2 DEP bypass using ROP gadgets
 date: 2020-05-20
 classes: wide
 comments: false
+excerpt: "This post demonstrates a DEP bypass buffer overflow against the vulnerable CloudMe v1.11.2 application"
+
 header:
   teaser: /assets/images/avatar.jpg
+  overlay_image: /assets/images/2021/02/cloud.jpeg
+  overlay_filter: rgba(0, 0, 0, 0.5)
+  actions:
+    - label: "View CloudMe version 1.11.2 exploit"
+      url: "https://www.exploit-db.com/exploits/48499"
 tags:
 - Exploitation
 - Penetration Testing
@@ -13,6 +20,7 @@ tags:
 - ROP chains
 - ROP gadgets
 ---
+
 
 <p align="justify">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</p>
 
@@ -43,9 +51,9 @@ tags:
 <li>Debuggers ( e.g. WinDbg, Immunity, OlyDBG, etc )</li>
 </ul>
 <p align="justify">The vulnerable software can be found <a href="https://www.cloudme.com/downloads/CloudMe_1112.exe">here</a></p>
-<blockquote>
+<!--blockquote>
 <p align="justify">I have published this exploit on <a href="https://www.exploit-db.com/exploits/48499">exploit-db</a></p>
-</blockquote>
+</blockquote-->
 <p align="justify"><strong><em>Suggested reading :</em></strong></p>
 <p align="justify"><a href="https://www.corelan.be/index.php/2010/06/16/exploit-writing-tutorial-part-10-chaining-dep-with-rop-the-rubikstm-cube/#aslr">Exploit writing tutorial part 10 : Chaining DEP with ROP — the Rubik’s Cube</a></p>
 <hr />
