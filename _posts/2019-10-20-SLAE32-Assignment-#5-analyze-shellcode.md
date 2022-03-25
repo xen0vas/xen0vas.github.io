@@ -4,8 +4,15 @@ title: 'SLAE32 - Assignment #5 - Analyze Shellcode'
 date: 2019-10-20
 classes: wide
 comments: false
+excerpt: "This post analyzes msfvenom shellcode samples for the purpose of the SLAE32 certification course"
+
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
+  overlay_image: /assets/images/SLAE32/cert_.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View SLAE32 Course Assignment #5"
+      url: "https://github.com/xen0vas/SLAE/tree/master/Assignment5"
 tags:
   - SLAE32
   - Pentester Academy
@@ -16,7 +23,7 @@ tags:
 --- 
 
 
-<img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/>
+<!--img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 5:</strong></span></p>
 <p style="text-align:justify;">In this assignment (4) four <em>shellcode</em> samples from <em>msfvenom</em> will be analysed. In this particular exercise a reversing methodology will be provided in order to identify and understand the execution mechanisms of msfvenom samples. Furthermore, according to Offensive Security site, <em>msfvenom</em> is a combination of <em>Msfpayload</em> and <em>Msfencode</em> tools, putting both into a single Framework instance. The <em>msfvenom</em> tool replaced both <em>msfpayload</em> and <em>msfencode</em> as of June 8th, 2015. The <em>msfvenom</em> tool is extremely useful for generating payloads in various formats and encoding these payloads using various encoder modules.</p>
@@ -31,7 +38,7 @@ tags:
 <p style="text-align:justify;"><em>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</em></p>
 </blockquote>
 <blockquote class="">
-<p style="text-align:justify;">The full source code and scripts can be found at <a href="https://github.com/xvass/SLAE/tree/master/Assignment5">github</a></p>
+<!--p style="text-align:justify;">The full source code and scripts can be found at <a href="https://github.com/xvass/SLAE/tree/master/Assignment5">github</a></p-->
 </blockquote>
 <blockquote>
 <p>All the development and tests have been done in the following architecture&nbsp;</p>
