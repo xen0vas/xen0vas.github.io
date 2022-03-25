@@ -12,7 +12,7 @@ header:
   overlay_image: /assets/images/SLAE32/cert_.png
   overlay_filter: rgba(0, 0, 0, 0.7)
   actions:
-    - label: "View SLAE32 Course Assignment #3"
+    - label: "View files of SLAE32 Course Assignment #3"
       url: "https://github.com/xen0vas/SLAE/tree/master/Assignment3"
 tags:
   - SLAE
