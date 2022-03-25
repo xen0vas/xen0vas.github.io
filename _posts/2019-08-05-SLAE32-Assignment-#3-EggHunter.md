@@ -23,7 +23,7 @@ tags:
 ---
 
 
-<img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/>
+<!--img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 3:</strong></span></p>
 <p style="text-align:justify;">In this assignment a working demo of an EggHunter <em>shellcode</em> will be shown in practice. Specifically the goal of this assignment is the following</p>
