@@ -4,8 +4,15 @@ title: 'SLAE32 - Assignment #1 - Bind TCP Shell'
 date: 2019-05-13
 classes: wide
 comments: false
+excerpt: "This post demonstrates the creation of a bind TCP shellcode for the purpose of the SALE32 certification course"
+
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
+  overlay_image: /assets/images/SLAE32/cert_.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View SLAE32 Course Assignment #1"
+      url: "https://github.com/xen0vas/SLAE/tree/master/Assignment1"
 tags:
   - SLAE
   - Linux
@@ -26,9 +33,9 @@ tags:
 
 **Also the port number should be easily configurable**
 
-> This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert&nbsp;certification
+> ***Disclaimer :*** 
 
-> **The code and scripts for this assignment can be found on** &nbsp;**[github](https://github.com/xvass/SLAE/tree/master/Assignment1)**
+> This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert&nbsp;certification
 
 > All the development and tests have been implemented in the following architecture
 
