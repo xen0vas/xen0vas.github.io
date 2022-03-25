@@ -8,7 +8,7 @@ excerpt: "This post demonstrates the creation of a custom cryptor using the Affi
 
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
-  overlay_image: /assets/images/SLAE32/cert.png
+  overlay_image: /assets/images/SLAE32/cert_.png
   overlay_filter: rgba(0, 0, 0, 0.7)
   actions:
     - label: "View SLAE32 Course Assignment #7"
