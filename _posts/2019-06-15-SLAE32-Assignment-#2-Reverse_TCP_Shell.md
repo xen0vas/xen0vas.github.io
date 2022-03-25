@@ -37,7 +37,7 @@ tags:
   <br>
 <blockquote>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</blockquote>
 <span style="color:#000000;"><!-- wp:html --></span>
-<blockquote>The code and scripts for this assignment can be found on my <a href="https://github.com/xvass/SLAE/tree/master/Assignment2">github</a></blockquote>
+<!--blockquote>The code and scripts for this assignment can be found on my <a href="https://github.com/xvass/SLAE/tree/master/Assignment2">github</a></blockquote-->
 <blockquote>All the development and tests have been implemented in the following architecture</blockquote>
 <blockquote><strong>Linux kali 5.4.0-kali2-686-pae #1 SMP Debian 5.4.8-1kali1 (2020-01-06) i686 GNU/Linux&nbsp;</strong></blockquote>
 
