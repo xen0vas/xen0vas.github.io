@@ -4,8 +4,15 @@ title: 'SLAE32 - Assignment #2 - Reverse TCP Shell'
 date: 2019-06-15
 classes: wide
 comments: false
+excerpt: "This post demonstrates the creation of a reverse TCP shellcode for the purpose of the SALE32 certification course"
+
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
+  overlay_image: /assets/images/SLAE32/cert_.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View SLAE32 Course Assignment #2"
+      url: "https://github.com/xen0vas/SLAE/tree/master/Assignment2"
 tags:
   - SLAE
   - Linux
@@ -15,8 +22,7 @@ tags:
 ---
 
 
-
-<img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/>
+<!--img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 2:</strong></span></p>
 <p style="text-align:justify;">The goal of this assignment is to create a reverse <strong>TCP <em><strong>s</strong>hellcode</em></strong> that does the following</p>
@@ -26,6 +32,9 @@ tags:
  	<li><strong>Executes shell on successful connection</strong></li>
  	<li><strong>IP should be easily configurable</strong></li>
 </ul>
+<blockquote class=""><em><b>Disclaimer</b></em> :
+  </blockquote>
+  <br>
 <blockquote>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</blockquote>
 <span style="color:#000000;"><!-- wp:html --></span>
 <blockquote>The code and scripts for this assignment can be found on my <a href="https://github.com/xvass/SLAE/tree/master/Assignment2">github</a></blockquote>
