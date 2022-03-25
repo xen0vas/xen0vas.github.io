@@ -34,8 +34,8 @@ tags:
  	<li><strong>The Egg Hunter should be configurable for different payloads</strong></li>
 </ul>
 <blockquote class=""><em><b>Disclaimer</b></em> :
-
-<em>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</em></blockquote>
+</blockquote>
+<blockquote><em>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</em></blockquote>
 
 <!--blockquote class="">The full source code and scripts can be found at <a href="https://github.com/xvass/SLAE/tree/master/Assignment3">github</a></blockquote-->
 <h3><span style="color:#339966;">Egg Hunters Theory&nbsp;</span></h3>
