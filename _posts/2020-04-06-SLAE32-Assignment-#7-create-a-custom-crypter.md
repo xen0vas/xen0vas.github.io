@@ -9,7 +9,7 @@ excerpt: "This post demonstrates a the creation of a custom crypter using the Af
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
   overlay_image: /assets/images/SLAE32/cert.png
-  overlay_filter: rgba(0, 0, 0, 0.5)
+  overlay_filter: rgba(0, 0, 0, 0.7)
   actions:
     - label: "View SLAE32 Course Assignment #7"
       url: "https://github.com/xen0vas/SLAE/tree/master/Assignment7"
