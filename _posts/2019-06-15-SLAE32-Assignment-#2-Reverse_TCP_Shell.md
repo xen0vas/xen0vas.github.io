@@ -34,7 +34,6 @@ tags:
 </ul>
 <blockquote class=""><em><b>Disclaimer</b></em> :
   </blockquote>
-  <br>
 <blockquote>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</blockquote>
 <span style="color:#000000;"><!-- wp:html --></span>
 <!--blockquote>The code and scripts for this assignment can be found on my <a href="https://github.com/xvass/SLAE/tree/master/Assignment2">github</a></blockquote-->
