@@ -34,6 +34,8 @@ In this assignment the development process of a Crypter will be presented. The C
 
 A Crypter is a type of software that can encrypt, obfuscate, and manipulate malware, to make it harder to detect by security programs.
 </p>
+<blockquote class=""><em>Disclaimer</em> :
+<em>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</em></blockquote>
 
 <!-- > The full crypter source code and scripts can be found at [github](https://github.com/xvass/SLAE/tree/master/Assignment7) -->
 
