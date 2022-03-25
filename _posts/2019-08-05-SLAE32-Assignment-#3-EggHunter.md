@@ -5,8 +5,15 @@ description: 'In this assignment a working demo of the EggHunter shellcode will 
 date: 2019-08-05
 comments: false
 classes: wide
+excerpt: "This post demonstrates the creation of a custom cryptor using the Affine Cipher for the purpose of the SALE32 certification course"
+
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
+  overlay_image: /assets/images/SLAE32/cert.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View SLAE32 Course Assignment #3"
+      url: "https://github.com/xen0vas/SLAE/tree/master/Assignment3"
 tags:
   - SLAE
   - Linux
@@ -26,10 +33,10 @@ tags:
  	<li><strong>Create a working demo of&nbsp; the Egg Hunter </strong></li>
  	<li><strong>The Egg Hunter should be configurable for different payloads</strong></li>
 </ul>
-<blockquote class=""><em>Disclaimer</em> :
+<blockquote class=""><em><b>Disclaimer</b></em> :
 
 <em>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</em></blockquote>
-<blockquote class="">The full source code and scripts can be found at <a href="https://github.com/xvass/SLAE/tree/master/Assignment3">github</a></blockquote>
+<!--blockquote class="">The full source code and scripts can be found at <a href="https://github.com/xvass/SLAE/tree/master/Assignment3">github</a></blockquote-->
 <h3><span style="color:#339966;">Egg Hunters Theory&nbsp;</span></h3>
 <p style="text-align:justify;">In classic stack based buffer overflow, the buffer size is big enough to hold the <em>shellcode</em>, but in cases where the buffer length is bigger than the available buffer size then the <em>shellcode</em> will not fit into the available memory region and eventually it will crash on execution. For that reason, one solution is to use <em>egghunters</em>. In more detail, <em>egghunting</em> is a useful exploitation technique implemented to overcome the deficiency of a small buffer that cannot hold a <em>shellcode</em> that is bigger than the small available memory region. In addition to this, it might be possible to access a larger buffer somewhere else in memory. Doing so, a<span style="text-decoration:underline;"> tag of 4 bytes will be prepended at the <em>shellcode</em> and placed inside the larger buffer</span>. To this end, the small available memory region will contain a jump instruction to the <em>egghunter</em>. Then the <em>egghunter</em> will search the stack or the heap for two consecutive tags to find the <em>shellcode,</em> and in case the <em>shellcode</em> is found, then it will be executed. Essentially, egghunter is a piece of code that searches through the VAS ( Virtual Address Space ) looking for a token specified by the writer of the <em>egghunter</em>.</p>
 
