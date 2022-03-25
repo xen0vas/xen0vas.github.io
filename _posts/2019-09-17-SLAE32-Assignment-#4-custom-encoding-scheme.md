@@ -4,8 +4,15 @@ title: 'SLAE32 Assignment #4 - Custom Encoding Scheme'
 date: 2019-09-17
 classes: wide
 comments: false
+excerpt: "This post demonstrates a creation of a custom encoding scheme for the purpose of the SLAE32 certification course"
+
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
+  overlay_image: /assets/images/SLAE32/cert_.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View SLAE32 Course Assignment #4"
+      url: "https://github.com/xen0vas/SLAE/tree/master/Assignment4"
 tags:
   - SLAE
   - Linux
@@ -15,7 +22,7 @@ tags:
 ---
 
 
-<img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/>
+<!--img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 4:</strong></span></p>
 <p style="text-align:justify;">
@@ -31,7 +38,7 @@ In this assignment a custom shellcode encoder / decoder&nbsp; will be created in
 > 
 > _This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification_
 
-> The full source code and scripts can be found at [github](https://github.com/xvass/SLAE/tree/master/Assignment4)
+>
 > 
 > Published on
 > 
