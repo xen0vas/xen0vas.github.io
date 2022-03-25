@@ -37,8 +37,6 @@ A Crypter is a type of software that can encrypt, obfuscate, and manipulate malw
 <blockquote class=""><em><b>Disclaimer</b></em> :
 <em>This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert certification</em></blockquote>
 
-<!-- > The full crypter source code and scripts can be found at [github](https://github.com/xvass/SLAE/tree/master/Assignment7) -->
-
 <h2><span style="color:#339966;">The Affine Cipher</span></h2>
 
 <p style="text-align:justify;">
