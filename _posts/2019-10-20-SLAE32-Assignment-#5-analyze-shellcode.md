@@ -4,7 +4,7 @@ title: 'SLAE32 - Assignment #5 - Analyze Shellcode'
 date: 2019-10-20
 classes: wide
 comments: false
-excerpt: "This post analyzes msfvenom shellcode samples for the purpose of the SLAE32 certification course"
+excerpt: "This post analyzes four msfvenom shellcode samples for the purpose of the SLAE32 certification course"
 
 header:
   teaser: /assets/images/SLAE32/SLAE32.png

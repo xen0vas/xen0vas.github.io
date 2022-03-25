@@ -4,8 +4,15 @@ title: 'SLAE32 - Assignment #6 - Create Polymorphic Shellcode'
 date: 2019-11-14
 classes: wide
 comments: false
+excerpt: "This post demonstrates the creation of polymorphic shellcodes for the purpose of the SLAE32 certification course"
+
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
+  overlay_image: /assets/images/SLAE32/cert_.png
+  overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View SLAE32 Course Assignment #6"
+      url: "https://github.com/xen0vas/SLAE/tree/master/Assignment6"
 tags:
   - SLAE32
   - Pentester Academy
@@ -16,7 +23,7 @@ tags:
 --- 
 
 
-<img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/>
+<!--img style="border:none;" src="{{ site.baseurl }}/assets/images/SLAE32/SLAE32.png"/-->
 <h2><span style="color:#339966;"><strong>Student ID : SLAE &nbsp;- 1314</strong></span></h2>
 <p><span style="color:#339966;"><strong>Assignment 6:</strong></span></p>
 <p class="has-text-align-left">In this assignment, polymorphism will be shown in practice. The following three <em>shellcodes </em>posted on&nbsp;<a href="http://shell-storm.org/">shell-sotrm.org</a>&nbsp;will be used<strong><br /></strong></p>
@@ -39,8 +46,8 @@ tags:
 </blockquote>
 <p><!-- /wp:quote --></p>
 <p><!-- wp:quote --></p>
-<blockquote class="wp-block-quote"><p>The full source code and scripts can be found at <a href="https://github.com/xen0vas/SLAE/tree/master/Assignment6" >github</a></p>
-</blockquote>
+<!--blockquote class="wp-block-quote"><p>The full source code and scripts can be found at <a href="https://github.com/xen0vas/SLAE/tree/master/Assignment6" >github</a></p>
+</blockquote-->
 <p><!-- /wp:quote --></p>
 <p><!-- wp:paragraph --></p>
 <p style="text-align:justify;">Polymorphism is a technique that is used to create code mutation keeping the initial functionality intact. That is, the code changes, but the functionality of the code will not change at all. This method for example is needed in order to obfuscate the executable to evade <em>Antivirus</em> detection mechanism.</p>
