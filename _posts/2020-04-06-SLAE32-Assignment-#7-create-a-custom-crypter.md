@@ -4,7 +4,7 @@ title: 'SLAE32 - Assignment #7 - Create a Custom Crypter ( Affine Cipher )'
 date: 2020-04-06
 classes: wide
 comments: false
-excerpt: "This post demonstrates a the creation of a custom crypter using the Affine Cipher"
+excerpt: "This post demonstrates the creation of a custom cryptor using the Affine Cipher for the purpose of the SALE32 certification course"
 
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
