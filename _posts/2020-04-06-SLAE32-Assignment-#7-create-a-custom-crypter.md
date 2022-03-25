@@ -4,8 +4,16 @@ title: 'SLAE32 - Assignment #7 - Create a Custom Crypter ( Affine Cipher )'
 date: 2020-04-06
 classes: wide
 comments: false
+excerpt: "This post demonstrates a the creation of a custom crypter using the Affine Cipher"
+
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
+  overlay_image: /assets/images/SLAE32/cert.png
+  overlay_filter: rgba(0, 0, 0, 0.5)
+  actions:
+    - label: "View SLAE32 Course Assignment #7"
+      url: "https://github.com/xen0vas/SLAE/tree/master/Assignment7"
+
 tags:
   - SLAE32
   - Pentester Academy
@@ -27,7 +35,7 @@ In this assignment the development process of a Crypter will be presented. The C
 A Crypter is a type of software that can encrypt, obfuscate, and manipulate malware, to make it harder to detect by security programs.
 </p>
 
-> The full crypter source code and scripts can be found at [github](https://github.com/xvass/SLAE/tree/master/Assignment7)
+<!-- > The full crypter source code and scripts can be found at [github](https://github.com/xvass/SLAE/tree/master/Assignment7) -->
 
 <h2><span style="color:#339966;">The Affine Cipher</span></h2>
 
