@@ -5,7 +5,7 @@ description: 'In this assignment a working demo of the EggHunter shellcode will 
 date: 2019-08-05
 comments: false
 classes: wide
-excerpt: "This post demonstrates a working demo of an EggHunter shellcode for the purpose of the SALE32 certification course"
+excerpt: "This post demonstrates a working demo of an EggHunter shellcode for the purpose of the SLAE32 certification course"
 
 header:
   teaser: /assets/images/SLAE32/SLAE32.png

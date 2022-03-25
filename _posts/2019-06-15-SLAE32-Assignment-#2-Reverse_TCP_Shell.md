@@ -4,7 +4,7 @@ title: 'SLAE32 - Assignment #2 - Reverse TCP Shell'
 date: 2019-06-15
 classes: wide
 comments: false
-excerpt: "This post demonstrates the creation of a reverse TCP shellcode for the purpose of the SALE32 certification course"
+excerpt: "This post demonstrates the creation of a reverse TCP shellcode for the purpose of the SLAE32 certification course"
 
 header:
   teaser: /assets/images/SLAE32/SLAE32.png

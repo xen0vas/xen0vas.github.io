@@ -4,7 +4,7 @@ title: 'SLAE32 - Assignment #1 - Bind TCP Shell'
 date: 2019-05-13
 classes: wide
 comments: false
-excerpt: "This post demonstrates the creation of a bind TCP shellcode for the purpose of the SALE32 certification course"
+excerpt: "This post demonstrates the creation of a bind TCP shellcode for the purpose of the SLAE32 certification course"
 
 header:
   teaser: /assets/images/SLAE32/SLAE32.png
