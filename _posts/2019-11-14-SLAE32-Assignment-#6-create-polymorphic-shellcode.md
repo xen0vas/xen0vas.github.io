@@ -13,6 +13,10 @@ header:
   actions:
     - label: "View files of SLAE32 Course Assignment #6"
       url: "https://github.com/xen0vas/SLAE/tree/master/Assignment6"
+
+twitter:
+  card: summary_large_image
+
 tags:
   - SLAE32
   - Pentester Academy
