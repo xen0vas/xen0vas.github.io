@@ -23,7 +23,6 @@ header:
 <p align="justify">
 This article focuses on finalizing the construction of a tcp socket connection as well as explains the instructions regarding the establishment of a cmd shell interaction with the attacking machine using x86 assembly. This is the third and final part of a blog series that focuses on how to create a custom Win32 reverse shell shellcode. 
 </p>
-<br>
 
 <p align="justify">
 The full shellcode, and assembly instructions can also be found at 
