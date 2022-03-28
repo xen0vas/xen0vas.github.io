@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 'Win32 reverse shellcode - pt .3 - Constructing the reverse shell connection'
+title: 'Win32 reverse shellcode - pt .3 - Constructing the reverse shellcode'
 date: 2021-08-05
 classes: wide
 tags: WinDbg Win32 assembly Exploit Development
