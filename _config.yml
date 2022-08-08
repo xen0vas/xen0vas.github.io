@@ -111,7 +111,7 @@ analytics:
 author:
   name             : "Xenofon Vassilakopoulos"
   avatar           : "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Going @Red"
+  bio              : ""
   #location        : ""
   email            :
   links:
