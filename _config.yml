@@ -136,6 +136,9 @@ author:
     - label: "Linkedin"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/xvass/"
+    - label: "Buy me a Coffee"
+      icon: "fas fa-coffee"
+      url: "https://www.buymeacoffee.com/xen0vas"
 
 
 # Reading Files
