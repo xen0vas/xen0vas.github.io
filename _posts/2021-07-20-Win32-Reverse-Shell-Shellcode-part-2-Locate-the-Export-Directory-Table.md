@@ -50,7 +50,7 @@ According to Microsoft Docs,
 From the previous post <a href="https://xen0vas.github.io/Win32-Reverse-Shell-Shellcode-part-1-Locating-the-kernelbase-address/">[pt .1]</a>, we have accomplished to locate the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> base address. Now that we have the <code  style="background-color: lightgrey; color:black;"><b>kernelbase.dll</b></code> address, we need to parse the PE file structure to find the offset of the export directory table. It is worth to mention here that we will not proceed further in details about the PE file structure, but the following screenshot can provide useful information about the format of the PE file structure.
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" width="500" height="600" src="https://xen0vas.github.io/assets/images/2021/07/pe.png" alt="PE File Structure Format"/>
+<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" width="600" height="700" src="https://xen0vas.github.io/assets/images/2021/07/pe.png" alt="PE File Structure Format"/>
 
 <p align="justify">
 The image above has been taken from the following blog post which explains the PE format in more detail. 
