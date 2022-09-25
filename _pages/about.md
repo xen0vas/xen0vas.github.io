@@ -19,18 +19,16 @@ Im a Cyber Security Professional with 8+ years of working experience in Cyber Se
 - NATO/GR Security Clearance
 </p>
 
-<div style="max-width:100%;max-height:100%;display:inline-block;" id="badge1">
+<p align="justify">
+Some of my certifications are the following from Offensive Security
+</p>
+
 <a target="_blank" href="https://www.credly.com/badges/cdaec2f9-1191-4b51-83fc-55ef18d254c0/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/b1da1cd4-98da-48de-b604-b5d2b72ac696/image.png">
 </a>
-</div>
 &nbsp;&nbsp;&nbsp;
-<div style="max-width:100%;max-height:100%;display:inline-block;" id="badge2">
 <a target="_blank" href="https://www.credly.com/badges/0da1065a-11e7-4a42-9e48-62e69a9e3bcf/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/8e66b341-8fa9-43ff-a611-76b72a65b38f/image.png">
 </a>
-</div>
 &nbsp;&nbsp;&nbsp;
-<div style="display:inline-block;margin:0 auto;">
-<div style="max-width:100%;max-height:100%;display:inline-block;" id="badge3">
 <a target="_blank" href="https://www.credly.com/badges/c7b90f17-43c4-4edd-a17d-fc91b7ff9619/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/ec81134d-e80b-4eb5-ae07-0eb8e1a60fcd/image.png">
 </a>
-</div>
+
