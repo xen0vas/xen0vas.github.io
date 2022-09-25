@@ -19,8 +19,7 @@ Im a Cyber Security Professional with 8+ years of working experience in Cyber Se
 - NATO/GR Security Clearance
 </p>
 
-<br>
-<div style="max-width:100%;max-height:100%;display:inline-block;" id="badge2">
+<div style="max-width:100%;max-height:100%;display:inline-block;" id="badge1">
 <a target="_blank" href="https://www.credly.com/badges/cdaec2f9-1191-4b51-83fc-55ef18d254c0/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/b1da1cd4-98da-48de-b604-b5d2b72ac696/image.png">
 </a>
 </div>
@@ -31,7 +30,7 @@ Im a Cyber Security Professional with 8+ years of working experience in Cyber Se
 </div>
 &nbsp;&nbsp;&nbsp;
 <div style="display:inline-block;margin:0 auto;">
-<div style="max-width:100%;max-height:100%;display:inline-block;" id="badge1">
+<div style="max-width:100%;max-height:100%;display:inline-block;" id="badge3">
 <a target="_blank" href="https://www.credly.com/badges/c7b90f17-43c4-4edd-a17d-fc91b7ff9619/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/ec81134d-e80b-4eb5-ae07-0eb8e1a60fcd/image.png">
 </a>
 </div>
