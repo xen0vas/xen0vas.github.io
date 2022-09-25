@@ -21,7 +21,7 @@ Im a Cyber Security Professional with 8+ years of working experience in Cyber Se
 
 <br>
 <div style="max-width:100%;max-height:100%;display:inline-block;" id="badge2">
-<a target="_blank" href="https://www.youracclaim.com/badges/0da1065a-11e7-4a42-9e48-62e69a9e3bcf/public_url"><img width="105" height="105" alt="" src="https://images.youracclaim.com/size/220x220/images/b854a6ac-1d40-47a8-a9c5-a2bd9197ceb9/oswp-acclaim.png">
+<a target="_blank" href="https://www.credly.com/badges/0da1065a-11e7-4a42-9e48-62e69a9e3bcf/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/8e66b341-8fa9-43ff-a611-76b72a65b38f/image.png">
 </a>
 </div>
 &nbsp;&nbsp;&nbsp;
