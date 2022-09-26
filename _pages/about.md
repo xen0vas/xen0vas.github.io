@@ -15,7 +15,7 @@ date: September 25, 2022
 
 Hi 🖐
 <br><br>
-Thank you for visiting my page! Im a Cyber Security Professional and enthusiast. In my free time I like to contribute to my blog and post technical content related to cyber security. Currently, I’m working as a Senior Security Consultant / Penetration Tester <a href="https://twelvesec.com/">@TwelveSec</a>. 
+Thank you for visiting my page! Im a Cyber Security professional and security enthusiast. In my free time I like to contribute to my blog and post technical content related to Cyber Security. Currently, I’m working as a Senior Security Consultant / Penetration Tester <a href="https://twelvesec.com/">@TwelveSec</a>. 
 </p>
 
 <p align="justify">
