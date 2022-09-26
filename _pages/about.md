@@ -5,6 +5,7 @@ title: Summary
 author_profile: true
 header:
     overlay_image: /assets/images/best.jpg
+    overlay_filter: rgba(0, 0, 0, 0.7)
 classes: wide
 date: September 25, 2022
 ---
