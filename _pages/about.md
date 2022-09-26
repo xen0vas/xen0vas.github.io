@@ -14,11 +14,11 @@ date: September 25, 2022
 
 Hi 🖐
 <br><br>
-Im a Cyber Security Professional with 8+ years of working experience in Cyber Security Industry. My experience varies within the fields of information security, systems and network security, systems administration and secure software development. Currently, I’m working as a Senior Security Consultant / Penetration Tester <a href="https://twelvesec.com/">@TwelveSec</a>. Furthermore, throughout my career, I have worked closely with major Software houses, Financial Institutions and Agencies in Greece and abroad, providing high quality consulting services in the fields of Penetration Testing, Application Security and Network and Systems Security.
+Thank you for visiting my page! Im a Cyber Security Professional and enthusiast. In my free time I like to contribute to my blog and post technical content related to cyber security. Currently, I’m working as a Senior Security Consultant / Penetration Tester <a href="https://twelvesec.com/">@TwelveSec</a>. 
 </p>
 
 <p align="justify">
-Furthermore, some of my certifications are the following:
+Some of my certifications are the following:
 </p>
 
 <a target="_blank" href="https://www.credly.com/badges/cdaec2f9-1191-4b51-83fc-55ef18d254c0/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/b1da1cd4-98da-48de-b604-b5d2b72ac696/image.png">
