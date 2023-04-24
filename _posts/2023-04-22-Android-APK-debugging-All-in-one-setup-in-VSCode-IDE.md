@@ -73,7 +73,7 @@ The screenshot below shows the options we have when we are about to decompile an
 After pressing ok we can see at the output tab of VSCode, the following lines 
 </p>
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 -------------------------------------------------------------------------
 Decoding InsecureBankv2.apk into /Users/xenovas/Documents/InsecureBankv21
 -------------------------------------------------------------------------
@@ -121,7 +121,7 @@ Nevertheless, as mentioned before, this lab is about to provide instructions on 
 The actual structure of the decompiled APK can be seen below 
 </p>
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 InsecureBankv2
 ├── AndroidManifest.xml
 ├── apktool.yml
@@ -157,7 +157,7 @@ In order to rebuild the <i>InsecureBankv2.apk</i> we run the <code>apktool</code
 After rebuilding the <i>InsecureBankv2.apk</i> the following output should be shown
 </p>
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 ------------------------------------------------------
 Rebuilding InsecureBankv2.apk into InsecureBankv2/dist
 ------------------------------------------------------
@@ -219,7 +219,7 @@ Then, after rebuilding the <i>InsecureBankv2.apk</i>, as also shown at the outpu
 At this point, and when the rebuilding and resigning process finish, a new folder should appear at the treeview of the decompiled application which contains the updated <i>InsecureBankv2.apk</i>  as seen below. 
 </p>
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 InsecureBankv2/dist
 └── InsecureBankv2.apk
 </pre>
@@ -240,7 +240,7 @@ Ofcourse other emulators should also work such as genymotion, but as mentioned, 
 In sort, the following configuration / installations should be performed in order to use the AVD Manager 
 </p>
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 SDK Command-Line Tools   
 SDK Build Tools        
 SDK Platform Tools       
@@ -252,7 +252,7 @@ From the SDK tools panel on AVD Manager plugin, the SDK platform tools version 3
 </p>
 
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 cd < Android folder > / emulator
 ./emulator -writable-system -avd < emulator name >
 </pre>
@@ -278,7 +278,7 @@ We can choose both and after some modifications the  <code>launch.json</code> fi
 </p>
 
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 {
     "version": "0.2.0",
     "configurations": [
@@ -328,7 +328,7 @@ At this point we should be able to setup our breakpoins into the application but
 </p>
 
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 source
 ├── AndroidManifest.xml
 ├── apktool.yml
@@ -344,7 +344,7 @@ source
 Afterwards, we will start a new instance of VSCode and we will open the <code>source</code> folder using the following command 
 </p>
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 code a source
 </pre>
 
@@ -359,7 +359,7 @@ From the emulator we will start the InsecureBankV2 application and from the <cod
 Now that we know the process we want to debug we will also check into the relevant folder as seen at the structure below for code related with the login functionality in order to put a breakpoint inside a function of our choice 
 </p>
 
-<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 source/src/com/android/insecurebankv2
 ├── BuildConfig.java
 ├── C0238R.java
