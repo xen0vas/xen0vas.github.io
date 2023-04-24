@@ -121,7 +121,7 @@ Nevertheless, as mentioned before, this lab is about to provide instructions on 
 The actual structure of the decompiled APK can be seen below 
 </p>
 
-```bash
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 InsecureBankv2
 ├── AndroidManifest.xml
 ├── apktool.yml
@@ -129,7 +129,7 @@ InsecureBankv2
 ├── original
 ├── res
 └── smali
-```
+</pre>
 
 <p align="justify">
 From the tree view above, all the source code is located at the <code>java_src</code> folder and the decompiled dex classes directly related with the application are also located at the path depicted by the relevant running process on the android device. The <code>AndroidManifest.xml</code> describes essential information about the application to the Android build tools, the operating system, as well as the Google Play. Furthermore, the main resource files such as XML files used to define attribute animations, or other XML files containing drawables, etc., are placed into the <code>res</code> folder. Also the <code> smali </code> folder contains the decompiled code in smali which is also very intresting location as the smali code can be modified and patched in order to alter the application's behaviour. Finally, the <code>original</code> folder is the original <code>AndroidManifest.xml</code> file. The <code>apktool.yml</code> contains the configuration needed from the APKLab plugin in order to execute the <code>apktool</code> along with the relevant options provided by the developer. The <code>apktool</code> can be used to compile or decompile the APK. 
@@ -157,7 +157,7 @@ In order to rebuild the <i>InsecureBankv2.apk</i> we run the <code>apktool</code
 After rebuilding the <i>InsecureBankv2.apk</i> the following output should be shown
 </p>
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 ------------------------------------------------------
 Rebuilding InsecureBankv2.apk into InsecureBankv2/dist
 ------------------------------------------------------
@@ -199,7 +199,7 @@ Expires: Thu Mar 10 22:10:05 EET 2044
 [Mon Apr 24 07:21:59 EEST 2023][v1.2.1]
 Successfully processed 1 APKs and 0 errors in 1.16 seconds.
 Signing process was successful
-```
+</pre>
 
 <p align="justify">
 As seen above, when rebuilding the <i>InsecureBankv2.apk</i> the APKLab first uses the <code>apktool_2.7.0.jar</code> with the provided options 
@@ -219,10 +219,10 @@ Then, after rebuilding the <i>InsecureBankv2.apk</i>, as also shown at the outpu
 At this point, and when the rebuilding and resigning process finish, a new folder should appear at the treeview of the decompiled application which contains the updated <i>InsecureBankv2.apk</i>  as seen below. 
 </p>
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 InsecureBankv2/dist
 └── InsecureBankv2.apk
-```
+</pre>
 
 <p align="justify">
 The newly created APK should be easily installed inside an android emulator or an android device. For the purposes of this lab the AVD manager VSCode plugin will be used in order to install and create the emulator. 
@@ -240,24 +240,22 @@ Ofcourse other emulators should also work such as genymotion, but as mentioned, 
 In sort, the following configuration / installations should be performed in order to use the AVD Manager 
 </p>
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 SDK Command-Line Tools   
 SDK Build Tools        
 SDK Platform Tools       
 Emulator 
-
-```
+</pre>
 
 <p align="justify">
 From the SDK tools panel on AVD Manager plugin, the SDK platform tools version 34.0.1 will be installed, and then from the SDK platforms panel, the Android 11 (R) image with x86_64 ABI and Android SDK platform 30 will also be installed. Moreover, using the SDK tools we will install the android emulator version 32.1.12. Then we will start the emulator as follows 
 </p>
 
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 cd < Android folder > / emulator
 ./emulator -writable-system -avd < emulator name >
-
-```
+</pre>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/emulator.png" width="350" height="600" alt="Android Emulator"/>
 
@@ -280,7 +278,7 @@ We can choose both and after some modifications the  <code>launch.json</code> fi
 </p>
 
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 {
     "version": "0.2.0",
     "configurations": [
@@ -302,7 +300,7 @@ We can choose both and after some modifications the  <code>launch.json</code> fi
         }
     ]
 }
-```
+</pre>
 
 <p align="justify">
 After we choose the <code>Android: Launch Application</code> from the dropdown menu, the application will automatically be installed inside the android emulator. Nevertheless, other installation options could be used such as using <code>adb</code> command or just drag and drop the APK into the emulator. The following screen will be shown at the emulator while running the application through VSCode IDE in debug mode. 
@@ -330,7 +328,7 @@ At this point we should be able to setup our breakpoins into the application but
 </p>
 
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 source
 ├── AndroidManifest.xml
 ├── apktool.yml
@@ -340,16 +338,15 @@ source
 ├── res
 ├── smali
 └── src
-
-```
+</pre>
 
 <p align="justify">
 Afterwards, we will start a new instance of VSCode and we will open the <code>source</code> folder using the following command 
 </p>
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 code a source
-```
+</pre>
 
 <p align="justify">
 From the emulator we will start the InsecureBankV2 application and from the <code>Run and Debug</code> in VSCode we will choose the <code>Android attach</code> option from the dropdown menu in order to attach to a running process of InsecureBankV2. 
@@ -362,7 +359,7 @@ From the emulator we will start the InsecureBankV2 application and from the <cod
 Now that we know the process we want to debug we will also check into the relevant folder as seen at the structure below for code related with the login functionality in order to put a breakpoint inside a function of our choice 
 </p>
 
-```
+<pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 12px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 source/src/com/android/insecurebankv2
 ├── BuildConfig.java
 ├── C0238R.java
@@ -378,8 +375,7 @@ source/src/com/android/insecurebankv2
 ├── TrackUserContentProvider.java
 ├── ViewStatement.java
 └── WrongLogin.java
-
-```
+</pre>
 
 <p align="justify">
 As seen above there are four <code>.java</code> files that are closely related with the Login functionality as their names suggest, and so we can examine their code further to check for issue. For the purposes of this demonstration we will put a breakpoint into the <code>DoLogin.java</code> file at the <code>postData()</code> function at line 101. If we now put a username and password of our choice and press the login button we will have our hit! Now we can step into the code and check the values of the variables at the left pane on VSCode IDE.  
@@ -391,7 +387,3 @@ As seen above there are four <code>.java</code> files that are closely related w
 <p align="justify">
 Also as seen above, at the left pane of the VSCode IDE we have the variables, the call stack as well as the breakpoints listed, so we can examine the values, the function calls and the locations of our breakpoints into the code base. Thats it for now and i wish you happy bug hunting ! 
 </p>
-
-
-
-</p> 
