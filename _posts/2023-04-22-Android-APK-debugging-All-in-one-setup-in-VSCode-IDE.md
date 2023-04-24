@@ -23,7 +23,7 @@ tags:
 ---
 
 <p align="justify">
-This blog post explains how to use VScode IDE for debugging purposes in collaboration with some of the most trend plugins existing out there regarding Android APK code analysis. This blog post is mainly for Mobile Application Penetration Testers or Security Engineers who need to debug precompiled APKs in order to detect security issues inside the code, inspecting the code flow dynamically. For the purposes of this lab, the <i>InsecureBankv2.apk</i> will be used. 
+This blog post explains how to use VScode IDE for debugging purposes in collaboration with some of the most trend plugins existing out there regarding Android APK dynamic code analysis. This blog post is mainly for Mobile Application Penetration Testers or Security Engineers who need to debug precompiled APKs in order to detect security issues inside the code, inspecting the code flow dynamically. For the purposes of this lab, the <i>InsecureBankv2.apk</i> will be used. 
 </p>
 
 <p align="justify">
