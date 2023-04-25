@@ -48,7 +48,7 @@ If you want to read more on this amazing plugin you can read about it in their d
 
 
 <p align="justify">
-In order to let the APKLab to do the job, we need to open the <i>InsecureBankv2.apk</i> through the VSCode. Then from VSCode Menu, by choosing <code>View->Command Pallete</code>, we can search for the  <code>APKLab: Open an APK</code> command as shown at the screenshot below :
+In order to let the APKLab to do the job, we need to open the <i>InsecureBankv2.apk</i> through the VSCode. Then from VSCode Menu, by choosing <code style="background-color: lightgrey; color:black;" style="background-color: lightgrey; color:black;">View->Command Pallete</code>, we can search for the  <code style="background-color: lightgrey; color:black;">APKLab: Open an APK</code> command as shown at the screenshot below :
 </p>
 
 
@@ -56,12 +56,12 @@ In order to let the APKLab to do the job, we need to open the <i>InsecureBankv2.
 
 
 <p align="justify">
-From the <code>Open Folder</code> button as seen at the image above, the  <i>InsecureBankv2.apk</i> APK file can be chosen, and from there also several flags can be selected. The most common flags are listed below  
+From the <code style="background-color: lightgrey; color:black;">Open Folder</code> button as seen at the image above, the  <i>InsecureBankv2.apk</i> APK file can be chosen, and from there also several flags can be selected. The most common flags are listed below  
 </p>
 
-- <code>decompile_java</code> ( used for java decompilation ), 
-- <code>--only-main-classes</code> ( used for disassembling  the dex classess  ),
-- <code>--deobf</code> ( used for deobfuscation )
+- <code style="background-color: lightgrey; color:black;">decompile_java</code> ( used for java decompilation ), 
+- <code style="background-color: lightgrey; color:black;">--only-main-classes</code> ( used for disassembling  the dex classess  ),
+- <code style="background-color: lightgrey; color:black;">--deobf</code> ( used for deobfuscation )
 
 <p align="justify">
 The screenshot below shows the options we have when we are about to decompile an APK file using the APKLab plugin in  VSCode  
@@ -99,7 +99,7 @@ Decompiling process was successful
 </pre>
 
 <p align="justify">
-As seen from the output above, APKLab first uses the <code>apktool</code> version 2.7.0 in order to decode the android app into smali code and then uses <code>jadx</code> tool version 1.4.6 in order to perform the actual decompilation of the provided code in java
+As seen from the output above, APKLab first uses the <code style="background-color: lightgrey; color:black;">apktool</code> version 2.7.0 in order to decode the android app into smali code and then uses <code style="background-color: lightgrey; color:black;">jadx</code> tool version 1.4.6 in order to perform the actual decompilation of the provided code in java
 </p> 
 
 <pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
@@ -114,7 +114,7 @@ From this point the  <i>InsecureBankv2.apk</i> APK file has been decompiled and 
 
 
 <p align="justify">
-Nevertheless, as mentioned before, this lab is about to provide instructions on how to setup an APK debugger on VSCode in order to debug a decompiled <code>.apk</code> file. Thus, the next steps are about to show how to setup a debugger in order to accomplish this. 
+Nevertheless, as mentioned before, this lab is about to provide instructions on how to setup an APK debugger on VSCode in order to debug a decompiled <code style="background-color: lightgrey; color:black;">.apk</code> file. Thus, the next steps are about to show how to setup a debugger in order to accomplish this. 
 </p>
 
 <p align="justify">
@@ -132,24 +132,24 @@ InsecureBankv2
 </pre>
 
 <p align="justify">
-From the tree view above, all the source code is located at the <code>java_src</code> folder and the decompiled dex classes directly related with the application are also located at the path depicted by the relevant running process on the android device. The <code>AndroidManifest.xml</code> describes essential information about the application to the Android build tools, the operating system, as well as the Google Play. Furthermore, the main resource files such as XML files used to define attribute animations, or other XML files containing drawables, etc., are placed into the <code>res</code> folder. Also the <code> smali </code> folder contains the decompiled code in smali which is also very intresting location as the smali code can be modified and patched in order to alter the application's behaviour. Finally, the <code>original</code> folder is the original <code>AndroidManifest.xml</code> file. The <code>apktool.yml</code> contains the configuration needed from the APKLab plugin in order to execute the <code>apktool</code> along with the relevant options provided by the developer. The <code>apktool</code> can be used to compile or decompile the APK. 
+From the tree view above, all the source code is located at the <code style="background-color: lightgrey; color:black;">java_src</code> folder and the decompiled dex classes directly related with the application are also located at the path depicted by the relevant running process on the android device. The <code style="background-color: lightgrey; color:black;">AndroidManifest.xml</code> describes essential information about the application to the Android build tools, the operating system, as well as the Google Play. Furthermore, the main resource files such as XML files used to define attribute animations, or other XML files containing drawables, etc., are placed into the <code style="background-color: lightgrey; color:black;">res</code> folder. Also the <code style="background-color: lightgrey; color:black;"> smali </code> folder contains the decompiled code in smali which is also very intresting location as the smali code can be modified and patched in order to alter the application's behaviour. Finally, the <code style="background-color: lightgrey; color:black;">original</code> folder is the original <code style="background-color: lightgrey; color:black;">AndroidManifest.xml</code> file. The <code style="background-color: lightgrey; color:black;">apktool.yml</code> contains the configuration needed from the APKLab plugin in order to execute the <code style="background-color: lightgrey; color:black;">apktool</code> along with the relevant options provided by the developer. The <code style="background-color: lightgrey; color:black;">apktool</code> can be used to compile or decompile the APK. 
 </p>
 
 
 <p align="justify">
-At this point we will rebuild the APK using the <code>apktool</code> in order to recompile it with debug mode enabled. This could be easily accomplished by using the APKLab plugin. The following screenshot shows the <code>APKLab: Rebuild the APK</code> option when right clicking on <code>apktool.yml</code> 
+At this point we will rebuild the APK using the <code style="background-color: lightgrey; color:black;">apktool</code> in order to recompile it with debug mode enabled. This could be easily accomplished by using the APKLab plugin. The following screenshot shows the <code style="background-color: lightgrey; color:black;">APKLab: Rebuild the APK</code> option when right clicking on <code style="background-color: lightgrey; color:black;">apktool.yml</code> 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild_2.png" width="750" height="400" alt="APKLab decompiled APK file"/>
 
 <p align="justify">
-The following screenshot shows the  <code>apktool</code> optional arguments as seen from the command palette on VSCode 
+The following screenshot shows the  <code style="background-color: lightgrey; color:black;">apktool</code> optional arguments as seen from the command palette on VSCode 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild.png" width="750" height="400" alt="APKLab decompiled APK file"/>
 
 <p align="justify">
-In order to rebuild the <i>InsecureBankv2.apk</i> we run the <code>apktool</code> by right clicking on the <code>apktool.yml</code> file from inside the VSCode IDE
+In order to rebuild the <i>InsecureBankv2.apk</i> we run the <code style="background-color: lightgrey; color:black;">apktool</code> by right clicking on the <code style="background-color: lightgrey; color:black;">apktool.yml</code> file from inside the VSCode IDE
 </p>
 
 
@@ -202,16 +202,16 @@ Signing process was successful
 </pre>
 
 <p align="justify">
-As seen above, when rebuilding the <i>InsecureBankv2.apk</i> the APKLab first uses the <code>apktool_2.7.0.jar</code> with the provided options 
+As seen above, when rebuilding the <i>InsecureBankv2.apk</i> the APKLab first uses the <code style="background-color: lightgrey; color:black;">apktool_2.7.0.jar</code> with the provided options 
 </p>
 
-- <code>--use-aapt2</code> : AAPT2 (Android Asset Packaging Tool) is a build tool used to compile and package the applications's resources. AAPT2 parses, indexes, and compiles the resources into a binary format that is optimized for the Android platform.
-- <code>--debug</code> : Sets android:debuggable to "true" in the APK's compiled manifest
-- <code>--force-all</code> : Overwrites existing files during build, reassembling the resources.arsc file and dex file(s)
+- <code style="background-color: lightgrey; color:black;">--use-aapt2</code> : AAPT2 (Android Asset Packaging Tool) is a build tool used to compile and package the applications's resources. AAPT2 parses, indexes, and compiles the resources into a binary format that is optimized for the Android platform.
+- <code style="background-color: lightgrey; color:black;">--debug</code> : Sets android:debuggable to "true" in the APK's compiled manifest
+- <code style="background-color: lightgrey; color:black;">--force-all</code> : Overwrites existing files during build, reassembling the resources.arsc file and dex file(s)
 
 
 <p align="justify">
-Then, after rebuilding the <i>InsecureBankv2.apk</i>, as also shown at the output above, the <a href="https://github.com/patrickfav/uber-apk-signer/releases/download/v1.2.1/uber-apk-signer-1.2.1.jar"><code>uber-apk-signer-1.2.1.jar</code></a>  used by the APKLab in order to resign the APK. Android requires that all APKs be digitally signed with a certificate before they are installed on a device or updated.
+Then, after rebuilding the <i>InsecureBankv2.apk</i>, as also shown at the output above, the <a href="https://github.com/patrickfav/uber-apk-signer/releases/download/v1.2.1/uber-apk-signer-1.2.1.jar"><code style="background-color: lightgrey; color:black;">uber-apk-signer-1.2.1.jar</code></a>  used by the APKLab in order to resign the APK. Android requires that all APKs be digitally signed with a certificate before they are installed on a device or updated.
 </p>
 
 
@@ -267,14 +267,14 @@ Furthermore, the <a href="https://github.com/adelphes/android-dev-ext">adelphes 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/adelphes.png" width="750" height="500" alt="Android Emulator"/>
 
 <p align="justify">
-From VSCode IDE on the menu bar on the left we will select the "Run and Debug" button. From there, the "Add Configuration" option will be selected listed at the dropdown menu. Then, there will be two options to select regarding the Android configuration. The first should be the  <code>Android: Attach to Process</code> and the second should be the <code>Android: Launch Application</code>. 
+From VSCode IDE on the menu bar on the left we will select the "Run and Debug" button. From there, the "Add Configuration" option will be selected listed at the dropdown menu. Then, there will be two options to select regarding the Android configuration. The first should be the  <code style="background-color: lightgrey; color:black;">Android: Attach to Process</code> and the second should be the <code style="background-color: lightgrey; color:black;">Android: Launch Application</code>. 
 </p>
 
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/Run_and_Debug.png" width="750" height="500" alt="Android Emulator"/>
 
 <p align="justify">
-We can choose both and after some modifications the  <code>launch.json</code> file should as be as follows. 
+We can choose both and after some modifications the  <code style="background-color: lightgrey; color:black;">launch.json</code> file should as be as follows. 
 </p>
 
 
@@ -303,7 +303,7 @@ We can choose both and after some modifications the  <code>launch.json</code> fi
 </pre>
 
 <p align="justify">
-After we choose the <code>Android: Launch Application</code> from the dropdown menu, the application will automatically be installed inside the android emulator. Nevertheless, other installation options could be used such as using <code>adb</code> command or just drag and drop the APK into the emulator. The following screen will be shown at the emulator while running the application through VSCode IDE in debug mode. 
+After we choose the <code style="background-color: lightgrey; color:black;">Android: Launch Application</code> from the dropdown menu, the application will automatically be installed inside the android emulator. Nevertheless, other installation options could be used such as using <code style="background-color: lightgrey; color:black;">adb</code> command or just drag and drop the APK into the emulator. The following screen will be shown at the emulator while running the application through VSCode IDE in debug mode. 
 </p>
 
 
@@ -324,7 +324,7 @@ Now restart the debugger and after a while the application's login screen will s
 
 
 <p align="justify">
-At this point we should be able to setup our breakpoins into the application but before we do this, we should close everything in VSCode including the debugger and then we will change the application's folder name into <code>source</code>. Then we will do the same at the <code>java_src</code> folder and we will rename it to <code>src</code>. Afterwards, the new structure of the decompiled application should be as follows 
+At this point we should be able to setup our breakpoins into the application but before we do this, we should close everything in VSCode including the debugger and then we will change the application's folder name into <code style="background-color: lightgrey; color:black;">source</code>. Then we will do the same at the <code style="background-color: lightgrey; color:black;">java_src</code> folder and we will rename it to <code style="background-color: lightgrey; color:black;">src</code>. Afterwards, the new structure of the decompiled application should be as follows 
 </p>
 
 
@@ -341,7 +341,7 @@ source
 </pre>
 
 <p align="justify">
-Afterwards, we will start a new instance of VSCode and we will open the <code>source</code> folder using the following command 
+Afterwards, we will start a new instance of VSCode and we will open the <code style="background-color: lightgrey; color:black;">source</code> folder using the following command 
 </p>
 
 <pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
@@ -349,7 +349,7 @@ code a source
 </pre>
 
 <p align="justify">
-From the emulator we will start the InsecureBankV2 application and from the <code>Run and Debug</code> in VSCode we will choose the <code>Android attach</code> option from the dropdown menu in order to attach to a running process of InsecureBankV2. 
+From the emulator we will start the InsecureBankV2 application and from the <code style="background-color: lightgrey; color:black;">Run and Debug</code> in VSCode we will choose the <code style="background-color: lightgrey; color:black;">Android attach</code> option from the dropdown menu in order to attach to a running process of InsecureBankV2. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/android_attach.png" width="750" height="300" alt="Android Emulator"/>
@@ -378,7 +378,7 @@ source/src/com/android/insecurebankv2
 </pre>
 
 <p align="justify">
-As seen above there are four <code>.java</code> files that are closely related with the Login functionality as their names suggest, and so we can examine their code further to check for issue. For the purposes of this demonstration we will put a breakpoint into the <code>DoLogin.java</code> file at the <code>postData()</code> function at line 101. If we now put a username and password of our choice and press the login button we will have our hit! Now we can step into the code and check the values of the variables at the left pane on VSCode IDE.  
+As seen above there are four <code style="background-color: lightgrey; color:black;">.java</code> files that are closely related with the Login functionality as their names suggest, and so we can examine their code further to check for issue. For the purposes of this demonstration we will put a breakpoint into the <code style="background-color: lightgrey; color:black;">DoLogin.java</code> file at the <code style="background-color: lightgrey; color:black;">postData()</code> function at line 101. If we now put a username and password of our choice and press the login button we will have our hit! Now we can step into the code and check the values of the variables at the left pane on VSCode IDE.  
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/breakpoint.png" width="750" height="500" alt="Android Emulator"/>
