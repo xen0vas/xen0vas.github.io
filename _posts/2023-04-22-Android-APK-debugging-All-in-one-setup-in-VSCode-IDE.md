@@ -48,7 +48,7 @@ If you want to read more on this amazing plugin you can read the APKLab document
 
 
 <p align="justify">
-In order to let the APKLab to do the job, we need to open the <i>InsecureBankv2.apk</i> through the VSCode. Then from VSCode Menu, by choosing <code style="background-color: lightgrey; color:black;" style="background-color: lightgrey; color:black;">View->Command Pallete</code>, we can search for the  <code style="background-color: lightgrey; color:black;">APKLab: Open an APK</code> command as shown at the screenshot below :
+In order to let the APKLab to do its job, we need to open the <i>InsecureBankv2.apk</i> through the VSCode. Then from VSCode Menu, by choosing <code style="background-color: lightgrey; color:black;" style="background-color: lightgrey; color:black;">View->Command Pallete</code>, we can search for the  <code style="background-color: lightgrey; color:black;">APKLab: Open an APK</code> command as shown at the screenshot below :
 </p>
 
 
