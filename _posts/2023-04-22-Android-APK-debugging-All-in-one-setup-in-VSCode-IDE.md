@@ -43,7 +43,7 @@ As also stated at the Extention's page in VScode, APKLab is a plugin that integr
 - apk-mitm  
 
 <p align="justify">
-If you want to read more on this amazing plugin you can read the APKLab documentation -> <a href="https://apklab.surendrajat.xyz/">https://apklab.surendrajat.xyz</a> 
+If you want to read more about this amazing plugin you can read the APKLab documentation at the following link <a href="https://apklab.surendrajat.xyz/">https://apklab.surendrajat.xyz</a> 
 </p>
 
 
