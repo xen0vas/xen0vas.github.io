@@ -9,7 +9,7 @@ excerpt: "This blog post explains how to debug an APK file using tools such as V
 
 header:
   teaser: /assets/images/avatar.jpg
-  overlay_image: /assets/images/2023/04/debuging.png
+  overlay_image: /assets/images/2023/04/debugging.png
   overlay_filter: rgba(0, 0, 0, 0.7)
 
 tags:
