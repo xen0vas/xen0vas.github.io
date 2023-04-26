@@ -8,7 +8,7 @@ comments: false
 excerpt: "This blog post explains how to debug an APK file using tools such as VScode, APKLab and adelphes"
 
 header:
-  teaser: /assets/images/avatar.jpg
+  teaser: /assets/images/2023/04/debugging.png
   overlay_image: /assets/images/2023/04/debugging.png
   overlay_filter: rgba(0, 0, 0, 0.7)
 
@@ -33,7 +33,7 @@ First, the <i>InsecureBankv2.apk</i>  will be decompiled using the APKLab plugin
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APKLab.png" width="750" height="400" alt="APKLab"/>
 
 <p align="justify">
-As also stated at the Extention's page in VScode, APKLab is a plugin that integrates open-source tools as those listed below to VScode making the tool very effective because it eliminates the need of running these tools outside the IDE, and as such it gives the code analyst the ability to spend more time in debugging the code rather than in debugging preparation. 
+As also stated at the Extention's page in VScode, APKLab is a plugin that integrates open-source tools to VScode as those listed below, making the tool very effective because it eliminates the need of running these tools outside the IDE, and as such it gives the code analyst the ability to spend more time in debugging the code rather than in the debugging preparation. 
 </p>
 
 - Quark-Engine, 
