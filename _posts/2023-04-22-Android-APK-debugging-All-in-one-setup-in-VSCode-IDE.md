@@ -56,7 +56,7 @@ In order to let the APKLab to do its job, we need to open the <i>InsecureBankv2.
 
 
 <p align="justify">
-From the <code style="background-color: lightgrey; color:black;">Open Folder</code> button as seen at the image above, the  <i>InsecureBankv2.apk</i> APK file can be chosen, and from there also several flags can be selected. The most common flags are listed below  
+From the <code style="background-color: lightgrey; color:black;">Open Folder</code> button as seen at the image above, the  <i>InsecureBankv2.apk</i> APK file can be chosen, and from there also several arguments can be selected. The most common arguments are listed below  
 </p>
 
 - <code style="background-color: lightgrey; color:black;">decompile_java</code> ( used for java decompilation ), 
