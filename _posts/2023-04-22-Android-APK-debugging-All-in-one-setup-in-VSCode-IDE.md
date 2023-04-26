@@ -114,7 +114,7 @@ From this point the  <i>InsecureBankv2.apk</i> APK file has been decompiled and 
 
 
 <p align="justify">
-Nevertheless, as mentioned before, this lab is about to provide instructions on how to setup an APK debugger on VSCode in order to debug a decompiled <code style="background-color: lightgrey; color:black;">.apk</code> file. Thus, the next steps are about to show how to setup a debugger in order to accomplish this. 
+Nevertheless, as mentioned before, this lab is about to provide instructions on how to setup an APK debugger on VSCode in order to debug a decompiled <code style="background-color: lightgrey; color:black;">.apk</code> file. Thus, the next steps are about to show how to setup a debugger in order to accomplish this task. 
 </p>
 
 <p align="justify">
