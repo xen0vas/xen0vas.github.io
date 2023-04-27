@@ -324,9 +324,8 @@ Now restart the debugger and after a while the application's login screen will s
 
 
 <p align="justify">
-At this point we should be able to setup our breakpoins into the application but before we do this, we should close everything in VSCode including the debugger and then we will change the application's folder name into <code style="background-color: lightgrey; color:black;">source</code>. Then we will do the same at the <code style="background-color: lightgrey; color:black;">java_src</code> folder and we will rename it to <code style="background-color: lightgrey; color:black;">src</code>. Afterwards, the new structure of the decompiled application should be as follows 
+At this point we should be able to add breakpoins into the code, but before we do this we should close everything in VSCode including the debugger, and then we will change the application's folder name into <code style="background-color: lightgrey; color:black;">source</code>. Then we will do the same at the <code style="background-color: lightgrey; color:black;">java_src</code> folder and we will rename it to <code style="background-color: lightgrey; color:black;">src</code>. Afterwards, the new structure of the decompiled application will be as follows 
 </p>
-
 
 <pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
 source
@@ -349,14 +348,14 @@ code a source
 </pre>
 
 <p align="justify">
-From the emulator we will start the InsecureBankV2 application and from the <code style="background-color: lightgrey; color:black;">Run and Debug</code> in VSCode we will choose the <code style="background-color: lightgrey; color:black;">Android attach</code> option from the dropdown menu in order to attach to a running process of InsecureBankV2. 
+From the emulator we will start the InsecureBankV2 application and from the <code style="background-color: lightgrey; color:black;">Run and Debug</code> in VSCode we will choose the <code style="background-color: lightgrey; color:black;">Android attach</code> option from the dropdown menu in order to attach to a running process of the InsecureBankV2 app. 
 </p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/android_attach.png" width="750" height="300" alt="Android Emulator"/>
 
 
 <p align="justify">
-Now that we know the process we want to debug we will also check into the relevant folder as seen at the structure below for code related with the login functionality in order to put a breakpoint inside a function of our choice 
+Now that we found the process we want to debug we will also check into the relevant folder as seen at the structure below for code related with the login functionality in order to put a breakpoint inside a function of our choice 
 </p>
 
 <pre style=" color: white; background: #000000; border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New; font-size: 15px; line-height: 1.6; margin-bottom: 1.6em; max-width: 100%; padding: 1em 1.5em; display: block; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
