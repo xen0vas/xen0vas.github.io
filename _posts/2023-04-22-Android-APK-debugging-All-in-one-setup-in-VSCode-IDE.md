@@ -30,7 +30,9 @@ This blog post explains how to use VScode IDE for debugging purposes in collabor
 First, the <i>InsecureBankv2.apk</i>  will be decompiled using the APKLab plugin. The APKLab plugin can be installed directly to VScode through the use of Extentions as shown at the screenshot below  
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APKLab.png" width="750" height="400" alt="APKLab"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/APKLab.png">
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APKLab.png" width="750" height="400" alt="APKLab"/>
+</a>
 
 <p align="justify">
 As also stated at the Extention's page in VScode, APKLab is a plugin that integrates open-source tools to VScode as those listed below, making the tool very effective because it eliminates the need of running these tools outside the IDE, and as such it gives the code analyst the ability to spend more time in debugging the code rather than in the debugging preparation. 
@@ -51,8 +53,9 @@ If you want to read more about this amazing plugin you can read the APKLab docum
 In order to let the APKLab to do its job, we need to open the <i>InsecureBankv2.apk</i> through the VSCode. Then from VSCode Menu, by choosing <code style="background-color: lightgrey; color:black;" style="background-color: lightgrey; color:black;">View->Command Pallete</code>, we can search for the  <code style="background-color: lightgrey; color:black;">APKLab: Open an APK</code> command as shown at the screenshot below :
 </p>
 
-
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/command_palette.png" width="750" height="400" alt="APKLab command palette"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/command_palette.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/command_palette.png" width="750" height="400" alt="APKLab command palette"/>
+</a>
 
 
 <p align="justify">
@@ -67,7 +70,9 @@ From the <code style="background-color: lightgrey; color:black;">Open Folder</co
 The screenshot below shows the options we have when we are about to decompile an APK file using the APKLab plugin in  VSCode  
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APKLab_flags.png" width="750" height="400" alt="APKLab flags"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/APKLab_flags.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APKLab_flags.png" width="750" height="400" alt="APKLab flags"/>
+</a>
 
 <p align="justify">
 After pressing ok we can see at the output tab of VSCode, the following lines 
@@ -110,7 +115,9 @@ jadx --deobf -r -q -v -ds /Users/xenovas/Documents/InsecureBankv21/java_src /Use
 From this point the  <i>InsecureBankv2.apk</i> APK file has been decompiled and the code can be now analysed statically. The following screenshot shows the decompiled code as seen from the Explorer tab of VSCode 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APKLab_decompiled_APK.png" width="750" height="400" alt="APKLab decompiled APK file"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/APKLab_decompiled_APK.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APKLab_decompiled_APK.png" width="750" height="400" alt="APKLab decompiled APK file"/>
+</a>
 
 
 <p align="justify">
@@ -140,7 +147,9 @@ From the tree view above, all the source code is located at the <code style="bac
 At this point we will rebuild the APK using the <code style="background-color: lightgrey; color:black;">apktool</code> in order to recompile it with debug mode enabled. This could be easily accomplished by using the APKLab plugin. The following screenshot shows the <code style="background-color: lightgrey; color:black;">APKLab: Rebuild the APK</code> option when right clicking on <code style="background-color: lightgrey; color:black;">apktool.yml</code> 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild_2.png" width="750" height="400" alt="APKLab decompiled APK file"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild_2.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild_2.png" width="750" height="400" alt="APKLab decompiled APK file"/>
+</a>
 
 <p align="justify">
 The following screenshot shows the  <code style="background-color: lightgrey; color:black;">apktool</code> optional arguments as seen from the command palette on VSCode 
