@@ -155,7 +155,9 @@ At this point we will rebuild the APK using the <code style="background-color: l
 The following screenshot shows the  <code style="background-color: lightgrey; color:black;">apktool</code> optional arguments as seen from the command palette on VSCode 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild.png" width="750" height="400" alt="APKLab decompiled APK file"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/APK_rebuild.png" width="750" height="400" alt="APKLab decompiled APK file"/>
+</a>
 
 <p align="justify">
 In order to rebuild the <i>InsecureBankv2.apk</i> we run the <code style="background-color: lightgrey; color:black;">apktool</code> by right clicking on the <code style="background-color: lightgrey; color:black;">apktool.yml</code> file from inside the VSCode IDE
@@ -237,13 +239,18 @@ InsecureBankv2/dist
 The newly created APK should be easily installed inside an android emulator or an android device. For the purposes of this lab the AVD manager VSCode plugin will be used in order to install and create the emulator. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/AVD_Manager_1.png" width="750" height="500" alt="AVD Manager"/>
+
+<a href="https://xen0vas.github.io/assets/images/2023/04/AVD_Manager_1.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/AVD_Manager_1.png" width="750" height="500" alt="AVD Manager"/>
+</a>
 
 <p align="justify">
 Ofcourse other emulators should also work such as genymotion, but as mentioned, this lab describes the "All in one setup" in VSCode. Moreover, because this lab is focused mainly on the debuging setup we will not go into great details of how to install and configure the virtual devices and Android SDK through the AVD Manager plugin. Nevertheless, the following screenshot shows a preview regarding the AVD Manager setup as seen at the output tab on VSCode 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/AVD_Manager.png" width="750" height="400" alt="AVD Manager"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/AVD_Manager.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/AVD_Manager.png" width="750" height="400" alt="AVD Manager"/>
+</a>
 
 <p align="justify">
 In sort, the following configuration / installations should be performed in order to use the AVD Manager 
@@ -266,21 +273,27 @@ cd < Android folder > / emulator
 ./emulator -writable-system -avd < emulator name >
 </pre>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/emulator.png" width="350" height="600" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/emulator.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/emulator.png" width="350" height="600" alt="Android Emulator"/>
+</a>
 
 
 <p align="justify">
 Furthermore, the <a href="https://github.com/adelphes/android-dev-ext">adelphes android debugger</a> plugin will be also be installed in VSCode IDE. This plugin allows developers to install, launch and debug Android applications from within the VSCode environment.
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/adelphes.png" width="750" height="500" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/adelphes.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/adelphes.png" width="750" height="500" alt="Android Emulator"/>
+</a>
 
 <p align="justify">
 From VSCode IDE on the menu bar on the left we will select the "Run and Debug" button. From there, the "Add Configuration" option will be selected listed at the dropdown menu. Then, there will be two options to select regarding the Android configuration. The first should be the  <code style="background-color: lightgrey; color:black;">Android: Attach to Process</code> and the second should be the <code style="background-color: lightgrey; color:black;">Android: Launch Application</code>. 
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/Run_and_Debug.png" width="750" height="500" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/Run_and_Debug.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/Run_and_Debug.png" width="750" height="500" alt="Android Emulator"/>
+</a>
 
 <p align="justify">
 We can choose both and after some modifications the  <code style="background-color: lightgrey; color:black;">launch.json</code> file should as be as follows. 
@@ -316,20 +329,26 @@ After we choose the <code style="background-color: lightgrey; color:black;">Andr
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/first_run_insecurebank.png" width="350" height="600" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/first_run_insecurebank.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/first_run_insecurebank.png" width="350" height="600" alt="Android Emulator"/>
+</a>
 
 <p align="justify">
 Now, choose continue and then the following screen should be shown
 </p>
 
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/Waiting_for_debugger.png" width="350" height="600" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/Waiting_for_debugger.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/Waiting_for_debugger.png" width="350" height="600" alt="Android Emulator"/>
+</a>
 
 <p align="justify">
 Now restart the debugger and after a while the application's login screen will show up. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/login.png" width="350" height="600" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/login.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/login.png" width="350" height="600" alt="Android Emulator"/>
+</a>
 
 
 <p align="justify">
@@ -360,7 +379,9 @@ code a source
 From the emulator we will start the InsecureBankV2 application and from the <code style="background-color: lightgrey; color:black;">Run and Debug</code> in VSCode we will choose the <code style="background-color: lightgrey; color:black;">Android attach</code> option from the dropdown menu in order to attach to a running process of the InsecureBankV2 app. 
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/android_attach.png" width="750" height="300" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/android_attach.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/android_attach.png" width="750" height="300" alt="Android Emulator"/>
+</a>
 
 
 <p align="justify">
@@ -389,7 +410,9 @@ source/src/com/android/insecurebankv2
 As seen above there are four <code style="background-color: lightgrey; color:black;">.java</code> files and as their names suggest they are closely related with the Login functionality. Then, we can examine the code of the <code style="background-color: lightgrey; color:black;">.java</code> files related with the Login functionality for security issues. For the purposes of this demonstration we will put a breakpoint into the <code style="background-color: lightgrey; color:black;">DoLogin.java</code> file at the <code style="background-color: lightgrey; color:black;">postData()</code> function at line 101. If we now put a username and password of our choice and press the login button we will have our hit! Now we can step into the code and check the values of the variables at the left pane on VSCode IDE.  
 </p>
 
-<img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/breakpoint.png" width="750" height="500" alt="Android Emulator"/>
+<a href="https://xen0vas.github.io/assets/images/2023/04/breakpoint.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/04/breakpoint.png" width="750" height="500" alt="Android Emulator"/>
+</a>
 
 
 <p align="justify">
