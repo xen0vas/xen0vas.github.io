@@ -26,6 +26,7 @@ Some of my certifications are the following:
 </a>
 <!--a target="_blank" href="https://www.credly.com/badges/cdaec2f9-1191-4b51-83fc-55ef18d254c0/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/b1da1cd4-98da-48de-b604-b5d2b72ac696/image.png">
 </a-->
+&nbsp;&nbsp;&nbsp;
 <a target="_blank" href="https://www.credential.net/616af4cb-3c38-4575-a9d3-cadf835f0f6a#gs.0t01fh"><img width="105" height="105" alt="" src="https://templates.images.credential.net/16776822423126238551944601227169.png">
 </a>
 &nbsp;&nbsp;&nbsp;
