@@ -24,12 +24,14 @@ Some of my certifications are the following:
 
 <a target="_blank" href="https://www.credential.net/bd7197e9-6cbd-4d6a-bdb7-6428feea25ae#gs.0sthlr"><img width="105" height="105" alt="" src="https://templates.images.credential.net/16776822773364032700619988101440.png">
 </a>
-<a target="_blank" href="https://www.credly.com/badges/cdaec2f9-1191-4b51-83fc-55ef18d254c0/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/b1da1cd4-98da-48de-b604-b5d2b72ac696/image.png">
+<!--a target="_blank" href="https://www.credly.com/badges/cdaec2f9-1191-4b51-83fc-55ef18d254c0/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/b1da1cd4-98da-48de-b604-b5d2b72ac696/image.png">
+</a-->
+<a target="_blank" href="https://www.credential.net/616af4cb-3c38-4575-a9d3-cadf835f0f6a#gs.0t01fh"><img width="105" height="105" alt="" src="https://templates.images.credential.net/16776822423126238551944601227169.png">
 </a>
 &nbsp;&nbsp;&nbsp;
-<a target="_blank" href="https://www.credly.com/badges/0da1065a-11e7-4a42-9e48-62e69a9e3bcf/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/8e66b341-8fa9-43ff-a611-76b72a65b38f/image.png">
+<a target="_blank" href="https://www.credential.net/dfdf5e6c-4055-4185-b370-ee61e031ef65#gs.0t0afp"><img width="105" height="105" alt="" src="https://templates.images.credential.net/16776823122090017879526713130770.png">
 </a>
 &nbsp;&nbsp;&nbsp;
-<a target="_blank" href="https://www.credly.com/badges/c7b90f17-43c4-4edd-a17d-fc91b7ff9619/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/ec81134d-e80b-4eb5-ae07-0eb8e1a60fcd/image.png">
+<a target="_blank" href="https://www.credential.net/0a2ab012-fc5c-4e22-8286-381ca0ddf87b#gs.0t07hm"><img width="105" height="105" alt="" src="https://templates.images.credential.net/1677682410975725023965573912354.png">
 </a>
 
