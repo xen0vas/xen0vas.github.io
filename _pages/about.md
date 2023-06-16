@@ -22,6 +22,8 @@ Im a Cyber Security professional and security enthusiast. Currently, I’m worki
 Some of my certifications are the following:
 </p>
 
+<a target="_blank" href="https://www.credential.net/bd7197e9-6cbd-4d6a-bdb7-6428feea25ae#gs.0sthlr"><img width="105" height="105" alt="" src="https://templates.images.credential.net/16776822773364032700619988101440.png">
+</a>
 <a target="_blank" href="https://www.credly.com/badges/cdaec2f9-1191-4b51-83fc-55ef18d254c0/public_url"><img width="105" height="105" alt="" src="https://images.credly.com/size/680x680/images/b1da1cd4-98da-48de-b604-b5d2b72ac696/image.png">
 </a>
 &nbsp;&nbsp;&nbsp;
