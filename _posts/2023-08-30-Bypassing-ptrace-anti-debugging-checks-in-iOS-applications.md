@@ -389,7 +389,7 @@ At this point we will continue using radare2 in order to see the execution flow 
 
 <p style="text-align:justify;">
 As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the ptrace is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code> feature. 
-</b>
+</p>
 
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png">
    <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png" width="750" height="450" alt="dlsym-ptrace"/>
@@ -423,7 +423,7 @@ We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></
 
 
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/viewDidLoad-1.png">
-   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios//TwelveSec/blog/viewDidLoad-1.png" width="750" height="450" alt="viewDidLoad-1"/>
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/viewDidLoad-1.png" width="750" height="450" alt="viewDidLoad-1"/>
 </a>
 
 <br>
