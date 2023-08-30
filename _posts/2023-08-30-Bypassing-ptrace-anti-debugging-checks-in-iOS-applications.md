@@ -305,7 +305,7 @@ As we see the application terminated again and from the args value (31) we are a
 </p>
 
 <p style="text-align:justify;">
-According with  <a href="https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md"><code><b><span style="color:red"><u>OWASP-MASTG and iOS Anti-Reversing Defenses</u></span></b></code></a>, the ptrace syscall is not part of the public iOS API. Non-public APIs are prohibited, and the App Store may reject apps that include them. Because of this, ptrace is not directly called in the code; it's called when a ptrace function pointer is obtained via <code><b><i><span style="color:red">dlsym</span></b></i></code>. The following code snippet represents the above logic 
+According with  <a href="https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md"><code><b><span style="color:red"><u>OWASP-MASTG and iOS Anti-Reversing Defenses</u></span></b></code></a>, the ptrace syscall is not part of the public iOS API. Non-public APIs are prohibited, and the App Store may reject apps that include them. Because of this, ptrace is not directly called in the code; it's called when a ptrace function pointer is obtained via <code><b><i><span style="color:red">dlsym</span></i></b></code>. The following code snippet represents the above logic 
 </p>
 
 
@@ -367,7 +367,7 @@ Usage: axt[?gq*]  find data/code references to this address
 </pre>
 
 <p style="text-align:justify;">
-As we previously saw, the <code><b><i><span style="color:red">ptrace</span></b></i></code> syscall is generally invoked via <code><b><i><span style="color:red">dlsym</span></b></i></code> so we will search for it as follows
+As we previously saw, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is generally invoked via <code><b><i><span style="color:red">dlsym</span></i></b></code> so we will search for it as follows
 </p>
 
 
@@ -388,7 +388,7 @@ At this point we will continue using radare2 in order to see the execution flow 
 </pre>
 
 <p style="text-align:justify;">
-As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the ptrace is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></b></i></code> feature. 
+As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the ptrace is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code> feature. 
 </b>
 
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png">
@@ -397,7 +397,7 @@ As we see at the screenshot below we have obtained a lot of information regardin
 
 
 <p style="text-align:justify;">
-At this point we are able to examine the <code><b><i><span style="color:red">viewDidLoad</span></b></i></code> method as we know that it implements the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
+At this point we are able to examine the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> method as we know that it implements the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
 </b>
 
 
@@ -412,7 +412,7 @@ class Challenge1
 </pre>
 
 <p style="text-align:justify;">
-We can see that the <code><b><i><span style="color:red">viewDidLoad</span></b></i></code> method is located at <code><b><i><span style="color:red">0x100008a4c</span></b></i></code> address as seen above, so lets further check the validations on radare2 
+We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> method is located at <code><b><i><span style="color:red">0x100008a4c</span></i></b></code> address as seen above, so lets further check the validations on radare2 
 </p>
 
 
