@@ -473,7 +473,7 @@ void method.Challenge1.viewDidLoad(ulong param_1)
 ```
 
 <p style="text-align:justify;">
-As seen from the decompiled code above, the first check is implemnted using the ptrace ( <code><b><i><span style="color:red">sym.func.100008864</span></i></b></code> ) syscall. At this point we can bypass ptrace syscall using r2frida 
+As seen from the decompiled code above, the first check is implemnted using the <code><b><i><span style="color:red">ptrace</span></i></b></code> ( <code><b><i><span style="color:red">sym.func.100008864</span></i></b></code> ) syscall. At this point we can bypass <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall using r2frida 
 </p>
 
 
@@ -482,7 +482,7 @@ As seen from the decompiled code above, the first check is implemnted using the 
 
 
 <p style="text-align:justify;">
-As we saw earlier the argument passed to ptrace was the 0xf1 in hex which indicates the ptrace feature that will be used. In order to disable ptrace syscall we can change this value to a non existing identifier, for example passing the value -1. The following radare2 code snippet can be used to dynamically manipulate the argument passed to ptrace 
+As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the ptrace feature that will be used. In order to disable ptrace syscall we can change this value to a non existing identifier, for example passing the value -1. The following radare2 code snippet can be used to dynamically manipulate the argument passed to ptrace 
 </p>
 
 ```c
