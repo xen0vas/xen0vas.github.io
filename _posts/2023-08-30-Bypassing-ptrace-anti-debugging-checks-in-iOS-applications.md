@@ -26,7 +26,7 @@ tags:
 
 
 <p style="text-align:justify;">
-This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. The ptrace syscall can be found several *nix operating systems. It lets users control and inspect the targeted application behaviour. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></b></i></code>.
+This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. The ptrace syscall can be found several *nix operating systems. It lets users control and inspect the targeted application behaviour. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
 </p>
 
 
