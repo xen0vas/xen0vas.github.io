@@ -30,9 +30,8 @@ This blog post focuses specifically on bypassing ptrace iOS anti-debugging defen
 </p>
 
 
-<blockquote class=""><em><b>Disclaimer</b></em> :
-</blockquote>
-<blockquote><em><b><p style="text-align:justify;">PT_DENY_ATTACH</b>: 
+<blockquote class=""><em><b>Disclaimer</b></em> :</blockquote>
+<blockquote><em><p style="text-align:justify;"><b>PT_DENY_ATTACH</b>: 
                    This request is the other operation used by the traced
                    process; it allows a process that is not currently being
                    traced to deny future traces by its parent.  All other
