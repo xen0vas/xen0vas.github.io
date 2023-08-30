@@ -432,10 +432,12 @@ If we examine further we will see that except the ptrace syscall there are other
 </p>
 
 <p style="text-align:justify;">
-Lets also decompile the code using  <code><b><i><span style="color:red">r2ghidra</span></i></b></code> in order to have a high level view of the viewDidLoad implementation
+Lets also decompile the code using  <code><b><i><span style="color:red">r2ghidra</span></i></b></code> in order to have a high level view of the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> implementation
 </p>
 
+
 ```c
+
 [0x100008a4c]> pdg
 
 void method.Challenge1.viewDidLoad(ulong param_1)
