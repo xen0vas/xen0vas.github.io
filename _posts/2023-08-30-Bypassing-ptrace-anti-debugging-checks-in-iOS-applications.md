@@ -427,7 +427,7 @@ We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></
 
 <br>
 <p style="text-align:justify;">
-If we examine further we will see that except the ptrace syscall there are other anti-debugging techniques enabled, but as we mentioned earlier at this blog post we will be focusing only to ptrace syscall. 
+If we examine further we will see that except the ptrace syscall there are other anti-reversing defences enabled, but as we mentioned earlier at this blog post we will be focusing only to <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
 </p>
 
 <p style="text-align:justify;">
@@ -478,7 +478,7 @@ As seen from the decompiled code above, the first check is implemnted using the 
 
 
 <p style="text-align:justify;">
-As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the ptrace feature that will be used. In order to disable ptrace syscall we can change this value to a non existing identifier, for example passing the value -1. The following radare2 code snippet can be used to dynamically manipulate the argument passed to ptrace 
+As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the ptrace feature that will be used. In order to disable ptrace syscall we can change this value to a non existing identifier, for example passing the value <code><b><i><span style="color:red">-1</span></i></b></code>. The following radare2 code snippet can be used to dynamically manipulate the argument passed to ptrace 
 </p>
 
 ```c
