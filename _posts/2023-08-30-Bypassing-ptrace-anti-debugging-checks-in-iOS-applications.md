@@ -26,7 +26,7 @@ tags:
 
 <br>
 <h2>Introduction</h2>
-<hr>
+
 
 
 <p style="text-align:justify;">
@@ -52,7 +52,6 @@ For the purpose of this blog post we will use the <a href="https://github.com/he
 
 <br>
 <h2>Installing r2frida plugin</h2>
-<hr>
 
 <p style="text-align:justify;">
 Assuming that <code><b><span style="color:red">radare2</span></b></code> is already installed on the local machine, using the following commands we are also able to install <code><b><span style="color:red">r2frida</span></b></code> plugin. This plugin aims to join the capabilities of static analysis of <code><b><span style="color:red">radare2</span></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
@@ -211,7 +210,7 @@ r2frida commands are prefixed with `:` (alias for `=!`).
 
 <br>
 <h2>Installing r2ghidra plugin</h2>
-<hr>
+
 
 <p style="text-align:justify;">
 In order to enhance reverse engineering capabilities provided by <code><b><span style="color:red">radare2</span></b></code> we will integrate the <code><b><span style="color:red">Ghidra</span></b></code> decompiler by installing the <code><b><span style="color:red">r2ghidra</span></b></code> plugin. Using the following command we will install the plugin  
@@ -272,7 +271,7 @@ Furthermore, we should also install SLEIGH disassembler that comes with <code><b
 
 <br>
 <h2>Application dynamic analysis</h2>
-<hr>
+
 
 <p style="text-align:justify;">
 After installing and running the application it will exit immediately. The following command will spawn the app which will show the detach reason and the process termination message on the output. Lets see this in practice
@@ -326,7 +325,6 @@ void anti_debug() {
 
 <br>
 <h2>Application static analysis</h2>
-<hr>
 
 
 <p style="text-align:justify;">
@@ -481,7 +479,6 @@ As seen from the decompiled code above, the first check is implemnted using the 
 
 <br>
 <h2>Hooking with r2frida</h2>
-<hr>
 
 
 <p style="text-align:justify;">
