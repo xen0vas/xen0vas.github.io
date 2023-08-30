@@ -1,5 +1,3 @@
-
-
 ---
 layout: single
 title: 'Bypassing ptrace anti-debugging check in iOS applications'
@@ -27,8 +25,6 @@ tags:
 
 
 
-### Introduction 
-
 <p style="text-align:justify;">
 This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. The ptrace syscall can be found several *nix operating systems. It lets users control and inspect the targeted application behaviour. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></b></i></code>.
 </p>
@@ -49,7 +45,6 @@ This blog post focuses specifically on bypassing ptrace iOS anti-debugging defen
 
 <p style="text-align:justify;">
 For the purpose of this blog post we will use the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:red"><u>ios-challenge-2</u></span></b></code></a> application to showcase the identification of the ptrace antibugging technique as well as to present a way to bypass it. 
----
 
 <br>
 <h3>Installing r2frida plugin</h3>
@@ -394,8 +389,8 @@ At this point we will continue using radare2 in order to see the execution flow 
 As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the ptrace is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></b></i></code> feature. 
 </b>
 
-<a href="/Users/xenovas/Documents/TwelveSec/blog/dlsym-ptrace.png">
-   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="/Users/xenovas/Documents/TwelveSec/blog/dlsym-ptrace.png" width="750" height="450" alt="dlsym-ptrace"/>
+<a href="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png">
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png" width="750" height="450" alt="dlsym-ptrace"/>
 </a>
 
 
@@ -425,8 +420,8 @@ We can see that the <code><b><i><span style="color:red">viewDidLoad</span></b></
 </pre>
 
 
-<a href="/Users/xenovas/Documents/TwelveSec/blog/viewDidLoad-1.png">
-   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="/Users/xenovas/Documents/TwelveSec/blog/viewDidLoad-1.png" width="750" height="450" alt="viewDidLoad-1"/>
+<a href="https://xen0vas.github.io/assets/images/2023/08/ios/viewDidLoad-1.png">
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios//TwelveSec/blog/viewDidLoad-1.png" width="750" height="450" alt="viewDidLoad-1"/>
 </a>
 
 <br>
