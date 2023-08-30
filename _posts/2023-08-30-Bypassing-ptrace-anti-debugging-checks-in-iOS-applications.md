@@ -126,81 +126,82 @@ From here we can search the available command using the help command <code><b><s
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 [0x00000000]> :?
 r2frida commands are prefixed with `:` (alias for `=!`).
-:. script                   Run script
-:  frida-expression         Run given expression inside the agent
+:. script                     Run script
+:  frida-expression           Run given expression inside the agent
 :/[x][j] < string|hexpairs >  Search hex/string pattern in memory ranges (see search.in=?)
-:/v[1248][j] value          Search for a value honoring `e cfg.bigendian` of given width
-:/w[j] string               Search wide string
+:/v[1248][j] value            Search for a value honoring `e cfg.bigendian` of given width
+:/w[j] string                 Search wide string
 :< space > code..             Evaluate Cycript code
-:?                          Show this help
-:?e message                 Show message like ?e but from the agent
-:?E title message           Show UIAlert dialog with given title and message
-:?V                         Show target Frida version
-:chcon file                 Change SELinux context (dl might require this)
-:d.                         Start the chrome tools debugger
-:dbn [addr|-addr]           List set, or delete a breakpoint
-:dbnc [addr] [command]      Associate an r2 command to an r2frida breakpoint
-:db (< addr >|< sym >)          List or place breakpoint (DEPRECATED)
+:?                            Show this help
+:?e message                   Show message like ?e but from the agent
+:?E title message             Show UIAlert dialog with given title and message
+:?V                           Show target Frida version
+:chcon file                   Change SELinux context (dl might require this)
+:d.                           Start the chrome tools debugger
+:dbn [addr|-addr]             List set, or delete a breakpoint
+:dbnc [addr] [command]        Associate an r2 command to an r2frida breakpoint
+:db (< addr >|< sym >)        List or place breakpoint (DEPRECATED)
 :db- (< addr >|<sym>)|*       Remove breakpoint(s) (DEPRECATED)
-:dc                         Continue breakpoints or resume a spawned process
-:dd[j-][fd] ([newfd])       List, dup2 or close filedescriptors (ddj for JSON)
-:di[0,1,-1,i,s,v] [addr]    Intercepts and replace return value of address without calling the function
-:dif[0,1,-1,i,s] [addr]     Intercepts return value of address after calling the function
-:dk ([pid]) [sig]           Send specific signal to specific pid in the remote system
-:dkr                        Print the crash report (if the app has crashed)
-:dl libname                 Dlopen a library (Android see chcon)
-:dl2 libname [main]         Inject library using Frida's >= 8.2 new API
-:dlf path                   Load a Framework Bundle (iOS) given its path
-:dlf- path                  Unload a Framework Bundle (iOS) given its path
-:dm[.|j|*]                  Show memory regions
-:dma < size>                 Allocate < size> bytes on the heap, address is returned
+:dc                           Continue breakpoints or resume a spawned process
+:dd[j-][fd] ([newfd])         List, dup2 or close filedescriptors (ddj for JSON)
+:di[0,1,-1,i,s,v] [addr]      Intercepts and replace return value of address without calling the function
+:dif[0,1,-1,i,s] [addr]       Intercepts return value of address after calling the function
+:dk ([pid]) [sig]             Send specific signal to specific pid in the remote system
+:dkr                          Print the crash report (if the app has crashed)
+:dl libname                   Dlopen a library (Android see chcon)
+:dl2 libname [main]           Inject library using Frida's >= 8.2 new API
+:dlf path                     Load a Framework Bundle (iOS) given its path
+:dlf- path                    Unload a Framework Bundle (iOS) given its path
+:dm[.|j|*]                    Show memory regions
+:dma < size>                  Allocate < size> bytes on the heap, address is returned
 :dma- (< addr >...)           Kill the allocations at < addr> (or all of them without param)
-:dmad < addr > < size >         Allocate < size> bytes on the heap, copy contents from < addr>
-:dmal                       List live heap allocations created with dma[s]
-:dmas < string>              Allocate a string initiated with < string> on the heap
-:dmaw < string>              Allocate a widechar string initiated with < string> on the heap
-:dmh                        List all heap allocated chunks
-:dmh*                       Export heap chunks and regions as r2 flags
-:dmhj                       List all heap allocated chunks in JSON
-:dmhm                       Show which maps are used to allocate heap chunks
-:dmm                        List all named squashed maps
-:dmp < addr> < size> < perms>  Change page at < address> with < size>, protection < perms> (rwx)
-:dp                         Show current pid
-:dpt                        Show threads
-:dr                         Show thread registers (see dpt)
+:dmad < addr > < size >       Allocate < size> bytes on the heap, copy contents from < addr>
+:dmal                         List live heap allocations created with dma[s]
+:dmas < string>               Allocate a string initiated with < string> on the heap
+:dmaw < string>               Allocate a widechar string initiated with < string> on the heap
+:dmh                          List all heap allocated chunks
+:dmh*                         Export heap chunks and regions as r2 flags
+:dmhj                         List all heap allocated chunks in JSON
+:dmhm                         Show which maps are used to allocate heap chunks
+:dmm                          List all named squashed maps
+:dmp < addr> < size> < perms> Change page at < address> with < size>, protection < perms> (rwx)
+:dp                           Show current pid
+:dpt                          Show threads
+:dr                           Show thread registers (see dpt)
 :dt (< addr>|< sym>) ..       Trace list of addresses or symbols
 :dt- (< addr>|< sym>)         Clear trace
-:dt-*                       Clear all tracing
-:dt.                        Trace at current offset
-:dtf < addr> [fmt]           Trace address with format (^ixzO) (see dtf?)
-:dth (addr|sym)(x:0 y:1 ..) Define function header (z=str,i=int,v=hex barray,s=barray)
-:dtl[-*] [msg]              debug trace log console, useful to .:T*
+:dt-*                         Clear all tracing
+:dt.                          Trace at current offset
+:dtf < addr> [fmt]            Trace address with format (^ixzO) (see dtf?)
+:dth (addr|sym)(x:0 y:1 ..)   Define function header (z=str,i=int,v=hex barray,s=barray)
+:dtl[-*] [msg]                debug trace log console, useful to .:T*
 :dtr < addr> (< regs>...)     Trace register values
-:dts[*j] seconds            Trace all threads for given seconds using the stalker
-:dtsf[*j] [sym|addr]        Trace address or symbol using the stalker (Frida >= 10.3.13)
-:dxc [sym|addr] [args..]    Call the target symbol with given args
-:e[?] [a[=b]]               List/get/set config evaluable vars
-:env [k[=v]]                Get/set environment variable
-:eval code..                Evaluate Javascript code in agent side
-:fd[*j] < address>           Inverse symbol resolution
-:i                          Show target information
-:iE[*] < lib>                Same as is, but only for the export global ones
-:iS[*]                      List sections
-:iS.                        Show section name of current address
-:iSj                        List sections in Json format
-:iSS[*]                     List segments
-:iSS.                       Show segment name of current address
-:iSSj                       List segments in Json format
+:dts[*j] seconds              Trace all threads for given seconds using the stalker
+:dtsf[*j] [sym|addr]          Trace address or symbol using the stalker (Frida >= 10.3.13)
+:dxc [sym|addr] [args..]      Call the target symbol with given args
+:e[?] [a[=b]]                 List/get/set config evaluable vars
+:env [k[=v]]                  Get/set environment variable
+:eval code..                  Evaluate Javascript code in agent side
+:fd[*j] < address>            Inverse symbol resolution
+:i                            Show target information
+:iE[*] < lib>                 Same as is, but only for the export global ones
+:iS[*]                        List sections
+:iS.                          Show section name of current address
+:iSj                          List sections in Json format
+:iSS[*]                       List segments
+:iSS.                         Show segment name of current address
+:iSSj                         List segments in Json format
 :ic < class >                 List Objective-C/Android Java classes, or methods of < class >
-:ii[*]                      List imports
-:il                         List libraries
+:ii[*]                        List imports
+:il                           List libraries
 :ip < protocol >              List Objective-C protocols or methods of < protocol >
 :is[*] < lib >                List symbols of lib (local and global ones)
-:isa[*] (< lib >) < sym >       Show address of symbol
-:j java-expression          Run given expression inside a Java.perform(function(){}) block
-:r [r2cmd]                  Run r2 command using r_core_cmd_str API call (use 'dl libr2.so)
-:t [swift-module-name]      Show structs, enums, classes and protocols for a module (see swift: prefix)
+:isa[*] (< lib >) < sym >     Show address of symbol
+:j java-expression            Run given expression inside a Java.perform(function(){}) block
+:r [r2cmd]                    Run r2 command using r_core_cmd_str API call (use 'dl libr2.so)
+:t [swift-module-name]        Show structs, enums, classes and protocols for a module (see swift: prefix)
 [0x00000000]>
+
 </pre>
 
 <br>
