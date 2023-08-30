@@ -123,7 +123,8 @@ PID           Name Identifier
 From here we can search the available command using the help command <code><b><span style="color:red">:?</span></b></code>
 </p>
 
-<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+
+```c
 [0x00000000]> :?
 r2frida commands are prefixed with `:` (alias for `=!`).
 :. script                     Run script
@@ -202,7 +203,7 @@ r2frida commands are prefixed with `:` (alias for `=!`).
 :t [swift-module-name]        Show structs, enums, classes and protocols for a module (see swift: prefix)
 [0x00000000]>
 
-</pre>
+```
 
 <br>
 <h3>Installing r2ghidra plugin</h3>
