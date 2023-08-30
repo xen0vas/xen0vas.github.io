@@ -485,11 +485,13 @@ As we saw earlier the argument passed to ptrace was the 0xf1 in hex which indica
 </p>
 
 ```c
+
 Interceptor.attach(Module.findExportByName(null, 'ptrace'), { 
   onEnter: function (args) { 
     args[0] = ptr(-1) 
   }
 })
+
 ```
 
 <p style="text-align:justify;">
