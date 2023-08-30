@@ -1,11 +1,11 @@
 ---
 layout: single
 title: 'Bypassing ptrace anti-debugging check in iOS applications'
-description: 'This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence. The ptrace syscall lets users control and inspect the targeted application behaviour'
+description: 'This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state'
 date: 2023-08-30
 comments: false
 classes: wide
-excerpt: "This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state"
+excerpt: "This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence "
 
 header:
   teaser: /assets/images/2023/08/ios/ptraceDisassembly.png
@@ -50,14 +50,12 @@ This blog post focuses specifically on bypassing ptrace iOS anti-debugging defen
 For the purpose of this blog post we will use the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:red"><u>ios-challenge-2</u></span></b></code></a> application to showcase the identification of the ptrace antibugging technique as well as to present a way to bypass it. 
 </p>
 
-<br>
+
 <h2>Installing r2frida plugin</h2>
 
 <p style="text-align:justify;">
 Assuming that <code><b><span style="color:red">radare2</span></b></code> is already installed on the local machine, using the following commands we are also able to install <code><b><span style="color:red">r2frida</span></b></code> plugin. This plugin aims to join the capabilities of static analysis of <code><b><span style="color:red">radare2</span></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
 </p>
-
-
 
 
 <p style="text-align:justify;">
@@ -73,7 +71,6 @@ The following command will initialize the package control
 <p style="text-align:justify;">
 After the initialization the package manager will have the plugins ready to install. We will run the following command in order to install <code><b><span style="color:red">r2frida</span></b></code> plugin
 </p>
-
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -323,7 +320,7 @@ void anti_debug() {
 }
 ```
 
-<br>
+
 <h2>Application static analysis</h2>
 
 
@@ -477,7 +474,6 @@ As seen from the decompiled code above, the first check is implemnted using the 
 </p>
 
 
-<br>
 <h2>Hooking with r2frida</h2>
 
 
