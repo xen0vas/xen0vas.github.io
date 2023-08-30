@@ -153,38 +153,38 @@ r2frida commands are prefixed with `:` (alias for `=!`).
 :dlf path                   Load a Framework Bundle (iOS) given its path
 :dlf- path                  Unload a Framework Bundle (iOS) given its path
 :dm[.|j|*]                  Show memory regions
-:dma <size>                 Allocate <size> bytes on the heap, address is returned
-:dma- (<addr>...)           Kill the allocations at <addr> (or all of them without param)
-:dmad <addr> <size>         Allocate <size> bytes on the heap, copy contents from <addr>
+:dma < size>                 Allocate < size> bytes on the heap, address is returned
+:dma- (< addr >...)           Kill the allocations at < addr> (or all of them without param)
+:dmad < addr > < size >         Allocate < size> bytes on the heap, copy contents from < addr>
 :dmal                       List live heap allocations created with dma[s]
-:dmas <string>              Allocate a string initiated with <string> on the heap
-:dmaw <string>              Allocate a widechar string initiated with <string> on the heap
+:dmas < string>              Allocate a string initiated with < string> on the heap
+:dmaw < string>              Allocate a widechar string initiated with < string> on the heap
 :dmh                        List all heap allocated chunks
 :dmh*                       Export heap chunks and regions as r2 flags
 :dmhj                       List all heap allocated chunks in JSON
 :dmhm                       Show which maps are used to allocate heap chunks
 :dmm                        List all named squashed maps
-:dmp <addr> <size> <perms>  Change page at <address> with <size>, protection <perms> (rwx)
+:dmp < addr> < size> < perms>  Change page at < address> with < size>, protection < perms> (rwx)
 :dp                         Show current pid
 :dpt                        Show threads
 :dr                         Show thread registers (see dpt)
-:dt (<addr>|<sym>) ..       Trace list of addresses or symbols
-:dt- (<addr>|<sym>)         Clear trace
+:dt (< addr>|< sym>) ..       Trace list of addresses or symbols
+:dt- (< addr>|< sym>)         Clear trace
 :dt-*                       Clear all tracing
 :dt.                        Trace at current offset
-:dtf <addr> [fmt]           Trace address with format (^ixzO) (see dtf?)
+:dtf < addr> [fmt]           Trace address with format (^ixzO) (see dtf?)
 :dth (addr|sym)(x:0 y:1 ..) Define function header (z=str,i=int,v=hex barray,s=barray)
 :dtl[-*] [msg]              debug trace log console, useful to .:T*
-:dtr <addr> (<regs>...)     Trace register values
+:dtr < addr> (< regs>...)     Trace register values
 :dts[*j] seconds            Trace all threads for given seconds using the stalker
 :dtsf[*j] [sym|addr]        Trace address or symbol using the stalker (Frida >= 10.3.13)
 :dxc [sym|addr] [args..]    Call the target symbol with given args
 :e[?] [a[=b]]               List/get/set config evaluable vars
 :env [k[=v]]                Get/set environment variable
 :eval code..                Evaluate Javascript code in agent side
-:fd[*j] <address>           Inverse symbol resolution
+:fd[*j] < address>           Inverse symbol resolution
 :i                          Show target information
-:iE[*] <lib>                Same as is, but only for the export global ones
+:iE[*] < lib>                Same as is, but only for the export global ones
 :iS[*]                      List sections
 :iS.                        Show section name of current address
 :iSj                        List sections in Json format
@@ -201,7 +201,6 @@ r2frida commands are prefixed with `:` (alias for `=!`).
 :r [r2cmd]                  Run r2 command using r_core_cmd_str API call (use 'dl libr2.so)
 :t [swift-module-name]      Show structs, enums, classes and protocols for a module (see swift: prefix)
 [0x00000000]>
-
 </pre>
 
 <br>
