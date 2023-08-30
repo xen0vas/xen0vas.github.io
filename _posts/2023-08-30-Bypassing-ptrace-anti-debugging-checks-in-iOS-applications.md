@@ -390,7 +390,7 @@ At this point we will continue using radare2 in order to see the execution flow 
 <p style="text-align:justify;">
 As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the ptrace is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code> feature. 
 </p>
-
+<br>
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png">
    <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png" width="750" height="450" alt="dlsym-ptrace"/>
 </a>
@@ -398,7 +398,7 @@ As we see at the screenshot below we have obtained a lot of information regardin
 
 <p style="text-align:justify;">
 At this point we are able to examine the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> method as we know that it implements the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
-</b>
+</p>
 
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
