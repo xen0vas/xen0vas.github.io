@@ -61,10 +61,11 @@ Assuming that <code><b><span style="color:red">radare2</span></b></code> is alre
 The following command will initialize the package control 
 </p>
 
-```
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
  ~/ r2pm init
 
-```
+</pre>
 
 <p style="text-align:justify;">
 After the initialization the package manager will have the plugins ready to install. We will run the following command in order to install <code><b><span style="color:red">r2frida</span></b></code> plugin
@@ -127,10 +128,10 @@ From here we can search the available command using the help command <code><b><s
 r2frida commands are prefixed with `:` (alias for `=!`).
 :. script                   Run script
 :  frida-expression         Run given expression inside the agent
-:/[x][j] <string|hexpairs>  Search hex/string pattern in memory ranges (see search.in=?)
+:/[x][j] < string|hexpairs >  Search hex/string pattern in memory ranges (see search.in=?)
 :/v[1248][j] value          Search for a value honoring `e cfg.bigendian` of given width
 :/w[j] string               Search wide string
-:<space> code..             Evaluate Cycript code
+:< space > code..             Evaluate Cycript code
 :?                          Show this help
 :?e message                 Show message like ?e but from the agent
 :?E title message           Show UIAlert dialog with given title and message
@@ -139,8 +140,8 @@ r2frida commands are prefixed with `:` (alias for `=!`).
 :d.                         Start the chrome tools debugger
 :dbn [addr|-addr]           List set, or delete a breakpoint
 :dbnc [addr] [command]      Associate an r2 command to an r2frida breakpoint
-:db (<addr>|<sym>)          List or place breakpoint (DEPRECATED)
-:db- (<addr>|<sym>)|*       Remove breakpoint(s) (DEPRECATED)
+:db (< addr >|< sym >)          List or place breakpoint (DEPRECATED)
+:db- (< addr >|<sym>)|*       Remove breakpoint(s) (DEPRECATED)
 :dc                         Continue breakpoints or resume a spawned process
 :dd[j-][fd] ([newfd])       List, dup2 or close filedescriptors (ddj for JSON)
 :di[0,1,-1,i,s,v] [addr]    Intercepts and replace return value of address without calling the function
@@ -190,12 +191,12 @@ r2frida commands are prefixed with `:` (alias for `=!`).
 :iSS[*]                     List segments
 :iSS.                       Show segment name of current address
 :iSSj                       List segments in Json format
-:ic <class>                 List Objective-C/Android Java classes, or methods of <class>
+:ic < class >                 List Objective-C/Android Java classes, or methods of < class >
 :ii[*]                      List imports
 :il                         List libraries
-:ip <protocol>              List Objective-C protocols or methods of <protocol>
-:is[*] <lib>                List symbols of lib (local and global ones)
-:isa[*] (<lib>) <sym>       Show address of symbol
+:ip < protocol >              List Objective-C protocols or methods of < protocol >
+:is[*] < lib >                List symbols of lib (local and global ones)
+:isa[*] (< lib >) < sym >       Show address of symbol
 :j java-expression          Run given expression inside a Java.perform(function(){}) block
 :r [r2cmd]                  Run r2 command using r_core_cmd_str API call (use 'dl libr2.so)
 :t [swift-module-name]      Show structs, enums, classes and protocols for a module (see swift: prefix)
