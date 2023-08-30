@@ -24,6 +24,10 @@ tags:
 ---
 
 
+<br>
+<h2>Introduction</h2>
+<hr>
+
 
 <p style="text-align:justify;">
 This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. The ptrace syscall can be found several *nix operating systems. It lets users control and inspect the targeted application behaviour. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
@@ -47,7 +51,7 @@ For the purpose of this blog post we will use the <a href="https://github.com/he
 </p>
 
 <br>
-<h3>Installing r2frida plugin</h3>
+<h2>Installing r2frida plugin</h2>
 <hr>
 
 <p style="text-align:justify;">
@@ -206,7 +210,7 @@ r2frida commands are prefixed with `:` (alias for `=!`).
 ```
 
 <br>
-<h3>Installing r2ghidra plugin</h3>
+<h2>Installing r2ghidra plugin</h2>
 <hr>
 
 <p style="text-align:justify;">
@@ -267,7 +271,7 @@ Furthermore, we should also install SLEIGH disassembler that comes with <code><b
 ----
 
 <br>
-<h3>Application dynamic analysis</h3>
+<h2>Application dynamic analysis</h2>
 <hr>
 
 <p style="text-align:justify;">
@@ -321,7 +325,7 @@ void anti_debug() {
 ```
 
 <br>
-<h3>Application static analysis</h3>
+<h2>Application static analysis</h2>
 <hr>
 
 
@@ -476,7 +480,7 @@ As seen from the decompiled code above, the first check is implemnted using the 
 
 
 <br>
-<h3>Hooking with r2frida</h3>
+<h2>Hooking with r2frida</h2>
 <hr>
 
 
