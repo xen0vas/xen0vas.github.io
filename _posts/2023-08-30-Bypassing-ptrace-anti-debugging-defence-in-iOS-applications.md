@@ -242,7 +242,7 @@ At this point and after we gained all the needed knowledge regarding the <code><
 </p>
 
 <p style="text-align:justify;">
-First we will decomplress tha <code><b><span style="color:red">.ipa</span></b></code> file in order to statically examine the application using <code><b><span style="color:red">radare2</span></b></code>
+First we will unzip the <code><b><span style="color:red">.ipa</span></b></code> file in order to statically examine the application using <code><b><span style="color:red">radare2</span></b></code>
 </p>
 
 
