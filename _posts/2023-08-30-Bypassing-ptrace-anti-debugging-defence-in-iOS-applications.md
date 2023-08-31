@@ -428,7 +428,7 @@ INFO: Using safe io mode.
 [0x00000000]> :dtf ptrace iiii
 [0x00000000]> :dc
 INFO: resumed spawned process
-[0x00000000]> [dtf onLeave][Wed Aug 30 2023 06:50:41 GMT-0700] ptrace@0x1f9970560 - <span style="color:red;"><b>args: 18446744073709551000</b></span>, 0, 0, 0. <span style="color:red;"><b>Retval: 0xffffffffffffffff</b></span>
+[0x00000000]> [dtf onLeave][Wed Aug 30 2023 06:50:41 GMT-0700] <span style="color:red;"><b>ptrace@0x1f9970560</b></span> - <span style="color:red;"><b>args: 18446744073709551000</b></span>, 0, 0, 0. <span style="color:red;"><b>Retval: 0xffffffffffffffff</b></span>
 
 </pre>
 
