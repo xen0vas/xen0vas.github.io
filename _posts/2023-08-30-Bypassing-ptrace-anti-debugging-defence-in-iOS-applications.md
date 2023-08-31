@@ -8,7 +8,7 @@ classes: wide
 excerpt: "This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence "
 
 header:
-  teaser: /assets/images/2023/08/ios/ptraceDisassembly.png
+  teaser: /assets/images/avatar.jpg
   overlay_image: /assets/images/2023/08/ios/ptraceDisassembly.png
   overlay_filter: rgba(0, 0, 0, 0.5)
 
