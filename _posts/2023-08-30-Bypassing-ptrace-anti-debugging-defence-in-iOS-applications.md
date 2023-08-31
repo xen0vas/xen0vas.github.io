@@ -184,7 +184,16 @@ Furthermore, we should also install SLEIGH disassembler that comes with <code><b
 
 
 <p style="text-align:justify;">
-After installing and running the application it will exit immediately. The following command will spawn the app which will show the detach reason and the process termination message on the output. Lets see this in practice
+After installing and running the application it will exit immediately. 
+</p>
+
+<a href="https://xen0vas.github.io/assets/images/2023/08/ios/r_con.gif">
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/r_con.gif" width="750" height="450" alt="r_con"/>
+</a>
+
+
+<p style="text-align:justify;">
+The following command will spawn the app which will show the detach reason and the process termination message on the output. Lets see this in practice
 </p>
 
 
@@ -192,7 +201,7 @@ After installing and running the application it will exit immediately. The follo
  ~/ r2 frida://spawn/usb//re.murphy.ios-challenge-2
 INFO: Using safe io mode.
  -- git pull now
-[0x00000000]> INFO: DetachReason: FRIDA_SESSION_DETACH_REASON_PROCESS_TERMINATED
+[0x00000000]> INFO: DetachReason: <code><b><i><span style="color:red">FRIDA_SESSION_DETACH_REASON_PROCESS_TERMINATED</span></i></b></code>
 </pre>
 
 <p style="text-align:justify;">
@@ -209,8 +218,8 @@ INFO: resumed spawned process
 true
 [0x00000000]> :dc
 INFO: resumed spawned process
-[0x00000000]> [dtf onLeave][Wed Aug 30 2023 00:57:33 GMT-0700] ptrace@0x1f9970560 - args: 31, 0. Retval: 0x0
-INFO: DetachReason: FRIDA_SESSION_DETACH_REASON_PROCESS_TERMINATED
+[0x00000000]> [dtf onLeave][Wed Aug 30 2023 00:57:33 GMT-0700] <code><b><i><span style="color:red">ptrace@0x1f9970560</span></i></b></code> - args: <code><b><i><span style="color:red">31</span></i></b></code>, 0. <code><b><i><span style="color:red">Retval: 0x0</span></i></b></code>
+INFO: DetachReason: <code><b><i><span style="color:red">FRIDA_SESSION_DETACH_REASON_PROCESS_TERMINATED</span></i></b></code>
 </pre>
 
 <p style="text-align:justify;">
