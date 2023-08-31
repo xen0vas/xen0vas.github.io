@@ -422,7 +422,7 @@ The following output shows that the <code><b><i><span style="color:red">ptrace</
 INFO: Using safe io mode.
  -- Thank you for using radare2. Have a nice night!
 [0x00000000]>
-[0x00000000]> :eval Interceptor.attach(Module.findExprtByName*null, 'ptrace'),{onEnter: function (args) { <span style="color:red;">args[0] = ptr(-1)</span> }})
+[0x00000000]> :eval Interceptor.attach(Module.findExprtByName*null, 'ptrace'),{onEnter: function (args) { <span style="color:red;"><b>args[0] = ptr(-1)</b></span> }})
 
 {}
 [0x00000000]> :dtf ptrace iiii
