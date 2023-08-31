@@ -188,7 +188,7 @@ After installing and running the application it will exit immediately.
 </p>
 
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/r_con.gif">
-   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/r_con.gif" width="750" height="450" alt="r_con"/>
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/r_con.gif" width="850" height="450" alt="r_con"/>
 </a>
 
 
