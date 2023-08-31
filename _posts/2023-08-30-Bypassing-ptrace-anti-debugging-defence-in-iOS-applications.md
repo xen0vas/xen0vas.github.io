@@ -118,7 +118,7 @@ PID           Name Identifier
 </pre>
 
 
-<br>
+
 <h2>Installing r2ghidra plugin</h2>
 
 
@@ -178,7 +178,7 @@ Furthermore, we should also install SLEIGH disassembler that comes with <code><b
 </pre>
 
 
-<br>
+
 <h2>Application dynamic analysis</h2>
 
 
@@ -314,7 +314,7 @@ As we see at the screenshot below we have obtained a lot of information regardin
 </p>
 <br>
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png">
-   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png" width="750" height="450" alt="dlsym-ptrace"/>
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png" width="950" height="450" alt="dlsym-ptrace"/>
 </a>
 
 
@@ -345,7 +345,7 @@ We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></
 
 
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/viewDidLoad-1.png">
-   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/viewDidLoad-1.png" width="750" height="450" alt="viewDidLoad-1"/>
+   <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/viewDidLoad-1.png" width="950" height="450" alt="viewDidLoad-1"/>
 </a>
 
 <br>
