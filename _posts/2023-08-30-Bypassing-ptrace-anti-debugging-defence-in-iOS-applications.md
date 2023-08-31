@@ -348,7 +348,6 @@ We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></
    <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2023/08/ios/viewDidLoad-1.png" width="950" height="450" alt="viewDidLoad-1"/>
 </a>
 
-<br>
 <p style="text-align:justify;">
 If we examine further we will see that except the ptrace syscall there are other anti-reversing defences enabled, but as we mentioned earlier at this blog post we will be focusing only to <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
 </p>
