@@ -28,9 +28,8 @@ tags:
 <h2>Introduction</h2>
 
 
-
 <p style="text-align:justify;">
-This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. The <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall can be found several *nix operating systems. It is generally used for debugging breakpoints and tracing system calls. It is used from native debuggers to keep track. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
+This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. We will be using the <code><b><i><span style="color:red">radare2</span></i></b></code> tool, as well as the <code><b><i><span style="color:red">r2frida</span></i></b></code> and <code><b><i><span style="color:red">r2ghidra</span></i></b></code> plugins to perform static and dynammic analysis. The <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall can be found several *nix operating systems. It is generally used for debugging breakpoints and tracing system calls. It is used from native debuggers to keep track. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
 </p>
 
 
@@ -47,7 +46,7 @@ This blog post focuses specifically on bypassing ptrace iOS anti-debugging defen
 
 
 <p style="text-align:justify;">
-For the purpose of this blog post we will use the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:red"><u>ios-challenge-2</u></span></b></code></a> application to showcase the identification of the <code><b><i><span style="color:red">ptrace</span></i></b></code> antibugging technique as well as to present a way to bypass it. 
+For the purpose of this blog post we will use the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:red"><u>ios-challenge-2</u></span></b></code></a> application to showcase the identification of the <code><b><i><span style="color:red">ptrace</span></i></b></code> anti-debugging technique as well as to present a way to bypass it. 
 </p>
 
 
