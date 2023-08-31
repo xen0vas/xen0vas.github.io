@@ -54,7 +54,7 @@ For the purpose of this blog post we will use the <a href="https://github.com/he
 <h2>Installing r2frida plugin</h2>
 
 <p style="text-align:justify;">
-Assuming that <code><b><span style="color:red">radare2</span></b></code> is already installed on the local machine. Also, we will install the <code><b><span style="color:red">r2frida</span></b></code> which aims to join the capabilities of static analysis of <code><b><span style="color:red">radare2</span></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
+Assuming that <code><b><i><span style="color:red">radare2</span></i></b></code> is already installed on the local machine. Also, we will install the <code><b><i><span style="color:red">r2frida</span></i></b></code> which aims to join the capabilities of static analysis of <code><b><i><span style="color:red">radare2</span></i></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
 </p>
 
 
@@ -68,7 +68,7 @@ The following command will initialize the package control
 </pre>
 
 <p style="text-align:justify;">
-After the initialization the package manager will have the plugins ready to install. We will run the following command in order to install <code><b><span style="color:red">r2frida</span></b></code> plugin
+After the initialization the package manager will have the plugins ready to install. We will run the following command in order to install <code><b><i><span style="color:red">r2frida</span></i></b></code> plugin
 </p>
 
 
@@ -88,7 +88,7 @@ cp -f src/r2frida-compile /"/Users/xenovas/.local/share/radare2/prefix/bin"
 </pre>
 
 <p style="text-align:justify;">
-The succesful execution of the command above will download the plugin from the specified repo and then after building and installing the plugin, the <code><b><span style="color:red">r2frida</span></b></code> will be able to run 
+The succesful execution of the command above will download the plugin from the specified repo and then after building and installing the plugin, the <code><b><i><span style="color:red">r2frida</span></i></b></code> will be able to run 
 </p>
 
 <p style="text-align:justify;">
@@ -124,7 +124,7 @@ PID           Name Identifier
 
 
 <p style="text-align:justify;">
-In order to enhance reverse engineering capabilities provided by <code><b><span style="color:red">radare2</span></b></code> we will integrate the <code><b><span style="color:red">Ghidra</span></b></code> decompiler by installing the <code><b><span style="color:red">r2ghidra</span></b></code> plugin. Using the following command we will install the plugin  
+In order to enhance reverse engineering capabilities provided by <code><b><i><span style="color:red">radare2</span></i></b></code> we will integrate the <code><b><i><span style="color:red">Ghidra</span></i></b></code> decompiler by installing the <code><b><i><span style="color:red">r2ghidra</span></b></i></code> plugin. Using the following command we will install the plugin  
 </p>
 
 
@@ -145,7 +145,7 @@ codesign -f -s - /Users/xenovas/.local/share/radare2/plugins/*.dylib
 </pre>
 
 <p style="text-align:justify;">
-Furthermore, we should also install SLEIGH disassembler that comes with <code><b><span style="color:red">r2ghidra</span></b></code> using the following command 
+Furthermore, we should also install SLEIGH disassembler that comes with <code><b><i><span style="color:red">r2ghidra</span></i></b></code> using the following command 
 </p>
 
 
