@@ -300,7 +300,7 @@ At this point we will continue using <code><b><i><span style="color:red">radare2
 </pre>
 
 <p style="text-align:justify;">
-As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the ptrace is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code> feature. 
+As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the <code><b><i><span style="color:red">ptrace</span></i></b></code> is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code> feature. 
 </p>
 <br>
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png">
@@ -324,7 +324,7 @@ class Challenge1
 </pre>
 
 <p style="text-align:justify;">
-We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> method is located at <code><b><i><span style="color:red">0x100008a4c</span></i></b></code> address as seen above, so lets further check the validations on radare2 
+We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> method is located at <code><b><i><span style="color:red">0x100008a4c</span></i></b></code> address as seen above, so lets further check the validations on <code><b><i><span style="color:red">radare2</span></i></b></code> 
 </p>
 
 
@@ -405,7 +405,7 @@ Interceptor.attach(Module.findExportByName(null, 'ptrace'), {
 ```
 
 <p style="text-align:justify;">
-The following <code><b><i><span style="color:red">radare2</span></i></b></code> commands are used to disable <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall dynamically
+The following output shows that the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall has been disabled 
 </p>
 
 
