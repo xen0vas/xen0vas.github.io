@@ -214,7 +214,7 @@ INFO: DetachReason: FRIDA_SESSION_DETACH_REASON_PROCESS_TERMINATED
 </pre>
 
 <p style="text-align:justify;">
-As we see the application terminated again and from the args value (31) we are able to determine that the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
+As we see the application terminated again and from the args value (<code><b><i><span style="color:red">31</span></i></b></code>) we are able to determine that the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
 </p>
 
 <p style="text-align:justify;">
