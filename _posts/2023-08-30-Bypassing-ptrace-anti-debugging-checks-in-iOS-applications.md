@@ -196,7 +196,7 @@ INFO: Using safe io mode.
 </pre>
 
 <p style="text-align:justify;">
-Now lets spawn the application again but this time we will use the <code><b><i><span style="color:red">:dtf</span></i></b></code> command which will trace the address of the ptrace syscall and  will also show the arguments in integer format
+Now lets spawn the application again but this time we will use the <code><b><i><span style="color:red">:dtf</span></i></b></code> command which will trace the address of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall and  will also show the arguments in integer format
 </p>
 
 
@@ -214,11 +214,11 @@ INFO: DetachReason: FRIDA_SESSION_DETACH_REASON_PROCESS_TERMINATED
 </pre>
 
 <p style="text-align:justify;">
-As we see the application terminated again and from the args value (31) we are able to determine that the feature of the ptrace syscall is the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
+As we see the application terminated again and from the args value (31) we are able to determine that the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
 </p>
 
 <p style="text-align:justify;">
-According with  <a href="https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md"><code><b><span style="color:red"><u>OWASP-MASTG and iOS Anti-Reversing Defenses</u></span></b></code></a>, the ptrace syscall is not part of the public iOS API. Non-public APIs are prohibited, and the App Store may reject apps that include them. Because of this, ptrace is not directly called in the code; it's called when a ptrace function pointer is obtained via <code><b><i><span style="color:red">dlsym</span></i></b></code>. The following code snippet represents the above logic 
+According with  <a href="https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md"><code><b><span style="color:red"><u>OWASP-MASTG and iOS Anti-Reversing Defenses</u></span></b></code></a>, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is not part of the public iOS API. Non-public APIs are prohibited, and the App Store may reject apps that include them. Because of this, ptrace is not directly called in the code; it's called when a ptrace function pointer is obtained via <code><b><i><span style="color:red">dlsym</span></i></b></code>. The following code snippet represents the above logic 
 </p>
 
 
@@ -238,7 +238,7 @@ void anti_debug() {
 
 
 <p style="text-align:justify;">
-At this point and after we gained all the needed knowledge regarding the ptrace anti-debugging technique, we can move forward to perform a static analysis. 
+At this point and after we gained all the needed knowledge regarding the <code><b><i><span style="color:red">ptrace</span></i></b></code> anti-debugging technique, we can move forward to perform a static analysis. 
 </p>
 
 <p style="text-align:justify;">
@@ -291,7 +291,7 @@ sym.func.100008864 0x100008888 [CALL:--x] bl sym.imp.dlsym
 
 
 <p style="text-align:justify;">
-At this point we will continue using radare2 in order to see the execution flow and to examine the ARM assembly in order to have a view of the checks in a lower level
+At this point we will continue using <code><b><i><span style="color:red">radare2</span></i></b></code> in order to visualize the execution flow and to examine some assembly instructions in order to have insights of the validations checks in a lower level
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -383,7 +383,7 @@ void method.Challenge1.viewDidLoad(ulong param_1)
 ```
 
 <p style="text-align:justify;">
-As seen from the decompiled code above, the first check is implemnted using the <code><b><i><span style="color:red">ptrace</span></i></b></code> ( <code><b><i><span style="color:red">sym.func.100008864</span></i></b></code> ) syscall. At this point we can bypass <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall using r2frida 
+As seen from the decompiled code above, the first check is implemnted using the <code><b><i><span style="color:red">ptrace</span></i></b></code> ( <code><b><i><span style="color:red">sym.func.100008864</span></i></b></code> ) syscall. At this point we can bypass <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall using <code><b><i><span style="color:red">r2frida</span></i></b></code> 
 </p>
 
 
@@ -391,7 +391,7 @@ As seen from the decompiled code above, the first check is implemnted using the 
 
 
 <p style="text-align:justify;">
-As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the ptrace feature that will be used. In order to disable ptrace syscall we can change this value to a non existing identifier, for example passing the value <code><b><i><span style="color:red">-1</span></i></b></code>. The following radare2 code snippet can be used to dynamically manipulate the argument passed to ptrace 
+As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the <code><b><i><span style="color:red">ptrace</span></i></b></code> feature that will be used. In order to disable <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall we can change this value to a non existing identifier, for example passing the value <code><b><i><span style="color:red">-1</span></i></b></code>. The following radare2 code snippet can be used to dynamically manipulate the argument passed to <code><b><i><span style="color:red">ptrace</span></i></b></code> 
 </p>
 
 ```c
@@ -405,7 +405,7 @@ Interceptor.attach(Module.findExportByName(null, 'ptrace'), {
 ```
 
 <p style="text-align:justify;">
-The following radare2 commands are used to disable ptrace syscall dynamically
+The following <code><b><i><span style="color:red">radare2</span></i></b></code> commands are used to disable <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall dynamically
 </p>
 
 
