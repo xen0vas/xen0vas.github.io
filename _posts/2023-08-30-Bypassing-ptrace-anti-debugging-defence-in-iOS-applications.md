@@ -399,7 +399,7 @@ As seen from the decompiled code above, the first check is implemnted using the 
 
 
 <p style="text-align:justify;">
-As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the <code><b><i><span style="color:red">ptrace</span></i></b></code> feature that will be used. In order to disable <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall we can change this value to a non existing identifier, for example passing the value <code><b><i><span style="color:red">-1</span></i></b></code>. The following radare2 code snippet can be used to dynamically manipulate the argument passed to <code><b><i><span style="color:red">ptrace</span></i></b></code> 
+As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the <code><b><i><span style="color:red">ptrace</span></i></b></code> feature that will be used. In order to disable <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall we can change this value to a non existing identifier, for example passing the value <code><b><i><span style="color:red">-1</span></i></b></code>. The following <code><b><i><span style="color:red">radare2</span></i></b></code> code snippet can be used to dynamically manipulate the argument passed to <code><b><i><span style="color:red">ptrace</span></i></b></code> 
 </p>
 
 ```c
