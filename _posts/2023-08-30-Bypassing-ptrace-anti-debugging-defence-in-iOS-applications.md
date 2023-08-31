@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 'Bypassing ptrace anti-debugging check in iOS applications'
+title: 'Bypassing ptrace anti-debugging defence in iOS applications'
 description: 'This blog post focuses specifically on bypassing ptrace iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state'
 date: 2023-08-30
 comments: false
