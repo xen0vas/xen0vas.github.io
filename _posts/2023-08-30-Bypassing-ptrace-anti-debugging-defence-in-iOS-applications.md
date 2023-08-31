@@ -288,7 +288,7 @@ Usage: axt[?gq*]  find data/code references to this address
 </pre>
 
 <p style="text-align:justify;">
-As we previously saw, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is generally invoked via <code><b><i><span style="color:red">dlsym</span></i></b></code> so we will search for it as follows
+As seen previously, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is generally invoked via <code><b><i><span style="color:red">dlsym</span></i></b></code> so we will search for it as follows
 </p>
 
 
