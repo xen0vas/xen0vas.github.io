@@ -98,7 +98,7 @@ The following command shows the installed apps as well as the running apps on th
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
  ~/ r2 frida://apps/usb
 PID           Name Identifier
------------------------------
+----------------------------
 [.....]
 -         Podcasts com.apple.podcasts
 -        Reminders com.apple.reminders
@@ -223,6 +223,7 @@ According with  <a href="https://github.com/OWASP/owasp-mastg/blob/master/Docume
 
 
 ```c
+
 #import <dlfcn.h>
 #import <sys/types.h>
 #import <stdio.h>
@@ -231,6 +232,7 @@ void anti_debug() {
   ptrace_ptr_t ptrace_ptr = (ptrace_ptr_t)dlsym(RTLD_SELF, "ptrace");
   ptrace_ptr(31, 0, 0, 0); // PTRACE_DENY_ATTACH = 31
 }
+
 ```
 
 
