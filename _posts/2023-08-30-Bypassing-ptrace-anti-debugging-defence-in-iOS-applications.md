@@ -33,7 +33,6 @@ This blog post focuses specifically on bypassing <code><b><i><span style="color:
 </p>
 
 
-<blockquote class=""><em><b>Disclaimer</b></em> :</blockquote>
 <blockquote><em><p style="text-align:justify;"><b>PT_DENY_ATTACH</b>: 
                    This request is the other operation used by the traced
                    process; it allows a process that is not currently being
