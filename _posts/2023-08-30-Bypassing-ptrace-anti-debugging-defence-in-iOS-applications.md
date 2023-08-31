@@ -216,7 +216,7 @@ INFO: resumed spawned process
 true
 [0x00000000]> :dc
 INFO: resumed spawned process
-[0x00000000]> [dtf onLeave][Wed Aug 30 2023 00:57:33 GMT-0700] <code><b><i><span style="color:red">ptrace@0x1f9970560</span></i></b></code> - args: <code><b><i><span style="color:red">31</span></i></b></code>, 0. <code><b><i><span style="color:red">Retval: 0x0</span></i></b></code>
+[0x00000000]> [dtf onLeave][Wed Aug 30 2023 00:57:33 GMT-0700] <code><b><span style="color:red">ptrace@0x1f9970560</span></b></code> - args: <code><b><span style="color:red">31</span></b></code>, 0. <code><b><span style="color:red">Retval: 0x0</span></b></code>
 INFO: DetachReason: <code><b><span style="color:red">FRIDA_SESSION_DETACH_REASON_PROCESS_TERMINATED</span></b></code>
 </pre>
 
