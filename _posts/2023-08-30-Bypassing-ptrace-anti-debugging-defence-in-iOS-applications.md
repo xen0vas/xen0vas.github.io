@@ -29,7 +29,7 @@ tags:
 
 
 <p style="text-align:justify;">
-This blog post focuses specifically on dynamically bypassing  <a href="https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/ptrace.2.html"><code><b><span style="color:blue"><u>ptrace</u></span></b></code></a> iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. The <a href="https://rada.re/n/radare2.html"><code><b><span style="color:blue"><u>radare2</u></span></b></code></a> tool used, as well as the <a href="https://github.com/nowsecure/r2frida"><code><b><span style="color:blue"><u>r2frida</u></span></b></code></a> and <a href="https://github.com/radareorg/r2ghidra"><code><b><span style="color:blue"><u>r2ghidra</u></span></b></code></a> plugins to perform static and dynammic analysis. The <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall can be found several *nix operating systems. It is generally used for debugging breakpoints and tracing system calls. It is used from native debuggers to keep track. Also, this blog post covers only one feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
+This blog post focuses specifically on dynamically bypassing  <a href="https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/ptrace.2.html"><code><b><span style="color:grey"><u>ptrace</u></span></b></code></a> iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. The <a href="https://rada.re/n/radare2.html"><code><b><span style="color:grey"><u>radare2</u></span></b></code></a> tool used, as well as the <a href="https://github.com/nowsecure/r2frida"><code><b><span style="color:grey"><u>r2frida</u></span></b></code></a> and <a href="https://github.com/radareorg/r2ghidra"><code><b><span style="color:grey"><u>r2ghidra</u></span></b></code></a> plugins to perform static and dynammic analysis. The <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall can be found several *nix operating systems. It is generally used for debugging breakpoints and tracing system calls. It is used from native debuggers to keep track. Also, this blog post covers only one feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
 </p>
 
 
@@ -45,7 +45,7 @@ This blog post focuses specifically on dynamically bypassing  <a href="https://d
 
 
 <p style="text-align:justify;">
-For the purpose of this blog post the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:blue"><u>ios-challenge-2</u></span></b></code></a> application used to showcase the identification of the <code><b><i><span style="color:red">ptrace</span></i></b></code> anti-debugging technique as well as to present a way to bypass it. 
+For the purpose of this blog post the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:grey"><u>ios-challenge-2</u></span></b></code></a> application used to showcase the identification of the <code><b><i><span style="color:red">ptrace</span></i></b></code> anti-debugging technique as well as to present a way to bypass it. 
 </p>
 
 
@@ -220,7 +220,7 @@ As we see the application terminated again and from the args value (<code><b><i>
 </p>
 
 <p style="text-align:justify;">
-According with  <a href="https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md"><code><b><span style="color:blue"><u>OWASP-MASTG and iOS Anti-Reversing Defenses</u></span></b></code></a>, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is not part of the public iOS API. Non-public APIs are prohibited, and the App Store may reject apps that include them. Because of this, ptrace is not directly called in the code; it's called when a ptrace function pointer is obtained via <code><b><i><span style="color:red">dlsym</span></i></b></code>. The following code snippet represents the above logic 
+According with  <a href="https://github.com/OWASP/owasp-mastg/blob/master/Document/0x06j-Testing-Resiliency-Against-Reverse-Engineering.md"><code><b><span style="color:grey"><u>OWASP-MASTG and iOS Anti-Reversing Defenses</u></span></b></code></a>, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is not part of the public iOS API. Non-public APIs are prohibited, and the App Store may reject apps that include them. Because of this, ptrace is not directly called in the code; it's called when a ptrace function pointer is obtained via <code><b><i><span style="color:red">dlsym</span></i></b></code>. The following code snippet represents the above logic 
 </p>
 
 
