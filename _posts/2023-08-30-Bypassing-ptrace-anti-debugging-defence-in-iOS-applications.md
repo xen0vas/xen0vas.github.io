@@ -29,7 +29,7 @@ tags:
 
 
 <p style="text-align:justify;">
-This blog post focuses specifically on bypassing <code><b><i><span style="color:red">ptrace</span></i></b></code> iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. We will be using the <code><b><i><span style="color:red">radare2</span></i></b></code> tool, as well as the <code><b><i><span style="color:red">r2frida</span></i></b></code> and <code><b><i><span style="color:red">r2ghidra</span></i></b></code> plugins to perform static and dynammic analysis. The <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall can be found several *nix operating systems. It is generally used for debugging breakpoints and tracing system calls. It is used from native debuggers to keep track. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
+This blog post focuses specifically on dynamically bypassing <code><b><i><span style="color:red">ptrace</span></i></b></code> iOS anti-debugging defence which prevents an iOS mobile application from entering into a debugging state. We will be using the <code><b><i><span style="color:red">radare2</span></i></b></code> tool, as well as the <code><b><i><span style="color:red">r2frida</span></i></b></code> and <code><b><i><span style="color:red">r2ghidra</span></i></b></code> plugins to perform static and dynammic analysis. The <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall can be found several *nix operating systems. It is generally used for debugging breakpoints and tracing system calls. It is used from native debuggers to keep track. Also, this blog post covers only one feature of the ptrace syscall, the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code>.
 </p>
 
 
@@ -45,14 +45,14 @@ This blog post focuses specifically on bypassing <code><b><i><span style="color:
 
 
 <p style="text-align:justify;">
-For the purpose of this blog post we will use the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:red"><u>ios-challenge-2</u></span></b></code></a> application to showcase the identification of the <code><b><i><span style="color:red">ptrace</span></i></b></code> anti-debugging technique as well as to present a way to bypass it. 
+For the purpose of this blog post the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:red"><u>ios-challenge-2</u></span></b></code></a> application used to showcase the identification of the <code><b><i><span style="color:red">ptrace</span></i></b></code> anti-debugging technique as well as to present a way to bypass it. 
 </p>
 
 
 <h2>Installing r2frida plugin</h2>
 
 <p style="text-align:justify;">
-Assuming that <code><b><i><span style="color:red">radare2</span></i></b></code> is already installed on the local machine. Also, we will install the <code><b><i><span style="color:red">r2frida</span></i></b></code> which aims to join the capabilities of static analysis of <code><b><i><span style="color:red">radare2</span></i></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
+Assuming that <code><b><i><span style="color:red">radare2</span></i></b></code> is already installed on the local machine. Also, the <code><b><i><span style="color:red">r2frida</span></i></b></code> plugin will be installed which aims to join the capabilities of static analysis of <code><b><i><span style="color:red">radare2</span></i></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
 </p>
 
 
@@ -66,7 +66,7 @@ The following command will initialize the package control
 </pre>
 
 <p style="text-align:justify;">
-After the initialization the package manager will have the plugins ready to install. We will run the following command in order to install <code><b><i><span style="color:red">r2frida</span></i></b></code> plugin
+Afterwards, the following command used to install <code><b><i><span style="color:red">r2frida</span></i></b></code> plugin
 </p>
 
 
@@ -82,12 +82,7 @@ mkdir -p /"/Users/xenovas/.local/share/radare2/prefix/bin"
 rm -f "//Users/xenovas/.local/share/radare2/plugins/io_frida.dylib"
 cp -f io_frida.dylib* /"/Users/xenovas/.local/share/radare2/plugins"
 cp -f src/r2frida-compile /"/Users/xenovas/.local/share/radare2/prefix/bin"
-
 </pre>
-
-<p style="text-align:justify;">
-The succesful execution of the command above will download the plugin from the specified repo and then after building and installing the plugin, the <code><b><i><span style="color:red">r2frida</span></i></b></code> will be able to run 
-</p>
 
 <p style="text-align:justify;">
 The following command shows the installed apps as well as the running apps on the virtual device 
@@ -122,7 +117,7 @@ PID           Name Identifier
 
 
 <p style="text-align:justify;">
-In order to enhance reverse engineering capabilities provided by <code><b><i><span style="color:red">radare2</span></i></b></code> we will integrate the <code><b><i><span style="color:red">Ghidra</span></i></b></code> decompiler by installing the <code><b><i><span style="color:red">r2ghidra</span></i></b></code> plugin. Using the following command we will install the plugin  
+In order to enhance reverse engineering capabilities provided by <code><b><i><span style="color:red">radare2</span></i></b></code> we will integrate the <code><b><i><span style="color:red">Ghidra</span></i></b></code> decompiler by installing the <code><b><i><span style="color:red">r2ghidra</span></i></b></code> plugin. The following command used to install the plugin  
 </p>
 
 
@@ -191,7 +186,7 @@ After installing and running the application it will exit immediately.
 
 
 <p style="text-align:justify;">
-The following command will spawn the app which will show the detach reason and the process termination message on the output. Lets see this in practice
+The following command spawns the app and after exiting, the detach reason and the process termination message shows up on the output. Lets see this in practice
 </p>
 
 
@@ -203,7 +198,7 @@ INFO: Using safe io mode.
 </pre>
 
 <p style="text-align:justify;">
-Now lets spawn the application again but this time we will use the <code><b><i><span style="color:red">:dtf</span></i></b></code> command which will trace the address of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall and  will also show the arguments in integer format
+Now lets spawn the application again but this time we use the <code><b><i><span style="color:red">:dtf</span></i></b></code> command which traces the address of the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall and also shows the arguments in integer format
 </p>
 
 
@@ -251,7 +246,7 @@ At this point and after we gained all the needed knowledge regarding the <code><
 </p>
 
 <p style="text-align:justify;">
-First we will unzip the <code><b><span style="color:red">.ipa</span></b></code> file in order to statically examine the application using <code><b><span style="color:red">radare2</span></b></code>
+First we unzip the <code><b><span style="color:red">.ipa</span></b></code> file in order to statically examine the application using <code><b><span style="color:red">radare2</span></b></code>
 </p>
 
 
@@ -288,7 +283,7 @@ Usage: axt[?gq*]  find data/code references to this address
 </pre>
 
 <p style="text-align:justify;">
-As seen previously, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is generally invoked via <code><b><i><span style="color:red">dlsym</span></i></b></code> so we will search for it as follows
+As seen previously, the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall is generally invoked via <code><b><i><span style="color:red">dlsym</span></i></b></code> so we search for it as follows
 </p>
 
 
@@ -300,7 +295,7 @@ sym.func.100008864 0x100008888 [CALL:--x] bl sym.imp.dlsym
 
 
 <p style="text-align:justify;">
-At this point we will continue using <code><b><i><span style="color:red">radare2</span></i></b></code> in order to visualize the execution flow and to examine some assembly instructions in order to have insights of the validations checks in a lower level
+At this point we continue using <code><b><i><span style="color:red">radare2</span></i></b></code> in order to visualize the execution flow and to examine some assembly instructions in order to have insights of the validation checks in a lower level
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 16px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -309,7 +304,7 @@ At this point we will continue using <code><b><i><span style="color:red">radare2
 </pre>
 
 <p style="text-align:justify;">
-As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the <code><b><i><span style="color:red">ptrace</span></i></b></code> is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code> feature. 
+As we see at the screenshot below we have obtained a lot of information regarding the ptrace implementation. Specifically we see that the <code><b><i><span style="color:red">ptrace</span></i></b></code> is called by <code><b><i><span style="color:red">Challenge1.viewDidLoad</span></i></b></code> and also we are able to determine the feature of the <code><b><i><span style="color:red">ptrace</span></i></b></code> from the <code><b><i><span style="color:red">0xf1</span></i></b></code> hex value which is <code><b><i><span style="color:red">31</span></i></b></code> in decimal indicating the <code><b><i><span style="color:red">'PT_DENY_ATTACH'</span></i></b></code> feature. 
 </p>
 <br>
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/dlsym-ptrace.png">
@@ -318,7 +313,7 @@ As we see at the screenshot below we have obtained a lot of information regardin
 
 
 <p style="text-align:justify;">
-At this point we are able to examine the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> method as we know that it implements the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
+At this point we are able to examine the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> method as we know it implements the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
 </p>
 
 
@@ -348,11 +343,11 @@ We can see that the <code><b><i><span style="color:red">viewDidLoad</span></i></
 </a>
 
 <p style="text-align:justify;">
-If we examine further we will see that except the ptrace syscall there are other anti-reversing defences enabled, but as we mentioned earlier at this blog post we will be focusing only to <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
+If we examine further we see that except the ptrace syscall there are other anti-reversing defences enabled, but as we mentioned earlier this blog post is focusing only to bypass <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall. 
 </p>
 
 <p style="text-align:justify;">
-Lets also decompile the code using  <code><b><i><span style="color:red">r2ghidra</span></i></b></code> in order to have a high level view of the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> implementation
+Lets decompile the code using  <code><b><i><span style="color:red">r2ghidra</span></i></b></code> in order to have a high level view of the <code><b><i><span style="color:red">viewDidLoad</span></i></b></code> implementation
 </p>
 
 
@@ -399,7 +394,7 @@ As seen from the decompiled code above, the first check is implemnted using the 
 
 
 <p style="text-align:justify;">
-As we saw earlier the argument passed to ptrace was the <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the <code><b><i><span style="color:red">ptrace</span></i></b></code> feature that will be used. In order to disable <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall we can change this value to a non existing identifier, for example passing the value <code><b><i><span style="color:red">-1</span></i></b></code>. The following <code><b><i><span style="color:red">radare2</span></i></b></code> code snippet can be used to dynamically manipulate the argument passed to <code><b><i><span style="color:red">ptrace</span></i></b></code> 
+As we saw earlier the argument passed to <code><b><i><span style="color:red">ptrace</span></i></b></code> is <code><b><i><span style="color:red">0xf1</span></i></b></code> in hex which indicates the <code><b><i><span style="color:red">ptrace</span></i></b></code> feature that will be used. In order to disable <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall we can change this value to a non existing identifier, for example passing the value <code><b><i><span style="color:red">-1</span></i></b></code>. The following <code><b><i><span style="color:red">radare2</span></i></b></code> code snippet can be used to dynamically manipulate the argument passed to <code><b><i><span style="color:red">ptrace</span></i></b></code> 
 </p>
 
 ```c
@@ -413,7 +408,7 @@ Interceptor.attach(Module.findExportByName(null, 'ptrace'), {
 ```
 
 <p style="text-align:justify;">
-The following output shows that the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall has been disabled 
+The following output indicates that the <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall has been disabled 
 </p>
 
 
