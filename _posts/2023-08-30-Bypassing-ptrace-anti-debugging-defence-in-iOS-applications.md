@@ -138,7 +138,7 @@ codesign -f -s - /Users/xenovas/.local/share/radare2/plugins/*.dylib
 </pre>
 
 <p style="text-align:justify;">
-Furthermore, we should also install SLEIGH dicompiler / disassembler that comes with <code><b><i><span style="color:red">r2ghidra</span></i></b></code> using the following command 
+Furthermore, we also install SLEIGH dicompiler / disassembler that comes with <code><b><i><span style="color:red">r2ghidra</span></i></b></code> using the following command 
 </p>
 
 
@@ -186,7 +186,7 @@ After installing and running the application it exits immediately.
 
 
 <p style="text-align:justify;">
-The following command spawns the app and after exiting, the detach reason and the process termination message shows up on the output. Lets see this in practice
+The following command spawns the application and after it exits, the detach reason and the process termination message shows up on the output. Lets see this in practice
 </p>
 
 
