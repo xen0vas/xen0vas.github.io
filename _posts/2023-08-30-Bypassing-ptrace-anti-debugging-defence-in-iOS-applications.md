@@ -117,7 +117,7 @@ PID           Name Identifier
 
 
 <p style="text-align:justify;">
-In order to enhance reverse engineering capabilities provided by <code><b><i><span style="color:red">radare2</span></i></b></code> we will integrate the <code><b><i><span style="color:red">Ghidra</span></i></b></code> decompiler by installing the <code><b><i><span style="color:red">r2ghidra</span></i></b></code> plugin. The following command used to install the plugin  
+In order to enhance reverse engineering capabilities provided by <code><b><i><span style="color:red">radare2</span></i></b></code> we integrate the <code><b><i><span style="color:red">Ghidra</span></i></b></code> decompiler by installing the <code><b><i><span style="color:red">r2ghidra</span></i></b></code> plugin. The following command used to install the plugin  
 </p>
 
 
