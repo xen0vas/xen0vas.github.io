@@ -52,12 +52,12 @@ For the purpose of this blog post the <a href="https://github.com/hexploitable/r
 <h2>Installing r2frida plugin</h2>
 
 <p style="text-align:justify;">
-Assuming that <code><b><i><span style="color:red">radare2</span></i></b></code> is already installed on the local machine. Also, the <code><b><i><span style="color:red">r2frida</span></i></b></code> plugin will be installed which aims to join the capabilities of static analysis of <code><b><i><span style="color:red">radare2</span></i></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
+Assuming that <code><b><i><span style="color:red">radare2</span></i></b></code> is already installed on the local machine. Also, the <code><b><i><span style="color:red">r2frida</span></i></b></code> plugin is installed which aims to join the capabilities of static analysis of <code><b><i><span style="color:red">radare2</span></i></b></code> and the instrumentation provided by frida. The recommended way to install <code><b><span style="color:red">r2frida</span></b></code> is by using <a href="https://r2wiki.readthedocs.io/en/latest/tools/r2pm/"><code><b><span style="color:red">r2pm</span></b></code></a>
 </p>
 
 
 <p style="text-align:justify;">
-The following command will initialize the package control 
+The following command initializes the package control 
 </p>
 
 
@@ -138,7 +138,7 @@ codesign -f -s - /Users/xenovas/.local/share/radare2/plugins/*.dylib
 </pre>
 
 <p style="text-align:justify;">
-Furthermore, we should also install SLEIGH disassembler that comes with <code><b><i><span style="color:red">r2ghidra</span></i></b></code> using the following command 
+Furthermore, we should also install SLEIGH dicompiler / disassembler that comes with <code><b><i><span style="color:red">r2ghidra</span></i></b></code> using the following command 
 </p>
 
 
