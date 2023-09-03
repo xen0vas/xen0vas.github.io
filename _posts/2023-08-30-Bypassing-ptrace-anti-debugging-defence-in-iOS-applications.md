@@ -177,7 +177,7 @@ Furthermore, we should also install SLEIGH disassembler that comes with <code><b
 
 
 <p style="text-align:justify;">
-After installing and running the application it will exit immediately. 
+After installing and running the application it exits immediately. 
 </p>
 
 <a href="https://xen0vas.github.io/assets/images/2023/08/ios/r_con.gif">
@@ -386,7 +386,7 @@ void method.Challenge1.viewDidLoad(ulong param_1)
 ```
 
 <p style="text-align:justify;">
-As seen from the decompiled code above, the first check is implemnted using the <code><b><i><span style="color:red">ptrace</span></i></b></code> ( <code><b><i><span style="color:red">sym.func.100008864</span></i></b></code> ) syscall. At this point we can bypass <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall using <code><b><i><span style="color:red">r2frida</span></i></b></code> 
+As seen from the decompiled code above, the first check is implemented using the <code><b><i><span style="color:red">ptrace</span></i></b></code> ( <code><b><i><span style="color:red">sym.func.100008864</span></i></b></code> ) syscall. At this point we can bypass <code><b><i><span style="color:red">ptrace</span></i></b></code> syscall using <code><b><i><span style="color:red">r2frida</span></i></b></code> 
 </p>
 
 
