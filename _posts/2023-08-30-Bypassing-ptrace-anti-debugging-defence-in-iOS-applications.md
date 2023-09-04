@@ -108,7 +108,7 @@ PID           Name Identifier
 -            Watch com.apple.Bridge
 -          Weather com.apple.weather
 -     iTunes Store com.apple.MobileStore
-2754       DVIA-v2 com.highaltitudehacks.DVIAswiftv2
+2754     ios-challenge-2 re.murphy.ios-challenge-2
 </pre>
 
 
