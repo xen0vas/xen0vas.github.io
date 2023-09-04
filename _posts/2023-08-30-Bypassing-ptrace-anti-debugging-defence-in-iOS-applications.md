@@ -90,25 +90,25 @@ The following command shows the installed apps as well as the running apps on th
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
  ~/ r2 frida://apps/usb
-PID           Name Identifier
-----------------------------
-[.....]
--         Podcasts com.apple.podcasts
--        Reminders com.apple.reminders
--           Safari com.apple.mobilesafari
--         Settings com.apple.Preferences
--        Shortcuts com.apple.shortcuts
--           Stocks com.apple.stocks
--       Substitute com.ex.substitute.settings
--               TV com.apple.tv
--             Tips com.apple.tips
--        Translate com.apple.Translate
+PID    Name Identifier
+-----------------------------------
+[..]
+-      Podcasts com.apple.podcasts
+-      Reminders com.apple.reminders
+-      Safari com.apple.mobilesafari
+-      Settings com.apple.Preferences
+-      Shortcuts com.apple.shortcuts
+-      Stocks com.apple.stocks
+-      Substitute com.ex.substitute.settings
+-      TV com.apple.tv
+-      Tips com.apple.tips
+-      Translate com.apple.Translate
 -      Voice Memos com.apple.VoiceMemos
--           Wallet com.apple.Passbook
--            Watch com.apple.Bridge
--          Weather com.apple.weather
--     iTunes Store com.apple.MobileStore
-2754     ios-challenge-2 re.murphy.ios-challenge-2
+-      Wallet com.apple.Passbook
+-      Watch com.apple.Bridge
+-      Weather com.apple.weather
+-      iTunes Store com.apple.MobileStore
+2754   ios-challenge-2 re.murphy.ios-challenge-2
 </pre>
 
 
