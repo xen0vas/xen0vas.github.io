@@ -45,7 +45,7 @@ This blog post focuses specifically on dynamically bypassing  <a href="https://d
 
 
 <p style="text-align:justify;">
-For more examples and bypasses of other security mechanisms such as bypassing different anti-RE defences on iOS, including getppid(), sysctl(), jailbreak detection, certificate pinning, dynamic instrumentation, you can refer to my other blog post at this  <a href="https://twelvesec.com/2023/10/10/bypassing-anti-reversing-defences-in-ios-applications/"><code><b><span style="color:orange"><u>link</u></span></b></code></a>
+For more examples and bypasses of other security mechanisms such as bypassing different anti-RE defences on iOS, including <code><b><i><span style="color:red">getppid()</span></i></b></code>, <code><b><i><span style="color:red">sysctl()</span></i></b></code>, jailbreak detection, certificate pinning, dynamic instrumentation, you can refer to my other blog post at this  <a href="https://twelvesec.com/2023/10/10/bypassing-anti-reversing-defences-in-ios-applications/"><code><b><span style="color:orange"><u>link</u></span></b></code></a>
 </p>
 
 
