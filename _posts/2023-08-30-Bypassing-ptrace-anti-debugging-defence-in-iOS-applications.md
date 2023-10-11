@@ -45,6 +45,11 @@ This blog post focuses specifically on dynamically bypassing  <a href="https://d
 
 
 <p style="text-align:justify;">
+For more examples and bypasses of other security mechanisms such as bypassing different anti-RE defences on iOS, including getppid(), sysctl(), jailbreak detection, certificate pinning, dynamic instrumentation, you can refer to my other blog post at this  <a href="https://twelvesec.com/2023/10/10/bypassing-anti-reversing-defences-in-ios-applications/"><code><b><span style="color:orange"><u>link</u></span></b></code></a>
+</p>
+
+
+<p style="text-align:justify;">
 For the purpose of this blog post the <a href="https://github.com/hexploitable/r2con2020_r2frida/blob/master/ios-challenge-2.ipa"><code><b><span style="color:orange"><u>ios-challenge-2</u></span></b></code></a> application used to showcase the identification of the <code><b><i><span style="color:red">ptrace</span></i></b></code> anti-debugging technique as well as to present a way to bypass it. 
 </p>
 
@@ -426,9 +431,6 @@ INFO: resumed spawned process
 [0x00000000]> [dtf onLeave][Wed Aug 30 2023 06:50:41 GMT-0700] <span style="color:red;"><b>ptrace@0x1f9970560</b></span> - <span style="color:red;"><b>args: 18446744073709551000</b></span>, 0, 0, 0. <span style="color:red;"><b>Retval: 0xffffffffffffffff</b></span>
 
 </pre>
-
-
-
 
 
 
