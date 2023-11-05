@@ -1093,7 +1093,7 @@ In case the execution of the <code  style="background-color: lightgrey; color:bl
 </pre>
 
 <p align="justify">
-Then alter the line that performs the linking with <code  style="background-color: lightgrey; color:black;"><b>ld</b></code> command with the following 
+Alter the line that performs the linking with the following 
 </p>
 
 
