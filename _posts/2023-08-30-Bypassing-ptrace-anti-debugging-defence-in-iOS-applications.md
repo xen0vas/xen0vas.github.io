@@ -54,6 +54,11 @@ For the purpose of this blog post the <a href="https://github.com/hexploitable/r
 </p>
 
 
+## Disclaimer 
+
+>The purpose of this blog post is clearly educational. Everyone with malicious intentions is responsible in case of using methods presented in this blog post in unauthorised manner. 
+
+
 <h2>Installing r2frida plugin</h2>
 
 <p style="text-align:justify;">
