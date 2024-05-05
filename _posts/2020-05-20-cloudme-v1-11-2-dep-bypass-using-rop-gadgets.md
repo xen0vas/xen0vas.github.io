@@ -22,12 +22,6 @@ tags:
 ---
 
 
-## Disclaimer 
-
->The purpose of this blog post is clearly educational. Everyone with malicious intentions is responsible in case of using methods presented in this blog post in unauthorised manner. 
-
----
-
 <p align="justify">This article explains the exploitation of a buffer overflow vulnerability and how protections such as SEH and DEP can be bypassed. The vulnerable application is the <b>CloudMe version 1.11.2</b>.</p>
 
 <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2021/02/cloudme.png" alt="" width="550" height="680" />

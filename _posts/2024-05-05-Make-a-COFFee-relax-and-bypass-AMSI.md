@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Make a COFFee relax and bypass AMSI
-description: This blog post explains the COFF file format and describes the way of bypassing AMSI via byte patching using COFF objects with either patching AmsiOpenSession or AmsiScanBuffer respectively
+description: This blog post explains the COFF format and describes the way of bypassing AMSI via byte patching using COFF objects
 date: 2024-05-05
 classes: wide
 comments: false
@@ -10,25 +10,18 @@ header:
   teaser: /assets/images/avatar.jpg
   overlay_image: /assets/images/2024/04/coff.png
   overlay_filter: rgba(0, 0, 0, 0.7)
+  actions:
+    - label: "View COF33 on github"
+      url: "https://github.com/xen0vas/COFF33"
 tags:
   - COFF
-  - object-module
-  - COFF
-  - File
-  - Header
   - AMSI
-  - bypass
-  - COFF
-  - Loader
-  - AMSI
-  - bypass
-output: html_document
-bibliography: references.bib
 ---
+
 ## Motivation
 
 <p align="justify">
-The main purpose if this blog post is to explain a development method that can be leveraged by malicious actors in order to create and execute malicious payloads. The same method is used by CobaltStrike c2 where the corresponding COFF object is called BOF <a href="https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs">[6]</a> <a href="https://www.cobaltstrike.com/blog/simplifying-bof-development">[7]</a>.  Specifically, we will analyse the COFF file and how a COFF loader works through an example of AMSI byte patching technique which is implemented in a COFF file. Furthermore, the implementation of the AMSI  byte patching technique regarding the <code> AmsiScanBuffer</code> patching method will be further explained. 
+The main purpose if this blog post is to explain a development method that can be leveraged by malicious actors in order to create and execute malicious payloads. The same method is used by CobaltStrike c2 where the corresponding COFF object is called BOF <a href="https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs">[6]</a> <a href="https://www.cobaltstrike.com/blog/simplifying-bof-development">[7]</a>.  Specifically, we will analyse the COFF file and how a COFF loader works through an example of AMSI byte patching technique which is implemented in a COFF file. Furthermore, the implementation of the AMSI  byte patching technique regarding the <code>AmsiScanBuffer</code> byte patching method will be further explained. 
 </p> 
 
 ## Disclaimer 
