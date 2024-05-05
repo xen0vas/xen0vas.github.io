@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Make a COFFee relax and bypass AMSI
-description: This blog post explains the COFF format and describes the way of bypassing AMSI via byte patching using COFF objects
+description: This blog post explains the use of COFF Loaders and COFF objects through a case study implementing a AMSI bypass via byte patching
 date: 2024-05-05
 classes: wide
 comments: false
