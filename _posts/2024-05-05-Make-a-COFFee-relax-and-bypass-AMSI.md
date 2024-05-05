@@ -70,6 +70,7 @@ The actual mechanism of a COFF Loader includes the need of browsing the contents
 <p align="justify">
 In general terms an object file produced by a compiler, assembler or translator represents the input file of the linker. After the linking process, an executable or library is generated and contains a combination of different parts of the object file. The content of the object file is not directly executable, but it is a relocatable code. 
 </p>
+
 From Microsoft, the COFF file header is structured in several fields as seen below 
 
 | __**Offset**__ | **Size** | **Field**            | **Description**                                                                                                                                                                                                                                                                                                         |
@@ -100,7 +101,7 @@ When parsing COFF objects the following steps should be followed
 In this section the creation of a COFF loader will be presented. As mentioned at the previous section there are several steps that have to be followed in order to parse, read and load the code of a COFF Object. First of all we have to create a main COFF parsing function. As mentioned at the previous section the properties of the COFF file header should be used when parsing the COFF Object. 
 </p>
 
-```C++
+```c++
 typedef struct _COFF_FILE_HEADER {
     uint16_t Machine;
     uint16_t NumberOfSections;
@@ -439,7 +440,7 @@ We can confirm this if we follow in dump the contents of the strings table in th
 
 The following disassembled code also shows the symbol names of the COFF object 
 
-```C++
+```c++
 [....]
   000000000000001B: FF 15 00 00 00 00  call        qword ptr [__imp_KERNEL32$CreateToolhelp32Snapshot]
   0000000000000021: 48 89 44 24 20     mov         qword ptr [rsp+20h],rax
@@ -520,7 +521,7 @@ if (sym_ptr[i].first.Zeros != 0) {
 Lastly if the above two conditions are failed we land in the third condition where we can get the defined symbol.  So, we check if <code>sym_ptr[i].first.Zeros == 0</code>  because from the description of Microsoft documentation it is indicated that the field <code>Zeros</code> member is set to all zeros if the name is longer than 8 bytes meaning that a symbol name exists.
 </p>
 
-```C++
+```c++
 [...]
 if (sym_ptr[i].first.Zeros == 0)
 {
@@ -742,7 +743,7 @@ Now lets start implementing these relocations in order to update the sections da
 First we will go through the sections and from there we will check the number of relocations. From the sections table we will get a pointer to the beginning of the relocation entries. If there are no relocations, this value is zero.
 </p>
 
-```C++
+```c++
 [...]
 for (int i = 0 ; i < memSections_size ; i++ ) {
 	if (memSections[i].NumberOfRelocations != 0)
@@ -832,7 +833,7 @@ rva = memSections[i].InMemoryAddress + reloc_ptr->VirtualAddress;
 
 Then we will copy the content of <code>rva</code> ( the content is the memory address of <code>rva</code> ) at the memory address referenced by <code>&offset32</code> 
 
-```C++
+```c++
 #define CopyMem   __movsb
 [...]
 CopyMem(&offset32, rva, sizeof(int32_t));	
@@ -850,7 +851,7 @@ The <code>memSymbols[reloc_ptr->SymbolTableIndex].InMemoryAddress</code> points 
 </p>
 Finally the <code>reference_address</code> holds the updated relocation data that will be stored inside the memory location specified by the <code>rva + 4</code>
 
-```C++
+```c++
 #define CopyMem  __movsb
 [...]
 reference_address = offset32 + relative_address;
@@ -915,7 +916,7 @@ hitTheGoFunction();
 
 Finally, before terminating the COFF loader we free up all memory regions taken by sections and its metadata as well as free up symbols' metadata and GOT that is not needed anymore 
 
-```C++
+```c++
 	for (int i = 0 ; i < memSections_size ; i++)
 		VirtualFree(memSections[i].InMemoryAddress, 0, MEM_RELEASE);
 	
@@ -942,7 +943,7 @@ DFR is a practical solution for simplifying COFF writing by offloading the resol
 
 As an example, the usage of the  [OpenProcess](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess) function requires the following DFR declaration:
 
-```C++
+```c++
 DECLSPEC_IMPORT HANDLE WINAPI KERNEL32$OpenProcess(DWORD, BOOL, DWORD);
 ```
 
