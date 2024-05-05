@@ -141,7 +141,7 @@ After mapping the COFF file object we can use the <code>LoadTheCOFFObject</code>
 
 First, open the existing COFF object file using the <code>CreateFile</code> WinAPI 
 
-```C++
+```c++
 HANDLE COFF_file = CreateFile(argv[1], GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
 ```
 
@@ -149,25 +149,25 @@ HANDLE COFF_file = CreateFile(argv[1], GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, 
 Then we use the <code>COFF_file</code> at the  <code>CreateFileMapping</code> WinAPI as seen below in order to open a named file mapping object for the specified COFF file object granting access to be mapped as read-only.
 </p>
 
-```C++
+```c++
 HANDLE FileMapping = CreateFileMapping(COFF_file, NULL, PAGE_READONLY, 0, 0, NULL);
 ```
 
 Afterwards, we are passing the handle of the file as argument to the <code>MapViewOfFile</code> function which used to read the data of the COFF file object.
 
-```C++
+```c++
 LPVOID COFF_data = MapViewOfFile(FileMapping, FILE_MAP_READ, 0, 0, 0);
 ```
 
 And then we pass the data to the <code>LoadTheCOFFObject</code> function to parse them. 
 
-```C++
+```c++
 LoadTheCOFFObject((unsigned char *) COFF_data);
 ```
 
 Finally, we <code>unmap</code> the file data and we are closing both handlers 
 
-```C++
+```c++
 UnmapViewOfFile(COFF_data);
 CloseHandle(FileMapping);
 CloseHandle(COFF_file);	
@@ -180,7 +180,7 @@ CloseHandle(COFF_file);
 The first step is to get a pointer to COFF header because we need to point to a memory location where the COFF data lives. 
 </p>
 
-```C++
+```c++
 COFF_FILE_HEADER * 	header_ptr = NULL;
 header_ptr = (COFF_FILE_HEADER *) COFF_data;
 ```
@@ -194,7 +194,7 @@ At this point we have the COFF object file data loaded in specific location insi
 At this point we have to allocate extra memory in order to parse internal structures. The following structure is used to accomplish this task
 </p>
 
-```C++
+```c++
 typedef struct _COFF_MEM_SECTION {
 	uint32_t	Counter;				
 	char		Name[10];				
@@ -224,7 +224,7 @@ The properties of the struct described below
 Inside the <code>LoadTheCOFFObject()</code> function we first parse the <code>NumberOfSections</code> that gets the number of sections. This indicates the size of the section table, which immediately follows the headers. Having the size of the section table we can dynamically allocate memory with its size. 
 </p>
 
-```C++
+```c++
 
 COFF_MEM_SECTION * memSections = NULL;
 int sizeOfMemSections = 0;
@@ -247,7 +247,7 @@ From this point we need to focus on data structures. The COFF object file begins
 
 The following line of code returns a pointer to the a <code>COFF_SECTION</code> structure that points to the sections data of the object file after the COFF File Header
 
-```C++
+```c++
 sections_ptr = (COFF_SECTION *)(COFF_data + sizeof(COFF_FILE_HEADER) + (sizeof(COFF_SECTION) * 0));
 ```
 
@@ -260,7 +260,7 @@ The beginning of the Sections data  of the object file after the COFF File Heade
 
 The Sections should be parsed contiguously including data and relocations as depicted at the code below
 
-```C++
+```c++
 for (int i = 0 ; i < sizeOfMemSections ; i++) {
 		sections_ptr = (COFF_SECTION *)(COFF_data + sizeof(COFF_FILE_HEADER) + (sizeof(COFF_SECTION) * i));
 ```
@@ -271,8 +271,7 @@ As seen at <code>step 3</code>, we already have the size of Sections in memory <
 
 the COFF Section struct can be seen below 
 
-```C++
-/* Size of 40 */
+```c++
 typedef struct _COFF_SECTION {
     char Name[8];
     uint32_t VirtualSize;
@@ -291,7 +290,7 @@ typedef struct _COFF_SECTION {
 Now we need to check the size of the sections raw data in order to create the COFF section table in memory leveraging the  <code>COFF_MEM_SECTION</code> structure. 
 </p>
 
-```C++
+```c++
 if (sections_ptr->SizeOfRawData > 0) {
 			memSections[i].Counter = i;
 			strcpy_s(memSections[i].Name, strlen(sections_ptr->Name) + 1, sections_ptr->Name);
@@ -307,7 +306,7 @@ Furthermore, the COFF memory region should be adjusted to include new section in
 
 First we need to adjust the memory region to include the new section. Using the following code we align the size of memory to page size of 4096 bytes.
 
-```C++
+```c++
 memSections[i].InMemorySize = memSections[i].SizeOfRawData  + (0x1000 - memSections[i].SizeOfRawData % 0x1000);
 ```
 
