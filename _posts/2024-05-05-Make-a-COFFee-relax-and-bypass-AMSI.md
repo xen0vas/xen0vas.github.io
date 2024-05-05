@@ -1078,7 +1078,7 @@ void go(char* args, int len) {
 The code above is very simple. First we get the PID of PowerShell and then we pass it in <code>patchAmsiScanBuffer</code> function which will perform the patching of <code>AmsiScanBuffer</code>
 </p>
 
-The following lines used to perform the pathing 
+The following lines used to perform the byte patching 
 
 ```c++
 HANDLE hProc = NULL;
@@ -1111,7 +1111,7 @@ Thank you for reading ! If you found this blog post useful don't forget to donat
 
 ---
 
-## Resources
+## References
 
 1. https://otterhacker.github.io/Malware/CoffLoader.html 
 2. https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#coff-file-header-object-and-image
