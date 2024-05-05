@@ -5,7 +5,7 @@ description: This blog post explains the COFF file format and describes the way 
 date: 2024-05-05
 classes: wide
 comments: false
-excerpt: This blog post shows how to bypass AMSI with the use of COFF objects
+excerpt: This blog post explains the use of COFF Loaders and COFF objects
 header:
   teaser: /assets/images/avatar.jpg
   overlay_image: /assets/images/2024/04/coff.png
