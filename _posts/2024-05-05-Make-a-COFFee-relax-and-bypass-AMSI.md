@@ -705,6 +705,7 @@ objdump -x source.o
 ```
 
 The following screenshot shows the type indicators used 
+
 <a href="https://xen0vas.github.io/assets/images/2024/04/COFFTypeIndicators.png">
    <img style="display: block;margin-left: auto;margin-right: auto;border: 1px solid red;" src="https://xen0vas.github.io/assets/images/2024/04/COFFTypeIndicators.png" width="750" height="400" alt="COFFTypeIndicators"/>
 </a>
