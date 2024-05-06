@@ -32,6 +32,7 @@ The main purpose if this blog post is to explain a development method that can b
 
 
 ---
+
 ## Common Object File Format (COFF) 
 
 
