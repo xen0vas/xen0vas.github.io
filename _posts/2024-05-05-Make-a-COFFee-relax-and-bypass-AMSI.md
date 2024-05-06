@@ -1086,7 +1086,7 @@ HANDLE hProc = NULL;
 ```
 
 <p align="justify">
-The <code>KERNEL32$LoadLibraryA</code> API will be used in order to load  <code>amsi.dll</code> and from there using the <code>KERNEL32$GetProcAddress</code> we will get the address of <code>AmsiScanBuffer</code>. The patch is handled from <code>KERNEL32$WriteProcessMemory</code> using the handler acquired from <code>KERNEL32$OpenProcess</code> for the specific PID
+The <code>KERNEL32$LoadLibraryA</code> will be used in order to load  <code>amsi.dll</code> and from there using the <code>KERNEL32$GetProcAddress</code> we will get the address of <code>AmsiScanBuffer</code>. The patch is handled from <code>KERNEL32$WriteProcessMemory</code> using the handler acquired from <code>KERNEL32$OpenProcess</code> for the specific <code>powershell</code> PID
 </p>
 
 The full code can be found in my <a href="https://github.com/xen0vas/COFF33">github page</a> 
