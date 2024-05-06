@@ -23,7 +23,7 @@ tags:
 ## Motivation
 
 <p align="justify">
-The main purpose if this blog post is to explain a development method that can be leveraged by malicious actors in order to create and execute malicious payloads. A similar approach is used by CobaltStrike c2 where the corresponding COFF object is called BOF <a href="https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs">[6]</a> <a href="https://www.cobaltstrike.com/blog/simplifying-bof-development">[7]</a>. How about using these BOFs outside CobaltStrike c2? Specifically, we will analyse the COFF file and how a COFF loader works through an example of AMSI byte patching technique which is implemented in a COFF file. Moreover, the implementation of the AMSI byte patching technique regarding the <code>AmsiScanBuffer</code> byte patching method will be further explained. 
+The main purpose of this blog post is to explain a development method that can be leveraged by malicious actors in order to create and execute malicious payloads. A similar approach is used by CobaltStrike c2 where the corresponding COFF object is called BOF <a href="https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs">[6]</a> <a href="https://www.cobaltstrike.com/blog/simplifying-bof-development">[7]</a>. How about using these BOFs outside CobaltStrike c2? Specifically, we will analyse the COFF file and how a COFF loader works through an example of AMSI byte patching technique which is implemented in a COFF file. Moreover, the implementation of the AMSI byte patching technique regarding the <code>AmsiScanBuffer</code> byte patching method will be further explained. 
 </p> 
 
 ## Disclaimer 
@@ -714,6 +714,8 @@ As seen from the image above the type indicators used for this object file are t
 | IMAGE_REL_AMD64_ADDR32NB | 0x0003 | The 32-bit address without an image base (RVA).                     |
 | ------------------------ | ------ | ------------------------------------------------------------------- |
 | MAGE_REL_AMD64_REL32     | 0x0004 | The 32-bit relative address from the byte following the relocation. |
+
+
 <p align="justify">
 The <code>IMAGE_REL_AMD64_ADDR32NB</code> relocation type is specific to the x64 (AMD64) architecture and is used in COFF files targeting Windows operating systems. It stands for "Address 32 No Base", and it indicates that the relocation entry represents a 32-bit absolute address without a base reference.
 </p>
