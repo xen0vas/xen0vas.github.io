@@ -11,7 +11,7 @@ header:
   overlay_image: /assets/images/2024/04/coff.png
   overlay_filter: rgba(0, 0, 0, 0.7)
   actions:
-    - label: "View COF33 on github"
+    - label: "View COFF33 on github"
       url: "https://github.com/xen0vas/COFF33"
 tags:
   - COFF
