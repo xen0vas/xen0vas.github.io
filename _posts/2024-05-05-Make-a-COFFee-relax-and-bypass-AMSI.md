@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Make a COFFee relax and bypass AMSI
-description: This blog post explains the use of COFF Loaders and COFF objects through a case study implementing a AMSI bypass via byte patching
+description: This blog post presents the use of COFF Loaders and COFF objects through a case study implementing a AMSI bypass via byte patching
 date: 2024-05-05
 classes: wide
 comments: false
@@ -23,7 +23,7 @@ tags:
 ## Motivation
 
 <p align="justify">
-This blog post presents a development method that can be leveraged by malicious actors in order to create and execute malicious payloads. A similar approach is used by CobaltStrike c2 where the corresponding COFF object is called BOF <a href="https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs">[6]</a> <a href="https://www.cobaltstrike.com/blog/simplifying-bof-development">[7]</a>. How about using these BOFs outside CobaltStrike c2? Specifically, we will analyse the COFF file and how a COFF loader works through an example of AMSI byte patching technique which is implemented in a COFF file. Moreover, the implementation of the AMSI byte patching technique regarding the <code>AmsiScanBuffer</code> byte patching method will be further explained. 
+This blog post presents a development method that can be leveraged by malicious actors in order to create and execute malicious payloads. Specifically, the use of COFF Loaders and COFF objects will be analysed. A similar approach is used by CobaltStrike c2 where the corresponding COFF object is called BOF <a href="https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs">[6]</a> <a href="https://www.cobaltstrike.com/blog/simplifying-bof-development">[7]</a>. How about using these BOFs outside CobaltStrike c2? Specifically, we will analyse the COFF file and how a COFF loader works through an example of AMSI byte patching technique which is implemented in a COFF file. Moreover, the implementation of the AMSI byte patching technique regarding the <code>AmsiScanBuffer</code> byte patching method will be further explained. 
 </p> 
 
 ## Disclaimer 
