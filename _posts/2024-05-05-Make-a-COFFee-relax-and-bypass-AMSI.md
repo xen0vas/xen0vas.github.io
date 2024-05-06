@@ -1,11 +1,11 @@
 ---
 layout: single
 title: Make a COFFee relax and bypass AMSI
-description: This blog post presents the use of COFF Loaders and COFF objects through a case study implementing a AMSI bypass via byte patching
+description: This blog post presents the use of COFF Loaders and COFF objects through a case study implementing AMSI bypass via byte patching
 date: 2024-05-05
 classes: wide
 comments: false
-excerpt: This blog post presents the use of COFF Loaders and COFF objects through a case study implementing a AMSI bypass via byte patching
+excerpt: This blog post presents the use of COFF Loaders and COFF objects through a case study implementing AMSI bypass via byte patching
 header:
   teaser: /assets/images/avatar.jpg
   overlay_image: /assets/images/2024/04/coff.png
