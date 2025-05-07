@@ -1114,20 +1114,20 @@ Thank you for reading ! If you found this blog post useful don't forget to donat
 
 ## References
 
-1. https://otterhacker.github.io/Malware/CoffLoader.html 
-2. https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#coff-file-header-object-and-image
-3.  https://courses.cs.washington.edu/courses/cse378/03wi/lectures/LinkerFiles/coff.pdf
-4.  https://learn.microsoft.com/en-us/windows/win32/debug/pe-format?ref=labs.hakaioffsec.com#coff-file-header-object-and-image
-5. https://github.com/trustedsec/COFFLoader?ref=labs.hakaioffsec.com
-6. https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs
-7. https://www.cobaltstrike.com/blog/simplifying-bof-development
-8. https://gustavshen.medium.com/bypass-amsi-on-windows-11-75d231b2cac6
-9. https://rxored.github.io/post/csharploader/bypassing-amsi-with-csharp/
-10. https://www.cyberark.com/resources/threat-research-blog/amsi-bypass-patching-technique
-11. https://rastamouse.me/memory-patching-amsi-bypass/
-12. https://en.wikipedia.org/wiki/COFF
-13. https://learn.microsoft.com/en-us/windows/win32/debug/pe-format
-14. https://wiki.osdev.org/COFF#:~:text=COFF%20stands%20for%20Common%20Object,a%20compiler%20or%20a%20linker.
-15. https://blog.sektor7.net/res/2022/CaFeBiBa.c
-16. https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/beacon-object-files_dynamic-func-resolution.htm
-17. https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/beacon-object-files_dynamic-func-resolution.htm?__hstc=173638140.6414503a994dbc53b910a88762106664.1709466014009.1711889263695.1711912941037.3&__hssc=173638140.1.1711912941037&__hsfp=2627675821&_gl=1*n0axoy*_ga*MTAzODc3NjkwNS4xNzA5NDY2MDEz*_ga_HNS2ZVG55R*MTcxMTkxMjkzOC40LjAuMTcxMTkxMjkzOC42MC4wLjA.
+1. <a href="https://otterhacker.github.io/Malware/CoffLoader.html"> 
+2. <a href="https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#coff-file-header-object-and-image">
+3. <a href="https://courses.cs.washington.edu/courses/cse378/03wi/lectures/LinkerFiles/coff.pdf">
+4. <a href="https://learn.microsoft.com/en-us/windows/win32/debug/pe-format?ref=labs.hakaioffsec.com#coff-file-header-object-and-image">
+5. <a href="https://github.com/trustedsec/COFFLoader?ref=labs.hakaioffsec.com">
+6. <a href="https://trustedsec.com/blog/coffloader-building-your-own-in-memory-loader-or-how-to-run-bofs">
+7. <a href="https://www.cobaltstrike.com/blog/simplifying-bof-development">
+8. <a href="https://gustavshen.medium.com/bypass-amsi-on-windows-11-75d231b2cac6">
+9. <a href="https://rxored.github.io/post/csharploader/bypassing-amsi-with-csharp/">
+10. <a href="https://www.cyberark.com/resources/threat-research-blog/amsi-bypass-patching-technique">
+11. <a href="https://rastamouse.me/memory-patching-amsi-bypass/">
+12. <a href="https://en.wikipedia.org/wiki/COFF">
+13. <a href="https://learn.microsoft.com/en-us/windows/win32/debug/pe-format">
+14. <a href="https://wiki.osdev.org/COFF#:~:text=COFF%20stands%20for%20Common%20Object,a%20compiler%20or%20a%20linker.">
+15. <a href="https://blog.sektor7.net/res/2022/CaFeBiBa.c">
+16. <a href="https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/beacon-object-files_dynamic-func-resolution.htm">
+17. <a href="https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/beacon-object-files_dynamic-func-resolution.htm?__hstc=173638140.6414503a994dbc53b910a88762106664.1709466014009.1711889263695.1711912941037.3&__hssc=173638140.1.1711912941037&__hsfp=2627675821&_gl=1*n0axoy*_ga*MTAzODc3NjkwNS4xNzA5NDY2MDEz*_ga_HNS2ZVG55R*MTcxMTkxMjkzOC40LjAuMTcxMTkxMjkzOC42MC4wLjA.">
