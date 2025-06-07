@@ -4,7 +4,8 @@
 }
 
 .footer-powered-by {
-  display: inline-block;
+  display: inline-block; // Make sure to close this block
+}
 
 .powered-by-text {
   font-size: 0.55rem;
@@ -18,4 +19,5 @@
   width: 75px;
   display: block;
 }
+
 
