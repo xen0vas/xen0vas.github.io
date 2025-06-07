@@ -1,18 +1,20 @@
 .footer-powered-by {
-  display: inline-block;
+  text-align: center;
+  margin-top: 2rem;
 
   .powered-by-text {
-    font-size: 0.55rem;
-    color: #aaa;
-    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+    color: #bbb;
+    margin-bottom: 0.3rem;
   }
 
   .powered-by-logo {
-    max-height: 55px;
-    height: 48px;
-    width: 75px;
-    display: block;
+    max-height: 80px;
+    height: auto;
+    width: auto;
+    display: inline-block;
   }
 }
+
 
 
