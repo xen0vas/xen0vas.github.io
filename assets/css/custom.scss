@@ -1,17 +1,21 @@
 .footer-powered-by {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin: 2rem 0;
+  padding: 2rem 0;
 
   .powered-by-text {
-    font-size: 0.65rem;      // Smaller text
+    font-size: 0.65rem;
     color: #aaa;
     margin-bottom: 0.5rem;
   }
 
   .powered-by-logo {
-    max-height: 100px;       // Larger logo
+    max-height: 100px;
     width: auto;
     height: auto;
-    display: inline-block;
+    display: block;
   }
 }
