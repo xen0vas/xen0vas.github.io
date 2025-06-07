@@ -1,23 +1,18 @@
-.footer-powered-by-wrapper {
-  text-align: center; 
-  padding: 20px; 
-}
-
 .footer-powered-by {
-  display: inline-block; // Make sure to close this block
-}
+  display: inline-block;
 
-.powered-by-text {
-  font-size: 0.55rem;
-  color: #aaa;
-  margin-bottom: 0.5rem;
-}
+  .powered-by-text {
+    font-size: 0.55rem;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+  }
 
-.powered-by-logo {
-  max-height: 50px;
-  height: 48px;
-  width: 75px;
-  display: block;
+  .powered-by-logo {
+    max-height: 50px;
+    height: 48px;
+    width: 75px;
+    display: block;
+  }
 }
 
 
