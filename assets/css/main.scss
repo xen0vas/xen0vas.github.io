@@ -7,3 +7,20 @@
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
+.footer-powered-by {
+  text-align: center;
+  margin-top: 2rem;
+
+  .powered-by-text {
+    font-size: 0.7rem;
+    color: #bbb;
+    margin-bottom: 0.3rem;
+  }
+
+  .powered-by-logo {
+    max-height: 80px;
+    height: auto;
+    width: auto;
+    display: inline-block;
+  }
+}
