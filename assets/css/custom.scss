@@ -1,8 +1,21 @@
 .powered-by {
   text-align: center;
-  margin-top: 2em;
+  margin-top: 2rem;
+
+  p {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
   img {
     max-height: 40px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
+
 
