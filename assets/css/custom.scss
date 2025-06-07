@@ -3,17 +3,20 @@
   margin-top: 2rem;
 
   p {
-    font-size: 0.85rem;
-    color: #666;
+    font-size: 0.75rem;
+    color: #ccc;
+    margin-bottom: 0.25rem;
   }
 
   img {
-    max-height: 40px;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+    max-height: 60px;       
+    height: auto;
+    width: auto;
+    opacity: 1;
+    transition: transform 0.3s ease;
 
     &:hover {
-      opacity: 1;
+      transform: scale(1.05); 
     }
   }
 }
