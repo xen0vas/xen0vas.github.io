@@ -14,7 +14,7 @@ classes: wide
 
 Hi 🖐
 <br><br>
-Im a Cyber Security professional and security enthusiast. Currently, I’m working as a Senior Security Consultant / Penetration Tester <a href="https://twelvesec.com/">@TwelveSec</a>. Among others in my free time I like to contribute to my blog and post technical content related to Cyber Security. If you enjoy the content stay tuned for future posts. 
+Im a Cyber Security professional and security enthusiast. Currently, I’m working as a Senior Penetration Tester. Among others in my free time I like to contribute to my blog and post technical content related to Cyber Security. If you enjoy the content stay tuned for future posts. 
 </p>
 
 <!--p align="justify">
